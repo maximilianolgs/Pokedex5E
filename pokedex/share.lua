@@ -7,10 +7,12 @@ local dex = require "pokedex.dex"
 local pokedex = require "pokedex.pokedex"
 local _pokemon = require "pokedex.pokemon"
 local statuses = require "pokedex.statuses"
+local rolltwenty = require "pokedex.roll_twenty"
 local messages = require "utils.messages"
 local _file = require "utils.file"
 local platform = require "utils.platform"
 local sjson = require "utils.json"
+
 local M = {}
 
 -- For checking if sharing is enabled
@@ -106,6 +108,13 @@ function M.export(id)
 	local pokemon = storage.get_copy(id)
 	clipboard.copy(serialize_pokemon(pokemon))
 	notify.notify((pokemon.nickname or pokemon.species.current) .. " copied to clipboard!")
+end
+
+function M.roll20_export(id)
+	local pokemon = storage.get_copy(id)
+	local sheet = rolltwenty.create_sheet(pokemon)
+	clipboard.copy(sjson:encode(sheet))
+	notify.notify((pokemon.nickname or pokemon.species.current) .. " roll20 sheet copied to clipboard!")
 end
 
 return M

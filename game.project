@@ -1,7 +1,7 @@
 [project]
 title = Pokedex5E
 custom_resources = assets/datafiles, p5e-data
-version = 1.13.10
+version = 1.14.0
 dependencies#0 = https://github.com/britzl/monarch/archive/2.20.0.zip
 dependencies#1 = https://github.com/Jerakin/gooey/archive/scale_with_layout_scrollbar.zip
 dependencies#2 = https://github.com/defold/extension-safearea/archive/1.0.0.zip

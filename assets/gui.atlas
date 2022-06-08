@@ -478,6 +478,18 @@ images {
   image: "/assets/textures/gui/btn/share_network_down.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
+images {
+  image: "/assets/textures/gui/btn/share_roll_twenty_down.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/gui/btn/share_roll_twenty_up.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/gui/icon/share_roll20.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 margin: 0
 extrude_borders: 1
 inner_padding: 0

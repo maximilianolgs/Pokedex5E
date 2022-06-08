@@ -53,6 +53,10 @@ function M.clipboard_share(button)
 	standard_button(button, hash("share_clipboard_down"), hash("share_clipboard_up"))
 end
 
+function M.roll_twenty_share(button)
+	standard_button(button, hash("share_roll_twenty_down"), hash("share_roll_twenty_up"))
+end
+
 function M.qr_share(button)
 	standard_button(button, hash("share_qr_down"), hash("share_qr_up"))
 end
