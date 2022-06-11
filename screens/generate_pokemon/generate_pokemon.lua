@@ -23,7 +23,14 @@ function M.add_pokemon(species, variant, level)
 	end
 	
 	pokemon.exp = pokedex.get_experience_for_level(level-1)
-	pokemon.abilities = pokedex.get_abilities(species, variant)
+
+	poke_abilities = pokedex.get_abilities(species, variant)
+	print(poke_abilities)
+	while #poke_abilities > 1 do
+		table.remove(poke_abilities, rnd.range(1, #poke_abilities))
+	end
+	pokemon.abilities = poke_abilities
+
 	pokemon.level.caught = pokedex.get_minimum_wild_level(species)
 	pokemon.level.current = level
 	pokemon.moves = moves
