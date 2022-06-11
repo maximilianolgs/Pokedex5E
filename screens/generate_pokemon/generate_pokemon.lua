@@ -28,16 +28,16 @@ function M.add_pokemon(species, variant, level)
 	pokemon.level.current = level
 	pokemon.moves = moves
 	pokemon.nature = nature.list[rnd.range(1, #nature.list)]
-	local genders_list = {}
-	
-	if pokedex.enforce_genders() and pokedex.get_strict_gender(pokemon) ~= pokedex.ANY then
-		table.insert(genders_list, pokedex.get_strict_gender(pokemon))
+
+	if pokedex.enforce_genders() and _pokemon.get_strict_gender(pokemon) ~= pokedex.ANY then
+		pokemon.gender = _pokemon.get_strict_gender(pokemon)
 	else
+		local genders_list = {}
 		table.insert(genders_list, pokedex.MALE)
 		table.insert(genders_list, pokedex.FEMALE)
+		pokemon.gender = genders_list[rnd.range(1, #genders_list)]
 	end
 	
-	pokemon.gender = genders_list[rnd.range(1, #genders_list)]
 
 	local max_hp = _pokemon.get_default_max_hp(pokemon)
 	local con = _pokemon.get_attributes(pokemon).CON

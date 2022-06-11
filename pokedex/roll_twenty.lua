@@ -143,8 +143,13 @@ end
 
 local function average_damage(damage)
 	local times, number_of_dice, dice_sides, modif = detailed_damage(damage)
-
-	return math.floor((((dice_sides + 1) * number_of_dice * times) / 2) + modif)
+	local i, j = times:find("d")
+	if i then
+		local times_n = times:sub(1, i-1)
+		local times_s = times:sub(i+1)
+		times = ((times_s + 1) * times_n) / 2
+	end
+	return math.floor((((dice_sides + 1) * number_of_dice / 2) + modif) * times)
 end
 
 local function create_action(id_prefix, action, pkmn, attribs, abilities, move_data, pkmn_attrb_mod)
@@ -184,7 +189,7 @@ local function create_action(id_prefix, action, pkmn, attribs, abilities, move_d
 		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_type", move_range.type))
 		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_range", move_range.reach))
 
-		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_damage", move_data.damage))
+		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_damage", move_data.damage:gsub("x", "*")))
 		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_damagetype", move_data.type))
 		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_tohit", "" .. move_data.AB))
 
@@ -205,9 +210,10 @@ local function create_action(id_prefix, action, pkmn, attribs, abilities, move_d
 		if move_data.damage then
 			-- moves that have a damage like component, it could be healing points
 			table.insert(attribs, create_attrib(pkmn.id, move_id .. "_damage_flag", "{{damage=1}} {{dmg1flag=1}} "))
-			table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_damage", move_data.damage))
+			table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_damage", move_data.damage:gsub("x", "*")))
 			table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_damagetype", move_data.type))
-			table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_onhit", average_damage(move_data.damage) .. " (" .. move_data.damage .. ") " .. move_data.type .. " damage"))		local _, _, dice_sides, _ = detailed_damage(move_data.damage)
+			table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_onhit", average_damage(move_data.damage) .. " (" .. move_data.damage .. ") " .. move_data.type .. " damage"))
+			local _, _, dice_sides, _ = detailed_damage(move_data.damage)
 			table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_crit", "1d" .. dice_sides))
 			table.insert(attribs, create_attrib(pkmn.id, move_id .. "_rollbase", "@{wtype}&{template:dmgaction} @{damage_flag} @{npc_name_flag} {{rname=@{name}}} {{dmg1=[[@{attack_damage}+0]]}} {{dmg1type=@{attack_damagetype}}} {{dmg2=[[@{attack_damage2}+0]]}} {{dmg2type=@{attack_damagetype2}}} {{crit1=[[@{attack_crit}+0]]}} {{crit2=[[@{attack_crit2}+0]]}} {{description=@{show_desc}}} @{charname_output}"))
 		else
