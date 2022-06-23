@@ -200,8 +200,8 @@ local function create_action(id_prefix, action, pkmn, attribs, abilities, move_d
 		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_tohitrange", ab_sign .. move_data.AB .. ", Reach " .. move_range.reach))
 		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_onhit", average_damage(move_data.damage) .. " (" .. move_data.damage .. ") " .. move_data.type .. " damage"))
 		
-		local _, _, dice_sides, _ = detailed_damage(move_data.damage)
-		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_crit", "1d" .. dice_sides))
+		local _, number_of_dice, dice_sides, _ = detailed_damage(move_data.damage)
+		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_attack_crit", number_of_dice .. "d" .. dice_sides))
 		table.insert(attribs, create_attrib(pkmn.id, move_id .. "_rollbase", "@{wtype}&{template:npcatk} {{attack=1}} @{damage_flag} @{npc_name_flag} {{rname=[@{name}](~repeating_npcaction_npc_dmg)}} {{rnamec=[@{name}](~repeating_npcaction_npc_crit)}} {{type=[^{attack-u}](~repeating_npcaction_npc_dmg)}} {{typec=[^{attack-u}](~repeating_npcaction_npc_crit)}} {{r1=[[@{d20}+(@{attack_tohit}+0)]]}} @{rtype}+(@{attack_tohit}+0)]]}} @{charname_output}"))
 	else
 		-- autohit moves, save moves and other kind of moves
