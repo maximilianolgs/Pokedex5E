@@ -1,5 +1,5 @@
 {
-    "latest": 30,
+    "latest": 31,
     "1.10.0": {
         "number": 1,
         "url":"https://github.com/Jerakin/Pokedex5E/releases/download/minor%2Fv1.10.0/Pokedex5E.apk"
@@ -119,5 +119,9 @@
     "1.14.3": {
         "number": 30,
         "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.3/Pokedex5E.apk"
+    },
+    "1.14.4": {
+        "number": 31,
+        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.4/Pokedex5E.apk"
     }
 }
