@@ -1,11 +1,12 @@
 local log = require "utils.log"
+local ljson = require "utils.json"
 
 local M = {}
 
 function M.load_json(j)
 	local json_data = nil
 	-- Use pcall to catch possible parse errors so that we can print out the name of the file that we failed to parse
-	if pcall(function() json_data = json.decode(j) end) then
+	if pcall(function() json_data = ljson:decode(j) end) then
 		return json_data
 	else
 		return nil

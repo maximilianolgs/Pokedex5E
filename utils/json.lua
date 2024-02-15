@@ -233,7 +233,6 @@ function OBJDEF:onDecodeError(message, text, location, etc)
 	if etc ~= nil then
 		message = message .. " (" .. OBJDEF:encode(etc) .. ")"
 	end
-
 	if self.assert then
 		self.assert(false, message)
 	else
@@ -384,7 +383,9 @@ local function grok_object(self, text, start, etc)
 	end
 	local text_len = text:len()
 	while i <= text_len do
-		local key, new_i = grok_string(self, text, i, etc)
+		
+		-- local key, new_i = grok_string(self, text, i, etc)
+		local key, new_i = grok_one(self, text, i, etc)
 
 		i = skip_whitespace(text, new_i)
 
