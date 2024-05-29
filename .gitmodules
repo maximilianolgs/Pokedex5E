@@ -1,3 +1,4 @@
 [submodule "p5e-data"]
 	path = p5e-data
-	url = https://github.com/Jerakin/p5e-data.git
+	url = https://github.com/maximilianolgs/p5e-data.git
+	branch = main
