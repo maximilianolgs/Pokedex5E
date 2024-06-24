@@ -4,11 +4,25 @@ local render_order = require "utils.gui_render_order"
 local gooey_buttons = require "utils.gooey_buttons"
 local gooey = require "gooey.gooey"
 local gui_utils = require "utils.gui"
+local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local data
 local sender
 local id
 local cb
+
+local text_key_map = { 
+	[messages.CHANGE_HP] = "change_hp",
+	[messages.RESET] = "reset",
+	[messages.EVOLVE_CONFIRM] = "evolve_confirm",
+	[messages.DELETE_GROUP] = "delete_group",
+	[messages.FULL_REST] = "full_rest",
+	[messages.TRANSFER_POKEMON] = "transfer_pokemon",
+	[messages.TRANSFER_POKEMON_LOCAL] = "transfer_pokemon_local",
+	[messages.RELEASE_POKEMON] = "release_pokemon",
+	[messages.DELETE_PROFILE] = "delete_profile"
+}
 
 function init(self)
 	gooey.acquire_input()
@@ -17,14 +31,46 @@ function init(self)
 	cb = data.cb
 	sender = data.sender
 	id = data.id
-	gui.set_text(gui.get_node("txt_title"), data.title)
-
-	if data.text then
-		gui_utils.adjust_for_text_change_vertical("txt", data.text, {"box"}, {"btn_exit", "btn_confirm", "txt_sub"}, {"txt", "txt_title"})
-	end
 	
-	if data.sub_text then
-		gui_utils.adjust_for_text_change_vertical("txt_sub", data.sub_text, nil, nil, {"box"})
+	local title = data.title
+	local title_args = data.title_args
+	local text = data.text
+	local text_args = data.text_args
+	local sub_text = data.sub_text
+	local sub_text_args = data.sub_text_args
+	
+	gui.set_text(gui.get_node("txt_confim"), localization.get("are_you_sure_popup", "txt_confim", "YES"))
+	gui.set_text(gui.get_node("txt_exit"), localization.get("are_you_sure_popup", "txt_exit", "NO"))
+	-- get localization key
+	local text_key = text_key_map[data.message] or "default"
+	
+	-- set title
+	if not title then
+		title = localization.get("are_you_sure_popup", text_key .. "_title", localization.get("are_you_sure_popup", "default_title", "<Delete stuff?>"))
+	end
+	if title_args then
+		title = string.format(title, unpack(title_args))
+	end
+	gui.set_text(gui.get_node("txt_title"), title)
+	
+	-- set text
+	if not text then
+		text = localization.get("are_you_sure_popup", text_key .. "_text", localization.get("are_you_sure_popup", "default_text", "Are you sure?"))
+	end
+	if text_args then
+		text = string.format(text, unpack(text_args))
+	end
+	gui_utils.adjust_for_text_change_vertical("txt", text, {"box"}, {"btn_exit", "btn_confirm", "txt_sub"}, {"txt", "txt_title"})
+	
+	-- set sub_text
+	if not sub_text then
+		sub_text = localization.get("are_you_sure_popup", text_key .. "_sub_text", "")
+	end
+	if sub_text and sub_text ~= "" then
+		if sub_text_args then
+			sub_text = string.format(sub_text, unpack(sub_text_args))
+		end
+		gui_utils.adjust_for_text_change_vertical("txt_sub", sub_text, nil, nil, {"box"})
 	end
 end
 

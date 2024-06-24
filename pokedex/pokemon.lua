@@ -330,15 +330,16 @@ end
 function M.get_speed_of_type(pkmn)
 	local species = M.get_current_species(pkmn)
 	local variant = M.get_variant(pkmn)
-	local type = pokedex.get_pokemon_type(species, variant)[1]
+	local type1 = pokedex.get_pokemon_type(species, variant)[1]
+	local type2 = pokedex.get_pokemon_type(species, variant)[2]
 	local mobile_feet = 0
 	if M.have_feat(pkmn, "Mobile") then
 		mobile_feet = 10
 	end
-	if type == "Flying" then
+	if type1 == "Flying" or type2 == "Flying" then
 		local speed = pokedex.get_flying_speed(species, variant) 
 		return speed ~= 0 and speed+mobile_feet or speed, "Flying"
-	elseif type == "Water" then
+	elseif type1 == "Water" or type2 == "Water" then
 		local speed = pokedex.get_swimming_speed(species, variant) 
 		return speed ~= 0 and speed+mobile_feet or speed, "Swimming"
 	else
@@ -742,7 +743,7 @@ function M.get_move_pp_max(pkmn, move)
 		return move_pp
 	else
 		local _, pp_extra = M.have_feat(pkmn, "Tireless")
-		return movedex.get_move_pp(move) + pp_extra
+		return move_pp + pp_extra
 	end
 end
 
@@ -1087,6 +1088,7 @@ function M.get_move_data(pkmn, move_name)
 	local move = movedex.get_move_data(move_name)
 	if not move then
 		-- Problem with the move, may be an issue with an old Fakemon package or a move that got removed
+		log.error("Move " .. move_name .. " not found")
 		return move_data
 	end
 	

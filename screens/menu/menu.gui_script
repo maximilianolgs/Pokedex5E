@@ -14,6 +14,7 @@ local messages = require "utils.messages"
 local netcore = require "pokedex.network.netcore"
 local broadcast = require "utils.broadcast"
 local _share = require "pokedex.share"
+local localization = require "utils.localization"
 
 local map = {
 	[screens.PARTY] = "btn_party",
@@ -69,11 +70,26 @@ local function redraw_connected()
 	gui.set_enabled(gui.get_node("icon_connected"), netcore.is_connected())
 end
 
+function initialize_text(self)
+	gui.set_text(gui.get_node("txt_party"), localization.get("menu_screen", "txt_party", "PARTY"))
+	gui.set_text(gui.get_node("txt_add"), localization.get("menu_screen", "txt_add", "ADD POKEMON"))
+	gui.set_text(gui.get_node("txt_pokedex"), localization.get("menu_screen", "txt_pokedex", "POKEDEX"))
+	gui.set_text(gui.get_node("txt_profiles"), localization.get("menu_screen", "txt_profiles", "PROFILES"))
+	gui.set_text(gui.get_node("txt_generate"), localization.get("menu_screen", "txt_generate", "GENERATOR"))
+	gui.set_text(gui.get_node("txt_trainer"), localization.get("menu_screen", "txt_trainer", "TRAINER"))
+	gui.set_text(gui.get_node("txt_receive"), localization.get("menu_screen", "txt_receive", "RECEIVE"))
+	gui.set_text(gui.get_node("txt_connect"), localization.get("menu_screen", "txt_connect", "CONNECT"))
+	gui.set_text(gui.get_node("txt_settings"), localization.get("menu_screen", "txt_settings", "SETTINGS"))
+	gui.set_text(gui.get_node("txt_about"), localization.get("menu_screen", "txt_about", "ABOUT"))
+
+	self.text_initialized = true
+end
 
 function init(self)
 	button.acquire()
 	gui.set_render_order(gro.MENU)
 	url.MENU = msg.url()
+	self.text_initialized = false
 	self.toggle = false
 	self.block_input = false
 	self.btn_party = gui.get_node("btn_party")
@@ -96,10 +112,6 @@ function init(self)
 	if not _share.ENABLED.NETWORK then
 		gui.set_enabled(self.btn_connect, false)
 	end
-	
-	local name = profiles.get_active_slot() ~= nil and profiles.get_active_name() or "Someone"
-	gui.set_text(self.btn_storage, name .. "'s PC")
-
 	
 	button.register(self.btn_party, function()
 		monarch.show(screens.PARTY)
@@ -192,8 +204,12 @@ end
 
 function on_message(self, message_id, message)
 	if message_id == messages.SHOW then
-		local name = profiles.get_active_name() or "Someone"
-		gui.set_text(self.btn_storage, name .. "'s PC")
+		if not self.text_initialized then
+			initialize_text(self)
+		end
+		local name = profiles.get_active_name() or localization.get("menu_screen", "default_pc_name", "Someone")
+		txt_storage = localization.get("menu_screen", "txt_storage_format", "%s's PC"):format(name)
+		gui.set_text(gui.get_node("txt_storage"), string.upper(txt_storage))
 		show(self)
 	elseif message_id == messages.HIDE then
 		hide(self)

@@ -1,0 +1,10 @@
+{
+	"tutorial": {
+		"en_us": "Show this to the person who will import this Pokemon.\n\nThey must visit the \"RECEIVE\" screen, choose \"READ QR\", and point their camera at this image.",
+		"es_419": "Muéstrale esto a la persona que va a recibir el Pokémon.\n\nTiene que visitar la pantalla \"RECIBIR\", elegir \"LEER QR\" y apuntar su cámara a esta imagen."
+	},
+	"error_creating_qr": {
+		"en_us": "Could not create a QR code.",
+		"es_419": "No se pudo crear el código QR"
+	}
+}

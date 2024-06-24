@@ -1,0 +1,22 @@
+{
+	"title": {
+		"en_us": "Version",
+		"es_419": "Versión"
+	},
+	"btn_download": {
+		"en_us": "DOWNLOAD",
+		"es_419": "DESCARGAR"
+	},
+	"btn_close": {
+		"en_us": "CLOSE",
+		"es_419": "CERRAR"
+	},
+	"version_up_to_date": {
+		"en_us": "You have the latest version",
+		"es_419": "Tienes la versión más reciente"
+	},
+	"version_outdated": {
+		"en_us": "Your are %s versions behind!",
+		"es_419": "¡Estás %s versiones por detrás de la última!"
+	}
+}

@@ -1,0 +1,658 @@
+{
+	"normal": {
+		"en_us": "Normal",
+		"es_419": "Normal"
+	},
+	"fire": {
+		"en_us": "Fire",
+		"es_419": "Fuego"
+	},
+	"water": {
+		"en_us": "Water",
+		"es_419": "Agua"
+	},
+	"electric": {
+		"en_us": "Electric",
+		"es_419": "Eléctrico"
+	},
+	"grass": {
+		"en_us": "Grass",
+		"es_419": "Planta"
+	},
+	"ice": {
+		"en_us": "Ice",
+		"es_419": "Hielo"
+	},
+	"fighting": {
+		"en_us": "Fighting",
+		"es_419": "Lucha"
+	},
+	"poison": {
+		"en_us": "Poison",
+		"es_419": "Veneno"
+	},
+	"ground": {
+		"en_us": "Ground",
+		"es_419": "Tierra"
+	},
+	"flying": {
+		"en_us": "Flying",
+		"es_419": "Volador"
+	},
+	"psychic": {
+		"en_us": "Psychic",
+		"es_419": "Psíquico"
+	},
+	"bug": {
+		"en_us": "Bug",
+		"es_419": "Bicho"
+	},
+	"rock": {
+		"en_us": "Rock",
+		"es_419": "Roca"
+	},
+	"ghost": {
+		"en_us": "Ghost",
+		"es_419": "Fantasma"
+	},
+	"dragon": {
+		"en_us": "Dragon",
+		"es_419": "Dragón"
+	},
+	"dark": {
+		"en_us": "Dark",
+		"es_419": "Siniestro"
+	},
+	"steel": {
+		"en_us": "Steel",
+		"es_419": "Acero"
+	},
+	"fairy": {
+		"en_us": "Fairy",
+		"es_419": "Hada"
+	},
+	"arceus (bug)": {
+		"en_us": "Arceus (Bug)",
+		"es_419": "Arceus (Bicho)"
+	},
+	"arceus (dark)": {
+		"en_us": "Arceus (Dark)",
+		"es_419": "Arceus (Siniestro)"
+	},
+	"arceus (dragon)": {
+		"en_us": "Arceus (Dragon)",
+		"es_419": "Arceus (Dragón)"
+	},
+	"arceus (electric)": {
+		"en_us": "Arceus (Electric)",
+		"es_419": "Arceus (Eléctrico)"
+	},
+	"arceus (fairy)": {
+		"en_us": "Arceus (Fairy)",
+		"es_419": "Arceus (Hada)"
+	},
+	"arceus (fighting)": {
+		"en_us": "Arceus (Fighting)",
+		"es_419": "Arceus (Lucha)"
+	},
+	"arceus (fire)": {
+		"en_us": "Arceus (Fire)",
+		"es_419": "Arceus (Fuego)"
+	},
+	"arceus (flying)": {
+		"en_us": "Arceus (Flying)",
+		"es_419": "Arceus (Volador)"
+	},
+	"arceus (ghost)": {
+		"en_us": "Arceus (Ghost)",
+		"es_419": "Arceus (Fantasma)"
+	},
+	"arceus (grass)": {
+		"en_us": "Arceus (Grass)",
+		"es_419": "Arceus (Planta)"
+	},
+	"arceus (ground)": {
+		"en_us": "Arceus (Ground)",
+		"es_419": "Arceus (Tierra)"
+	},
+	"arceus (ice)": {
+		"en_us": "Arceus (Ice)",
+		"es_419": "Arceus (Hielo)"
+	},
+	"arceus (normal)": {
+		"en_us": "Arceus (Normal)",
+		"es_419": "Arceus (Normal)"
+	},
+	"arceus (poison)": {
+		"en_us": "Arceus (Poison)",
+		"es_419": "Arceus (Veneno)"
+	},
+	"arceus (psychic)": {
+		"en_us": "Arceus (Psychic)",
+		"es_419": "Arceus (Psíquico)"
+	},
+	"arceus (rock)": {
+		"en_us": "Arceus (Rock)",
+		"es_419": "Arceus (Roca)"
+	},
+	"arceus (steel)": {
+		"en_us": "Arceus (Steel)",
+		"es_419": "Arceus (Acero)"
+	},
+	"arceus (water)": {
+		"en_us": "Arceus (Water)",
+		"es_419": "Arceus (Agua)"
+	},
+	"castform": {
+		"en_us": "Castform",
+		"es_419": "Castform Normal"
+	},
+	"rainy castform": {
+		"en_us": "Rainy Castform",
+		"es_419": "Castform Lluvioso"
+	},
+	"snowy castform": {
+		"en_us": "Snowy Castform",
+		"es_419": "Castform Nevado"
+	},
+	"sunny castform": {
+		"en_us": "Sunny Castform",
+		"es_419": "Castform Soleado"
+	},
+	"rainy": {
+		"en_us": "Rainy",
+		"es_419": "Lluvioso"
+	},
+	"snowy": {
+		"en_us": "Snowy",
+		"es_419": "Nevado"
+	},
+	"sunny": {
+		"en_us": "Sunny",
+		"es_419": "Soleado"
+	},
+	"alolan diglett": {
+		"en_us": "Alolan Diglett",
+		"es_419": "Diglett de Alola"
+	},
+	"alola": {
+		"en_us": "Alola",
+		"es_419": "Alola"
+	},
+	"kanto": {
+		"en_us": "Kanto",
+		"es_419": "Kanto"
+	},
+	"alolan dugtrio": {
+		"en_us": "Alolan Dugtrio",
+		"es_419": "Dugtrio de Alola"
+	},
+	"alolan exeggutor": {
+		"en_us": "Alolan Exeggutor",
+		"es_419": "Exeggutor de Alola"
+	},
+	"alolan geodude": {
+		"en_us": "Alolan Geodude",
+		"es_419": "Geodude de Alola"
+	},
+	"giratina altered forme": {
+		"en_us": "Giratina Altered Forme",
+		"es_419": "Giratina Forma Alterada"
+	},
+	"giratina origin forme": {
+		"en_us": "Giratina Origin Forme",
+		"es_419": "Giratina Forma Origen"
+	},
+	"altered forme": {
+		"en_us": "Altered Forme",
+		"es_419": "Forma Alterada"
+	},
+	"origin forme": {
+		"en_us": "Origin Forme",
+		"es_419": "Forma Origen"
+	},
+	"alolan golem": {
+		"en_us": "Alolan Golem",
+		"es_419": "Golem de Alola"
+	},
+	"gourgeist (average)": {
+		"en_us": "Gourgeist (Average)",
+		"es_419": "Gourgeist (Normal)"
+	},
+	"gourgeist (large)": {
+		"en_us": "Gourgeist (Large)",
+		"es_419": "Gourgeist (Grande)"
+	},
+	"gourgeist (small)": {
+		"en_us": "Gourgeist (Small)",
+		"es_419": "Gourgeist (Pequeño)"
+	},
+	"gourgeist (supersize)": {
+		"en_us": "Gourgeist (Supersize)",
+		"es_419": "Gourgeist (Extragrande)"
+	},
+	"average": {
+		"en_us": "Average",
+		"es_419": "Normal"
+	},
+	"large": {
+		"en_us": "Large",
+		"es_419": "Grande"
+	},
+	"small": {
+		"en_us": "Small",
+		"es_419": "Pequeño"
+	},
+	"supersize": {
+		"en_us": "Supersize",
+		"es_419": "Extragrande"
+	},
+	"alolan graveler": {
+		"en_us": "Alolan Graveler",
+		"es_419": "Graveler de Alola"
+	},
+	"alolan grimer": {
+		"en_us": "Alolan Grimer",
+		"es_419": "Grimer de Alola"
+	},
+	"hoopa confined": {
+		"en_us": "Hoopa Confined",
+		"es_419": "Hoopa Contenido"
+	},
+	"hoopa unbound": {
+		"en_us": "Hoopa Unbound",
+		"es_419": "Hoopa Desatado"
+	},
+	"confined": {
+		"en_us": "Confined",
+		"es_419": "Contenido"
+	},
+	"unbound": {
+		"en_us": "Unbound",
+		"es_419": "Desatado"
+	},
+	"black kyurem": {
+		"en_us": "Black Kyurem",
+		"es_419": "Kyurem Negro"
+	},
+	"kyurem": {
+		"en_us": "Kyurem",
+		"es_419": "Kyurem "
+	},
+	"white kyurem": {
+		"en_us": "White Kyurem",
+		"es_419": "Kyurem Blanco"
+	},
+	"black": {
+		"en_us": "Black",
+		"es_419": "Negro"
+	},
+	"regular": {
+		"en_us": "Regular",
+		"es_419": "Normal "
+	},
+	"white": {
+		"en_us": "White",
+		"es_419": "Blanco"
+	},
+	"lycanroc dusk": {
+		"en_us": "Lycanroc Dusk",
+		"es_419": "Lycanroc Crepuscular"
+	},
+	"lycanroc midday": {
+		"en_us": "Lycanroc Midday",
+		"es_419": "Lycanroc Diurno"
+	},
+	"lycanroc midnight": {
+		"en_us": "Lycanroc Midnight",
+		"es_419": "Lycanroc Nocturno"
+	},
+	"dusk form": {
+		"en_us": "Dusk Form",
+		"es_419": "Forma Crepuscular"
+	},
+	"midday form": {
+		"en_us": "Midday Form",
+		"es_419": "Forma Diurna"
+	},
+	"midnight form": {
+		"en_us": "Midnight Form",
+		"es_419": "Forma Nocturna"
+	},
+	"alolan marowak": {
+		"en_us": "Alolan Marowak",
+		"es_419": "Marowak de Alola"
+	},
+	"meloetta (aria)": {
+		"en_us": "Meloetta (Aria)",
+		"es_419": "Meloetta (Lírica)"
+	},
+	"meloetta (pirouette)": {
+		"en_us": "Meloetta (Pirouette)",
+		"es_419": "Meloetta (Danza)"
+	},
+	"aria": {
+		"en_us": "Aria",
+		"es_419": "Lírica"
+	},
+	"pirouette": {
+		"en_us": "Pirouette",
+		"es_419": "Danza"
+	},
+	"alolan meowth": {
+		"en_us": "Alolan Meowth",
+		"es_419": "Meowth de Alola"
+	},
+	"minior core": {
+		"en_us": "Minior Core",
+		"es_419": "Minior Núcleo"
+	},
+	"minior": {
+		"en_us": "Minior",
+		"es_419": "Minior Meteorito"
+	},
+	"core form": {
+		"en_us": "Minior Core",
+		"es_419": "Forma de Núcleo"
+	},
+	"meteor form": {
+		"en_us": "Meteor Form",
+		"es_419": "Forma de Meteorito"
+	},
+	"alolan muk": {
+		"en_us": "Alolan Muk",
+		"es_419": "Muk de Alola"
+	},
+	"dawn wings necrozma": {
+		"en_us": "Dawn Wings Necrozma",
+		"es_419": "Necrozma Alas del Alba"
+	},
+	"dusk mane necrozma": {
+		"en_us": "Dusk Mane Necrozma",
+		"es_419": "Necrozma Melena Crepuscular"
+	},
+	"ultra necrozma": {
+		"en_us": "Ultra Necrozma",
+		"es_419": "Ultra-Necrozma"
+	},
+	"dawn wings": {
+		"en_us": "Dawn Wings",
+		"es_419": "Alas del Alba"
+	},
+	"dusk mane": {
+		"en_us": "Dusk Mane",
+		"es_419": "Melena Crepuscular"
+	},
+	"ultra": {
+		"en_us": "Ultra",
+		"es_419": "Ultra"
+	},
+	"alolan ninetales": {
+		"en_us": "Alolan Ninetales",
+		"es_419": "Ninetales de Alola"
+	},
+	"oricorio baile": {
+		"en_us": "Oricorio Baile",
+		"es_419": "Oricorio Apasionado"
+	},
+	"oricorio pa'u": {
+		"en_us": "Oricorio Pa'u",
+		"es_419": "Oricorio Plácido"
+	},
+	"oricorio pom-pom": {
+		"en_us": "Oricorio Pom-Pom",
+		"es_419": "Oricorio Animado"
+	},
+	"oricorio sensu": {
+		"en_us": "Oricorio Sensu",
+		"es_419": "Oricorio Refinado"
+	},
+	"baile style": {
+		"en_us": "Baile Style",
+		"es_419": "Estilo Apasionado"
+	},
+	"pa'u style": {
+		"en_us": "Pa'u Style",
+		"es_419": "Estilo Plácido"
+	},
+	"pom-pom style": {
+		"en_us": "Pom-Pom Style",
+		"es_419": "Estilo Animado"
+	},
+	"sensu style": {
+		"en_us": "Sensu Style",
+		"es_419": "Estilo Refinado"
+	},
+	"alolan persian": {
+		"en_us": "Alolan Persian",
+		"es_419": "Persian de Alola"
+	},
+	"pumpkaboo (average)": {
+		"en_us": "Pumpkaboo (Average)",
+		"es_419": "Pumpkaboo (Normal)"
+	},
+	"pumpkaboo (large)": {
+		"en_us": "Pumpkaboo (Large)",
+		"es_419": "Pumpkaboo (Grande)"
+	},
+	"pumpkaboo (small)": {
+		"en_us": "Pumpkaboo (Small)",
+		"es_419": "Pumpkaboo (Pequeño)"
+	},
+	"pumpkaboo (supersize)": {
+		"en_us": "Pumpkaboo (Supersize)",
+		"es_419": "Pumpkaboo (Extragrande)"
+	},
+	"alolan raichu": {
+		"en_us": "Alolan Raichu",
+		"es_419": "Raichu de Alola"
+	},
+	"alolan raticate": {
+		"en_us": "Alolan Raticate",
+		"es_419": "Raticate de Alola"
+	},
+	"alolan rattata": {
+		"en_us": "Alolan Rattata",
+		"es_419": "Rattata de Alola"
+	},
+	"rotom fan": {
+		"en_us": "Rotom Fan",
+		"es_419": "Rotom Ventilador"
+	},
+	"rotom frost": {
+		"en_us": "Rotom Frost",
+		"es_419": "Rotom Frío"
+	},
+	"rotom heat": {
+		"en_us": "Rotom Heat",
+		"es_419": "Rotom Calor"
+	},
+	"rotom mow": {
+		"en_us": "Rotom Mow",
+		"es_419": "Rotom Corte"
+	},
+	"rotom wash": {
+		"en_us": "Rotom Wash",
+		"es_419": "Rotom Lavado"
+	},
+	"fan": {
+		"en_us": "Fan",
+		"es_419": "Ventilador"
+	},
+	"frost": {
+		"en_us": "Frost",
+		"es_419": "Frío"
+	},
+	"heat": {
+		"en_us": "Heat",
+		"es_419": "Calor"
+	},
+	"mow": {
+		"en_us": "Mow",
+		"es_419": "Corte"
+	},
+	"wash": {
+		"en_us": "Wash",
+		"es_419": "Lavado"
+	},
+	"alolan sandshrew": {
+		"en_us": "Alolan Sandshrew",
+		"es_419": "Sandshrew de Alola"
+	},
+	"alolan sandslash": {
+		"en_us": "Alolan Sandslash",
+		"es_419": "Sandslash de Alola"
+	},
+	"shaymin land": {
+		"en_us": "Shaymin Land",
+		"es_419": "Shaymin Tierra"
+	},
+	"shaymin sky": {
+		"en_us": "Shaymin Sky",
+		"es_419": "Shaymin Cielo"
+	},
+	"land": {
+		"en_us": "Land",
+		"es_419": "Tierra"
+	},
+	"sky": {
+		"en_us": "Sky",
+		"es_419": "Cielo"
+	},
+	"silvally (bug)": {
+		"en_us": "Silvally (Bug)",
+		"es_419": "Silvally (Bicho)"
+	},
+	"silvally (dark)": {
+		"en_us": "Silvally (Dark)",
+		"es_419": "Silvally (Siniestro)"
+	},
+	"silvally (dragon)": {
+		"en_us": "Silvally (Dragon)",
+		"es_419": "Silvally (Dragón)"
+	},
+	"silvally (electric)": {
+		"en_us": "Silvally (Electric)",
+		"es_419": "Silvally (Eléctrico)"
+	},
+	"silvally (fairy)": {
+		"en_us": "Silvally (Fairy)",
+		"es_419": "Silvally (Hada)"
+	},
+	"silvally (fighting)": {
+		"en_us": "Silvally (Fighting)",
+		"es_419": "Silvally (Lucha)"
+	},
+	"silvally (fire)": {
+		"en_us": "Silvally (Fire)",
+		"es_419": "Silvally (Fuego)"
+	},
+	"silvally (flying)": {
+		"en_us": "Silvally (Flying)",
+		"es_419": "Silvally (Volador)"
+	},
+	"silvally (ghost)": {
+		"en_us": "Silvally (Ghost)",
+		"es_419": "Silvally (Fantasma)"
+	},
+	"silvally (grass)": {
+		"en_us": "Silvally (Grass)",
+		"es_419": "Silvally (Planta)"
+	},
+	"silvally (ground)": {
+		"en_us": "Silvally (Ground)",
+		"es_419": "Silvally (Tierra)"
+	},
+	"silvally (ice)": {
+		"en_us": "Silvally (Ice)",
+		"es_419": "Silvally (Hielo)"
+	},
+	"silvally (normal)": {
+		"en_us": "Silvally (Normal)",
+		"es_419": "Silvally (Normal)"
+	},
+	"silvally (poison)": {
+		"en_us": "Silvally (Poison)",
+		"es_419": "Silvally (Veneno)"
+	},
+	"silvally (psychic)": {
+		"en_us": "Silvally (Psychic)",
+		"es_419": "Silvally (Psíquico)"
+	},
+	"silvally (rock)": {
+		"en_us": "Silvally (Rock)",
+		"es_419": "Silvally (Roca)"
+	},
+	"silvally (steel)": {
+		"en_us": "Silvally (Steel)",
+		"es_419": "Silvally (Acero)"
+	},
+	"silvally (water)": {
+		"en_us": "Silvally (Water)",
+		"es_419": "Silvally (Agua)"
+	},
+	"alolan vulpix": {
+		"en_us": "Alolan Vulpix",
+		"es_419": "Vulpix de Alola"
+	},
+	"wishiwashi (school form)": {
+		"en_us": "Wishiwashi (School Form)",
+		"es_419": "Wishiwashi (Forma Banco)"
+	},
+	"school form": {
+		"en_us": "School Form",
+		"es_419": "Forma Banco"
+	},
+	"solo form": {
+		"en_us": "Solo Form",
+		"es_419": "Forma Individual"
+	},
+	"wormadam (plant cloak)": {
+		"en_us": "Wormadam (Plant Cloak)",
+		"es_419": "Wormadam (Tronco Planta)"
+	},
+	"wormadam (sand cloak)": {
+		"en_us": "Wormadam (Sand Cloak)",
+		"es_419": "Wormadam (Tronco Arena)"
+	},
+	"wormadam (trash cloak)": {
+		"en_us": "Wormadam (Trash Cloak)",
+		"es_419": "Wormadam (Tronco Basura)"
+	},
+	"plant cloak": {
+		"en_us": "Plant Cloak",
+		"es_419": "Tronco Planta"
+	},
+	"sand cloak": {
+		"en_us": "Sand Cloak",
+		"es_419": "Tronco Arena"
+	},
+	"trash cloak": {
+		"en_us": "Trash Cloak",
+		"es_419": "Tronco Basura"
+	},
+	"zygarde 10% forme": {
+		"en_us": "Zygarde 10% Forme",
+		"es_419": "Zygarde al 10%"
+	},
+	"zygarde 50% forme": {
+		"en_us": "Zygarde 50% Forme",
+		"es_419": "Zygarde al 50%"
+	},
+	"zygarde complete forme": {
+		"en_us": "Zygarde complete Forme",
+		"es_419": "Zygarde Completo"
+	},
+	"10% forme": {
+		"en_us": "10% Forme",
+		"es_419": "Al 10%"
+	},
+	"50% forme": {
+		"en_us": "50% Forme",
+		"es_419": "Al 50%"
+	},
+	"complete forme": {
+		"en_us": "complete Forme",
+		"es_419": "Completo"
+	}
+}

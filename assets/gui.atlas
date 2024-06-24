@@ -295,75 +295,75 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/bug.png"
+  image: "/assets/textures/type_bg/bug.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/dark.png"
+  image: "/assets/textures/type_bg/dark.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/dragon.png"
+  image: "/assets/textures/type_bg/dragon.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/electric.png"
+  image: "/assets/textures/type_bg/electric.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/fairy.png"
+  image: "/assets/textures/type_bg/fairy.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/fighting.png"
+  image: "/assets/textures/type_bg/fighting.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/fire.png"
+  image: "/assets/textures/type_bg/fire.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/flying.png"
+  image: "/assets/textures/type_bg/flying.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/ghost.png"
+  image: "/assets/textures/type_bg/ghost.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/grass.png"
+  image: "/assets/textures/type_bg/grass.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/ground.png"
+  image: "/assets/textures/type_bg/ground.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/ice.png"
+  image: "/assets/textures/type_bg/ice.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/normal.png"
+  image: "/assets/textures/type_bg/normal.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/poison.png"
+  image: "/assets/textures/type_bg/poison.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/psychic.png"
+  image: "/assets/textures/type_bg/psychic.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/rock.png"
+  image: "/assets/textures/type_bg/rock.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/steel.png"
+  image: "/assets/textures/type_bg/steel.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/type_names/water.png"
+  image: "/assets/textures/type_bg/water.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -490,6 +490,13 @@ images {
   image: "/assets/textures/gui/icon/share_roll20.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
+images {
+  image: "/assets/textures/support_maeb.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 margin: 0
 extrude_borders: 1
 inner_padding: 0
+max_page_width: 0
+max_page_height: 0
+rename_patterns: ""

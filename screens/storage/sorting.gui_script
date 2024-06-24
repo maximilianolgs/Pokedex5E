@@ -5,6 +5,7 @@ local url = require "utils.url"
 local gooey_buttons = require "utils.gooey_buttons"
 local gooey = require "gooey.gooey"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local function back()
 	monarch.back()
@@ -20,6 +21,10 @@ function init(self)
 	button.acquire()
 	msg.post(url.MENU, messages.HIDE)
 
+	gui.set_text(gui.get_node("btn_alphabetical"), localization.get("storage_screen", "sort_alphabetical", "ALPHABETICAL"))
+	gui.set_text(gui.get_node("btn_index"), localization.get("storage_screen", "sort_index", "INDEX"))
+	gui.set_text(gui.get_node("btn_level"), localization.get("storage_screen", "sort_level", "LEVEL"))
+	
 	self.btn_icon = gui.get_node("back_graphic")
 	button.register("btn_alphabetical", function() 
 		set_sorting("alphabetical")

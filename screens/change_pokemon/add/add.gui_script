@@ -13,6 +13,8 @@ local notify = require "utils.notify"
 local dex = require "pokedex.dex"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local gui_utils = require "utils.gui"
+local localization = require "utils.localization"
 
 local HAVE_EVOLVED = false
 
@@ -37,9 +39,9 @@ local function add_pokemon(self)
 	self.pokemon.hp.current = _pokemon.get_total_max_hp(self.pokemon)
 	dex.set(self.pokemon.species.current, dex.states.CAUGHT)
 	if storage.is_party_full() then
-		notify.notify(self.pokemon.species.current .. " added to PC")
+		notify.notify(localization.get("change_pokemon_screen", "notif_added_to_pc", "%s added to PC"):format(self.pokemon.species.current))
 	else
-		notify.notify(self.pokemon.species.current .. " added to party")
+		notify.notify(localization.get("change_pokemon_screen", "notif_added_to_party", "%s added to party"):format(self.pokemon.species.current))
 	end
 	storage.add(self.pokemon)
 	exit(self)
@@ -47,6 +49,14 @@ end
 
 function init(self)
 	button.acquire()
+
+	gui.set_text(gui.get_node("change_pokemon/top/title"), localization.get("change_pokemon_screen", "add_pokemon_title", "Pick Pokemon"))
+	gui.set_text(gui.get_node("change_pokemon/txt_nature"), localization.get_upper("natures", "no nature", "No Nature"))
+	gui.set_text(gui.get_node("change_pokemon/txt_level_mod"), localization.get("change_pokemon_screen","txt_level","Lv."))
+	gui.set_text(gui.get_node("change_pokemon/txt_max_hp_mod"), localization.get("change_pokemon_screen","txt_changed_max_hp","CHANGED MAX HP:") .. " (+10)")
+	gui.set_text(gui.get_node("change_pokemon/txt_hit_dice"), localization.get("change_pokemon_screen", "txt_hit_dice", "Hit Dice:"))
+	gui.set_text(gui.get_node("change_pokemon/txt_item"), localization.get("pokemon_information", "txt_no_item", "NO ITEM"))
+	
 	gui.set_color(gui.get_node("change_pokemon/species"), gui_colors.HERO_TEXT_FADED)
 	gui.set_color(gui.get_node("change_pokemon/txt_nature"), gui_colors.HERO_TEXT_FADED)
 	gui.play_flipbook(gui.get_node("btn_add"), "common_down")
@@ -65,12 +75,15 @@ function init(self)
 	end
 	
 	button.register("change_pokemon/btn_species", function()
-		monarch.show(screens.SCROLLIST, {}, {items=pokedex.list, message_id=messages.SPECIES, sender=msg.url(), title="Pick your Pokemon"})
+		monarch.show(screens.SCROLLIST, {}, {items=pokedex.list, message_id=messages.SPECIES, sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_pokemon_title", "Pick your Pokemon")})
 	end)
 	
 	if storage.is_party_full() then
-		gui.set_text(gui.get_node("txt_add"), "ADD TO PC")
+		gui.set_text(gui.get_node("txt_add"), localization.get("change_pokemon_screen", "add_to_pc", "ADD TO PC"))
+	else
+		gui.set_text(gui.get_node("txt_add"), localization.get("change_pokemon_screen", "add_to_party", "ADD TO PARTY"))
 	end
+	gui_utils.scale_text_to_fit_size_2(gui.get_node("txt_add"))
 end
 
 function final(self)

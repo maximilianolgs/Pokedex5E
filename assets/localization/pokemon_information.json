@@ -1,0 +1,478 @@
+{
+	"pokemon_level": {
+		"en_us": "Lv.",
+		"es_419": "Nivel:"
+	},
+	"pokemon_ac": {
+		"en_us": "AC",
+		"es_419": "CA"
+	},
+	"pokemon_hp": {
+		"en_us": "HP:",
+		"es_419": "PG:"
+	},
+	"txt_no_item": {
+		"en_us": "ITEM: NONE",
+		"es_419": "OBJETO: NINGUNO"
+	},
+	"pokemon_distance_feet": {
+		"en_us": "ft",
+		"es_419": "pies"
+	},
+	"pokemon_size_tiny": {
+		"en_us": "Tiny",
+		"es_419": "Diminuto"
+	},
+	"pokemon_size_small": {
+		"en_us": "Small",
+		"es_419": "Pequeño"
+	},
+	"pokemon_size_medium": {
+		"en_us": "Medium",
+		"es_419": "Mediano"
+	},
+	"pokemon_size_large": {
+		"en_us": "Large",
+		"es_419": "Grande"
+	},
+	"pokemon_size_huge": {
+		"en_us": "Huge",
+		"es_419": "Enorme"
+	},
+	"pokemon_size_gargantuan": {
+		"en_us": "Gargantuan",
+		"es_419": "Gargantuesco"
+	},
+	"pokemon_size_varies": {
+		"en_us": "Varies",
+		"es_419": "Varía"
+	},
+	"pokemon_type_normal": {
+		"en_us": "Normal",
+		"es_419": "Normal"
+	},
+	"pokemon_type_fire": {
+		"en_us": "Fire",
+		"es_419": "Fuego"
+	},
+	"pokemon_type_water": {
+		"en_us": "Water",
+		"es_419": "Agua"
+	},
+	"pokemon_type_electric": {
+		"en_us": "Electric",
+		"es_419": "Eléctrico"
+	},
+	"pokemon_type_grass": {
+		"en_us": "Grass",
+		"es_419": "Planta"
+	},
+	"pokemon_type_ice": {
+		"en_us": "Ice",
+		"es_419": "Hielo"
+	},
+	"pokemon_type_fighting": {
+		"en_us": "Fighting",
+		"es_419": "Lucha"
+	},
+	"pokemon_type_poison": {
+		"en_us": "Poison",
+		"es_419": "Veneno"
+	},
+	"pokemon_type_ground": {
+		"en_us": "Ground",
+		"es_419": "Tierra"
+	},
+	"pokemon_type_flying": {
+		"en_us": "Flying",
+		"es_419": "Volador"
+	},
+	"pokemon_type_psychic": {
+		"en_us": "Psychic",
+		"es_419": "Psíquico"
+	},
+	"pokemon_type_bug": {
+		"en_us": "Bug",
+		"es_419": "Bicho"
+	},
+	"pokemon_type_rock": {
+		"en_us": "Rock",
+		"es_419": "Roca"
+	},
+	"pokemon_type_ghost": {
+		"en_us": "Ghost",
+		"es_419": "Fantasma"
+	},
+	"pokemon_type_dragon": {
+		"en_us": "Dragon",
+		"es_419": "Dragón"
+	},
+	"pokemon_type_dark": {
+		"en_us": "Dark",
+		"es_419": "Siniestro"
+	},
+	"pokemon_type_steel": {
+		"en_us": "Steel",
+		"es_419": "Acero"
+	},
+	"pokemon_type_fairy": {
+		"en_us": "Fairy",
+		"es_419": "Hada"
+	},
+	"pokemon_type_typeless": {
+		"en_us": "Typeless",
+		"es_419": "Sin Tipo"
+	},
+	"pokemon_type_varies": {
+		"en_us": "Varies",
+		"es_419": "Varía"
+	},
+	"pokemon_str": {
+		"en_us": "STR",
+		"es_419": "FUE"
+	},
+	"pokemon_attribute_str": {
+		"en_us": "Strength",
+		"es_419": "Fuerza"
+	},
+	"pokemon_dex": {
+		"en_us": "DEX",
+		"es_419": "DES"
+	},
+	"pokemon_attribute_dex": {
+		"en_us": "Dexterity",
+		"es_419": "Destreza"
+	},
+	"pokemon_con": {
+		"en_us": "CON",
+		"es_419": "CON"
+	},
+	"pokemon_attribute_con": {
+		"en_us": "Constitution",
+		"es_419": "Constitución"
+	},
+	"pokemon_int": {
+		"en_us": "INT",
+		"es_419": "INT"
+	},
+	"pokemon_attribute_int": {
+		"en_us": "Intelligence",
+		"es_419": "Inteligencia"
+	},
+	"pokemon_wis": {
+		"en_us": "WIS",
+		"es_419": "SAB"
+	},
+	"pokemon_attribute_wis": {
+		"en_us": "Wisdom",
+		"es_419": "Sabiduría"
+	},
+	"pokemon_cha": {
+		"en_us": "CHA",
+		"es_419": "CAR"
+	},
+	"pokemon_attribute_cha": {
+		"en_us": "Charisma",
+		"es_419": "Carisma"
+	},
+	"pokemon_any": {
+		"en_us": "Any",
+		"es_419": "Cualquiera"
+	},
+	"pokemon_varies": {
+		"en_us": "Varies",
+		"es_419": "Varía"
+	},
+	"pokemon_skill_athletics": {
+		"en_us": "Athletics",
+		"es_419": "Atletismo"
+	},
+	"pokemon_skill_acrobatics": {
+		"en_us": "Acrobatics",
+		"es_419": "Acrobacias"
+	},
+	"pokemon_skill_sleight of hand": {
+		"en_us": "Sleight of Hand",
+		"es_419": "Juego de Manos"
+	},
+	"pokemon_skill_stealth": {
+		"en_us": "Stealth",
+		"es_419": "Sigilo"
+	},
+	"pokemon_skill_arcana": {
+		"en_us": "Arcana",
+		"es_419": "C. Arcano"
+	},
+	"pokemon_skill_history": {
+		"en_us": "History",
+		"es_419": "Historia"
+	},
+	"pokemon_skill_investigation": {
+		"en_us": "Investigation",
+		"es_419": "Investigación"
+	},
+	"pokemon_skill_nature": {
+		"en_us": "Nature",
+		"es_419": "Naturaleza"
+	},
+	"pokemon_skill_religion": {
+		"en_us": "Religion",
+		"es_419": "Religión"
+	},
+	"pokemon_skill_animal handling": {
+		"en_us": "Animal Handling",
+		"es_419": "T. con Animales"
+	},
+	"pokemon_skill_insight": {
+		"en_us": "Insight",
+		"es_419": "Perspicacia"
+	},
+	"pokemon_skill_medicine": {
+		"en_us": "Medicine",
+		"es_419": "Medicina"
+	},
+	"pokemon_skill_perception": {
+		"en_us": "Perception",
+		"es_419": "Percepción"
+	},
+	"pokemon_skill_survival": {
+		"en_us": "Survival",
+		"es_419": "Supervivencia"
+	},
+	"pokemon_skill_deception": {
+		"en_us": "Deception",
+		"es_419": "Engaño"
+	},
+	"pokemon_skill_intimidation": {
+		"en_us": "Intimidation",
+		"es_419": "Intimidación"
+	},
+	"pokemon_skill_performance": {
+		"en_us": "Performance",
+		"es_419": "Interpretación"
+	},
+	"pokemon_skill_persuasion": {
+		"en_us": "Persuasion",
+		"es_419": "Persuasión"
+	},
+	"pokemon_speed_walking": {
+		"en_us": "Walking",
+		"es_419": "Caminando"
+	},
+	"pokemon_speed_swimming": {
+		"en_us": "Swimming",
+		"es_419": "Nadando"
+	},
+	"pokemon_speed_climbing": {
+		"en_us": "Climbing",
+		"es_419": "Trepando"
+	},
+	"pokemon_speed_flying": {
+		"en_us": "Flying",
+		"es_419": "Volando"
+	},
+	"pokemon_speed_burrow": {
+		"en_us": "Burrowing",
+		"es_419": "Excavando"
+	},
+	"pokemon_vulnerabilities": {
+		"en_us": "Vulnerabilities",
+		"es_419": "Vulnerabilidades"
+	},
+	"pokemon_resistances": {
+		"en_us": "Resistances",
+		"es_419": "Resistencias"
+	},
+	"pokemon_immunities": {
+		"en_us": "Immunities",
+		"es_419": "Inmunidades"
+	},
+	"pokemon_sense_darkvision": {
+		"en_us": "Darkvision",
+		"es_419": "Visión en la Oscuridad"
+	},
+	"pokemon_sense_tremorsense": {
+		"en_us": "Tremorsense",
+		"es_419": "Sentir Vibraciones"
+	},
+	"pokemon_sense_truesight": {
+		"en_us": "Truesight",
+		"es_419": "Visión Verdadera"
+	},
+	"pokemon_sense_blindsight": {
+		"en_us": "Blindsight",
+		"es_419": "Visión Ciega"
+	},
+	"pokemon_burned": {
+		"en_us": "BRN",
+		"es_419": "QUE"
+	},
+	"pokemon_poisoned": {
+		"en_us": "PSN",
+		"es_419": "ENV"
+	},
+	"pokemon_frozen": {
+		"en_us": "FRZ",
+		"es_419": "CON"
+	},
+	"pokemon_paralyzed": {
+		"en_us": "PAR",
+		"es_419": "PAR"
+	},
+	"pokemon_asleep": {
+		"en_us": "SLP",
+		"es_419": "DOR"
+	},
+	"pokemon_confused": {
+		"en_us": "CNF",
+		"es_419": "CNF"
+	},
+	"pokemon_status_burned": {
+		"en_us": "Burned",
+		"es_419": "Quemado"
+	},
+	"pokemon_status_poisoned": {
+		"en_us": "Poisoned",
+		"es_419": "Envenenado"
+	},
+	"pokemon_status_frozen": {
+		"en_us": "Frozen",
+		"es_419": "Congelado"
+	},
+	"pokemon_status_paralyzed": {
+		"en_us": "Paralyzed",
+		"es_419": "Paralizado"
+	},
+	"pokemon_status_asleep": {
+		"en_us": "Asleep",
+		"es_419": "Dormido"
+	},
+	"pokemon_status_confused": {
+		"en_us": "Confused",
+		"es_419": "Confundido"
+	},
+	"pokemon_status_flinched": {
+		"en_us": "Flinched",
+		"es_419": "Acobardado"
+	},
+	"pokemon_status_burned_desc": {
+		"en_us": "A burned ceature rolls all damage rolls twice and takes the lower result (this bypasses and does not cancel out with things like Savage Attacker, Iron Fist, Weather, etc). In addition, the creature takes an amount of damage equal to its proficiency bonus at the beginning of each of its turns until it faints or is cured of its burns. (Fire types are immune to this status condition)",
+		"es_419": "Un ciatura quemada, hace todas las tiradas de ataque con desventaja (esto ignora y no se cancela con cosas como Atacante Salvaje, Puño de Hierro, Clima, etc). Además, la criatura recibe una cantidad de daño igual a su bonificación de proficiencia al comienzo de cada uno de sus turnos hasta que se desmaye o se cure de sus quemaduras. (Los Pokémon de Fuego son inmunes a este estado)"
+	},
+	"pokemon_status_poisoned_desc": {
+		"en_us": "A poisoned creature has disadvantage on all ability checks and attack rolls, and takes an amount of damage equal to its proficiency bonus at the end of each of its turns until it faints or is cured of its poison. (Poison and Steel types are immune to this status condition)",
+		"es_419": "Una criatura envenenada tiene desventaja en todas las tiradas de habilidad y de ataque, y recibe una cantidad de daño igual a su bonificador de proficiencia al final de cada turno hasta que se desmaye o se cure de su envenenamiento. (Los Pokémon de Veneno y Acero son inmunes a este estado)"
+	},
+	"pokemon_status_frozen_desc": {
+		"en_us": "A frozen creature is incapacitated and restrained. In combat, it can attempt to break free of the ice with a STR save at the end of each of its turns against a DC of 10 + the proficiency bonus of the creature that caused this status. Outside of combat, the frozen status lasts for one hour. (Ice types are immune to this status condition)",
+		"es_419": "Una criatura congelada está Incapacitada y Apresada. En combate, puede intentar liberarse del hielo con una tirada de salvación de FUE al final de su turno contra una CD de 10 + la bonificación de proficiencia de la criatura que le causó el estado. Fuera de combate, este estado dura por una hora. (Los Pokémon de Hielo son inmunes a este estado)"
+	},
+	"pokemon_status_paralyzed_desc": {
+		"en_us": "A paralyzed creature has disadvantage on any STR or DEX saving throws and moves at half speed. When a paralyzed Pokémon begins its turn, it must first roll a d4. On a result of 1, the Pokémon is incapacitated and restrained until the beginning of their next turn and must forfeit their remaining action and bonus action to their trainer. If a creature is paralyzed and confused/asleep, the paralysis roll comes first. If it fails, it does not roll to wake or be confused. (Electric types are immune to this status condition)",
+		"es_419": "Una criatura paralizada tiene desventaja en cualquier tirada de salvación de FUE o DES y se mueve a la mitad de su velocidad. Cuando un Pokémon paralizado comienza su turno, primero debe tirar un d4. En un 1, el Pokémon está Incapacitado y Apresado hasta el inicio de su próximo turno y debe ceder al resto de su acción y acción adicional a su entrenador. Si una criatura está paralizada y confundida/dormida, la parálisis toma prioridad. Si falla, no efectúa tiradas para despertar o estar confundido. (Los Pokémon tipo Eléctrico son inmunes a este estado)"
+	},
+	"pokemon_status_asleep_desc": {
+		"en_us": "A creature that falls asleep is affected immediately and through its next three full turns in battle. During this time, the creature is incapacitated and restrained, and rolls all saving throws with disadvantage. A sleeping creature can roll a d20 when subject to a move AND at the end of each of its turns, ending the status immediately on a result of 11 or higher.",
+		"es_419": "Una criatura que se duerme, es afectada inmediatamente y por sus próximos 3 turnos en combate. Durante este tiempo, la criatura está Incapacitada y Apresada, y hace todas las tiradas de salvación con desventaja. Una criatura dormida puede tirar un d20 al final de cada turno y cuando sea objetivo de un movimiento, despertando inmediatamente en un 11 o más."
+	},
+	"pokemon_status_confused_desc": {
+		"en_us": "A confused creature is affected immediately and through its next three full turns in battle. During this time, it loses its ability to take reactions and its speed is halved. When a Confused Pokémon uses an action or bonus action on its turn, it must first roll a d20. On a result of 10 or lower, the Pokémon drops concentration, hurts itself for an amount of typeless damage equal to its proficiency modifier, and the move fails. On a roll of 16 or higher, the status ends immediately.",
+		"es_419": "Una criatura confundida es afectada inmediatamente y por sus próximos 3 turnos en combate. Durante este tiempo, la criatura no puede utilizar reacciones y su velocidad se reduce a la mitad. Cuando un Pokémon confundido usa una acción o una acción adicional en su turno, primero debe tirar un d20. En un 10 o menos, el Pokémon pierde la concentración, se lastima a sí mismo con daño Sin Tipo igual a su bonificador de proficiencia y el movimiento falla. En un 16 o más, el estado termina inmediatamente."
+	},
+	"pokemon_status_flinched_desc": {
+		"en_us": "A flinched creature has disadvantage on any attack roll, skill check, or saving throw it makes before the end of its next turn. If it activates a move that requires a saving throw during that time, the target has advantage on the roll.",
+		"es_419": "Una criatura acobardada tiene desventaja en las tiradas de ataque, habilidad o de salvación que haga hasta el final de su próximo turno. Si realiza un movimiento que require una tirada de salvación, el objetuvo tiene ventaja en la tirada."
+	},
+	"pokemon_move_shape_line": {
+		"en_us": "line",
+		"es_419": "línea"
+	},
+	"pokemon_move_shape_cone": {
+		"en_us": "cone",
+		"es_419": "cono"
+	},
+	"pokemon_move_shape_radius": {
+		"en_us": "radius",
+		"es_419": "radio"
+	},
+	"pokemon_move_range_melee": {
+		"en_us": "Melee",
+		"es_419": "Cuerpo a Cuerpo"
+	},
+	"pokemon_move_range_self": {
+		"en_us": "Self",
+		"es_419": "Usuario"
+	},
+	"pokemon_move_range_ranged": {
+		"en_us": "Ranged",
+		"es_419": "A Distancia"
+	},
+	"pokemon_move_range_varies": {
+		"en_us": "Varies",
+		"es_419": "Varía"
+	},
+	"pokemon_move_duration_instantaneous": {
+		"en_us": "Instantaneous",
+		"es_419": "Instantáneo"
+	},
+	"pokemon_move_duration_varies": {
+		"en_us": "Varies",
+		"es_419": "Varía"
+	},
+	"pokemon_move_duration_while in battle": {
+		"en_us": "While in Battle",
+		"es_419": "Mientras esté en Batalla"
+	},
+	"pokemon_move_duration_minute": {
+		"en_us": "minute",
+		"es_419": "minuto"
+	},
+	"pokemon_move_duration_minutes": {
+		"en_us": "minutes",
+		"es_419": "minutos"
+	},
+	"pokemon_move_duration_round": {
+		"en_us": "round",
+		"es_419": "ronda"
+	},
+	"pokemon_move_duration_rounds": {
+		"en_us": "rounds",
+		"es_419": "rondas"
+	},
+	"pokemon_move_duration_turn": {
+		"en_us": "turn",
+		"es_419": "turno"
+	},
+	"pokemon_move_duration_turns": {
+		"en_us": "turns",
+		"es_419": "turnos"
+	},
+	"pokemon_move_complement_concentration": {
+		"en_us": "concentration",
+		"es_419": "concentración"
+	},
+	"pokemon_move_complement_charge": {
+		"en_us": "charge",
+		"es_419": "carga"
+	},
+	"pokemon_move_complement_recharge": {
+		"en_us": "recharge",
+		"es_419": "recarga"
+	},
+	"pokemon_action": {
+		"en_us": "action",
+		"es_419": "acción"
+	},
+	"pokemon_bonus_action": {
+		"en_us": "bonus action",
+		"es_419": "acción adicional"
+	},
+	"pokemon_reaction": {
+		"en_us": "reaction",
+		"es_419": "reacción"
+	},
+	"move_pp_unlimited": {
+		"en_us": "Unlimited",
+		"es_419": "Ilimitado"
+	}
+}

@@ -19,8 +19,10 @@ local gui_utils = require "utils.gui"
 local constants = require "utils.constants"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local POKEMON_SPECIES_TEXT_SCALE = vmath.vector3(1)
+local ABILITY_BUTTON_TEXT_SCALE = vmath.vector3(0.8)
 
 local M = {}
 
@@ -169,7 +171,9 @@ local function redraw_list(data_table, entry_table, text_hash, btn_hash, delete_
 		gui.set_color(text_node, gui_colors.BLACK)
 		gui.set_enabled(delete_node, true)
 		table.insert(data_table, {name=ability, button=btn_id, root=nodes[root_hash], text=text_node, position=i, active=true, delete=delete_id, add=true})
-		gui.set_text(text_node, ability:upper())
+		gui.set_text(text_node, localization.upper(ability))
+		gui.set_scale(text_node, ABILITY_BUTTON_TEXT_SCALE)
+		gui_utils.scale_text_to_fit_size(text_node)
 		gui.set_position(nodes[root_hash], ability_position)
 		ability_position.x = math.mod(i, 2) * 340
 		ability_position.y = math.ceil((i-1)/2) * -50
@@ -181,12 +185,12 @@ local function redraw_list(data_table, entry_table, text_hash, btn_hash, delete_
 	text_node = nodes[text_hash]
 	btn_id = set_id(button_node)
 
-	gui.set_text(text_node, "ADD NEW")
+	gui.set_text(text_node, localization.get("change_pokemon_screen", "txt_add_new_ability", "ADD NEW"))
 	gui.set_color(text_node, gui_colors.HERO_TEXT_FADED)
 	gui.set_position(nodes[root_hash], ability_position)
 	gui.set_enabled(nodes[delete_hash], false)
 	table.insert(data_table, {name="Add Other", button=btn_id, root=nodes[root_hash], text=text_node, position=amount, active=true})
-
+	
 	return data_table
 end
 
@@ -211,7 +215,7 @@ function M.update_hp_counter(self)
 	else
 		gui.set_enabled(mod_hp_node, true)
 	end
-	gui.set_text(mod_hp_node, "CHANGED MAX HP: " .. extra_hp)
+	gui.set_text(mod_hp_node, localization.get("change_pokemon_screen","txt_changed_max_hp","CHANGED MAX HP:") .. " " .. extra_hp)
 	gui.set_text(max_hp_node, current_max)
 	if extra_hp == 0 then
 		gui.set_color(mod_hp_node, gui_colors.TEXT)
@@ -263,7 +267,7 @@ local function redraw_moves(self)
 		local icon_node = move_buttons_list[_index].icon
 		
 		move_buttons_list[_index].move_name = move
-		gui.set_text(move_node, move:upper())
+		gui.set_text(move_node, localization.get_upper("moves", move, move))
 		gui.set_scale(move_node, vmath.vector3(0.8))
 		gui_utils.scale_text_to_fit_size(move_node)
 		gui.set_color(move_node, movedex.get_move_color(move))
@@ -303,18 +307,21 @@ local function redraw(self)
 
 	gui.set_text(gui.get_node("change_pokemon/txt_level"), _pokemon.get_current_level(self.pokemon))
 
-	gui.set_text(gui.get_node("change_pokemon/txt_nature"), _pokemon.get_nature(self.pokemon):upper())
-	gui.set_text(gui.get_node("change_pokemon/txt_hit_dice"), "Hit Dice: d" .. _pokemon.get_hit_dice(self.pokemon))
+	gui.set_text(gui.get_node("change_pokemon/txt_nature"), localization.get_upper("natures", _pokemon.get_nature(self.pokemon), _pokemon.get_nature(self.pokemon)))
+	gui.set_text(gui.get_node("change_pokemon/txt_hit_dice"), localization.get("change_pokemon_screen", "txt_hit_dice", "Hit Dice:").." d" .. _pokemon.get_hit_dice(self.pokemon))
 	gui.set_text(gui.get_node("change_pokemon/pokemon_number"), string.format("#%03d", _pokemon.get_index_number(self.pokemon)))
-	gui.set_text(gui.get_node("change_pokemon/txt_item"), (_pokemon.get_held_item(self.pokemon) or "NO ITEM"):upper())
-
+	if _pokemon.get_held_item(self.pokemon) then
+		gui.set_text(gui.get_node("change_pokemon/txt_item"), localization.get_upper("items", _pokemon.get_held_item(self.pokemon), _pokemon.get_held_item(self.pokemon)))
+	else
+		gui.set_text(gui.get_node("change_pokemon/txt_item"), localization.get_upper("pokemon_information", "txt_no_item", "NO ITEM"))
+	end
 	local variant = _pokemon.get_variant(self.pokemon)
 	pokemon_image(species, variant)
 
 	local has_variants = pokedex.has_variants(species)
 	local var = _pokemon.get_variant(self.pokemon)
 	if has_variants and var then
-		gui.set_text(gui.get_node("change_pokemon/txt_variant"), var:upper())
+		gui.set_text(gui.get_node("change_pokemon/txt_variant"), localization.get_upper("pokemon_variants", var, var))
 	end
 	gui.set_enabled(gui.get_node("change_pokemon/btn_variant"), has_variants)
 	
@@ -366,7 +373,7 @@ local function redraw(self)
 	local btn_id = hash("change_pokemon/ability/btn_entry")
 	local del_id = hash("change_pokemon/ability/btn_delete")
 	M.config[hash("change_pokemon/abilities")].open.y = M.config[hash("change_pokemon/abilities")].closed.y + math.ceil((#_pokemon.get_abilities(self.pokemon) +1) / 2) * 50
-	self.ability_data = redraw_list(self.ability_data, _pokemon.get_abilities(self.pokemon), text_id, btn_id, del_id, root_id)
+	self.ability_data = redraw_list(self.ability_data, localization.translate_table("abilities", "", _pokemon.get_abilities(self.pokemon)), text_id, btn_id, del_id, root_id)
 
 	-- Feats
 	local root_id = hash("change_pokemon/feat/root")
@@ -374,7 +381,7 @@ local function redraw(self)
 	local btn_id = hash("change_pokemon/feat/btn_entry")
 	local del_id = hash("change_pokemon/feat/btn_delete")
 	M.config[hash("change_pokemon/feats")].open.y = M.config[hash("change_pokemon/feats")].closed.y + math.ceil((#_pokemon.get_feats(self.pokemon) + 1) / 2) * 50
-	self.feats_data = redraw_list(self.feats_data, _pokemon.get_feats(self.pokemon), text_id, btn_id, del_id, root_id)
+	self.feats_data = redraw_list(self.feats_data, localization.translate_table("feats", "", _pokemon.get_feats(self.pokemon)), text_id, btn_id, del_id, root_id)
 
 	-- skills
 	local root_id = hash("change_pokemon/skill/root")
@@ -382,21 +389,22 @@ local function redraw(self)
 	local btn_id = hash("change_pokemon/skill/btn_entry")
 	local del_id = hash("change_pokemon/skill/btn_delete")
 	M.config[hash("change_pokemon/skills")].open.y = M.config[hash("change_pokemon/skills")].closed.y + math.ceil((#_pokemon.extra_skills(self.pokemon) + 1) / 2) * 50
-	self.skills_data = redraw_list(self.skills_data, _pokemon.extra_skills(self.pokemon), text_id, btn_id, del_id, root_id)
+	self.skills_data = redraw_list(self.skills_data, localization.translate_table("pokemon_information", "pokemon_skill_", _pokemon.extra_skills(self.pokemon)), text_id, btn_id, del_id, root_id)
 	
 	-- level
 	local current = _pokemon.get_current_level(self.pokemon)
 	gui.set_text(gui.get_node("change_pokemon/txt_level"), current)
 	local level_dif = current - _pokemon.get_current_level(stored_pokemon)
+	local txt_lvl = localization.get("change_pokemon_screen","txt_level","Lv.")
 	if level_dif == 0 then
-		gui.set_text(gui.get_node("change_pokemon/txt_level_mod"), "Lv.")
+		gui.set_text(gui.get_node("change_pokemon/txt_level_mod"), txt_lvl)
 		gui.set_color(gui.get_node("change_pokemon/txt_level_mod"), gui_colors.TEXT)
 	elseif level_dif < 0 then
 		gui.set_color(gui.get_node("change_pokemon/txt_level_mod"), gui_colors.RED)
-		gui.set_text(gui.get_node("change_pokemon/txt_level_mod"), "Lv. " .. level_dif)
+		gui.set_text(gui.get_node("change_pokemon/txt_level_mod"), txt_lvl .. " " .. level_dif)
 	else
 		gui.set_color(gui.get_node("change_pokemon/txt_level_mod"), gui_colors.GREEN)
-		gui.set_text(gui.get_node("change_pokemon/txt_level_mod"), "Lv. +" .. level_dif)
+		gui.set_text(gui.get_node("change_pokemon/txt_level_mod"), txt_lvl .. " +" .. level_dif)
 	end
 
 	if self.redraw then self.redraw(self) end
@@ -484,9 +492,41 @@ local function finish_create_flow(self, species, variant)
 	update_sections(true)
 end
 
+local function localize_text()
+	gui.set_text(gui.get_node("change_pokemon/title_move"), localization.get("change_pokemon_screen","title_move_set","MOVE SET"))
+	gui.set_text(gui.get_node("change_pokemon/txt_move"), localization.get("change_pokemon_screen","txt_move","MOVE"))
+	gui.set_text(gui.get_node("change_pokemon/species"), localization.get("change_pokemon_screen","txt_pick_species","PICK POKEMON"))
+	gui.set_text(gui.get_node("change_pokemon/asi/STR1"), localization.get_upper("pokemon_information","pokemon_attribute_str","STRENGTH"))
+	gui.set_text(gui.get_node("change_pokemon/asi/DEX1"), localization.get_upper("pokemon_information","pokemon_attribute_dex","DEXTERITY"))
+	gui.set_text(gui.get_node("change_pokemon/asi/CON1"), localization.get_upper("pokemon_information","pokemon_attribute_con","CONSTITUTION"))
+	gui.set_text(gui.get_node("change_pokemon/asi/INT1"), localization.get_upper("pokemon_information","pokemon_attribute_int","INTELLIGENCE"))
+	gui.set_text(gui.get_node("change_pokemon/asi/WIS1"), localization.get_upper("pokemon_information","pokemon_attribute_wis","WISDOM"))
+	gui.set_text(gui.get_node("change_pokemon/asi/CHA1"), localization.get_upper("pokemon_information","pokemon_attribute_cha","CHARISMA"))
+	gui.set_text(gui.get_node("change_pokemon/asi/title"), localization.get("change_pokemon_screen","txt_available_asi","Available Points:"))
+	gui.set_text(gui.get_node("change_pokemon/asi/title_ability"), localization.get("change_pokemon_screen","txt_title_asi","Ability Score Increase"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("change_pokemon/asi/title_ability"))
+	gui.set_text(gui.get_node("change_pokemon/btn_reset_abilities"), localization.get("change_pokemon_screen","txt_reset_abilities","RESET"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("change_pokemon/btn_reset_abilities"))
+	gui.set_text(gui.get_node("change_pokemon/Abilities"), localization.get("change_pokemon_screen","txt_abilities","ABILITIES"))
+	gui.set_text(gui.get_node("change_pokemon/txt_feats"), localization.get("change_pokemon_screen","txt_feats","FEATS"))
+	gui.set_text(gui.get_node("change_pokemon/txt_item_title"), localization.get("change_pokemon_screen","txt_item_title","Held Item"))
+	gui.set_text(gui.get_node("change_pokemon/txt_shiny"), localization.get("change_pokemon_screen","txt_shiny","SHINY"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("change_pokemon/txt_shiny"))
+	gui.set_text(gui.get_node("change_pokemon/custom_asi/STR1"), localization.get_upper("pokemon_information","pokemon_attribute_str","STRENGTH"))
+	gui.set_text(gui.get_node("change_pokemon/custom_asi/DEX1"), localization.get_upper("pokemon_information","pokemon_attribute_dex","DEXTERITY"))
+	gui.set_text(gui.get_node("change_pokemon/custom_asi/CON1"), localization.get_upper("pokemon_information","pokemon_attribute_con","CONSTITUTION"))
+	gui.set_text(gui.get_node("change_pokemon/custom_asi/INT1"), localization.get_upper("pokemon_information","pokemon_attribute_int","INTELLIGENCE"))
+	gui.set_text(gui.get_node("change_pokemon/custom_asi/WIS1"), localization.get_upper("pokemon_information","pokemon_attribute_wis","WISDOM"))
+	gui.set_text(gui.get_node("change_pokemon/custom_asi/CHA1"), localization.get_upper("pokemon_information","pokemon_attribute_cha","CHARISMA"))
+	gui.set_text(gui.get_node("change_pokemon/custom_asi/title_ability"), localization.get("change_pokemon_screen","txt_title_custom_asi","Ability Modifers"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("change_pokemon/custom_asi/title_ability"))
+	gui.set_text(gui.get_node("change_pokemon/txt_skills"), localization.get_upper("change_pokemon_screen","txt_skills","Skills"))
+end
+
 function M.init(self, pokemon)
 	msg.post(url.MENU, messages.HIDE)
-
+	localize_text()
+	
 	self.list_items = {}
 	self.feats_data = {}
 	self.skills_data = {}
@@ -531,7 +571,7 @@ function M.on_message(self, message_id, message, sender)
 	if message.item then
 		if message_id == messages.NATURE then
 			_pokemon.set_nature(self.pokemon, message.item)
-			gui.set_text(gui.get_node("change_pokemon/txt_nature"), message.item)
+			gui.set_text(gui.get_node("change_pokemon/txt_nature"), localization.get("natures", message.item, message.item))
 			gui.set_color(gui.get_node("change_pokemon/txt_nature"), gui_colors.HERO_TEXT)
 			M.update_hp_counter(self)
 		elseif message_id == messages.SPECIES then
@@ -549,7 +589,7 @@ function M.on_message(self, message_id, message, sender)
 					self.choosing_variant_for_new_species = true
 					flow.start(function()
 						flow.until_true(function() return not monarch.is_busy() end)
-						monarch.show(screens.SCROLLIST, {}, {items=variants, message_id=messages.VARIANT, sender=msg.url(), title="Choose Variant"})
+						monarch.show(screens.SCROLLIST, {}, {items=variants, message_id=messages.VARIANT, sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_variant_title", "Choose Variant")})
 					end)
 				else
 					-- Variant is the default
@@ -577,7 +617,7 @@ function M.on_message(self, message_id, message, sender)
 			_pokemon.add_skill(self.pokemon, message.item)
 		elseif message_id == messages.ITEM then
 			_pokemon.set_held_item(self.pokemon, message.item)
-			gui.set_text(gui.get_node("change_pokemon/txt_item"), message.item:upper())
+			gui.set_text(gui.get_node("change_pokemon/txt_item"), localization.get_upper("items", message.item, message.item))
 		elseif message_id == messages.MOVE then
 			if message.item ~= "" then
 				local n = move_buttons_list[self.move_button_index].text
@@ -649,7 +689,7 @@ local function add_skill(self)
 			table.insert(filtered, a_skill)
 		end
 	end
-	monarch.show(screens.SCROLLIST, {}, {items=filtered, message_id=messages.SKILLS, sender=msg.url(), title="Pick Skill"})
+	monarch.show(screens.SCROLLIST, {}, {items=filtered, message_id=messages.SKILLS, sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_skill_title", "Pick Skill")})
 end
 
 local function delete_skill(self, skill)
@@ -658,11 +698,12 @@ local function delete_skill(self, skill)
 end
 
 local function add_feat(self)
-	monarch.show(screens.SCROLLIST, {}, {items=_feats.list, message_id=messages.FEATS, sender=msg.url(), title="Pick Feat"})
+	monarch.show(screens.SCROLLIST, {}, {items=_feats.list, message_id=messages.FEATS, sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_feat_title", "Pick Feat")})
 end
 
 local function delete_ability(self, ability)
-	_pokemon.remove_ability(self.pokemon, ability)
+	local ability_name = _pokemon.get_abilities(self.pokemon)[ability]
+	_pokemon.remove_ability(self.pokemon, ability_name)
 	redraw(self)
 end
 
@@ -685,7 +726,7 @@ local function ability_buttons(self, action_id, action)
 		if data.name == "Add Other" then
 			gooey.button(data.button, action_id, action, function(c) add_ability(self) end)
 		else
-			gooey.button(data.delete, action_id, action, function(c) delete_ability(self, data.name) end, gooey_buttons.cross_button)
+			gooey.button(data.delete, action_id, action, function(c) delete_ability(self, data.position) end, gooey_buttons.cross_button)
 		end
 	end
 end
@@ -815,7 +856,7 @@ function M.on_input(self, action_id, action)
 	end)
 	gooey.button("change_pokemon/hp/btn_minus", action_id, action, function()
 		if _pokemon.have_ability(self.pokemon, "Paper Thin") then
-			monarch.show(screens.INFO, nil, {text="Ability: Paper Thin\nThis Pokemon's max HP is always 1"})
+			monarch.show(screens.INFO, nil, {text=localization.get("change_pokemon_screen", "paper_thin_notif", "Ability: Paper Thin\nThis Pokemon's max HP is always 1")})
 			return
 		end
 		if _pokemon.get_max_hp_forced(self.pokemon) == true then
@@ -823,13 +864,13 @@ function M.on_input(self, action_id, action)
 			_pokemon.set_max_hp(self.pokemon, _pokemon.get_max_hp(self.pokemon) - 1)
 			M.update_hp_counter(self)
 		else
-			monarch.show(screens.ARE_YOU_SURE, nil, {title="Are you sure?", text="You will have to track it manually henceforth", sender=msg.url(), data=-1, id=messages.CHANGE_HP})
+			monarch.show(screens.ARE_YOU_SURE, nil, {sender=msg.url(), data=-1, id=messages.CHANGE_HP, message=messages.CHANGE_HP})
 		end
 	end, gooey_buttons.minus_button)
 
 	gooey.button("change_pokemon/hp/btn_plus", action_id, action, function()
 		if _pokemon.have_ability(self.pokemon, "Paper Thin") then
-			monarch.show(screens.INFO, nil, {text="Ability: Paper Thin\nThis Pokemon's max HP is always 1"})
+			monarch.show(screens.INFO, nil, {text=localization.get("change_pokemon_screen", "paper_thin_notif", "Ability: Paper Thin\nThis Pokemon's max HP is always 1")})
 			return
 		end
 		if _pokemon.get_max_hp_forced(self.pokemon) then
@@ -837,7 +878,7 @@ function M.on_input(self, action_id, action)
 			_pokemon.set_max_hp(self.pokemon, _pokemon.get_max_hp(self.pokemon) + 1)
 			M.update_hp_counter(self)
 		else
-			monarch.show(screens.ARE_YOU_SURE, nil, {title="Are you sure?", text="You will have to track it manually henceforth", sender=msg.url(), data=1, id=messages.CHANGE_HP})
+			monarch.show(screens.ARE_YOU_SURE, nil, {sender=msg.url(), data=1, id=messages.CHANGE_HP, message=messages.CHANGE_HP})
 		end
 	end, gooey_buttons.plus_button)
 
@@ -960,16 +1001,16 @@ function M.on_input(self, action_id, action)
 	if M.config[hash("change_pokemon/variant")].active then
 		gooey.button("change_pokemon/btn_variant", action_id, action, function()
 			local variants = pokedex.get_variants(_pokemon.get_current_species(self.pokemon))
-			monarch.show(screens.SCROLLIST, {}, {items=variants, message_id=messages.VARIANT, sender=msg.url(), title="Choose Variant"})
+			monarch.show(screens.SCROLLIST, {}, {items=variants, message_id=messages.VARIANT, sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_variant_title", "Choose Variant")})
 		end)
 	end
 	if M.config[hash("change_pokemon/held_item")].active then
 		gooey.button("change_pokemon/btn_item", action_id, action, function()
-			monarch.show(screens.SCROLLIST, {}, {items=items.all, message_id=messages.ITEM, sender=msg.url(), title="Pick your Item"})
+			monarch.show(screens.SCROLLIST, {}, {items=items.all, message_id=messages.ITEM, sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_item_title", "Pick your Item")})
 		end)
 		gooey.button("change_pokemon/btn_delete_item", action_id, action, function()
 			_pokemon.set_held_item(self.pokemon, nil)
-			gui.set_text(gui.get_node("change_pokemon/txt_item"), "NO ITEM")
+			gui.set_text(gui.get_node("change_pokemon/txt_item"), localization.get("pokemon_information", "txt_no_item", "NO ITEM"))
 		end)
 
 	end

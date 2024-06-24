@@ -1,0 +1,18 @@
+{
+	"btn_create": {
+		"en_us": "CREATE",
+		"es_419": "CREAR"
+	},
+	"btn_cancel": {
+		"en_us": "CANCEL",
+		"es_419": "CANCELAR"
+	},
+	"txt_prompt": {
+		"en_us": "First, what is your name?",
+		"es_419": "¿Cuál es tu nombre?"
+	},
+	"enter_name": {
+		"en_us": "ENTER NAME",
+		"es_419": "NUEVO PERFIL"
+	}
+}

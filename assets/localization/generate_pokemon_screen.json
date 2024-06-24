@@ -1,0 +1,234 @@
+{
+	"title": {
+		"en_us": "Pokemon Generator",
+		"es_419": "Generador Pokémon"
+	},
+	"filter_title": {
+		"en_us": "FILTER ATTRIBUTES",
+		"es_419": "FILTROS"
+	},
+	"txt_reset_filters": {
+		"en_us": "RESET FILTERS",
+		"es_419": "RESTABLECER FILTROS"
+	},
+	"desc_generation": {
+		"en_us": "GENERATION:",
+		"es_419": "GENERACIÓN:"
+	},
+	"desc_sr": {
+		"en_us": "SR RANGE:",
+		"es_419": "RANGO CE:"
+	},
+	"desc_habitat": {
+		"en_us": "HABITAT:",
+		"es_419": "HÁBITAT:"
+	},
+	"desc_trainer": {
+		"en_us": "TRAINER TYPE:",
+		"es_419": "ENTRENADOR:"
+	},
+	"desc_type": {
+		"en_us": "POKEMON TYPE:",
+		"es_419": "TIPO:"
+	},
+	"desc_level": {
+		"en_us": "POKEMON LV.",
+		"es_419": "HASTA NIVEL:"
+	},
+	"txt_add_to_team": {
+		"en_us": "ADD TO PC",
+		"es_419": "AGREGAR AL EQUIPO"
+	},
+	"txt_random": {
+		"en_us": "RANDOM",
+		"es_419": "ALEATORIO"
+	},
+	"optional_text": {
+		"en_us": "OPTIONAL",
+		"es_419": "TODOS"
+	},
+	"pokemon_added": {
+		"en_us": "%s was added to your team!",
+		"es_419": "¡%s fue agregado a tu equipo!"
+	},
+	"title_random_pokemon": {
+		"en_us": "Random Pokémon",
+		"es_419": "Pokémon Aleatorio"
+	},
+	"txt_re_roll": {
+		"en_us": "RE-ROLL",
+		"es_419": "ALEATORIO"
+	},
+	"habitat_arctic": {
+		"en_us": "Arctic",
+		"es_419": "Ártico"
+	},
+	"habitat_cave": {
+		"en_us": "Cave",
+		"es_419": "Cueva"
+	},
+	"habitat_forest": {
+		"en_us": "Forest",
+		"es_419": "Bosque"
+	},
+	"habitat_grass": {
+		"en_us": "Grass",
+		"es_419": "Hierba"
+	},
+	"habitat_mountain": {
+		"en_us": "Mountain",
+		"es_419": "Montaña"
+	},
+	"habitat_rugged": {
+		"en_us": "Rugged",
+		"es_419": "Accidentado"
+	},
+	"habitat_sea": {
+		"en_us": "Sea",
+		"es_419": "Mar"
+	},
+	"habitat_urban": {
+		"en_us": "Urban",
+		"es_419": "Urbano"
+	},
+	"habitat_water's edge": {
+		"en_us": "Water's Edge",
+		"es_419": "Orilla del Agua"
+	},
+	"trainer_ace trainer": {
+		"en_us": "Ace Trainer",
+		"es_419": "Entrenador Guay"
+	},
+	"trainer_aroma lady": {
+		"en_us": "Aroma Lady",
+		"es_419": "Señorita Aroma"
+	},
+	"trainer_backpacker": {
+		"en_us": "Backpacker",
+		"es_419": "Mochilero"
+	},
+	"trainer_beauty": {
+		"en_us": "Beauty",
+		"es_419": "Bella"
+	},
+	"trainer_bird keeper": {
+		"en_us": "Bird Keeper",
+		"es_419": "Ornitólogo"
+	},
+	"trainer_blackbelt": {
+		"en_us": "Blackbelt",
+		"es_419": "Karateka"
+	},
+	"trainer_bug catcher": {
+		"en_us": "Bug Catcher",
+		"es_419": "Cazabichos"
+	},
+	"trainer_burglar": {
+		"en_us": "Burglar",
+		"es_419": "Ladrón"
+	},
+	"trainer_channeler": {
+		"en_us": "Channeler",
+		"es_419": "Exorcista"
+	},
+	"trainer_delinquent": {
+		"en_us": "Delinquent",
+		"es_419": "Macarra ♀"
+	},
+	"trainer_engineer": {
+		"en_us": "Engineer",
+		"es_419": "Mecánico"
+	},
+	"trainer_firebreather": {
+		"en_us": "Firebreather",
+		"es_419": "Comefuego"
+	},
+	"trainer_fisherman": {
+		"en_us": "Fisherman",
+		"es_419": "Pescador"
+	},
+	"trainer_gamer": {
+		"en_us": "Gamer",
+		"es_419": "Jugón"
+	},
+	"trainer_gentleman": {
+		"en_us": "Gentleman",
+		"es_419": "Caballero"
+	},
+	"trainer_hex maniac": {
+		"en_us": "Hex Maniac",
+		"es_419": "Bruja"
+	},
+	"trainer_hiker": {
+		"en_us": "Hiker",
+		"es_419": "Montañero"
+	},
+	"trainer_janitor": {
+		"en_us": "Janitor",
+		"es_419": "Limpiador"
+	},
+	"trainer_juggler": {
+		"en_us": "Juggler",
+		"es_419": "Malabarista"
+	},
+	"trainer_poké fan": {
+		"en_us": "Poké Fan",
+		"es_419": "PokéFan"
+	},
+	"trainer_pokémon breeder": {
+		"en_us": "Pokémon Breeder",
+		"es_419": "Criapokémon"
+	},
+	"trainer_psychic": {
+		"en_us": "Psychic",
+		"es_419": "Médium"
+	},
+	"trainer_rocker": {
+		"en_us": "Rocker",
+		"es_419": "Rockero"
+	},
+	"trainer_roughneck": {
+		"en_us": "Roughneck",
+		"es_419": "Calvo"
+	},
+	"trainer_ruin maniac": {
+		"en_us": "Ruin Maniac",
+		"es_419": "Ruinamaníaco"
+	},
+	"trainer_sailor": {
+		"en_us": "Sailor",
+		"es_419": "Marinero"
+	},
+	"trainer_scientist": {
+		"en_us": "Scientist",
+		"es_419": "Científico"
+	},
+	"trainer_street thug": {
+		"en_us": "Street Thug",
+		"es_419": "Macarra ♂"
+	},
+	"trainer_super nerd": {
+		"en_us": "Super Nerd",
+		"es_419": "Súper Necio"
+	},
+	"trainer_swimmer": {
+		"en_us": "Swimmer",
+		"es_419": "Nadador"
+	},
+	"trainer_tamer": {
+		"en_us": "Tamer",
+		"es_419": "Domador"
+	},
+	"trainer_team skull grunt": {
+		"en_us": "Team Skull Grunt",
+		"es_419": "Recluta del Equipo Skull"
+	},
+	"trainer_veteran": {
+		"en_us": "Veteran",
+		"es_419": "Veterano"
+	},
+	"trainer_youngster": {
+		"en_us": "Youngster",
+		"es_419": "Joven"
+	}
+}

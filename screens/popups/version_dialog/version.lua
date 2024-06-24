@@ -3,7 +3,7 @@ local log = require "utils.log"
 
 local M = {}
 
-local version_url = "https://raw.githubusercontent.com/Jerakin/Pokedex5E/master/assets/datafiles/releases.json"
+local version_url = "https://raw.githubusercontent.com/maximilianolgs/Pokedex5E/master/assets/datafiles/releases.json"
 
 M.BUSY = false
 

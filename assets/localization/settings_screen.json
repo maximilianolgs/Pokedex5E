@@ -1,0 +1,30 @@
+{
+	"title": {
+		"en_us": "Settings",
+		"es_419": "Configuración"
+	},
+	"desc_fakemon": {
+		"en_us": "Add a package of Fakemon to your app.",
+		"es_419": "Agregar un paquete de Fakemon a la app."
+	},
+	"txt_remove": {
+		"en_us": "REMOVE",
+		"es_419": "QUITAR"
+	},
+	"txt_paste": {
+		"en_us": "PICK",
+		"es_419": "ELEGIR"
+	},
+	"strict_gender": {
+		"en_us": "Use Strict Gender",
+		"es_419": "Géneros Estrictos"
+	},
+	"strict_gender_info": {
+		"en_us": "Enforces genders during evolution as well as restrict some genders that a few Pokémon Species can be.",
+		"es_419": "Mantiene el género del Pokémon durante las evoluciones y restringe los géneros que pueden tener algunas especies de Pokémon."
+	},
+	"language": {
+		"en_us": "Language",
+		"es_419": "Idioma"
+	}
+}

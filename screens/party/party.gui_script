@@ -8,6 +8,8 @@ local monarch = require "monarch.monarch"
 local screeninfo = require "utils.screeninfo"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
+local gui_utils = require "utils.gui"
 
 function init(self)
 	msg.post(".", messages.ACQUIRE_INPUT_FOCUS)
@@ -15,6 +17,78 @@ function init(self)
 	url.PARTY = msg.url()
 	local index = storage.list_of_ids_in_party()[party.get_active_index()] == nil and 1 or party.get_active_index()
 
+	gui.set_text(gui.get_node("edit_text"), localization.get("party_screen", "edit_text", "EDIT"))
+	gui.set_text(gui.get_node("top_divider/title"), localization.get("party_screen", "title", "Party"))
+	gui.set_text(gui.get_node("pokemon/title_loyalty"), localization.get("party_screen", "title_loyalty", "LOYALTY:"))
+	gui.set_text(gui.get_node("pokemon/txt_str"), localization.get("pokemon_information", "pokemon_str", "STR"))
+	gui.set_text(gui.get_node("pokemon/txt_dex"), localization.get("pokemon_information", "pokemon_dex", "DEX"))
+	gui.set_text(gui.get_node("pokemon/txt_con"), localization.get("pokemon_information", "pokemon_con", "CON"))
+	gui.set_text(gui.get_node("pokemon/txt_int"), localization.get("pokemon_information", "pokemon_int", "INT"))
+	gui.set_text(gui.get_node("pokemon/txt_wis"), localization.get("pokemon_information", "pokemon_wis", "WIS"))
+	gui.set_text(gui.get_node("pokemon/txt_cha"), localization.get("pokemon_information", "pokemon_cha", "CHA"))
+	gui.set_text(gui.get_node("pokemon/title_saving_throws"), localization.get("party_screen", "pokemon_saving_throws", "SAVING THROWS"))
+	gui.set_text(gui.get_node("pokemon/txt_no_status"), localization.get("party_screen", "txt_no_status", "+ ADD STATUS EFFECTS"))
+	gui.set_text(gui.get_node("pokemon/txt_burning"), localization.get("pokemon_information", "pokemon_burned", "BRN"))
+	gui.set_text(gui.get_node("pokemon/txt_poisoned"), localization.get("pokemon_information", "pokemon_poisoned", "PSN"))
+	gui.set_text(gui.get_node("pokemon/txt_frozen"), localization.get("pokemon_information", "pokemon_frozen", "FRZ"))
+	gui.set_text(gui.get_node("pokemon/txt_paralyzed"), localization.get("pokemon_information", "pokemon_paralyzed", "PAR"))
+	gui.set_text(gui.get_node("pokemon/txt_asleep"), localization.get("pokemon_information", "pokemon_asleep", "SLP"))
+	gui.set_text(gui.get_node("pokemon/txt_confused"), localization.get("pokemon_information", "pokemon_confused", "CNF"))
+	
+	gui.set_text(gui.get_node("pokemon/text1"), localization.get("party_screen", "pokemon_moves_tab", "MOVES"))
+	gui.set_text(gui.get_node("pokemon/text2"), localization.get("party_screen", "pokemon_features_tab", "FEATURES"))
+	gui.set_text(gui.get_node("pokemon/text3"), localization.get("party_screen", "pokemon_traits_tab", "TRAITS"))
+	gui_utils.scale_group_text_to_fit_size(gui.get_node("pokemon/text1"), gui.get_node("pokemon/text2"), gui.get_node("pokemon/text3"))
+	
+	gui.set_text(gui.get_node("pokemon/traits/title_stab"), localization.get("party_screen", "pokemon_traits_stab", "STAB:"))
+	gui.set_text(gui.get_node("pokemon/traits/title_prof"), localization.get("party_screen", "pokemon_traits_prof", "PROF:"))
+	gui.set_text(gui.get_node("pokemon/traits/title_hitdice"), localization.get("party_screen", "pokemon_traits_hitdice", "HIT DICE:"))
+	gui_utils.scale_text_to_fit_size(gui.get_node("pokemon/traits/title_hitdice"))
+
+	gui.set_text(gui.get_node("pokemon/traits/title_skills"), localization.get_upper("party_screen", "pokemon_skills", "SKILLS"))
+	gui.set_text(gui.get_node("pokemon/traits/title_speeds"), localization.get("party_screen", "pokemon_speeds", "SPEEDS"))
+	gui.set_text(gui.get_node("pokemon/traits/title_senses"), localization.get("party_screen", "pokemon_senses", "SENSES"))
+	gui_utils.scale_group_text_to_fit_size(
+		gui.get_node("pokemon/traits/title_skills"), 
+		gui.get_node("pokemon/traits/title_speeds"), 
+		gui.get_node("pokemon/traits/title_senses"))
+	
+	gui.set_text(gui.get_node("pokemon/traits/title_walking"), localization.get_upper("pokemon_information", "pokemon_speed_walking", "WALKING"))
+	gui.set_text(gui.get_node("pokemon/traits/title_swimming"), localization.get_upper("pokemon_information", "pokemon_speed_swimming", "SWIMMING"))
+	gui.set_text(gui.get_node("pokemon/traits/title_climbing"), localization.get_upper("pokemon_information", "pokemon_speed_climbing", "CLIMBING"))
+	gui.set_text(gui.get_node("pokemon/traits/title_flying"), localization.get_upper("pokemon_information", "pokemon_speed_flying", "FLYING"))
+	gui.set_text(gui.get_node("pokemon/traits/title_burrow"), localization.get_upper("pokemon_information", "pokemon_speed_burrow", "BURROWING"))
+	gui_utils.scale_group_text_to_fit_size(
+		gui.get_node("pokemon/traits/title_walking"),
+		gui.get_node("pokemon/traits/title_swimming"),
+		gui.get_node("pokemon/traits/title_climbing"),
+		gui.get_node("pokemon/traits/title_flying"),
+		gui.get_node("pokemon/traits/title_burrow"))
+
+	gui.set_text(gui.get_node("pokemon/traits/title_darkvision"), localization.get_upper("pokemon_information", "pokemon_sense_darkvision", "DARKVISION"))
+	gui.set_text(gui.get_node("pokemon/traits/title_tremorsense"), localization.get_upper("pokemon_information", "pokemon_sense_tremorsense", "TREMORSENSE"))
+	gui.set_text(gui.get_node("pokemon/traits/title_truesight"), localization.get_upper("pokemon_information", "pokemon_sense_truesight", "TRUESIGHT"))
+	gui.set_text(gui.get_node("pokemon/traits/title_blindsight"), localization.get_upper("pokemon_information", "pokemon_sense_blindsight", "BLINDSIGHT"))
+	gui_utils.scale_group_text_to_fit_size(
+		gui.get_node("pokemon/traits/title_darkvision"),
+		gui.get_node("pokemon/traits/title_tremorsense"),
+		gui.get_node("pokemon/traits/title_truesight"),
+		gui.get_node("pokemon/traits/title_blindsight"))
+
+	gui.set_text(gui.get_node("pokemon/traits/vulnerabilities_title"), localization.get_upper("pokemon_information", "pokemon_vulnerabilities", "VULNERABILITIES"))
+	gui.set_text(gui.get_node("pokemon/traits/resistances_title"), localization.get_upper("pokemon_information", "pokemon_resistances", "RESISTANCES"))
+	gui.set_text(gui.get_node("pokemon/traits/immunities_title"), localization.get_upper("pokemon_information", "pokemon_immunities", "IMMUNITIES"))
+	gui_utils.scale_group_text_to_fit_size(
+		gui.get_node("pokemon/traits/vulnerabilities_title"),
+		gui.get_node("pokemon/traits/resistances_title"),
+		gui.get_node("pokemon/traits/immunities_title"))
+
+	gui.set_text(gui.get_node("pokemon/traits/title_sr"), localization.get("party_screen", "pokemon_sr", "SR:"))
+	gui.set_text(gui.get_node("pokemon/traits/title_catch"), localization.get("party_screen", "pokemon_catch_dc", "CATCH DC:"))
+	gui_utils.scale_text_to_fit_size(gui.get_node("pokemon/traits/title_catch"))
+	gui.set_text(gui.get_node("pokemon/traits/title_exp"), localization.get("party_screen", "pokemon_exp_worth", "EXP WORTH:"))
+	gui_utils.scale_text_to_fit_size(gui.get_node("pokemon/traits/title_exp"))
+	
 	inventory.set_active(index, true)
 	party.create(index)
 	party.show(index)

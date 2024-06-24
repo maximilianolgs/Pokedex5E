@@ -1,5 +1,4 @@
 local file = require "utils.file"
-local log = require "utils.log"
 local fakemon = require "fakemon.fakemon"
 
 local M = {}

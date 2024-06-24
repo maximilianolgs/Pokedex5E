@@ -9,6 +9,7 @@ local monarch = require "monarch.monarch"
 local gui_colors = require "utils.gui_colors"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local M = {}
 
@@ -132,8 +133,7 @@ local function show_hp_selector(pkmn)
 		sender=msg.url(),
 		message=messages.UPDATE_HP,
 		allowed_characters="[%d%+%-]",
-		default_text=hp,
-		help_text="Specify new HP (55), subtract (-2), or add (+2)"
+		default_text=hp
 	})
 end
 
@@ -144,8 +144,7 @@ local function show_temp_hp_selector(pkmn)
 		sender=msg.url(),
 		message=messages.UPDATE_TEMP_HP,
 		allowed_characters="[%d]",
-		default_text=temp_hp,
-		help_text="Specify temporary HP.\n\nReminder: Temporary HP does not stack!"
+		default_text=temp_hp
 	})
 end
 
@@ -162,7 +161,7 @@ local function setup_hp(nodes, pkmn)
 	local max = _pokemon.get_total_max_hp(pkmn)
 	local current = _pokemon.get_current_hp(pkmn)
 	local temp_hp = _pokemon.get_temp_hp(pkmn)
-	local hp_text = "HP: " .. current 
+	local hp_text = localization.get("pokemon_information", "pokemon_hp", "HP:") .. " " .. current 
 	if temp_hp > 0 then
 		hp_text = hp_text .. "/" .. max .. " +" .. temp_hp
 	else
@@ -253,7 +252,7 @@ local function setup_exp(nodes, pkmn)
 
 	size.x = math.max(math.min(percent * max_size.x, max_size.x), 0)
 	gui.set_size(node_bar, size)
-	gui.set_text(node_text, "EXP: " .. exp .. "/" .. max)
+	gui.set_text(node_text, localization.get("party_screen","pokemon_exp","EXP:") .. " " .. exp .. "/" .. max)
 end
 
 

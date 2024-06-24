@@ -1,5 +1,6 @@
 local log = require "utils.log"
 local ljson = require "utils.json"
+local settings = require "pokedex.settings"
 
 local M = {}
 
@@ -28,14 +29,11 @@ function M.load_file(filepath)
 	end
 end
 
-------------------------------------------------------------------------------
 function M.load_resource(filename)
-
-	local file = sys.load_resource(filename)
+	file = sys.load_resource(filename)
 	return file
 end
 
-------------------------------------------------------------------------------
 function M.load_json_from_resource(filename)
 	local file = M.load_resource(filename)
 	if file then

@@ -8,6 +8,8 @@ local netcore = require "pokedex.network.netcore"
 local gooey_input_text = require "utils.gooey_input_text"
 local gui_colors = require "utils.gui_colors"
 local messages = require "utils.messages"
+local screens = require "utils.screens"
+local localization = require "utils.localization"
 
 local JOIN_STATE_IDLE = 0
 local JOIN_STATE_REQUESTED = 1
@@ -52,6 +54,12 @@ function init(self)
 	msg.post(url.MENU, messages.HIDE)
 	button.acquire()
 
+	gui.set_text(gui.get_node("template/title"), localization.get("connect_screen", "join_title", "JOIN"))
+	gui.set_text(gui.get_node("txt_join_host"), localization.get("connect_screen", "txt_join_host", "JOIN HOST"))
+	gui.set_text(gui.get_node("txt_port_title"), localization.get("connect_screen", "txt_port_title", "PORT:"))
+	gui.set_text(gui.get_node("txt_connecting"), localization.get("connect_screen", "txt_connecting", "Please wait, attempting to connect..."))
+	gui.set_text(gui.get_node("txt_ip_title"), localization.get("connect_screen", "txt_address_title", "ADDRESS:"))
+	
 	set_join_state(self, JOIN_STATE_IDLE)
 	
 	self.has_selected_ip = false
@@ -104,9 +112,9 @@ function on_input(self, action_id, action)
 		self.port_input.on_input(action_id, action)
 
 		gooey.button("btn_info", action_id, action, function()
-			monarch.show("info", nil,
+			monarch.show(screens.INFO, nil,
 			{
-				text="The address and port should be provided by your host. They can be found on your host's \"CONNECT\" screen.",
+				text=localization.get("connect_screen", "join_address_info", "The address and port should be provided by your host. They can be found on your host's \"CONNECT\" screen."),
 			})
 		end, function(b) gooey_buttons.common_button(b, gui.get_node("btn_info")) end)	
 	end

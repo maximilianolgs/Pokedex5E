@@ -1,0 +1,14 @@
+{
+	"title": {
+		"en_us": "Receive",
+		"es_419": "Recibir"
+	},
+	"txt_qr": {
+		"en_us": "READ QR",
+		"es_419": "LEER QR"
+	},
+	"txt_clipboard": {
+		"en_us": "CLIPBOARD",
+		"es_419": "PORTAPAPELES"
+	}
+}

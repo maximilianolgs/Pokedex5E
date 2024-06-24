@@ -8,6 +8,8 @@ local url = require "utils.url"
 local notify = require "utils.notify"
 local gui_utils = require "utils.gui"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
+local entity_localization = require "utils.entity_localization"
 
 local function join_table(title, T, sep)
 	if T then
@@ -22,8 +24,27 @@ local move_data
 function init(self)
 	gui.set_render_order(gro.POPUP)
 	data = monarch.data("move_info")
-	move_data = _pokemon.get_move_data(data.pokemon, data.name)
+	move_data = entity_localization.get_move(data.pokemon, data.name)
+	
+	gui.set_text(gui.get_node("template/title"), localization.get("move_info_popup", "title", "Move Info"))
+	gui_utils.scale_text_to_fit_size_2(gui.get_node("template/title"))
+	
+	gui.set_text(gui.get_node("txt_reset"), localization.get("move_info_popup", "txt_reset_pp", "RESET PP"))
 
+	gui.set_text(gui.get_node("lbl_pp"), localization.get("move_info_popup", "lbl_pp", "PP"))
+	gui.set_text(gui.get_node("lbl_dmg"), localization.get("move_info_popup", "lbl_dmg", "Damage"))
+	gui.set_text(gui.get_node("lbl_range"), localization.get("move_info_popup", "lbl_range", "Range"))
+	gui.set_text(gui.get_node("lbl_time"), localization.get("move_info_popup", "lbl_time", "Casting Time"))
+	gui.set_text(gui.get_node("lbl_duration"), localization.get("move_info_popup", "lbl_duration", "Duration"))
+	gui.set_text(gui.get_node("lbl_move_power"), localization.get("move_info_popup", "lbl_move_power", "Move Power"))
+	
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("lbl_pp"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("lbl_dmg"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("lbl_range"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("lbl_time"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("lbl_duration"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("lbl_move_power"))
+	
 	local node_name = gui.get_node("txt_name")
 	local node_desc = gui.get_node("txt_desc")
 	local node_time = gui.get_node("txt_time")
@@ -31,18 +52,19 @@ function init(self)
 	local node_range = gui.get_node("txt_range")
 	local node_move_power = gui.get_node("txt_move_power")
 
-	gui.set_text(node_name, data.name)
+	gui.set_text(node_name, move_data.name)
+	gui_utils.scale_text_to_fit_parent_size(node_name)
 	gui.set_text(node_desc, move_data.description)
+	gui_utils.scale_text_with_line_breaks(node_desc)
 	gui.set_text(node_time, move_data.time)
 	gui.set_text(node_duration, move_data.duration)
-	gui.set_text(node_range, move_data.range or "")
+	gui.set_text(node_range, move_data.range.str or "")
 	gui.set_text(node_move_power, join_table("", move_data.power, "/"))
 
-	gui_utils.scale_text_to_fit_size(node_name)
 	gui_utils.scale_text_to_fit_size(node_desc)
 	gui_utils.scale_text_to_fit_size(node_time)
 	gui_utils.scale_text_to_fit_size(node_duration)
-	gui_utils.scale_text_to_fit_size(node_range)
+	gui_utils.scale_text_with_line_breaks(node_range)
 	gui_utils.scale_text_to_fit_size(node_move_power)
 	
 	-- Set type name and image and placements
@@ -51,12 +73,12 @@ function init(self)
 	local p = gui.get_position(type_node)
 	p.x = p.x + gui.get_text_metrics_from_node(type_node).width * 0.5
 	gui.set_position(gui.get_node("icon_type"), p)
-	gui.play_flipbook(gui.get_node("icon_type"), type_data[move_data.type].icon)
+	gui.play_flipbook(gui.get_node("icon_type"), type_data[move_data.orig_data.type].icon)
 
 	local move_pp = _pokemon.get_move_pp(data.pokemon, data.name)
 	local pp_txt
 	if type(move_pp) == "string" then
-		pp_txt = move_pp
+		pp_txt = localization.get("pokemon_information", "move_pp_" .. move_pp, move_pp)
 		gui.set_enabled(gui.get_node("btn_reset"), false)
 	else
 		local max = _pokemon.get_move_pp_max(data.pokemon, data.name)
@@ -73,7 +95,7 @@ function init(self)
 
 	local color = {"lbl_pp", "lbl_dmg", "lbl_time", "lbl_range", "lbl_duration", "background", "lbl_move_power"}
 	for _, node_name in pairs(color)do
-		local color_name = type_data[move_data.type].color
+		local color_name = type_data[move_data.orig_data.type].color
 		local node = gui.get_node(node_name)
 		gui.set_color(node, color_name)
 	end
@@ -92,7 +114,8 @@ local function reset()
 		pp_text = move_data.PP .. "/" .. move_data.PP
 	end	
 	gui.set_text(gui.get_node("txt_pp"), pp_text)
-	notify.notify("PP for " .. data.name .. " has been reset")
+	notify.notify(localization.get("move_info_popup", "notif_reset_pp", "PP for %s has been reset"):format(data.name))
+	gui.set_enabled(gui.get_node("btn_reset"), false)
 	msg.post(url.PARTY, messages.REFRESH_PP)
 end
 

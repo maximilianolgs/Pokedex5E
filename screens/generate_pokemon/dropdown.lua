@@ -2,8 +2,12 @@ local gooey = require "gooey.gooey"
 local gooey_buttons = require "utils.gooey_buttons"
 local gooey_scrolling_list = require "utils.gooey_scrolling_list"
 local messages = require "utils.messages"
+local gui_utils = require "utils.gui"
+local localization = require "utils.localization"
 
 local M = {}
+
+local ITEM_TEXT_SCALE = vmath.vector3(0.8)
 
 local active = {active=false}
 
@@ -37,7 +41,9 @@ end
 
 local function update_item(data, list, item)
 	local item_id = data.item_id
-	gui.set_text(item.nodes[item_id], item.data:upper())
+	gui.set_text(item.nodes[item_id], localization.upper(item.data))
+	gui.set_scale(item.nodes[item_id], ITEM_TEXT_SCALE)
+	gui_utils.scale_text_to_fit_size(item.nodes[item_id])
 end
 
 local function on_item_selected(data, list)
@@ -45,12 +51,14 @@ local function on_item_selected(data, list)
 	local button_txt_id = data.button_txt_id
 	for i, entry in pairs(list.items) do
 		if entry.data and entry.index == list.selected_item then
-			gui.set_text(gui.get_node(button_txt_id), entry.data:upper())
+			gui.set_text(gui.get_node(button_txt_id), localization.upper(entry.data))
+			gui.set_scale(gui.get_node(button_txt_id), ITEM_TEXT_SCALE)
+			gui_utils.scale_text_to_fit_size(gui.get_node(button_txt_id))
 			gui.set_enabled(gui.get_node(scroll_bg_id), false)
 			active[data.name].active = false
 			active[data.name].selected_item = entry.data
 			active.active = false
-			if data.select_func then data.select_func() end
+			if data.select_func then data.select_func(entry.index) end
 		end
 	end
 end

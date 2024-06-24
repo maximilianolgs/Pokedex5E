@@ -11,6 +11,7 @@ local net_ip = require "pokedex.network.net_ip"
 local net_members = require "pokedex.network.net_members"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local JOIN_STATE_IDLE = 0
 local JOIN_STATE_REQUESTED = 1
@@ -57,11 +58,11 @@ local function redraw_status(self)
 
 	local cur_status = netcore.get_current_state()
 	if cur_status == netcore.STATE_SERVING then
-		text = "HOSTING"				
+		text = localization.get("connect_screen", "txt_status_serving", "HOSTING")
 	elseif cur_status == netcore.STATE_CONNECTING then
-		text = "JOINING"
+		text = localization.get("connect_screen", "txt_status_connecting", "JOINING")
 	elseif cur_status == netcore.STATE_CONNECTED then
-		text = "JOINED"
+		text = localization.get("connect_screen", "txt_status_connected", "JOINED")
 	else
 		status_enabled = false
 	end
@@ -83,7 +84,8 @@ local function redraw_connect_nearby_button()
 		local info = netcore.get_nearby_server_info()
 		if info then
 			local name = tostring(info.name or info.ip)
-			gui.set_text(gui.get_node("txt_join_nearby"), "JOIN NEARBY HOST:\n" .. name)
+			join_nearby_text = localization.get("connect_screen", "txt_join_nearby", "JOIN NEARBY HOST:\n%s"):format(name)
+			gui.set_text(gui.get_node("txt_join_nearby"), join_nearby_text)
 			enabled = true
 		end		
 	end
@@ -127,6 +129,20 @@ function init(self)
 	msg.post(url.MENU, messages.SHOW)
 	button.acquire()
 
+	gui.set_text(gui.get_node("template/title"), localization.get("connect_screen", "connect_title", "CONNECT"))
+	gui.set_text(gui.get_node("txt_join"), localization.get("connect_screen", "txt_join", "JOIN"))
+	gui.set_text(gui.get_node("txt_host"), localization.get("connect_screen", "txt_host", "HOST"))
+	gui.set_text(gui.get_node("txt_disconnect"), localization.get("connect_screen", "txt_disconnect", "DISCONNECT"))
+	gui.set_text(gui.get_node("txt_group_members"), localization.get("connect_screen", "txt_group_members", "GROUP MEMBERS:"))
+	gui.set_text(gui.get_node("txt_ip_title"), localization.get("connect_screen", "txt_ip_title", "GLOBAL IP:"))
+	gui.set_text(gui.get_node("txt_port_title"), localization.get("connect_screen", "txt_port_title", "PORT:"))
+	gui.set_text(gui.get_node("txt_local_ip_title"), localization.get("connect_screen", "txt_local_ip_title", "LOCAL IP:"))
+	gui.set_text(gui.get_node("txt_connecting"), localization.get("connect_screen", "txt_connecting", "Please wait, attempting to connect..."))
+	gui.set_text(gui.get_node("txt_help"), localization.get("connect_screen", "txt_help", "From here, you can connect to other Trainers to share Pokemon.\n\n" ..
+	"One Trainer must Host a Group, then others can Join the Group. Once connected in a Group, you can send each other Pokemon via the PC.\n\n" ..
+	"If you are far away from each other, the Host may need to Port Forward. See the Host screen for more info."))
+
+	
 	self.list_group_members = member_list.create("list_group_members", {show_self=true})
 
 	if netcore.get_current_state() == netcore.STATE_SERVING then
@@ -202,9 +218,9 @@ function on_input(self, action_id, action)
 		end, function(b) gooey_buttons.common_button(b, gui.get_node("btn_disconnect")) end)	
 
 		gooey.button("btn_info", action_id, action, function()
-			monarch.show("info", nil,
+			monarch.show(screens.INFO, nil,
 			{
-				text="You will need to provide the IP and Port to anyone wishing to join your group.\n\nThey can input these values on the \"JOIN\" screen.",
+				text=localization.get("connect_screen", "host_address_info", "You will need to provide the IP and Port to anyone wishing to join your group.\n\nThey can input these values on the \"JOIN\" screen."),
 			})
 		end, function(b) gooey_buttons.common_button(b, gui.get_node("btn_info")) end)	
 		

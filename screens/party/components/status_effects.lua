@@ -26,12 +26,12 @@ function M.create(nodes, pokemon, page)
 	gui.set_id(btn_status, "btn_status_hitbox" .. active_page)
 	
 	status_nodes = {
-		[statuses.status.BURNING] = nodes["pokemon/status_burning"],
-		[statuses.status.FROZEN] = nodes["pokemon/status_frozen"],
-		[statuses.status.PARALYZED] = nodes["pokemon/status_paralyzed"],
-		[statuses.status.POISONED] = nodes["pokemon/status_poisoned"],
-		[statuses.status.ASLEEP] = nodes["pokemon/status_asleep"],
-		[statuses.status.CONFUSED] = nodes["pokemon/status_confused"]
+		[statuses.status.BURNING] = nodes["pokemon/txt_burning"],
+		[statuses.status.FROZEN] = nodes["pokemon/txt_frozen"],
+		[statuses.status.PARALYZED] = nodes["pokemon/txt_paralyzed"],
+		[statuses.status.POISONED] = nodes["pokemon/txt_poisoned"],
+		[statuses.status.ASLEEP] = nodes["pokemon/txt_asleep"],
+		[statuses.status.CONFUSED] = nodes["pokemon/txt_confused"]
 	}
 	M.update(nodes, current_pokemon_id)
 end
@@ -40,7 +40,6 @@ function M.update(nodes, pokemon_id)
 	local pkmn = storage.get_pokemon(pokemon_id)
 	local effects = _pokemon.get_status_effects(pkmn)
 	gui.set_enabled(no_status_txt, true)
-	
 	for status, node in pairs(status_nodes) do
 		gui.set_enabled(node, effects[status])
 		if effects[status] == true then

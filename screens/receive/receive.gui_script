@@ -4,14 +4,20 @@ local gooey = require "gooey.gooey"
 local flow = require "utils.flow"
 local version = require "screens.popups.version_dialog.version"
 local gooey_buttons = require "utils.gooey_buttons"
-local log = require "utils.log"
 local messages = require "utils.messages"
 local platform = require "utils.platform"
 local _share = require "pokedex.share"
+local screens = require "utils.screens"
+local localization = require "utils.localization"
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	msg.post(url.MENU, messages.SHOW)
+
+	gui.set_text(gui.get_node("top_divider/title"),localization.get("receive_screen", "title", "Receive"))
+	gui.set_text(gui.get_node("txt_qr"),localization.get("receive_screen", "txt_qr", "READ QR"))
+	gui.set_text(gui.get_node("txt_clipboard"),localization.get("receive_screen", "txt_clipboard", "CLIPBOARD"))
+	
 	if not _share.ENABLED.CLIPBOARD then
 		gui.set_enabled(gui.get_node("btn_clipboard"), false)
 	end
@@ -22,9 +28,9 @@ end
 
 function on_input(self, action_id, action)
 	gooey.button("btn_qr", action_id, action, function()
-		monarch.show("qr_read")
+		monarch.show(screens.QR_READ)
 	end, gooey_buttons.common_button("btn_qr", "txt_qr"))
 	gooey.button("btn_clipboard", action_id, action, function()
-		monarch.show("import")
+		monarch.show(screens.IMPORT)
 	end, gooey_buttons.common_button("btn_clipboard", "txt_clipboard"))
 end

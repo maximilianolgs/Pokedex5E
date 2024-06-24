@@ -1,0 +1,50 @@
+{
+	"txt_party": {
+		"en_us": "PARTY",
+		"es_419": "EQUIPO"
+	},
+	"default_pc_name": {
+		"en_us": "Someone",
+		"es_419": "Alguien"
+	},
+	"txt_storage_format": {
+		"en_us": "%s's PC",
+		"es_419": "La PC de %s"
+	},
+	"txt_add": {
+		"en_us": "ADD POKÉMON",
+		"es_419": "AGREGAR POKÉMON"
+	},
+	"txt_pokedex": {
+		"en_us": "POKÉDEX",
+		"es_419": "POKÉDEX"
+	},
+	"txt_profiles": {
+		"en_us": "PROFILES",
+		"es_419": "PERFILES"
+	},
+	"txt_generate": {
+		"en_us": "GENERATOR",
+		"es_419": "GENERADOR"
+	},
+	"txt_trainer": {
+		"en_us": "TRAINER",
+		"es_419": "ENTRENADOR"
+	},
+	"txt_receive": {
+		"en_us": "RECEIVE",
+		"es_419": "RECIBIR"
+	},
+	"txt_connect": {
+		"en_us": "CONNECT",
+		"es_419": "GRUPO"
+	},
+	"txt_settings": {
+		"en_us": "SETTINGS",
+		"es_419": "CONFIGURACIÓN"
+	},
+	"txt_about": {
+		"en_us": "ABOUT",
+		"es_419": "ACERCA DE"
+	}
+}

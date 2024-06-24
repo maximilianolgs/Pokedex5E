@@ -6,17 +6,20 @@ local gui_colors = require "utils.gui_colors"
 local url = require "utils.url"
 local type_data = require "utils.type_data"
 local platform = require "utils.platform"
+local messages = require "utils.messages"
+local gui_utils = require "utils.gui"
+local localization = require "utils.localization"
 
 local M = {}
 
 local function starts_with(str, start)
-	return str ~= nil and string.lower(str):sub(1, #start) == string.lower(start) or false
+	return str ~= nil and localization.lower(str):sub(1, #start) == start or false
 end
 
 local function filter_type(self, search_string)
 	for i=#self.all_pokemons, 1, -1 do
 		for _, type in pairs(pokedex.get_pokemon_type(self.all_pokemons[i])) do
-			if type:lower() == search_string:lower() then
+			if localization.get_lower("pokemon_information", "pokemon_type_" .. type, type) == search_string then
 				table.insert(self.filtered_list, 1, self.all_pokemons[i])
 			end
 		end
@@ -41,7 +44,7 @@ local function filter_index(self, search_string)
 	end
 end
 
-local written_states = {["seen"] = 1, ["caught"] = 2}
+local written_states = {[localization.get_lower("pokedex_screen", "filter_keyword_seen", "seen")] = 1, [localization.get_lower("pokedex_screen", "filter_keyword_caught", "caught")] = 2}
 
 local function filter_states(self, search_string)
 	for i=#self.all_pokemons, 1, -1 do
@@ -53,29 +56,30 @@ end
 
 function M.filter_list(self, search_string)
 	if #search_string > 0 then
+		local lsearch_string = localization.lower(search_string)
 		local filter = filter_species
-		if tonumber(search_string) ~= nil then
+		if tonumber(lsearch_string) ~= nil then
 			filter = filter_index
 		else
 			for type, _ in pairs(type_data) do
-				if type:lower() == search_string:lower() then
+				if localization.get_lower("pokemon_information", "pokemon_type_" .. type, type) == lsearch_string then
 					filter = filter_type
 					break
 				end
 			end
 			for written, search_state in pairs(written_states) do
-				if written == search_string:lower() then
+				if written == lsearch_string then
 					filter = filter_states
 					break
 				end
 			end
 		end
 		self.filtered_list = {}
-		filter(self, search_string:lower())
+		filter(self, lsearch_string)
 	else
 		self.filtered_list = self.all_pokemons
 	end
-	msg.post(url.POKEDEX, "search")
+	msg.post(url.POKEDEX, messages.SEARCH)
 end
 
 local enabled = vmath.vector3(0)
@@ -94,7 +98,8 @@ end
 
 local function refresh_input(self, input, node_id)
 	if input.empty and not input.selected then
-		gui.set_text(input.node, "search")
+		gui.set_text(input.node, localization.get("pokedex_screen", "search_text", "search"))
+		gui_utils.scale_text_to_fit_size_2(input.node)
 		gui.set_color(input.node, gui_colors.HERO_TEXT_FADED)
 	end
 

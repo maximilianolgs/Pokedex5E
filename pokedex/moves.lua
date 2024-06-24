@@ -3,6 +3,7 @@ local file = require "utils.file"
 local utils = require "utils.utils"
 local log = require "utils.log"
 local fakemon = require "fakemon.fakemon"
+local localization = require "utils.localization"
 
 local M = {}
 
@@ -10,6 +11,7 @@ local index = {}
 local movedata = {}
 local known_to_all_moves = {}
 local move_machines
+local moves_description = {}
 
 local initialized = false
 
@@ -22,6 +24,7 @@ function M.get_move_data(move)
 	else
 		local move_json = file.load_json_from_resource("/p5e-data/data/moves/".. move .. ".json")
 		if move_json ~= nil then
+			move_json.Description = moves_description[move:lower()].description
 			movedata[move] = move_json
 			return movedata[move]
 		else
@@ -100,6 +103,7 @@ function M.init()
 		movedata = {}
 		index = file.load_json_from_resource("/p5e-data/data/move_index.json")
 		move_machines = file.load_json_from_resource("/assets/datafiles/move_machines.json")
+		moves_description = localization.load_localized_json_from_resource("/assets/datafiles/moves_extra.json")
 		movedata["Error"] = file.load_json_from_resource("/assets/datafiles/Error_move.json")
 		if fakemon.DATA and fakemon.DATA["moves.json"] then
 			log.info("Merging Move data")

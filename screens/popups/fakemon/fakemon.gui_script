@@ -9,6 +9,7 @@ local gui_utils = require "utils.gui"
 local fakemon = require "fakemon.fakemon"
 local flow = require "utils.flow"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local selected_item
 
@@ -47,6 +48,10 @@ end
 function init(self)
 	msg.post(url.MENU, messages.HIDE)
 	gui.set_enabled(gui.get_node("cursor"), false)
+
+	gui.set_text(gui.get_node("topbar/title"), localization.get("fakemon_popup", "title", "Fakemon Package Index"))
+	gui.set_text(gui.get_node("search_text"), localization.get("fakemon_popup", "search_text", "SEARCH"))
+	
 	gui_utils.scale_text_to_fit_size(gui.get_node("topbar/title"))
 	
 	self.all_items = {}
@@ -72,11 +77,11 @@ end
 local function filter_list(self, search_string)
 	local function starts_with(index, start)
 		local name = fakemon.INDEX[index].name
-		return string.lower(name):sub(1, #start) == string.lower(start)
+		return localization.lower(name):sub(1, #start) == localization.lower(start)
 	end
 	local function is_in(index, str)
 		local name = fakemon.INDEX[index].name
-		return string.lower(name):find(string.lower(str))
+		return localization.lower(name):find(localization.lower(str))
 	end
 	if #search_string > 0 then
 		self.list_items = {}
@@ -100,7 +105,7 @@ end
 
 local function refresh_input(self, input, node_id)
 	if input.empty and not input.selected then
-		gui.set_text(input.node, "SEARCH")
+		gui.set_text(input.node, localization.get("fakemon_popup", "search_text", "SEARCH"))
 	end
 
 	local cursor = gui.get_node("cursor")

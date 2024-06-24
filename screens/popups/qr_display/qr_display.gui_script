@@ -2,11 +2,16 @@ local monarch = require "monarch.monarch"
 local share = require "pokedex.share"
 local url = require "utils.url"
 local notify = require "utils.notify"
+local localization = require "utils.localization"
 
 function init(self)
 	gui.set_render_order(13)
 	self.qr_node = gui.get_node("qr_code")
 	self.dimmer = gui.get_node("dimmer")
+	
+	gui.set_text(gui.get_node("text"), localization.get("qr_display_popup", "tutorial", "Show this to the person who will import this Pokemon." ..
+		"\n\nThey must visit the \"RECEIVE\" screen, choose \"READ QR\", and point their camera at this image."))
+	
 	local screen_data = monarch.data("qr_display")
 	local qrcode, qrsize = share.generate_qr(screen_data.id)
 
@@ -27,7 +32,7 @@ function init(self)
 			gui.set_texture(self.qr_node, self.qr_texture.name)
 		end
 	else
-		notify.notify("Could not create a QR code, please report this on Discord.")
+		notify.notify(localization.get("qr_display_popup", "error_creating_qr", "Could not create a QR code."))
 		-- Wait 1 frame and then back out of the screen
 		timer.delay(0, false, function() monarch.back() end)
 	end

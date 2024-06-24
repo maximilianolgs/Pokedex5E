@@ -1,0 +1,146 @@
+{
+	"ac up": {
+		"en_us": "AC Up",
+		"es_419": "Aumento de CA"
+	},
+	"able-bodied": {
+		"en_us": "Able-Bodied",
+		"es_419": "Cuerpo Capaz"
+	},
+	"acrobat": {
+		"en_us": "Acrobat",
+		"es_419": "Acróbata"
+	},
+	"actor": {
+		"en_us": "Actor",
+		"es_419": "Actor"
+	},
+	"alert": {
+		"en_us": "Alert",
+		"es_419": "Alerta"
+	},
+	"athlete (dex)": {
+		"en_us": "Athlete (DEX)",
+		"es_419": "Atleta (DES)"
+	},
+	"athlete (str)": {
+		"en_us": "Athlete (STR)",
+		"es_419": "Atleta (FUE)"
+	},
+	"brawny": {
+		"en_us": "Brawny",
+		"es_419": "Musculoso"
+	},
+	"charger": {
+		"en_us": "Charger",
+		"es_419": "Cargador"
+	},
+	"combo master": {
+		"en_us": "Combo Master",
+		"es_419": "Maestro de Combos"
+	},
+	"durable": {
+		"en_us": "Durable",
+		"es_419": "Duradero"
+	},
+	"elemental adept": {
+		"en_us": "Elemental Adept",
+		"es_419": "Experto Elemental"
+	},
+	"extra move": {
+		"en_us": "Extra Move",
+		"es_419": "Movimiento Extra"
+	},
+	"hidden ability": {
+		"en_us": "Hidden Ability",
+		"es_419": "Aptitud Oculta"
+	},
+	"melee master": {
+		"en_us": "Melee Master",
+		"es_419": "Maestro de Cuerpo a Cuerpo"
+	},
+	"mobile": {
+		"en_us": "Mobile",
+		"es_419": "Móvil"
+	},
+	"observant": {
+		"en_us": "Observant",
+		"es_419": "Observador"
+	},
+	"perceptive": {
+		"en_us": "Perceptive",
+		"es_419": "Perspicaz"
+	},
+	"power sculptor": {
+		"en_us": "Power Sculptor",
+		"es_419": "Escultor de Poder"
+	},
+	"quick-fingered": {
+		"en_us": "Quick-Fingered",
+		"es_419": "Dedos Rápidos"
+	},
+	"ranged master": {
+		"en_us": "Ranged Master",
+		"es_419": "Maestro a Distancia"
+	},
+	"resilient (cha)": {
+		"en_us": "Resilient (CHA)",
+		"es_419": "Resistente (CAR)"
+	},
+	"resilient (con)": {
+		"en_us": "Resilient (CON)",
+		"es_419": "Resistente (CON)"
+	},
+	"resilient (dex)": {
+		"en_us": "Resilient (DEX)",
+		"es_419": "Resistente (DES)"
+	},
+	"resilient (int)": {
+		"en_us": "Resilient (INT)",
+		"es_419": "Resistente (INT)"
+	},
+	"resilient (str)": {
+		"en_us": "Resilient (STR)",
+		"es_419": "Resistente (FUE)"
+	},
+	"resilient (wis)": {
+		"en_us": "Resilient (WIS)",
+		"es_419": "Resistente (SAB)"
+	},
+	"savage attacker": {
+		"en_us": "Savage Attacker",
+		"es_419": "Atacante Salvaje"
+	},
+	"sentinel": {
+		"en_us": "Sentinel",
+		"es_419": "Centinela"
+	},
+	"skilled": {
+		"en_us": "Skilled",
+		"es_419": "Hábil"
+	},
+	"skulker": {
+		"en_us": "Skulker",
+		"es_419": "Merodeador"
+	},
+	"stealthy": {
+		"en_us": "Stealthy",
+		"es_419": "Sigiloso"
+	},
+	"terrain adept": {
+		"en_us": "Terrain Adept",
+		"es_419": "Experto en Terreno"
+	},
+	"tireless": {
+		"en_us": "Tireless",
+		"es_419": "Incansable"
+	},
+	"tough": {
+		"en_us": "Tough",
+		"es_419": "Fuerte"
+	},
+	"wrangler": {
+		"en_us": "Wrangler",
+		"es_419": "Domador"
+	}
+}

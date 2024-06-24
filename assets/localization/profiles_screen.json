@@ -1,0 +1,18 @@
+{
+	"title": {
+		"en_us": "Profiles",
+		"es_419": "Perfiles"
+	},
+	"owned_pokemon": {
+		"en_us": "Own",
+		"es_419": "Pokémons"
+	},
+	"new_profile": {
+		"en_us": "NEW PROFILE",
+		"es_419": "CREAR PERFIL"
+	},
+	"search_text": {
+		"en_us": "search",
+		"es_419": "buscar"
+	}
+}

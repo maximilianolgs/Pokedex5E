@@ -1,0 +1,62 @@
+{
+	"title": {
+		"en_us": "Pokemon Details",
+		"es_419": "Detalles del Pokémon"
+	},
+	"release_pokemon": {
+		"en_us": "RELEASE",
+		"es_419": "LIBERAR"
+	},
+	"pokemon_released": {
+		"en_us": "%s WAS RELEASED",
+		"es_419": "%s FUE LIBERADO"
+	},
+	"choose_member_prompt": {
+		"en_us": "Who should receive %s?",
+		"es_419": "¿Quién debería recibir a %s?"
+	},
+	"move_to_pc": {
+		"en_us": "MOVE TO PC",
+		"es_419": "ENVIAR A LA PC"
+	},
+	"move_to_party": {
+		"en_us": "MOVE TO PARTY",
+		"es_419": "AGREGAR AL EQUIPO"
+	},
+	"pick_pokemon_txt": {
+		"en_us": "PICK POKÉMON TO SWAP",
+		"es_419": "INTERCAMBIAR POKÉMON"
+	},
+	"party_full_txt": {
+		"en_us": "PARTY CURRENTLY FULL",
+		"es_419": "EQUIPO COMPLETO"
+	},
+	"tutorial_text": {
+		"en_us": "You can increase your available Pokeslots in the Trainer options.",
+		"es_419": "Podés incrementar las Ranuras Pokémon disponibles en las opciones de Entrenador."
+	},
+	"swap_pokemon": {
+		"en_us": "%s MOVED TO PARTY\n%s MOVED TO PC",
+		"es_419": "%s SE AGREGÓ AL EQUIPO\n%s FUE ENVIADO A LA PC"
+	},
+	"pokemon_sent": {
+		"en_us": "GOODBYE, %s!\nHAVE FUN WITH %s!",
+		"es_419": "¡ADIÓS %s!\nDIVIÉRTETE CON %s"
+	},
+	"moved_to_pc": {
+		"en_us": "%s MOVED TO PC",
+		"es_419": "%s FUE ENVIADO A LA PC"
+	},
+	"moved_to_party": {
+		"en_us": "%s MOVED TO PARTY",
+		"es_419": "%s SE AGREGÓ AL EQUIPO"
+	},
+	"pokemon_copied_notif": {
+		"en_us": "%s copied to clipboard!",
+		"es_419": "¡%s copiado al portapapeles!"
+	},
+	"roll20_sheet_copied_notif": {
+		"en_us": "%s's roll20 sheet copied to clipboard!",
+		"es_419": "¡La hoja de personaje de %s para roll20 se copió al portapapeles!"
+	}
+}

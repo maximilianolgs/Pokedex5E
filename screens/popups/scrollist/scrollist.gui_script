@@ -7,13 +7,22 @@ local gooey = require "gooey.gooey"
 local url = require "utils.url"
 local gui_utils = require "utils.gui"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local selected_item
 local sender
 local message_id
+local category
+local prefix
+local translate
 
 local function update_listitem(list, item)
-	gui.set_text(item.nodes["txt_item"], tostring(item.data or "-"):upper())
+	if item and translate then
+		gui.set_text(item.nodes["txt_item"], localization.get_upper(category, prefix .. item.data, item.data))
+	else
+		gui.set_text(item.nodes["txt_item"], tostring(item.data:upper() or "-"))
+	end
+	gui_utils.scale_text_to_fit_size_2(item.nodes["txt_item"])
 	if item.index == list.selected_item then
 		selected_item = item.data
 	end
@@ -28,31 +37,76 @@ local function on_item_selected(list)
 	end
 end
 
+local function setup(message_id, items)
+	translate = true
+	if messages.ITEM == message_id then
+		category = "items"
+		prefix = ""
+	elseif messages.SKILLS == message_id then
+		category = "pokemon_information"
+		prefix = "pokemon_skill_"
+		--if it comes from party, the format is "skill (modif)"
+		if items[1]:sub(#items[1]) == ")" then
+			--in this case, nothing is returned, we can safely translate here
+			litems = {}
+			for _, full_skill in ipairs(items) do
+				modif = full_skill:match(" %(.*%)$")
+				skill = full_skill:sub(1, #full_skill - #modif)
+				litems[#litems+1] = localization.get_upper(category, prefix .. skill, skill) .. modif
+			end
+			translate = false
+			return litems
+		end
+	elseif messages.FEATS == message_id then
+		category = "feats"
+		prefix = ""
+	elseif messages.VARIANT == message_id then
+		category = "pokemon_variants"
+		prefix = ""
+	else
+		-- pokemon names don't need to be translated
+		translate = false
+	end
+	return items
+end
+
 function init(self)
 	msg.post(url.MENU, messages.HIDE)
 	local d = monarch.data("scrollist")
 	sender = d.sender
 	message_id = d.message_id
+	
+	local d_items = setup(message_id, d.items)
+	
 	gui.set_text(gui.get_node("topbar/title"), d.title)
-	self.all_items = utils.shallow_copy(d.items)
-	self.list_items = utils.shallow_copy(d.items)
+	gui_utils.scale_text_to_fit_size_2(gui.get_node("topbar/title"))
+	gui.set_text(gui.get_node("search_text"), localization.get("scrollist_popup", "search_text", "SEARCH"))
+	self.all_items = utils.shallow_copy(d_items)
+	self.list_items = utils.shallow_copy(d_items)
 	self.scrolling_list = gooey_scrolling_list.create_vertical_dynamic("scrollist", "scroll_area", "btn_item", "scrollbar/handle", "scrollbar/bar", "scrollbar/visual", update_listitem, on_item_selected)
 	self.scrolling_list.refresh(self.list_items)
 	gui.set_enabled(gui.get_node("cursor"), false)
-	--gui_utils.scale_text_to_fit_size(gui.get_node("topbar/title"))
 end
 
 local function filter_list(self, search_string)
 	local function starts_with(str, start)
-		return string.lower(str):sub(1, #start) == string.lower(start)
+		if translate then
+			return localization.get_lower(category, prefix .. str, str):sub(1, #start) == localization.lower(start) or str:lower():sub(1, #start) == localization.lower(start)
+		else
+			return _in:lower():find(localization.lower(str))
+		end
 	end
 	local function is_in(_in, str)
-		return string.lower(_in):find(string.lower(str))
+		if translate then
+			return localization.get_lower(category, prefix .. _in, _in):find(localization.lower(str)) or _in:lower():find(localization.lower(str))
+		else
+			return _in:lower():find(localization.lower(str))
+		end
 	end
 	if #search_string > 0 then
 		self.list_items = {}
 		for i=#self.all_items, 1, -1 do
-			if starts_with(self.all_items[i], search_string) then
+			if is_in(self.all_items[i], search_string) then
 				table.insert(self.list_items, 1, self.all_items[i])
 			end
 		end
@@ -64,7 +118,7 @@ end
 
 local function refresh_input(self, input, node_id)
 	if input.empty and not input.selected then
-		gui.set_text(input.node, "SEARCH")
+		gui.set_text(input.node, localization.get("scrollist_popup", "search_text", "SEARCH"))
 	end
 
 	local cursor = gui.get_node("cursor")
@@ -86,6 +140,8 @@ end
 
 local function close()
 	monarch.show(monarch.top(-1), {clear=true})
+	--we inform the sender, so it can choose to show the menu
+	msg.post(sender, message_id)
 end
 
 function on_input(self, action_id, action)

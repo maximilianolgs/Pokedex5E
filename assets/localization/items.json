@@ -1,0 +1,374 @@
+{
+	"ability capsule": {
+		"en_us": "Ability Capsule",
+		"es_419": "Cápsula Habilidad"
+	},
+	"air balloon": {
+		"en_us": "Air Balloon",
+		"es_419": "Globo Helio"
+	},
+	"arceus plate": {
+		"en_us": "Arceus Plate",
+		"es_419": "Tabla Arceus"
+	},
+	"aspear berry": {
+		"en_us": "Aspear Berry",
+		"es_419": "Baya Perasi"
+	},
+	"assault vest": {
+		"en_us": "Assault Vest",
+		"es_419": "Chaleco Asalto"
+	},
+	"babiri berry": {
+		"en_us": "Babiri Berry",
+		"es_419": "Baya Baribá"
+	},
+	"big root": {
+		"en_us": "Big Root",
+		"es_419": "Raíz Grande"
+	},
+	"black belt": {
+		"en_us": "Black Belt",
+		"es_419": "Cinturón Negro"
+	},
+	"black glasses": {
+		"en_us": "Black Glasses",
+		"es_419": "Gafas de Sol"
+	},
+	"black sludge": {
+		"en_us": "Black Sludge",
+		"es_419": "Lodo Negro"
+	},
+	"charcoal": {
+		"en_us": "Charcoal",
+		"es_419": "Carbón"
+	},
+	"charti berry": {
+		"en_us": "Charti Berry",
+		"es_419": "Baya Alcho"
+	},
+	"cheri berry": {
+		"en_us": "Cheri Berry",
+		"es_419": "Baya Zreza"
+	},
+	"chesto berry": {
+		"en_us": "Chesto Berry",
+		"es_419": "Baya Atania"
+	},
+	"chilan berry": {
+		"en_us": "Chilan Berry",
+		"es_419": "Baya Chilan"
+	},
+	"chople berry": {
+		"en_us": "Chople Berry",
+		"es_419": "Baya Pomaro"
+	},
+	"coba  berry": {
+		"en_us": "Coba Berry",
+		"es_419": "Baya Kouba"
+	},
+	"colbur berry": {
+		"en_us": "Colbur Berry",
+		"es_419": "Baya Dillo"
+	},
+	"dna splicer": {
+		"en_us": "DNA Splicer",
+		"es_419": "Unidor ADN"
+	},
+	"damp rock": {
+		"en_us": "Damp Rock",
+		"es_419": "Roca Lluvia"
+	},
+	"deep sea scale": {
+		"en_us": "Deep Sea Scale",
+		"es_419": "Escama Marina"
+	},
+	"deep sea tooth": {
+		"en_us": "Deep Sea Tooth",
+		"es_419": "Diente Marino"
+	},
+	"dragon fang": {
+		"en_us": "Dragon Fang",
+		"es_419": "Colmillo Dragón"
+	},
+	"eject button": {
+		"en_us": "Eject Button",
+		"es_419": "Botón Escape"
+	},
+	"flame orb": {
+		"en_us": "Flame Orb",
+		"es_419": "Llama Esfera"
+	},
+	"focus band": {
+		"en_us": "Focus Band",
+		"es_419": "Banda Focus"
+	},
+	"genesect drive": {
+		"en_us": "Genesect Drive",
+		"es_419": "ROM Genesect"
+	},
+	"gracidea flower": {
+		"en_us": "Gracidea Flower",
+		"es_419": "Flor Gracídea"
+	},
+	"grepa berry": {
+		"en_us": "Grepa Berry",
+		"es_419": "Baya Uvav"
+	},
+	"griseous orb": {
+		"en_us": "Griseous Orb",
+		"es_419": "Griseosfera"
+	},
+	"haban berry": {
+		"en_us": "Haban Berry",
+		"es_419": "Baya Anjiro"
+	},
+	"hard stone": {
+		"en_us": "Hard Stone",
+		"es_419": "Piedra Dura"
+	},
+	"heat rock": {
+		"en_us": "Heat Rock",
+		"es_419": "Roca Calor"
+	},
+	"hondew berry": {
+		"en_us": "Hondew Berry",
+		"es_419": "Baya Meluce"
+	},
+	"icy rock": {
+		"en_us": "Icy Rock",
+		"es_419": "Roca Helada"
+	},
+	"kasib berry": {
+		"en_us": "Kasib Berry",
+		"es_419": "Baya Drasi"
+	},
+	"kebia berry": {
+		"en_us": "Kebia Berry",
+		"es_419": "Baya Kebia"
+	},
+	"kelpsy berry": {
+		"en_us": "Kelpsy Berry",
+		"es_419": "Baya Algama"
+	},
+	"king's rock": {
+		"en_us": "King's Rock",
+		"es_419": "Roca del Rey"
+	},
+	"leftovers": {
+		"en_us": "Leftovers",
+		"es_419": "Restos"
+	},
+	"leppa berry": {
+		"en_us": "Leppa Berry",
+		"es_419": "Baya Zanama"
+	},
+	"life orb": {
+		"en_us": "Life Orb",
+		"es_419": "Vidasfera"
+	},
+	"light ball": {
+		"en_us": "Light Ball",
+		"es_419": "Bola Luminosa"
+	},
+	"lucky egg": {
+		"en_us": "Lucky Egg",
+		"es_419": "Huevo Suerte"
+	},
+	"lucky punch": {
+		"en_us": "Lucky Punch",
+		"es_419": "Puño Suerte"
+	},
+	"lum berry": {
+		"en_us": "Lum Berry",
+		"es_419": "Baya Ziuela"
+	},
+	"magnet": {
+		"en_us": "Magnet",
+		"es_419": "Imán"
+	},
+	"megalite": {
+		"en_us": "Megalite",
+		"es_419": "Megapiedra"
+	},
+	"metal coat": {
+		"en_us": "Metal Coat",
+		"es_419": "Revestimiento Metálico"
+	},
+	"metal powder": {
+		"en_us": "Metal Powder",
+		"es_419": "Polvo Metálico"
+	},
+	"miracle seed": {
+		"en_us": "Miracle Seed",
+		"es_419": "Semilla Milagro"
+	},
+	"mystic water": {
+		"en_us": "Mystic Water",
+		"es_419": "Agua Mística"
+	},
+	"n-lunarizer": {
+		"en_us": "N-Lunarizer",
+		"es_419": "Lunalizador N"
+	},
+	"n-solarizer": {
+		"en_us": "N-Solarizer",
+		"es_419": "Solarizador N"
+	},
+	"nevermelt ice": {
+		"en_us": "NeverMelt Ice",
+		"es_419": "Antiderretir"
+	},
+	"occa berry": {
+		"en_us": "Occa Berry",
+		"es_419": "Baya Caoca"
+	},
+	"oran berry": {
+		"en_us": "Oran Berry",
+		"es_419": "Baya Aranja"
+	},
+	"passho berry": {
+		"en_us": "Passho Berry",
+		"es_419": "Baya Pasio"
+	},
+	"payapa berry": {
+		"en_us": "Payapa Berry",
+		"es_419": "Baya Payapa"
+	},
+	"pecha berry": {
+		"en_us": "Pecha Berry",
+		"es_419": "Baya Meloc"
+	},
+	"persim berry": {
+		"en_us": "Persim Berry",
+		"es_419": "Baya Caquic"
+	},
+	"poison barb": {
+		"en_us": "Poison Barb",
+		"es_419": "Flecha Venenosa"
+	},
+	"polkadot bow": {
+		"en_us": "Polkadot Bow",
+		"es_419": "Lazo Lunares"
+	},
+	"pomeg berry": {
+		"en_us": "Pomeg Berry",
+		"es_419": "Baya Grana"
+	},
+	"qualot berry": {
+		"en_us": "Qualot Berry",
+		"es_419": "Baya Ispero"
+	},
+	"quick claw": {
+		"en_us": "Quick Claw",
+		"es_419": "Garra Rápida"
+	},
+	"rawst berry": {
+		"en_us": "Rawst Berry",
+		"es_419": "Baya Safre"
+	},
+	"razor claw": {
+		"en_us": "Razor Claw",
+		"es_419": "Garra Afilada"
+	},
+	"razz berry": {
+		"en_us": "Razz Berry",
+		"es_419": "Baya Frambu"
+	},
+	"reveal glass": {
+		"en_us": "Reveal Glass",
+		"es_419": "Cristal Desvelo"
+	},
+	"rindo berry": {
+		"en_us": "Rindo Berry",
+		"es_419": "Baya Tamar"
+	},
+	"roseli berry": {
+		"en_us": "Roseli Berry",
+		"es_419": "Baya Hibis"
+	},
+	"scope lens": {
+		"en_us": "Scope Lens",
+		"es_419": "Periscopio"
+	},
+	"sharp beak": {
+		"en_us": "Sharp Beak",
+		"es_419": "Pico Afilado"
+	},
+	"shell bell": {
+		"en_us": "Shell Bell",
+		"es_419": "Campana Concha"
+	},
+	"shuca berry": {
+		"en_us": "Shuca Berry",
+		"es_419": "Baya Acardo"
+	},
+	"silk scarf": {
+		"en_us": "Silk Scarf",
+		"es_419": "Pañuelo Seda"
+	},
+	"silver powder": {
+		"en_us": "Silver Powder",
+		"es_419": "Polvo Plata"
+	},
+	"sitrus berry": {
+		"en_us": "Sitrus Berry",
+		"es_419": "Baya Zidra"
+	},
+	"smoke ball": {
+		"en_us": "Smoke Ball",
+		"es_419": "Bola Humo"
+	},
+	"smooth rock": {
+		"en_us": "Smooth Rock",
+		"es_419": "Roca Suave"
+	},
+	"soft sand": {
+		"en_us": "Soft Sand",
+		"es_419": "Arena Fina"
+	},
+	"soothe bell": {
+		"en_us": "Soothe Bell",
+		"es_419": "Cascabel Alivio"
+	},
+	"spell tag": {
+		"en_us": "Spell Tag",
+		"es_419": "Hechizo"
+	},
+	"stick": {
+		"en_us": "Stick",
+		"es_419": "Palo"
+	},
+	"tanga berry": {
+		"en_us": "Tanga Berry",
+		"es_419": "Baya Yecana"
+	},
+	"thick club": {
+		"en_us": "Thick Club",
+		"es_419": "Hueso Grueso"
+	},
+	"tomato berry": {
+		"en_us": "Tamato Berry",
+		"es_419": "Baya Tamate"
+	},
+	"toxic orb": {
+		"en_us": "Toxic Orb",
+		"es_419": "Toxisfera"
+	},
+	"twisted spoon": {
+		"en_us": "Twisted Spoon",
+		"es_419": "Cuchara Torcida"
+	},
+	"wacan berry": {
+		"en_us": "Wacan Berry",
+		"es_419": "Baya Gualot"
+	},
+	"wide lens": {
+		"en_us": "Wide Lens",
+		"es_419": "Lupa"
+	},
+	"yache berry": {
+		"en_us": "Yache Berry",
+		"es_419": "Baya Rimoya"
+	}
+}

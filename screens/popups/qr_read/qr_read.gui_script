@@ -5,6 +5,7 @@ local _file = require "utils.file"
 local messages = require "utils.messages"
 local screens = require "utils.screens"
 local _pokemon = require "pokedex.pokemon"
+local localization = require "utils.localization"
 
 local function stop_capture(self)
 	if self.cameraframe == nil then
@@ -18,7 +19,7 @@ end
 
 local function start_capture(self)
 	if not camera then
-		gui.set_text(self.label, "Capture Status: UNAVAILABLE")
+		gui.set_text(self.label, self.capture_status .. localization.get("qr_read_popup", "capture_status_unavailable", "UNAVAILABLE"))
 		return
 	end
 
@@ -41,13 +42,13 @@ local function start_capture(self)
 			local image = buffer.get_bytes(self.cameraframe, "rgb")
 			self.texture = gui.new_texture(self.cameratextureheader.name, self.cameratextureheader.width, self.cameratextureheader.height, self.cameratextureheader.format, image)
 			gui.set_texture(self.view_node , self.cameratextureheader.name)
-			gui.set_text(self.label, "Capture Status: ON")
+			gui.set_text(self.label, self.capture_status .. localization.get("qr_read_popup", "capture_status_on", "ON"))
 		elseif status == camera.CAMERA_STOPPED then
-			gui.set_text(self.label, "Capture Status: OFF")
+			gui.set_text(self.label, self.capture_status .. localization.get("qr_read_popup", "capture_status_off", "OFF"))
 		elseif status == camera.CAMERA_ERROR then
-			gui.set_text(self.label, "Capture Status: ERROR")
+			gui.set_text(self.label, self.capture_status .. localization.get("qr_read_popup", "capture_status_error", "ERROR"))
 		elseif status == camera.CAMERA_NOT_PERMITTED then
-			gui.set_text(self.label, "Capture Status: NO PERMISSION")
+			gui.set_text(self.label, self.capture_status .. localization.get("qr_read_popup", "capture_status_no_permission", "NO PERMISSION"))
 		end
 	end)
 end
@@ -57,8 +58,13 @@ function init(self)
 	msg.post(".", messages.ACQUIRE_INPUT_FOCUS)
 	gui.set_render_order(14)
 	msg.post(url.MENU, messages.HIDE)
+
+	gui.set_text(gui.get_node("text"), localization.get("qr_read_popup", "header_text", "Searching for a QR code"))
+	gui.set_text(gui.get_node("message1"), localization.get("qr_read_popup", "footer_text", "Touch anywhere to dismiss"))
+	
+	self.capture_status = localization.get("qr_read_popup", "capture_status", "Capture Status: ")
 	self.label = gui.get_node("message")
-	gui.set_text(self.label, "Capture Status: NOTHING")
+	gui.set_text(self.label, self.capture_status .. localization.get("qr_read_popup", "capture_status_nothing", "NOTHING"))
 	self.view_node = gui.get_node("camera_view")
 	start_capture(self)
 end

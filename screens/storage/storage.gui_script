@@ -13,6 +13,7 @@ local searchbar = require "screens.storage.searchbar"
 local gui_utils = require "utils.gui"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local function table_of_rows(self)
 	local l = {}
@@ -65,8 +66,7 @@ local function update_item(list, item)
 			if data[i].sprite then 
 				gui.play_flipbook(sprite_node, data[i].sprite)
 			end
-			gui.set_text(text_node, data[i].display .. "\nLv. " .. data[i].level)
-			
+			gui.set_text(text_node, data[i].display .. "\n" .. localization.get("pokemon_information", "pokemon_level", "Lv.") .. data[i].level)
 		else
 			gui.set_enabled(background, false)
 		end
@@ -100,8 +100,15 @@ function init(self)
 	self.filtered_list = storage.list_of_ids_in_pc()
 	update_storage_data(self)
 	gui.set_enabled(gui.get_node("cursor"), false)
-	gui.set_text(gui.get_node("top_divider/title"), profiles.get_active_name() or "Someone" .. "'s PC")
+
+	local name = profiles.get_active_name() or localization.get("storage_screen", "default_pc_name", "Someone")
+	gui.set_text(gui.get_node("top_divider/title"), localization.get("storage_screen", "txt_title_format", "%s's PC"):format(name))
 	gui_utils.scale_text_to_fit_size(gui.get_node("top_divider/title"))
+	gui.set_text(gui.get_node("add_text"), localization.get("storage_screen", "add_text", "ADD"))
+	self.DEFAULT_SEARCH_TEXT = localization.get("storage_screen", "search_text", "search")
+	gui.set_text(self.text_node, self.DEFAULT_SEARCH_TEXT)
+	gui_utils.scale_text_to_fit_size_2(self.text_node)
+	
 	inventory.setup()
 	
 	self.scrolling_list = gooey_scrolling_list.create_vertical_dynamic("storage", "scrollist", "pokemon_row/row", "scrollbar/handle", "scrollbar/bar", "scrollbar/visual", update_item, function(list) on_item_selected(self, list) end)
@@ -135,7 +142,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == messages.PC_UPDATED then
 		local t = gui.get_text(gui.get_node("search_text"))
-		if t ~= "search" then
+		if t ~= self.DEFAULT_SEARCH_TEXT then
 			self.all_pokemons = storage.list_of_ids_in_pc()
 			searchbar.filter_list(self, t)
 		else

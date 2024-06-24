@@ -8,6 +8,7 @@ local member_list = require "screens.network.member_list"
 local net_members = require "pokedex.network.net_members"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local function on_back()
 	monarch.back()
@@ -27,7 +28,9 @@ function init(self)
 	local data = monarch.data(screens.NETWORK_CHOOSE_MEMBER)
 
 	self.fn_member_chosen = data.fn_member_chosen
-
+	
+	gui.set_text(gui.get_node("template/title"), localization.get("connect_screen", "choose_member_title", "CHOOSE MEMBER"))
+	
 	local prompt = data.prompt or ""
 	gui.set_text(gui.get_node("txt_prompt"), prompt)
 

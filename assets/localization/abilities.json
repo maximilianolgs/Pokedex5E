@@ -1,0 +1,962 @@
+{
+  "adaptability": {
+    "en_us": "Adaptability",
+    "es_419": "Adaptabilidad"
+  },
+  "aftermath": {
+    "en_us": "Aftermath",
+    "es_419": "Resquicio"
+  },
+  "air lock": {
+    "en_us": "Air Lock",
+    "es_419": "Bucle Aire"
+  },
+  "air slash": {
+    "en_us": "Air Slash",
+    "es_419": "Corte Aéreo"
+  },
+  "analytic": {
+    "en_us": "Analytic",
+    "es_419": "Analítico"
+  },
+  "anger point": {
+    "en_us": "Anger Point",
+    "es_419": "Punto de Ira"
+  },
+  "anticipation": {
+    "en_us": "Anticipation",
+    "es_419": "Anticipación"
+  },
+  "aqua camoflauge": {
+    "en_us": "Aqua Camoflauge",
+    "es_419": "Camuflaje Acuático"
+  },
+  "arena trap": {
+    "en_us": "Arena Trap",
+    "es_419": "Trampa Arena"
+  },
+  "aroma veil": {
+    "en_us": "Aroma Veil",
+    "es_419": "Velo Aroma"
+  },
+  "aura break": {
+    "en_us": "Aura Break",
+    "es_419": "Rompeaura"
+  },
+  "bad dreams": {
+    "en_us": "Bad Dreams",
+    "es_419": "Malos Sueños"
+  },
+  "battery": {
+    "en_us": "Battery",
+    "es_419": "Batería"
+  },
+  "battle armor": {
+    "en_us": "Battle Armor",
+    "es_419": "Armadura Batalla"
+  },
+  "beast boost": {
+    "en_us": "Beast Boost",
+    "es_419": "Impulso Bestia"
+  },
+  "berserk": {
+    "en_us": "Berserk",
+    "es_419": "Furioso"
+  },
+  "big pecks": {
+    "en_us": "Big Pecks",
+    "es_419": "Sacapecho"
+  },
+  "blaze": {
+    "en_us": "Blaze",
+    "es_419": "Mar de Llamas"
+  },
+  "blizzard": {
+    "en_us": "Blizzard",
+    "es_419": "Ventisca"
+  },
+  "bulletproof": {
+    "en_us": "Bulletproof",
+    "es_419": "A Prueba de Balas"
+  },
+  "burrower": {
+    "en_us": "Burrower",
+    "es_419": "Excavador"
+  },
+  "cacophony": {
+    "en_us": "Cacophony",
+    "es_419": "Cacofonía"
+  },
+  "cheek pouch": {
+    "en_us": "Cheek Pouch",
+    "es_419": "Bolsa Mejilla"
+  },
+  "chlorophyll": {
+    "en_us": "Chlorophyll",
+    "es_419": "Clorofila"
+  },
+  "clear body": {
+    "en_us": "Clear Body",
+    "es_419": "Cuerpo Limpio"
+  },
+  "cloud nine": {
+    "en_us": "Cloud Nine",
+    "es_419": "A Nueve Nubes"
+  },
+  "color change": {
+    "en_us": "Color Change",
+    "es_419": "Cambio Color"
+  },
+  "comatose": {
+    "en_us": "Comatose",
+    "es_419": "Comatoso"
+  },
+  "competitive": {
+    "en_us": "Competitive",
+    "es_419": "Competitivo"
+  },
+  "compound eyes": {
+    "en_us": "Compound Eyes",
+    "es_419": "Ojos Compuestos"
+  },
+  "contrary": {
+    "en_us": "Contrary",
+    "es_419": "Contrario"
+  },
+  "corrosion": {
+    "en_us": "Corrosion",
+    "es_419": "Corrosión"
+  },
+  "cursed body": {
+    "en_us": "Cursed Body",
+    "es_419": "Cuerpo Maldito"
+  },
+  "cute charm": {
+    "en_us": "Cute Charm",
+    "es_419": "Encanto"
+  },
+  "damp": {
+    "en_us": "Damp",
+    "es_419": "Humedad"
+  },
+  "dancer": {
+    "en_us": "Dancer",
+    "es_419": "Bailarín"
+  },
+  "dark aura": {
+    "en_us": "Dark Aura",
+    "es_419": "Aura Oscura"
+  },
+  "dazzling": {
+    "en_us": "Dazzling",
+    "es_419": "Deslumbrante"
+  },
+  "defeatist": {
+    "en_us": "Defeatist",
+    "es_419": "Derrotista"
+  },
+  "defiant": {
+    "en_us": "Defiant",
+    "es_419": "Desafiante"
+  },
+  "disguise": {
+    "en_us": "Disguise",
+    "es_419": "Disfraz"
+  },
+  "download": {
+    "en_us": "Download",
+    "es_419": "Descarga"
+  },
+  "drizzle": {
+    "en_us": "Drizzle",
+    "es_419": "Llovizna"
+  },
+  "drought": {
+    "en_us": "Drought",
+    "es_419": "Sequía"
+  },
+  "dry skin": {
+    "en_us": "Dry Skin",
+    "es_419": "Piel Seca"
+  },
+  "early bird": {
+    "en_us": "Early Bird",
+    "es_419": "Madrugador"
+  },
+  "effect spore": {
+    "en_us": "Effect Spore",
+    "es_419": "Espora Efecto"
+  },
+  "electric surge": {
+    "en_us": "Electric Surge",
+    "es_419": "Oleada Eléctrica"
+  },
+  "emergency exit": {
+    "en_us": "Emergency Exit",
+    "es_419": "Salida de Emergencia"
+  },
+  "fairy aura": {
+    "en_us": "Fairy Aura",
+    "es_419": "Aura Feérica"
+  },
+  "filter": {
+    "en_us": "Filter",
+    "es_419": "Filtro"
+  },
+  "flame body": {
+    "en_us": "Flame Body",
+    "es_419": "Cuerpo Llama"
+  },
+  "flare boost": {
+    "en_us": "Flare Boost",
+    "es_419": "Ímpetu Ardiente"
+  },
+  "flash fire": {
+    "en_us": "Flash Fire",
+    "es_419": "Absorbe Fuego"
+  },
+  "flower gift": {
+    "en_us": "Flower Gift",
+    "es_419": "Don Floral"
+  },
+  "flower veil": {
+    "en_us": "Flower Veil",
+    "es_419": "Velo Flor"
+  },
+  "fluffy": {
+    "en_us": "Fluffy",
+    "es_419": "Pelusa"
+  },
+  "forecast": {
+    "en_us": "Forecast",
+    "es_419": "Predicción"
+  },
+  "forewarn": {
+    "en_us": "Forewarn",
+    "es_419": "Alerta"
+  },
+  "friend guard": {
+    "en_us": "Friend Guard",
+    "es_419": "Guarda Amigo"
+  },
+  "frisk": {
+    "en_us": "Frisk",
+    "es_419": "Cacheo"
+  },
+  "full metal body": {
+    "en_us": "Full Metal Body",
+    "es_419": "Cuerpo Metálico Completo"
+  },
+  "fur coat": {
+    "en_us": "Fur Coat",
+    "es_419": "Pelaje Recio"
+  },
+  "gale wings": {
+    "en_us": "Gale Wings",
+    "es_419": "Alas Vendaval"
+  },
+  "galvanize": {
+    "en_us": "Galvanize",
+    "es_419": "Galvanizar"
+  },
+  "gluttony": {
+    "en_us": "Gluttony",
+    "es_419": "Gula"
+  },
+  "gooey": {
+    "en_us": "Gooey",
+    "es_419": "Baba"
+  },
+  "grass pelt": {
+    "en_us": "Grass Pelt",
+    "es_419": "Pelaje Hierba"
+  },
+  "grassy surge": {
+    "en_us": "Grassy Surge",
+    "es_419": "Campo de Hierba"
+  },
+  "guts": {
+    "en_us": "Guts",
+    "es_419": "Agallas"
+  },
+  "harvest": {
+    "en_us": "Harvest",
+    "es_419": "Cosecha"
+  },
+  "healer": {
+    "en_us": "Healer",
+    "es_419": "Curación"
+  },
+  "healing rain": {
+    "en_us": "Healing Rain",
+    "es_419": "Lluvia Curativa"
+  },
+  "heatproof": {
+    "en_us": "Heatproof",
+    "es_419": "Ignífugo"
+  },
+  "heavy metal": {
+    "en_us": "Heavy Metal",
+    "es_419": "Metal Pesado"
+  },
+  "honey gather": {
+    "en_us": "Honey Gather",
+    "es_419": "Recogemiel"
+  },
+  "huge power": {
+    "en_us": "Huge Power",
+    "es_419": "Potencia"
+  },
+  "hustle": {
+    "en_us": "Hustle",
+    "es_419": "Entusiasmo"
+  },
+  "hydration": {
+    "en_us": "Hydration",
+    "es_419": "Hidratación"
+  },
+  "hydro pump": {
+    "en_us": "Hydro Pump",
+    "es_419": "Bomba de Agua"
+  },
+  "hyper cutter": {
+    "en_us": "Hyper Cutter",
+    "es_419": "Corte Fuerte"
+  },
+  "ice body": {
+    "en_us": "Ice Body",
+    "es_419": "Cuerpo de Hielo"
+  },
+  "illuminate": {
+    "en_us": "Illuminate",
+    "es_419": "Iluminar"
+  },
+  "illusion": {
+    "en_us": "Illusion",
+    "es_419": "Ilusión"
+  },
+  "immunity": {
+    "en_us": "Immunity",
+    "es_419": "Inmunidad"
+  },
+  "imposter": {
+    "en_us": "Imposter",
+    "es_419": "Impostor"
+  },
+  "infiltrator": {
+    "en_us": "Infiltrator",
+    "es_419": "Infiltrado"
+  },
+  "innards out": {
+    "en_us": "Innards Out",
+    "es_419": "Revés"
+  },
+  "inner focus": {
+    "en_us": "Inner Focus",
+    "es_419": "Foco Interno"
+  },
+  "insomnia": {
+    "en_us": "Insomnia",
+    "es_419": "Insomnio"
+  },
+  "intimidate": {
+    "en_us": "Intimidate",
+    "es_419": "Intimidación"
+  },
+  "iron barbs": {
+    "en_us": "Iron Barbs",
+    "es_419": "Púas de Hierro"
+  },
+  "iron fist": {
+    "en_us": "Iron Fist",
+    "es_419": "Puño de Hierro"
+  },
+  "justified": {
+    "en_us": "Justified",
+    "es_419": "Justiciero"
+  },
+  "keen eye": {
+    "en_us": "Keen Eye",
+    "es_419": "Vista Lince"
+  },
+  "klutz": {
+    "en_us": "Klutz",
+    "es_419": "Zoquete"
+  },
+  "leaf guard": {
+    "en_us": "Leaf Guard",
+    "es_419": "Defensa Hoja"
+  },
+  "leaf storm": {
+    "en_us": "Leaf Storm",
+    "es_419": "Tormenta de Hojas"
+  },
+  "levitate": {
+    "en_us": "Levitate",
+    "es_419": "Levitación"
+  },
+  "light metal": {
+    "en_us": "Light Metal",
+    "es_419": "Metal Ligero"
+  },
+  "lightning rod": {
+    "en_us": "Lightning Rod",
+    "es_419": "Pararrayos"
+  },
+  "limber": {
+    "en_us": "Limber",
+    "es_419": "Flexibilidad"
+  },
+  "liquid ooze": {
+    "en_us": "Liquid Ooze",
+    "es_419": "Lodo Líquido"
+  },
+  "liquid voice": {
+    "en_us": "Liquid Voice",
+    "es_419": "Voz Fluida"
+  },
+  "long reach": {
+    "en_us": "Long Reach",
+    "es_419": "Largo Alcance"
+  },
+  "magic bounce": {
+    "en_us": "Magic Bounce",
+    "es_419": "Espejomágico"
+  },
+  "magic guard": {
+    "en_us": "Magic Guard",
+    "es_419": "Guardia Mágica"
+  },
+  "magician": {
+    "en_us": "Magician",
+    "es_419": "Mago"
+  },
+  "magma armor": {
+    "en_us": "Magma Armor",
+    "es_419": "Escudo Magma"
+  },
+  "magnet pull": {
+    "en_us": "Magnet Pull",
+    "es_419": "Imán"
+  },
+  "marvel scale": {
+    "en_us": "Marvel Scale",
+    "es_419": "Escama Maravilla"
+  },
+  "mega launcher": {
+    "en_us": "Mega Launcher",
+    "es_419": "Megadisparador"
+  },
+  "merciless": {
+    "en_us": "Merciless",
+    "es_419": "Sin Piedad"
+  },
+  "minus": {
+    "en_us": "Minus",
+    "es_419": "Menos"
+  },
+  "misty surge": {
+    "en_us": "Misty Surge",
+    "es_419": "Campo de Niebla"
+  },
+  "mold breaker": {
+    "en_us": "Mold Breaker",
+    "es_419": "Rompemoldes"
+  },
+  "moody": {
+    "en_us": "Moody",
+    "es_419": "Veleta"
+  },
+  "motor drive": {
+    "en_us": "Motor Drive",
+    "es_419": "Electromotor"
+  },
+  "moxie": {
+    "en_us": "Moxie",
+    "es_419": "Autoestima"
+  },
+  "multiscale": {
+    "en_us": "Multiscale",
+    "es_419": "Multiescamas"
+  },
+  "multitype": {
+    "en_us": "Multitype",
+    "es_419": "Multitipo"
+  },
+  "mummy": {
+    "en_us": "Mummy",
+    "es_419": "Momia"
+  },
+  "natural cure": {
+    "en_us": "Natural Cure",
+    "es_419": "Cura Natural"
+  },
+  "neuroforce": {
+    "en_us": "Neuroforce",
+    "es_419": "Fuerza Cerebral"
+  },
+  "no guard": {
+    "en_us": "No Guard",
+    "es_419": "Indefenso"
+  },
+  "normalize": {
+    "en_us": "Normalize",
+    "es_419": "Normalización"
+  },
+  "oblivious": {
+    "en_us": "Oblivious",
+    "es_419": "Despiste"
+  },
+  "overcoat": {
+    "en_us": "Overcoat",
+    "es_419": "Funda"
+  },
+  "overgrow": {
+    "en_us": "Overgrow",
+    "es_419": "Espesura"
+  },
+  "overheat": {
+    "en_us": "Overheat",
+    "es_419": "Sobrecalentamiento"
+  },
+  "own tempo": {
+    "en_us": "Own Tempo",
+    "es_419": "Propio Ritmo"
+  },
+  "paper thin": {
+    "en_us": "Paper Thin",
+    "es_419": "Fino como Papel"
+  },
+  "pickpocket": {
+    "en_us": "Pickpocket",
+    "es_419": "Hurto"
+  },
+  "pickup": {
+    "en_us": "Pickup",
+    "es_419": "Recogida"
+  },
+  "pixilate": {
+    "en_us": "Pixilate",
+    "es_419": "Piel Feérica"
+  },
+  "plus": {
+    "en_us": "Plus",
+    "es_419": "Más"
+  },
+  "poison heal": {
+    "en_us": "Poison Heal",
+    "es_419": "Antídoto"
+  },
+  "poison point": {
+    "en_us": "Poison Point",
+    "es_419": "Punto Tóxico"
+  },
+  "poison touch": {
+    "en_us": "Poison Touch",
+    "es_419": "Toque Tóxico"
+  },
+  "power construct": {
+    "en_us": "Power Construct",
+    "es_419": "Construcción Poderosa"
+  },
+  "power of alchemy": {
+    "en_us": "Power of Alchemy",
+    "es_419": "Poder de Alquimia"
+  },
+  "prankster": {
+    "en_us": "Prankster",
+    "es_419": "Bromista"
+  },
+  "pressure": {
+    "en_us": "Pressure",
+    "es_419": "Presión"
+  },
+  "prism armor": {
+    "en_us": "Prism Armor",
+    "es_419": "Armadura Prisma"
+  },
+  "protean": {
+    "en_us": "Protean",
+    "es_419": "Mutatipo"
+  },
+  "psychic surge": {
+    "en_us": "Psychic Surge",
+    "es_419": "Oleada Psíquica"
+  },
+  "pure power": {
+    "en_us": "Pure Power",
+    "es_419": "Energía Pura"
+  },
+  "queenly majesty": {
+    "en_us": "Queenly Majesty",
+    "es_419": "Regia Presencia"
+  },
+  "quick feet": {
+    "en_us": "Quick Feet",
+    "es_419": "Pies Rápidos"
+  },
+  "rks system": {
+    "en_us": "RKS System",
+    "es_419": "Sistema RKS"
+  },
+  "rain dish": {
+    "en_us": "Rain Dish",
+    "es_419": "Cura Lluvia"
+  },
+  "rattled": {
+    "en_us": "Rattled",
+    "es_419": "Cobardía"
+  },
+  "receiver": {
+    "en_us": "Receiver",
+    "es_419": "Receptor"
+  },
+  "reckless": {
+    "en_us": "Reckless",
+    "es_419": "Audaz"
+  },
+  "refrigerate": {
+    "en_us": "Refrigerate",
+    "es_419": "Refrigeración"
+  },
+  "regenerator": {
+    "en_us": "Regenerator",
+    "es_419": "Regeneración"
+  },
+  "rivalry": {
+    "en_us": "Rivalry",
+    "es_419": "Rivalidad"
+  },
+  "rock head": {
+    "en_us": "Rock Head",
+    "es_419": "Cabeza Roca"
+  },
+  "rough skin": {
+    "en_us": "Rough Skin",
+    "es_419": "Piel Tosca"
+  },
+  "run away": {
+    "en_us": "Run Away",
+    "es_419": "Fuga"
+  },
+  "sand force": {
+    "en_us": "Sand Force",
+    "es_419": "Poder Arena"
+  },
+  "sand rush": {
+    "en_us": "Sand Rush",
+    "es_419": "Ímpetu Arena"
+  },
+  "sand stream": {
+    "en_us": "Sand Stream",
+    "es_419": "Chorro de Arena"
+  },
+  "sand veil": {
+    "en_us": "Sand Veil",
+    "es_419": "Velo Arena"
+  },
+  "sap sipper": {
+    "en_us": "Sap Sipper",
+    "es_419": "Herbívoro"
+  },
+  "schooling": {
+    "en_us": "Schooling",
+    "es_419": "Banco"
+  },
+  "scrappy": {
+    "en_us": "Scrappy",
+    "es_419": "Intrépido"
+  },
+  "serene grace": {
+    "en_us": "Serene Grace",
+    "es_419": "Dicha Serena"
+  },
+  "shadow shield": {
+    "en_us": "Shadow Shield",
+    "es_419": "Escudo Sombrío"
+  },
+  "shadow tag": {
+    "en_us": "Shadow Tag",
+    "es_419": "Sombra Trampa"
+  },
+  "shed skin": {
+    "en_us": "Shed Skin",
+    "es_419": "Mudar"
+  },
+  "sheer force": {
+    "en_us": "Sheer Force",
+    "es_419": "Fuerza Bruta"
+  },
+  "shell armor": {
+    "en_us": "Shell Armor",
+    "es_419": "Caparazón"
+  },
+  "shield dust": {
+    "en_us": "Shield Dust",
+    "es_419": "Polvo Escudo"
+  },
+  "shields down": {
+    "en_us": "Shields Down",
+    "es_419": "Escudo Limitado"
+  },
+  "simple": {
+    "en_us": "Simple",
+    "es_419": "Simple"
+  },
+  "skill link": {
+    "en_us": "Skill Link",
+    "es_419": "Encadenado"
+  },
+  "slow start": {
+    "en_us": "Slow Start",
+    "es_419": "Inicio Lento"
+  },
+  "slush rush": {
+    "en_us": "Slush Rush",
+    "es_419": "Quitanieves"
+  },
+  "sniper": {
+    "en_us": "Sniper",
+    "es_419": "Francotirador"
+  },
+  "snow cloak": {
+    "en_us": "Snow Cloak",
+    "es_419": "Manto Níveo"
+  },
+  "snow warning": {
+    "en_us": "Snow Warning",
+    "es_419": "Nevada"
+  },
+  "solar power": {
+    "en_us": "Solar Power",
+    "es_419": "Poder Solar"
+  },
+  "solid rock": {
+    "en_us": "Solid Rock",
+    "es_419": "Roca Sólida"
+  },
+  "soul-heart": {
+    "en_us": "Soul-Heart",
+    "es_419": "Coránima"
+  },
+  "soundproof": {
+    "en_us": "Soundproof",
+    "es_419": "Insonorizar"
+  },
+  "speed boost": {
+    "en_us": "Speed Boost",
+    "es_419": "Impulso"
+  },
+  "stakeout": {
+    "en_us": "Stakeout",
+    "es_419": "Vigilante"
+  },
+  "stall": {
+    "en_us": "Stall",
+    "es_419": "Rezagado"
+  },
+  "stamina": {
+    "en_us": "Stamina",
+    "es_419": "Firmeza"
+  },
+  "stance change": {
+    "en_us": "Stance Change",
+    "es_419": "Cambio Táctico"
+  },
+  "static": {
+    "en_us": "Static",
+    "es_419": "Estática"
+  },
+  "steadfast": {
+    "en_us": "Steadfast",
+    "es_419": "Impasible"
+  },
+  "steelworker": {
+    "en_us": "Steelworker",
+    "es_419": "Acero Reforzado"
+  },
+  "stench": {
+    "en_us": "Stench",
+    "es_419": "Hedor"
+  },
+  "sticky hold": {
+    "en_us": "Sticky Hold",
+    "es_419": "Viscosidad"
+  },
+  "stone veil": {
+    "en_us": "Stone Veil",
+    "es_419": "Velo Pétreo"
+  },
+  "storm drain": {
+    "en_us": "Storm Drain",
+    "es_419": "Colector"
+  },
+  "strong jaw": {
+    "en_us": "Strong Jaw",
+    "es_419": "Mandíbula Fuerte"
+  },
+  "sturdy": {
+    "en_us": "Sturdy",
+    "es_419": "Robustez"
+  },
+  "suction cups": {
+    "en_us": "Suction Cups",
+    "es_419": "Ventosas"
+  },
+  "super luck": {
+    "en_us": "Super Luck",
+    "es_419": "Supersuerte"
+  },
+  "surge surfer": {
+    "en_us": "Surge Surfer",
+    "es_419": "Cola Surf"
+  },
+  "swarm": {
+    "en_us": "Swarm",
+    "es_419": "Enjambre"
+  },
+  "sweet veil": {
+    "en_us": "Sweet Veil",
+    "es_419": "Velo Dulce"
+  },
+  "swift swim": {
+    "en_us": "Swift Swim",
+    "es_419": "Nado Rápido"
+  },
+  "symbiosis": {
+    "en_us": "Symbiosis",
+    "es_419": "Simbiosis"
+  },
+  "synchronize": {
+    "en_us": "Synchronize",
+    "es_419": "Sincronía"
+  },
+  "tangled feet": {
+    "en_us": "Tangled Feet",
+    "es_419": "Tumbos"
+  },
+  "tangling hair": {
+    "en_us": "Tangling Hair",
+    "es_419": "Rizos Rebeldes"
+  },
+  "technician": {
+    "en_us": "Technician",
+    "es_419": "Experto"
+  },
+  "telepathy": {
+    "en_us": "Telepathy",
+    "es_419": "Telepatía"
+  },
+  "teravolt": {
+    "en_us": "Teravolt",
+    "es_419": "Terravoltaje"
+  },
+  "thick fat": {
+    "en_us": "Thick Fat",
+    "es_419": "Sebo"
+  },
+  "tinted lens": {
+    "en_us": "Tinted Lens",
+    "es_419": "Cromolente"
+  },
+  "torrent": {
+    "en_us": "Torrent",
+    "es_419": "Torrente"
+  },
+  "tough claws": {
+    "en_us": "Tough Claws",
+    "es_419": "Garra Dura"
+  },
+  "toxic boost": {
+    "en_us": "Toxic Boost",
+    "es_419": "Ímpetu Tóxico"
+  },
+  "trace": {
+    "en_us": "Trace",
+    "es_419": "Rastro"
+  },
+  "transformer": {
+    "en_us": "Transformer",
+    "es_419": "Transformador"
+  },
+  "triage": {
+    "en_us": "Triage",
+    "es_419": "Triaje"
+  },
+  "truant": {
+    "en_us": "Truant",
+    "es_419": "Ausente"
+  },
+  "turboblaze": {
+    "en_us": "Turboblaze",
+    "es_419": "Turbollama"
+  },
+  "unaware": {
+    "en_us": "Unaware",
+    "es_419": "Ignorante"
+  },
+  "unburden": {
+    "en_us": "Unburden",
+    "es_419": "Liviano"
+  },
+  "unnerve": {
+    "en_us": "Unnerve",
+    "es_419": "Nerviosismo"
+  },
+  "victory star": {
+    "en_us": "Victory Star",
+    "es_419": "Estrella Victoria"
+  },
+  "vital spirit": {
+    "en_us": "Vital Spirit",
+    "es_419": "Espíritu Vital"
+  },
+  "volt absorb": {
+    "en_us": "Volt Absorb",
+    "es_419": "Absorbe Electricidad"
+  },
+  "water absorb": {
+    "en_us": "Water Absorb",
+    "es_419": "Absorbe Agua"
+  },
+  "water bubble": {
+    "en_us": "Water Bubble",
+    "es_419": "Pompa"
+  },
+  "water compaction": {
+    "en_us": "Water Compaction",
+    "es_419": "Hidrorrefuerzo"
+  },
+  "water veil": {
+    "en_us": "Water Veil",
+    "es_419": "Velo Agua"
+  },
+  "water weight": {
+    "en_us": "Water Weight",
+    "es_419": "Peso Agua"
+  },
+  "weak armor": {
+    "en_us": "Weak Armor",
+    "es_419": "Armadura Frágil"
+  },
+  "white smoke": {
+    "en_us": "White Smoke",
+    "es_419": "Humo Blanco"
+  },
+  "wimp out": {
+    "en_us": "Wimp Out",
+    "es_419": "Huida"
+  },
+  "wonder guard": {
+    "en_us": "Wonder Guard",
+    "es_419": "Superguarda"
+  },
+  "wonder skin": {
+    "en_us": "Wonder Skin",
+    "es_419": "Piel Milagro"
+  },
+  "zen mode": {
+    "en_us": "Zen Mode",
+    "es_419": "Modo Zen"
+  }
+}

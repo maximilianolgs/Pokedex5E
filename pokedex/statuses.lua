@@ -42,7 +42,16 @@ M.status_colors = {
 	[M.status.PARALYZED] = vmath.vector4(0.97, 0.816, .19, 1),
 	[M.status.POISONED] = vmath.vector4(0.63, 0.21, 0.63, 1),
 	[M.status.ASLEEP] = vmath.vector4(0.55, 0.53, 0.55, 1),
-	[M.status.CONFUSED] = vmath.vector4(0.47, 0.68, 0.56, 1)
+	[M.status.CONFUSED] = vmath.vector4(0.79, 0.53, 0.40, 1)
+}
+
+M.faded_status_colors = {
+	[M.status.BURNING] = vmath.vector4(1, 0.871, 0.733, 1),
+	[M.status.FROZEN] = vmath.vector4(0.769, 0.902, 0.91, 1),
+	[M.status.PARALYZED] = vmath.vector4(0.973, 0.929, .514, 1),
+	[M.status.POISONED] = vmath.vector4(0.89, 0.769, 0.922, 1),
+	[M.status.ASLEEP] = vmath.vector4(0.824, 0.824, 0.824, 1),
+	[M.status.CONFUSED] = vmath.vector4(0.882, 0.816, 0.784, 1)
 }
 
 return M

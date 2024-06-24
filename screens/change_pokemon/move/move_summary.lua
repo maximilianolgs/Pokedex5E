@@ -3,6 +3,8 @@ local type_data = require "utils.type_data"
 local _pokemon = require "pokedex.pokemon"
 local gui_utils = require "utils.gui"
 local gooey = require "gooey.gooey"
+local localization = require "utils.localization"
+local entity_localization = require "utils.entity_localization"
 
 local function join_table(title, T, sep)
 	if T then
@@ -37,13 +39,27 @@ local M = {}
 
 function M.create(str_node_prefix, pokemon, move_name)
 
+	gui.set_text(gui.get_node(str_node_prefix .. "/lbl_dmg"), localization.get("move_info_popup", "lbl_dmg", "Damage"))
+	gui.set_text(gui.get_node(str_node_prefix .. "/lbl_duration"), localization.get("move_info_popup", "lbl_duration", "Duration"))
+	gui.set_text(gui.get_node(str_node_prefix .. "/lbl_pp"), localization.get("move_info_popup", "lbl_pp", "PP"))
+	gui.set_text(gui.get_node(str_node_prefix .. "/lbl_range"), localization.get("move_info_popup", "lbl_range", "Range"))
+	gui.set_text(gui.get_node(str_node_prefix .. "/lbl_move_power"), localization.get("move_info_popup", "lbl_move_power", "Move Power"))
+	gui.set_text(gui.get_node(str_node_prefix .. "/lbl_time"), localization.get("move_info_popup", "lbl_time", "Casting Time"))
+	
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node(str_node_prefix .. "/lbl_pp"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node(str_node_prefix .. "/lbl_dmg"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node(str_node_prefix .. "/lbl_range"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node(str_node_prefix .. "/lbl_time"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node(str_node_prefix .. "/lbl_duration"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node(str_node_prefix .. "/lbl_move_power"))
+	
 	local move_data = nil
 	if move_name ~= nil then
 		-- NOTE: We could get just the flat move data here and not make use of the Pokemon data.
 		-- But the Pokemon get_move_data function returns data in a different (nicer) API, is used
 		-- by the move_info.gui_script (on which this component is based), and it also is kinda
 		-- nice to see what kind of bonus damage you'd get.
-		move_data = _pokemon.get_move_data(pokemon, move_name)
+		move_data = entity_localization.get_move(pokemon, move_name)
 	end
 	local is_valid_move = move_data ~= nil
 
@@ -78,11 +94,12 @@ function M.create(str_node_prefix, pokemon, move_name)
 		local size_desc = gui.get_size(node_desc)
 		local metrics_desc = gui.get_text_metrics_from_node(node_desc)
 
-		gui.set_text(node_name, move_name)
+		gui.set_text(node_name, localization.get("moves", move_name, move_name))
+		gui_utils.scale_text_to_fit_parent_size(node_name)
 		gui.set_text(node_desc, move_data.description)
 		gui.set_text(node_time, move_data.time)
 		gui.set_text(node_duration, move_data.duration)
-		gui.set_text(node_range, move_data.range or "")
+		gui.set_text(node_range, move_data.range.str or "")
 		gui.set_text(node_move_power, join_table("", move_data.power, "/"))
 		gui.set_text(node_pp, moves.get_move_pp(move_name))
 		gui.set_text(node_type, move_data.type)
@@ -99,17 +116,17 @@ function M.create(str_node_prefix, pokemon, move_name)
 		gui_utils.scale_text_to_fit_size(node_name)
 		gui_utils.scale_text_to_fit_size(node_time)
 		gui_utils.scale_text_to_fit_size(node_duration)
-		gui_utils.scale_text_to_fit_size(node_range)
+		gui_utils.scale_text_with_line_breaks(node_range)
 		gui_utils.scale_text_to_fit_size(node_move_power)
 		gui_utils.scale_text_to_fit_size(node_type)
 		gui_utils.scale_text_to_fit_size(node_pp)
 		gui_utils.scale_text_to_fit_size(node_dmg)
 
-		gui.play_flipbook(node_icon, type_data[move_data.type].icon)
+		gui.play_flipbook(node_icon, type_data[move_data.orig_data.type].icon)
 
 		local color = {"lbl_pp", "lbl_dmg", "lbl_time", "lbl_range", "lbl_duration", "background", "lbl_move_power"}
 		for _, node_name in pairs(color)do
-			local color_name = type_data[move_data.type].color
+			local color_name = type_data[move_data.orig_data.type].color
 			local node = gui.get_node(str_node_prefix .. "/" .. node_name)
 			gui.set_color(node, color_name)
 		end

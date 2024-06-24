@@ -9,13 +9,19 @@ local gui_utils = require "utils.gui"
 local messages = require "utils.messages"
 local pokedex = require "pokedex.pokedex"
 local _pokemon = require "pokedex.pokemon"
+local localization = require "utils.localization"
 
 local selected_item
 local sender
 local message_id
 
 local function update_listitem(list, item)
-	gui.set_text(item.nodes["scrollist/txt_item"], tostring(item.data or "-"):upper())
+	if item then
+		gui.set_text(item.nodes["scrollist/txt_item"], localization.get_upper("abilities", item.data, item.data))
+	else
+		gui.set_text(item.nodes["scrollist/txt_item"], tostring(item.data:upper() or "-"))
+	end
+	gui_utils.scale_text_to_fit_size_2(item.nodes["scrollist/txt_item"])
 	if item.index == list.selected_item then
 		selected_item = item.data
 	end
@@ -72,7 +78,15 @@ function init(self)
 	self.variant = _pokemon.get_variant(d.pokemon)
 	self.all_items = utils.shallow_copy(d.items)
 	self.list_items = utils.shallow_copy(d.items)
+	
+	gui.set_text(gui.get_node("scrollist/topbar/title"), localization.get("change_pokemon_screen", "choose_ability_title", "Pick Ability"))
+	gui_utils.scale_text_to_fit_size_2(gui.get_node("scrollist/topbar/title"))
+	gui.set_text(gui.get_node("scrollist/search_text"), localization.get("change_pokemon_screen", "search_text", "SEARCH"))
 
+	gui.set_text(gui.get_node("txt_pkmn"), localization.get("change_pokemon_screen", "txt_pkmn", "PKMN"))
+	gui.set_text(gui.get_node("txt_hidden"), localization.get("change_pokemon_screen", "txt_hidden", "HIDDEN"))
+	gui.set_text(gui.get_node("txt_all"), localization.get("change_pokemon_screen", "txt_all", "A-Z"))
+	
 	self.scrolling_list = gooey_scrolling_list.create_vertical_dynamic("scrollist", "scrollist/scroll_area", "scrollist/btn_item", "scrollist/scrollbar/handle", "scrollist/scrollbar/bar", "scrollist/scrollbar/visual", update_listitem, on_item_selected)
 	self.scrolling_list.refresh(self.list_items)
 	gui.set_enabled(gui.get_node("scrollist/cursor"), false)
@@ -81,15 +95,15 @@ end
 
 local function filter_list(self, search_string)
 	local function starts_with(str, start)
-		return string.lower(str):sub(1, #start) == string.lower(start)
+		return localization.get_lower("abilities", str, str):sub(1, #start) == localization.lower(start) or str:lower():sub(1, #start) == localization.lower(start)
 	end
 	local function is_in(_in, str)
-		return string.lower(_in):find(string.lower(str))
+		return localization.get_lower("abilities", _in, _in):find(localization.lower(str)) or _in:lower():find(localization.lower(str))
 	end
 	if #search_string > 0 then
 		self.list_items = {}
 		for i=#self.all_items, 1, -1 do
-			if starts_with(self.all_items[i], search_string) then
+			if is_in(self.all_items[i], search_string) then
 				table.insert(self.list_items, 1, self.all_items[i])
 			end
 		end
@@ -101,7 +115,7 @@ end
 
 local function refresh_input(self, input, node_id)
 	if input.empty and not input.selected then
-		gui.set_text(input.node, "SEARCH")
+		gui.set_text(input.node, localization.get("change_pokemon_screen", "search_text", "SEARCH"))
 	end
 
 	local cursor = gui.get_node("scrollist/cursor")
