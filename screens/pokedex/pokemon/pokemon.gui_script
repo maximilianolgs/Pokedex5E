@@ -8,6 +8,7 @@ local gui_utils = require "utils.gui"
 local dex = require "pokedex.dex"
 local url = require "utils.url"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local POKEMON_SPECIES_TEXT_SCALE = vmath.vector3(1.5)
 
@@ -33,6 +34,13 @@ end
 function init(self)
 	gooey.acquire_input()
 	msg.post(url.MENU, messages.HIDE)
+
+	gui.set_text(gui.get_node("top_divider/title"), localization.get("pokedex_screen", "title", "Pokedex"))
+	gui.set_text(gui.get_node("title_weight"), localization.get_upper("pokedex_screen", "title_weight", "WEIGHT:"))
+	gui.set_text(gui.get_node("title_height"), localization.get_upper("pokedex_screen", "title_height", "HEIGHT:"))
+	gui.set_text(gui.get_node("txt_seen"), localization.get_upper("pokedex_screen", "txt_seen", "SEEN"))
+	gui.set_text(gui.get_node("txt_caught"), localization.get_upper("pokedex_screen", "txt_caught", "CAUGHT"))
+	
 	self.species = monarch.data("pokedex_pokemon").species
 	local index = pokedex.get_index_number(self.species)
 	local flavor = pokedex.get_flavor(self.species)
@@ -50,7 +58,7 @@ function init(self)
 	gui.set_enabled(gui.get_node("bg_type2"), false)
 	for i, t in ipairs(types) do
 		gui.set_enabled(gui.get_node("bg_type" .. i), true)
-		gui.set_text(gui.get_node("txt_type" .. i), t:upper())
+		gui.set_text(gui.get_node("txt_type" .. i), localization.get_upper("pokemon_information", "pokemon_type_" .. t, t))
 	end
 	gui.set_text(gui.get_node("txt_species"), self.species:upper())
 	gui.set_text(gui.get_node("txt_index"),  string.format("#%03d", index))
@@ -93,13 +101,13 @@ function on_input(self, action_id, action)
 	local a = gooey.button("btn_seen", action_id, action, function()
 		local d = monarch.data("pokedex_pokemon")
 		dex.set(self.species, dex.states.SEEN)
-		msg.post(d.sender, "mark", {index=d.index, row=d.row, state=dex.states.SEEN})
+		msg.post(d.sender, messages.MARK, {index=d.index, row=d.row, state=dex.states.SEEN})
 		monarch.back()
 	end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_seen")) end)
 	
 	local b = gooey.button("btn_caught", action_id, action, function()
 		local d = monarch.data("pokedex_pokemon")
-		msg.post(d.sender, "mark", {index=d.index, row=d.row, state=dex.states.CAUGHT})
+		msg.post(d.sender, messages.MARK, {index=d.index, row=d.row, state=dex.states.CAUGHT})
 		dex.set(self.species, dex.states.CAUGHT)
 		monarch.back()
 	end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_caught")) end)

@@ -114,7 +114,7 @@ local function is_valid()
 end
 
 local function convert()
-	local e = string.format("Converting the Pokedex")
+	local e = "Converting the Pokedex"
 	gameanalytics.addErrorEvent {
 		severity = "Info",
 		message = e

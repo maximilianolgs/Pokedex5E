@@ -8,10 +8,13 @@ local gooey_buttons = require "utils.gooey_buttons"
 local url = require "utils.url"
 local move_summary = require "screens.change_pokemon.move.move_summary"
 local screens = require "utils.screens"
+local localization = require "utils.localization"
 
 function init(self)
 	gui.set_render_order(15)
 	gooey.acquire_input()
+
+	gui.set_text(gui.get_node("txt_cancel"), localization.get("change_pokemon_screen", "txt_cancel", "CANCEL"))
 	
 	local d = monarch.data(screens.MOVES_CONFIRM)
 	
@@ -24,10 +27,10 @@ function init(self)
 	self.move_new = move_summary.create("move_new", self.pokemon, self.replacement_move)
 	self.move_old = move_summary.create("move_old", self.pokemon, self.move_to_replace)
 
-	local accept_text = "REPLACE"
+	local accept_text = localization.get("change_pokemon_screen", "txt_replace", "REPLACE")
 	
 	if not self.move_old.is_valid_move() then
-		accept_text = "LEARN"
+		accept_text = localization.get("change_pokemon_screen", "txt_learn", "LEARN")
 
 		-- Hide the arrow, shrink the screen, and move everything else up
 		local node_arrow = gui.get_node("arrow")

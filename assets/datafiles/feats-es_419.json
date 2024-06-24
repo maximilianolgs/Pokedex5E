@@ -1,0 +1,110 @@
+{
+	"AC Up": {
+		"Description": "El CA de tu Pokémon aumenta en 1. Este bono se incluye a través de las evoluciones de un Pokémon."
+	},
+	"Able-Bodied": {
+		"Description": "El cuerpo de tu Pokémon está entrenado para aprender y combatir dolencias durante largos períodos de tiempo. Después de recuperarse de un efecto de estado, este Pokémon se vuelve inmune al mismo estado durante 3 rondas."
+	},
+	"Acrobat": {
+		"Description": "Unearthed Arcana: Proezas para Habilidades"
+	},
+	"Actor": {
+		"Description": "PHB:165"
+	},
+	"Alert": {
+		"Description": "PHB:165 (Bono de iniciativa aplicado al entrenador mientras eres el Pokémon activo)"
+	},
+	"Athlete (DEX)": {
+		"Description": "PHB:165"
+	},
+	"Athlete (STR)": {
+		"Description": "PHB:165"
+	},
+	"Brawny": {
+		"Description": "Unearthed Arcana: Proezas para Habilidades"
+	},
+	"Charger": {
+		"Description": "PHB:165 (Cuando se usan ataques cuerpo a cuerpo)"
+	},
+	"Combo Master": {
+		"Description": "Tu Pokémon es un experto en combinar golpes contra un enemigo. Cuando se selecciona esta característica, los movimientos combinados que tienen la capacidad de golpear más de una vez están garantizados para golpear al menos dos veces. (Golpes Furia, Doble Bofetón, etc.)"
+	},
+	"Durable": {
+		"Description": "PHB:166"
+	},
+	"Elemental Adept": {
+		"Description": "PHB:166 (Elige uno de los tipos de daño de Pokémon)"
+	},
+	"Extra Move": {
+		"Description": "Tu Pokémon puede conocer cinco movimientos en total en lugar de cuatro."
+	},
+	"Hidden Ability": {
+		"Description": "Tu Pokémon busca dentro de sí mismo para descubrir una nueva aptitud. Obtiene acceso a la Aptitud Oculta en su bloque de estadísticas."
+	},
+	"Melee Master": {
+		"Description": "Tu Pokémon es un maestro del combate cuerpo a cuerpo. Obtén ventaja en todos los ataques de oportunidad. Antes de realizar un ataque cuerpo a cuerpo, puedes elegir tomar una penalización de -5 en la tirada de ataque. Si el ataque acierta, añades +10 al daño del ataque (Una vez por movimiento)."
+	},
+	"Mobile": {
+		"Description": "PHB:168"
+	},
+	"Observant": {
+		"Description": "PHB:168"
+	},
+	"Perceptive": {
+		"Description": "Arcanos Desenterrados: Proezas para Habilidades"
+	},
+	"Power Sculptor": {
+		"Description": "Tu Pokémon es capaz de esculpir el poder de sus movimientos alrededor de sus aliados. Para los movimientos de área de efecto que tu Pokémon activa, elige 1 + MOVIMIENTO aliados en rango para que automáticamente tengan éxito en su tirada de salvación contra recibir daño o un efecto. Si el daño se reduce a la mitad por una salvación exitosa, no reciben daño en su lugar."
+	},
+	"Quick-Fingered": {
+		"Description": "Arcanos Desenterrados: Proezas para Habilidades"
+	},
+	"Ranged Master": {
+		"Description": "Tu Pokémon es un tirador experto. Tus ataques a distancia ignoran la cobertura parcial y de tres cuartos, Antes de realizar un ataque a distancia, puedes elegir tomar una penalización de -5 en la tirada de ataque. Si el ataque acierta, añades +10 al daño del ataque (Una vez por movimiento)."
+	},
+	"Resilient (CHA)": {
+		"Description": "PHB:168"
+	},
+	"Resilient (CON)": {
+		"Description": "PHB:168"
+	},
+	"Resilient (DEX)": {
+		"Description": "PHB:168"
+	},
+	"Resilient (INT)": {
+		"Description": "PHB:168"
+	},
+	"Resilient (STR)": {
+		"Description": "PHB:168"
+	},
+	"Resilient (WIS)": {
+		"Description": "PHB:168"
+	},
+	"Savage Attacker": {
+		"Description": "PHB:169"
+	},
+	"Sentinel": {
+		"Description": "PHB:169"
+	},
+	"Skilled": {
+		"Description": "PHB:170"
+	},
+	"Skulker": {
+		"Description": "PHB:170"
+	},
+	"Stealthy": {
+		"Description": "Arcanos Desenterrados: Proezas para Habilidades"
+	},
+	"Terrain Adept": {
+		"Description": "Tu Pokémon es especialmente hábil luchando en un terreno específico. Elige uno de los siguientes terrenos al seleccionar esta característica. Tu Pokémon gana +2 en las tiradas de ataque cuando está en este terreno. Terrenos: Costero, Pantano, Bosque, Ártico, Desierto, Pradera, Colina, Montaña, Subacuático."
+	},
+	"Tireless": {
+		"Description": "Tu Pokémon soporta horas de entrenamiento riguroso que lo mantienen en batalla más tiempo que el Pokémon promedio. Gana +1 PP para cada movimiento."
+	},
+	"Tough": {
+		"Description": "PHB:170"
+	},
+	"Wrangler": {
+		"Description": "Has desarrollado un conjunto único de habilidades que te dan la capacidad de agarrar y sujetar a un oponente con manos firmes y fuertes. Obtienes los siguientes beneficios:\n* Tienes ventaja en las tiradas de ataque contra una criatura que estás Agarrando.\n* Puedes usar tu acción para intentar inmovilizar a una criatura que ya has Agarrado. Para hacerlo, realiza otra comprobación de agarre. Si tienes éxito, tú y la criatura están Apresados hasta que termine el agarre.\n* Cuando una criatura intenta usar su movimiento para salir de tu alcance sin desengancharse, puedes usar tu reacción para intentar Agarrar al objetivo."
+	}
+}

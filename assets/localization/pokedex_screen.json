@@ -1,0 +1,78 @@
+{
+	"title": {
+		"en_us": "Pokedex",
+		"es_419": "Pokédex"
+	},
+	"title_seen": {
+		"en_us": "SEEN",
+		"es_419": "VISTO"
+	},
+	"title_caught": {
+		"en_us": "CAUGHT",
+		"es_419": "CAPTURADO"
+	},
+	"region_other": {
+		"en_us": "OTHERS",
+		"es_419": "OTROS"
+	},
+	"search_text": {
+		"en_us": "search",
+		"es_419": "buscar por especie, índice o tipo"
+	},
+	"filter_keyword_seen": {
+		"en_us": "seen",
+		"es_419": "visto"
+	},
+	"filter_keyword_caught": {
+		"en_us": "caught",
+		"es_419": "capturado"
+	},
+	"action_text_default": {
+		"en_us": "MARK",
+		"es_419": "INFORMACIÓN"
+	},
+	"action_text_seen": {
+		"en_us": "SEEN",
+		"es_419": "VISTO"
+	},
+	"action_text_caught": {
+		"en_us": "CAUGHT",
+		"es_419": "CAPTURADO"
+	},
+	"action_text_not_seen": {
+		"en_us": "NOT SEEN",
+		"es_419": "DESMARCAR"
+	},
+	"btn_text_seen": {
+		"en_us": "SEEN",
+		"es_419": "MARCAR COMO VISTO"
+	},
+	"btn_text_caught": {
+		"en_us": "CAUGHT",
+		"es_419": "MARCAR COMO CAPTURADO"
+	},
+	"btn_text_unecountered": {
+		"en_us": "NOT SEEN",
+		"es_419": "DESMARCAR"
+	},
+	"btn_text_no_mark": {
+		"en_us": "DON'T MARK",
+		"es_419": "MOSTRAR INFORMACIÓN"
+	},
+	"title_weight": {
+		"en_us": "WEIGHT:",
+		"es_419": "PESO:"
+	},
+	"title_height": {
+		"en_us": "HEIGHT:",
+		"es_419": "ALTURA:"
+	},
+	"txt_seen": {
+		"en_us": "SEEN",
+		"es_419": "VISTO"
+	},
+	"txt_caught": {
+		"en_us": "CAUGHT",
+		"es_419": "CAPTURADO"
+	}
+}

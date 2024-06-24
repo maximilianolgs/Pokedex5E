@@ -12,6 +12,8 @@ local messages = require "utils.messages"
 local _file = require "utils.file"
 local platform = require "utils.platform"
 local sjson = require "utils.json"
+local localization = require "utils.localization"
+local win_utils = require "utils.win-125x"
 
 local M = {}
 
@@ -107,14 +109,18 @@ end
 function M.export(id)
 	local pokemon = storage.get_copy(id)
 	clipboard.copy(serialize_pokemon(pokemon))
-	notify.notify((pokemon.nickname or pokemon.species.current) .. " copied to clipboard!")
+	notify.notify(localization.get("transfer_popup", "pokemon_copied_notif", "%s copied to clipboard!"):format(pokemon.nickname or pokemon.species.current))
 end
 
 function M.roll20_export(id)
 	local pokemon = storage.get_copy(id)
 	local sheet = rolltwenty.create_sheet(pokemon)
-	clipboard.copy(sjson:encode(sheet))
-	notify.notify((pokemon.nickname or pokemon.species.current) .. " roll20 sheet copied to clipboard!")
+	local encoded_sheet = sjson:encode(sheet)
+	if platform.WINDOWS then
+		encoded_sheet = win_utils.utf8_to_win(encoded_sheet)
+	end
+	clipboard.copy(encoded_sheet)
+	notify.notify(localization.get("transfer_popup", "roll20_sheet_copied_notif", "%s's roll20 sheet copied to clipboard!"):format(pokemon.nickname or pokedex.get_species_display(pokemon.species.current, pokemon.variant)))
 end
 
 return M

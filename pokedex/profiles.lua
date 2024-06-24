@@ -266,7 +266,6 @@ end
 local function load_profiles()
 	local loaded = defsave.load("profiles")
 	profiles = defsave.get("profiles", "profiles")
-
 	if not next(profiles) then
 		profiles.version = LATEST_PROFILE_VERSION
 	else

@@ -1,0 +1,94 @@
+{
+	"txt_confim": {
+		"en_us": "YES",
+		"es_419": "SI"
+	},
+	"txt_exit": {
+		"en_us": "NO",
+		"es_419": "NO"
+	},
+	"default_title": {
+		"en_us": "Are you sure?",
+		"es_419": "¿Estás seguro?"
+	},
+	"default_text": {
+		"en_us": "Are you sure?",
+		"es_419": "¿Estás seguro?"
+	},
+	"default_sub_text": {
+		"en_us": "",
+		"es_419": ""
+	},
+	"change_hp_title": {
+		"en_us": "Are you sure?",
+		"es_419": "¿Estás seguro?"
+	},
+	"change_hp_text": {
+		"en_us": "You will have to track it manually henceforth",
+		"es_419": "Tendrás que administrarlo manualmente de ahora en adelante."
+	},
+	"reset_title": {
+		"en_us": "Reset",
+		"es_419": "Restablecer"
+	},
+	"reset_text": {
+		"en_us": "Reset Max HP and let the app control it for you?",
+		"es_419": "¿Restablecer los PG máximos y dejar que la aplicación los administre por vos?"
+	},
+	"evolve_confirm_title": {
+		"en_us": "Confirm Evolve",
+		"es_419": "Confirmar Evolución"
+	},
+	"evolve_confirm_text": {
+		"en_us": "Evolve into %s at level %s?\n\nThis will automatically save and exit to Party",
+		"es_419": "¿Evolucionar en %s a nivel %s?\n\nEsto guardará y volverá al Equipo automáticamente"
+	},
+	"delete_group_title": {
+		"en_us": "Delete %s?",
+		"es_419": "¿Borrar %s?"
+	},
+	"delete_group_text": {
+		"en_us": "Any messages pending delivery (such as sent Pokémon) will be lost!",
+		"es_419": "¡Todos los mensajes pendientes de envío (al igual que los Pokémon enviados) se perderán!"
+	},
+	"full_rest_title": {
+		"en_us": "Pokémon Center",
+		"es_419": "Centro Pokémon"
+	},
+	"full_rest_text": {
+		"en_us": "We heal your Pokémon back to perfect health!\nShall we heal your Pokémon?",
+		"es_419": "¡Aquí restauramos la salud de tu equipo Pokémon!\n¿Curamos a tus Pokémon?"
+	},
+	"transfer_pokemon_local_title": {
+		"en_us": "Are you sure?",
+		"es_419": "¿Estás seguro?"
+	},
+	"transfer_pokemon_local_text": {
+		"en_us": "Send %s to %s?",
+		"es_419": "¿Enviar %s a %s?"
+	},
+	"transfer_pokemon_local_sub_text": {
+		"en_us": "%s will be sent immediately, and will be delivered when %s has joined the group.",
+		"es_419": "%s será enviado inmediatamente, y será entregado cuando %s se conecte al grupo."
+	},
+	"transfer_pokemon_title": {
+		"en_us": "Are you sure?",
+		"es_419": "¿Estás seguro?"
+	},
+	"transfer_pokemon_text": {
+		"en_us": "Send %s to %s?",
+		"es_419": "¿Enviar %s a %s?"
+	},
+	"transfer_pokemon_sub_text": {
+		"en_us": "%s will be sent immediately, and will be delivered when you and %s have joined the group.",
+		"es_419": "%s será enviado inmediatamente, y será entregado cuando tú y %s se conecten al grupo."
+	},
+	"release_pokemon_title": {
+		"en_us": "RELEASE %s",
+		"es_419": "LIBERAR A %s"
+	},
+	"delete_profile_title": {
+		"en_us": "Delete Profile",
+		"es_419": "Borrar Perfil"
+	}
+}

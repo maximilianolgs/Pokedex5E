@@ -14,8 +14,8 @@ local flow = require "utils.flow"
 local messages = require "utils.messages"
 local profiles = require "pokedex.profiles"
 local gui_utils = require "utils.gui"
-
-local MSG_NEW_GROUP_NAME = hash("new_group_name")
+local screens = require "utils.screens"
+local localization = require "utils.localization"
 
 local function apply_port_text(self, text)
 	local as_number = tonumber(text)
@@ -89,13 +89,12 @@ local function redraw(self)
 end
 
 local function on_create_new_group(self)
-	monarch.show("input", {},
+	monarch.show(screens.INPUT, {},
 	{
 		sender=msg.url(), 
-		message=MSG_NEW_GROUP_NAME,
-		help_text="What should your group be called?", 
+		message=messages.NEW_GROUP_NAME,
 		max_length=20,
-		default_text=profiles.get_active_name() .. "'s Group",
+		default_text=localization.get("connect_screen", "create_new_group", "%s's Group"):format(profiles.get_active_name()),
 		allowed_characters="[%a%d \']",
 	})
 end
@@ -104,6 +103,13 @@ function init(self)
 	msg.post(url.MENU, messages.HIDE)
 	button.acquire()
 
+	gui.set_text(gui.get_node("template/title"), localization.get("connect_screen", "host_title", "HOST"))
+	gui.set_text(gui.get_node("txt_start_hosting"), localization.get("connect_screen", "txt_start_hosting", "START HOSTING"))
+	gui.set_text(gui.get_node("txt_create_new"), localization.get("connect_screen", "txt_create_new", "NEW GROUP"))
+	gui.set_text(gui.get_node("txt_port_title"), localization.get("connect_screen", "txt_port_title", "PORT:"))
+	gui.set_text(gui.get_node("txt_groups"), localization.get("connect_screen", "txt_groups", "GROUPS"))
+	gui.set_text(gui.get_node("txt_delete_group"), localization.get("connect_screen", "txt_delete_group", "DELETE"))
+	
 	self.has_selected_group = false
 	self.suspend_group_refresh = false
 
@@ -178,11 +184,11 @@ function on_input(self, action_id, action)
 
 			local group_name = net_groups.get_group_name(self.selected_group_id)
 
-			monarch.show("are_you_sure", nil,
+			monarch.show(screens.ARE_YOU_SURE, nil,
 			{
-				title="Delete " .. group_name .. "?",
-				text="Any messages pending delivery (such as sent Pokemon) will be lost!",
+				title_args={group_name},
 				cb=are_you_sure_cb,
+				message=messages.DELETE_GROUP
 			})
 			
 		end, function(b) gooey_buttons.common_button(b, gui.get_node("btn_delete_group")) end)
@@ -195,16 +201,18 @@ function on_input(self, action_id, action)
 	end, function(b) gooey_buttons.common_button(b, gui.get_node("btn_create_new")) end)	
 
 	gooey.button("btn_port_info", action_id, action, function()
-		local text = "Players joining must connect to your device's address and port.\n\nIf they are far away, you may need to set up TCP Port Forwarding through your router.\n\nTo learn more about how to do this, please search for \"How to Port Forward\" and/or look at your router's instructions.\n\nThis is a common practice when hosting many games, so you should be able to find plenty of info about it!"
+		local text = localization.get("connect_screen", "txt_port_info_help", "Players joining must connect to your device's address and port.\n\nIf they are far away, you may need to set up TCP Port Forwarding through your router.\n\nTo learn more about how to do this, please search for \"How to Port Forward\" and/or look at your router's instructions.\n\nThis is a common practice when hosting many games, so you should be able to find plenty of info about it!")
 		net_ip.refresh_local_ip()
 		local local_ip = net_ip.get_local_ip()
 		if local_ip then
-			text = text .. "\n\nYour local IP for port forwarding is " .. local_ip
+			local local_text = localization.get("connect_screen", "txt_port_info_help_local", "Your local IP for port forwarding is %s")
+			local_text = string.format(local_text,  local_ip)
+			text = text .. "\n\n" .. local_text
 		end
-		monarch.show("info", nil,
+		monarch.show(screens.INFO, nil,
 		{
 			text=text,
-			btn_text="SOUNDS GOOD!",
+			btn_text=localization.get("connect_screen", "txt_port_info_btn", "SOUNDS GOOD!"),
 		})
 	end, function(b) gooey_buttons.common_button(b, gui.get_node("btn_port_info")) end)	
 end

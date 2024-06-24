@@ -1,0 +1,58 @@
+{
+	"npc_type": {
+		"en_us": "%s %s Type",
+		"es_419": "%s, tipo %s"
+	},
+	"ac_type": {
+		"en_us": "Natural Armor",
+		"es_419": "Armadura Natural"
+	},
+	"txt_iniciative": {
+		"en_us": "Iniciative",
+		"es_419": "Iniciativa"
+	},
+	"txt_resistance_immunity": {
+		"en_us": "Resistance/Immunity",
+		"es_419": "Resistencia/Inmunidad"
+	},
+	"damage_type": {
+		"en_us": "%s damage",
+		"es_419": "%s"
+	},
+	"attack_reach": {
+		"en_us": "Reach",
+		"es_419": "Alcance"
+	},
+	"full_desc_save_dc": {
+		"en_us": "Save DC: ",
+		"es_419": "CD de Salvación: "
+	},
+	"full_desc_type": {
+		"en_us": "Type: ",
+		"es_419": "Tipo: "
+	},
+	"full_desc_move_power": {
+		"en_us": "\nMove Power: ",
+		"es_419": "\nMod. de Movimiento: "
+	},
+	"full_desc_move_time": {
+		"en_us": "\nMove Time: ",
+		"es_419": "\nTiempo de Movimiento: "
+	},
+	"full_desc_pp": {
+		"en_us": "\nPP: ",
+		"es_419": "\nPP: "
+	},
+	"full_desc_duration": {
+		"en_us": "\nDuration: ",
+		"es_419": "\nDuración: "
+	},
+	"full_desc_range": {
+		"en_us": "\nRange: ",
+		"es_419": "\nAlcance: "
+	},
+	"full_desc_description": {
+		"en_us": "\n\nDescription: ",
+		"es_419": "\n\nDescripción: "
+	}
+}

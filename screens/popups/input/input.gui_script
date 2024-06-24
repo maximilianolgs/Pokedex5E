@@ -3,8 +3,18 @@ local render_order = require "utils.gui_render_order"
 local gooey_buttons = require "utils.gooey_buttons"
 local gooey = require "gooey.gooey"
 local gui_utils = require "utils.gui"
+local localization = require "utils.localization"
+local messages = require "utils.messages"
 
 local data
+
+local text_key_map = { 
+	[messages.UPDATE_EXP] = "update_exp",
+	[messages.UPDATE_HP] = "update_hp",
+	[messages.UPDATE_TEMP_HP] = "update_temp_hp",
+	[messages.UPDATE_PROFILE_NAME] = "update_profile_name",
+	[messages.NEW_GROUP_NAME] = "new_group_name"
+}
 
 function init(self)
 	gooey.acquire_input()
@@ -20,9 +30,15 @@ function init(self)
 	gui.set_enabled(self.cursor, false)
 	gui.set_text(self.text_node, self.default_text)
 
-	if data.help_text then
-		gui_utils.adjust_for_text_change_vertical("help_text", data.help_text, {"frame"}, {"background", "btn_okay"})
+	gui.set_text(gui.get_node("txt_okay"), localization.get("input_popup", "txt_okay", "OKAY"))
+
+	self.help_text = data.help_text
+	if not self.help_text then
+		local text_key = text_key_map[self.message] or "default"
+		self.help_text = localization.get("input_popup", "help_text_" .. text_key, "Input.. something?")
 	end
+
+	gui_utils.adjust_for_text_change_vertical("help_text", self.help_text, {"frame"}, {"background", "btn_okay"})
 end
 
 local function exit(self)
@@ -65,3 +81,4 @@ function on_input(self, action_id, action)
 		refresh_input(self, input)
 	end)
 end
+	

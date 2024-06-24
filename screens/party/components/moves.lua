@@ -4,12 +4,15 @@ local storage = require "pokedex.storage"
 local party_utils = require "screens.party.utils"
 local type_data = require "utils.type_data"
 local gui_colors = require "utils.gui_colors"
+local gui_utils = require "utils.gui"
 local gooey_buttons = require "utils.gooey_buttons"
 local monarch = require "monarch.monarch"
 local scrollhandler = require "screens.party.components.scrollhandler"
 local movedex = require "pokedex.moves"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local entity_localization = require "utils.entity_localization"
+local localization = require "utils.localization"
 
 local M = {}
 
@@ -48,7 +51,7 @@ local function update_pp(pokemon, move)
 		-- edge cases with Struggle, the only move currently with a non-number amount of pp (Unlimited).
 		-- Show the text instead as the text we got from the movedex
 		gui.set_text(pp_current, "")
-		gui.set_text(pp_max, string.sub(dex_pp, 1, 5) .. ".")
+		gui.set_text(pp_max, string.sub(localization.get("pokemon_information", "move_pp_" .. dex_pp, dex_pp), 1, 5) .. ".")
 	end
 	
 	local p = gui.get_position(pp_current)
@@ -119,27 +122,28 @@ local function sort_on_index(a, b)
 end
 
 local function update_move_data(move)
-	local move_data = _pokemon.get_move_data(current_pokemon, move)
+	local move_data = entity_localization.get_move(current_pokemon, move)
+	
 	local move_string = {}
 
 	if move_data.AB then
 		if move_data.AB >= 0 then
-			table.insert(move_string, "AB: +" .. move_data.AB)
+			table.insert(move_string, localization.get_upper("party_screen", "pokemon_move_ab", "AB") .. ": +" .. move_data.AB)
 		else
-			table.insert(move_string, "AB: " .. move_data.AB)
+			table.insert(move_string, localization.get_upper("party_screen", "pokemon_move_ab", "AB") .. ": " .. move_data.AB)
 		end
 	end
 
 	if move_data.save_dc then
-		table.insert(move_string, "DC: " .. move_data.save_dc)
+		table.insert(move_string, localization.get_upper("party_screen", "pokemon_move_dc", "DC") .. ": " .. move_data.save_dc)
 	end
 
 	if move_data.damage then
 		table.insert(move_string, move_data.damage)
 	end
 
-	if move_data.range then
-		table.insert(move_string, move_data.range)
+	if move_data.range.str then
+		table.insert(move_string, move_data.range.str)
 	end
 
 	if move_data.duration then
@@ -147,9 +151,11 @@ local function update_move_data(move)
 	end
 
 	gui.set_text(gui.get_node("move_stats_" .. current_index .. move), table.concat(move_string, "  ||  "))
+	gui_utils.scale_text_with_line_breaks(gui.get_node("move_stats_" .. current_index .. move))
 
-	gui.set_text(gui.get_node("name_" .. current_index .. move), move:upper())
-	local type = type_data[move_data.type]
+	gui.set_text(gui.get_node("name_" .. current_index .. move), localization.upper(move_data.name))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("name_" .. current_index .. move))
+	local type = type_data[move_data.orig_data.type]
 	gui.set_color(gui.get_node("name_" .. current_index .. move), type.color)
 	gui.play_flipbook(gui.get_node("element_" .. current_index .. move), type.icon)
 

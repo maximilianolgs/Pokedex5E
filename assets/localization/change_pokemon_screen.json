@@ -1,0 +1,202 @@
+{
+	"title_add": {
+		"en_us": "Pick Pokémon",
+		"es_419": "Agregar Pokémon"
+	},
+	"title_move_set": {
+		"en_us": "MOVE SET",
+		"es_419": "MOVIMIENTOS"
+	},
+	"txt_move": {
+		"en_us": "MOVE",
+		"es_419": "MOVIMIENTO"
+	},
+	"txt_pick_species": {
+		"en_us": "PICK POKÉMON",
+		"es_419": "ELEGIR POKÉMON"
+	},
+	"txt_available_asi": {
+		"en_us": "Available Points:",
+		"es_419": "Puntos Disponibles:"
+	},
+	"txt_title_asi": {
+		"en_us": "Ability Score Increase",
+		"es_419": "Mejora de Caracerística"
+	},
+	"txt_reset_abilities": {
+		"en_us": "RESET",
+		"es_419": "RESTABLECER"
+	},
+	"txt_abilities": {
+		"en_us": "ABILITIES",
+		"es_419": "APTITUDES"
+	},
+	"txt_add_new_ability": {
+		"en_us": "ADD NEW",
+		"es_419": "AGREGAR"
+	},
+	"txt_level": {
+		"en_us": "Lv.",
+		"es_419": "Nivel"
+	},
+	"txt_changed_max_hp": {
+		"en_us": "CHANGED MAX HP:",
+		"es_419": "NUEVOS PG MÁX:"
+	},
+	"txt_hit_dice": {
+		"en_us": "Hit Dice:",
+		"es_419": "Dado de Golpe:"
+	},
+	"txt_feats": {
+		"en_us": "FEATS",
+		"es_419": "DOTES"
+	},
+	"txt_item_title": {
+		"en_us": "Held Item",
+		"es_419": "Objeto Equipado"
+	},
+	"txt_shiny": {
+		"en_us": "SHINY",
+		"es_419": "BRILLANTE"
+	},
+	"txt_title_custom_asi": {
+		"en_us": "Ability Modifers",
+		"es_419": "Modificadores de Característica"
+	},
+	"txt_skills": {
+		"en_us": "Skills",
+		"es_419": "Habilidades"
+	},
+	"choose_variant_title": {
+		"en_us": "Choose Variant",
+		"es_419": "Seleccionar Variante"
+	},
+	"choose_item_title": {
+		"en_us": "Pick your Item",
+		"es_419": "Seleccionar Objeto"
+	},
+	"choose_skill_title": {
+		"en_us": "Pick Skill",
+		"es_419": "Seleccionar Habilidad"
+	},
+	"choose_ability_title": {
+		"en_us": "Pick Ability",
+		"es_419": "Seleccionar Aptitud"
+	},
+	"choose_feat_title": {
+		"en_us": "Pick Feat",
+		"es_419": "Seleccionar Dote"
+	},
+	"choose_pokemon_title": {
+		"en_us": "Pick your Pokémon",
+		"es_419": "Seleccionar Pokémon"
+	},
+	"choose_evolution_title": {
+		"en_us": "Pick evolution",
+		"es_419": "Seleccionar Evolución"
+	},
+	"choose_move_title": {
+		"en_us": "Pick Move",
+		"es_419": "Seleccionar Movimiento"
+	},
+	"choose_nature_title": {
+		"en_us": "Pick Nature",
+		"es_419": "Seleccionar Naturaleza"
+	},
+	"paper_thin_notif": {
+		"en_us": "Ability: Paper Thin\nThis Pokemon's max HP is always 1",
+		"es_419": "Aptitud: Fino como Papel\nLos PG máximos de este Pokémon son siempre 1"
+	},
+	"notif_added_to_pc": {
+		"en_us": "%s added to PC",
+		"es_419": "%s se envió a la PC"
+	},
+	"notif_added_to_party": {
+		"en_us": "%s added to party",
+		"es_419": "%s se agregó al equipo"
+	},
+	"add_to_pc": {
+		"en_us": "ADD TO PC",
+		"es_419": "ENVIAR A LA PC"
+	},
+	"add_to_party": {
+		"en_us": "ADD TO PARTY",
+		"es_419": "AGREGAR AL EQUIPO"
+	},
+	"add_pokemon_title": {
+		"en_us": "Pick Pokémon",
+		"es_419": "Agregar Pokémon"
+	},
+	"edit_pokemon_title": {
+		"en_us": "Change Pokémon",
+		"es_419": "Modificar Pokémon"
+	},
+	"import_pokemon_title": {
+		"en_us": "Pick Pokémon",
+		"es_419": "Importar Pokémon"
+	},
+	"import_to_pc": {
+		"en_us": "IMPORT TO PC",
+		"es_419": "ENVIAR A LA PC"
+	},
+	"import_to_party": {
+		"en_us": "IMPORT TO PARTY",
+		"es_419": "AGREGAR AL EQUIPO"
+	},
+	"save_btn": {
+		"en_us": "SAVE",
+		"es_419": "GUARDAR"
+	},
+	"evolve_btn": {
+		"en_us": "EVOLVE",
+		"es_419": "EVOLUCIONAR"
+	},
+	"custom_asi_desc": {
+		"en_us": "This is for custom ability score tweaks like with Eviolite",
+		"es_419": "Esto es para ajustes personalizados en la puntuación de habilidad, como con el mineral evolutivo (Eviolite)."
+	},
+	"search_text": {
+		"en_us": "SEARCH",
+		"es_419": "BUSCAR"
+	},
+	"txt_hm_tm": {
+		"en_us": "TM",
+		"es_419": "MT"
+	},
+	"txt_egg": {
+		"en_us": "Egg",
+		"es_419": "Huevo"
+	},
+	"txt_max_lvl": {
+		"en_us": "Lv. 20",
+		"es_419": "Nivel 20"
+	},
+	"txt_all": {
+		"en_us": "A-Z",
+		"es_419": "A-Z"
+	},
+	"txt_current_lvl": {
+		"en_us": "Current Lv.",
+		"es_419": "Nivel Actual"
+	},
+	"txt_hidden": {
+		"en_us": "HIDDEN",
+		"es_419": "OCULTA"
+	},
+	"txt_pkmn": {
+		"en_us": "PKMN",
+		"es_419": "PKMN"
+	},
+	"txt_replace": {
+		"en_us": "REPLACE",
+		"es_419": "REMPLAZAR"
+	},
+	"txt_learn": {
+		"en_us": "LEARN",
+		"es_419": "APRENDER"
+	},
+	"txt_cancel": {
+		"en_us": "CANCEL",
+		"es_419": "CANCELAR"
+	}
+}

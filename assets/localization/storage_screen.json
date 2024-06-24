@@ -1,0 +1,30 @@
+{
+	"default_pc_name": {
+		"en_us": "Someone",
+		"es_419": "Alguien"
+	},
+	"txt_title_format": {
+		"en_us": "%s's PC",
+		"es_419": "La PC de %s"
+	},
+	"add_text": {
+		"en_us": "ADD",
+		"es_419": "AGREGAR"
+	},
+	"search_text": {
+		"en_us": "search",
+		"es_419": "buscar por especie, índice o tipo"
+	},
+	"sort_alphabetical": {
+		"en_us": "ALPHABETICAL",
+		"es_419": "ALFABÉTICAMENTE"
+	},
+	"sort_index": {
+		"en_us": "INDEX",
+		"es_419": "ÍNDICE"
+	},
+	"sort_level": {
+		"en_us": "LEVEL",
+		"es_419": "NIVEL"
+	}
+}

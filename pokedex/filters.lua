@@ -1,18 +1,20 @@
 local file = require "utils.file"
 local utils = require "utils.utils"
-local log = require "utils.log"
 local fakemon = require "fakemon.fakemon"
 local pokedex = require "pokedex.pokedex"
 local dex_data = require "pokedex.dex_data"
 local constants = require "utils.constants"
+
 
 local M = {}
 
 local trainer_classes
 local trainer_classes_list
 local habitats
+local habitat_list
 local initialized
 local pokemon_types
+local type_list
 local sr = {}
 local minimum_level = {}
 
@@ -71,6 +73,29 @@ local function _trainer_classes_list()
 	return t
 end
 
+local function _habitat_list()
+	local l = {}
+	for t,_ in pairs(habitats) do
+		if t ~= "Optional" then
+			table.insert(l, t)
+		end
+	end
+
+	table.sort(l, compare)
+	return l
+end
+
+local function _type_list()
+	local l = {}
+	for t,_ in pairs(pokemon_types) do
+		if t ~= "Optional" then
+			table.insert(l, t)
+		end
+	end
+	table.sort(l, compare)
+	return l
+end
+
 local function generation_list()
 	local dex_indexes = dex_data.max_index
 	local output = {}
@@ -98,7 +123,6 @@ function M.init()
 		habitats = file.load_json_from_resource("/assets/datafiles/habitat.json")
 		pokemon_types = pokemon_types()
 		generations = generation_list()
-		table.insert(trainer_classes_list, 1, "Optional")
 		if fakemon.pokemon then
 			for name, data in pairs(fakemon.pokemon) do
 				_pokedex[name].index = data.index
@@ -122,12 +146,13 @@ function M.init()
 				habitats[name] = data
 			end
 		end
+		habitat_list = _habitat_list()
 		if fakemon.pokemon_types then
 			for name, data in pairs(fakemon.pokemon_types) do
 				pokemon_types[name] = data
 			end
 		end
-		
+		type_list = _type_list()
 
 		habitats.Optional = pokedex.list
 		pokemon_types.Optional = pokedex.list
@@ -209,35 +234,16 @@ function M.get_list(trainer_class, habitat, sr_min, sr_max, min_level, type, min
 	return class_habitat_sr_lvl_type_generation
 end
 
-function M.habitat_list()
-	local l = {}
-	for t,_ in pairs(habitats) do
-		if t ~= "Optional" then
-			table.insert(l, t)
-		end
-	end
-	
-	table.sort(l, compare)
-	table.insert(l, 1, "Optional")
-	return l
-end
-
 function M.trainer_class_list()
 	return trainer_classes_list
 end
 
-
-function M.type_list()
-	local l = {}
-	for t,_ in pairs(pokemon_types) do
-		if t ~= "Optional" then
-			table.insert(l, t)
-		end
-	end
-	table.sort(l, compare)
-	table.insert(l, 1, "Optional")
-	return l
+function M.habitat_list()
+	return habitat_list
 end
 
+function M.type_list()
+	return type_list
+end
 
 return M

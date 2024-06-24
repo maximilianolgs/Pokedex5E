@@ -2,11 +2,13 @@ local gooey = require "gooey.gooey"
 local gui_colors = require "utils.gui_colors"
 local url = require "utils.url"
 local platform = require "utils.platform"
+local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 local M = {}
 
 local function starts_with(str, start)
-	return string.lower(str):sub(1, #start) == string.lower(start)
+	return localization.lower(str):sub(1, #start) == start
 end
 
 local function filter_profiles(self, search_string)
@@ -21,23 +23,24 @@ end
 function M.filter_list(self, search_string)
 	if #search_string > 0 then
 		self.filtered_list = {}
-		filter_profiles(self, search_string:lower())
+		filter_profiles(self, localization.lower(search_string))
 	else
 		self.filtered_list = self.scrolling_data
 	end
-	msg.post(url.PROFILES, "search")
+	--msg.post(url.PROFILES, "search")
+	msg.post(url.PROFILES, messages.SEARCH)
 end
 
 local function refresh_input(self, input, node_id)
 	if input.empty and not input.selected then
-		gui.set_text(input.node, "search")
+		gui.set_text(input.node, localization.get("profiles_screen", "search_text", "search"))
 		gui.set_color(input.node, gui_colors.HERO_TEXT_FADED)
 	end
 
 	local cursor = gui.get_node("cursor")
 	if input.selected then
 		if input.empty then
-			gui.set_text(self.seach_text, "")
+			gui.set_text(self.search_text, "")
 		end
 		
 		self.scrolling_data = {}
@@ -64,10 +67,10 @@ local disabled = vmath.vector3(0, -449, 0)
 local function keyboard_toggle(self, toggle)
 	local pos = disabled
 	if platform.MOBILE_PHONE then
-		gui.set_enabled(self.seach_background, false)
+		gui.set_enabled(self.search_background, false)
 		if toggle then
 			pos = enabled
-			gui.set_enabled(self.seach_background, true)
+			gui.set_enabled(self.search_background, true)
 		end
 		gui.set_position(gui.get_node("search"), pos)
 	end

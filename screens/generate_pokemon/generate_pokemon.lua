@@ -6,11 +6,12 @@ local movedex = require "pokedex.moves"
 local notify = require "utils.notify"
 local utils = require "utils.utils"
 local dex = require "pokedex.dex"
+local localization = require "utils.localization"
 
 local M = {}
 
 function M.add_pokemon(species, variant, level)
-	notify.notify(species .. " was added to your team!")
+	notify.notify(localization.get("generate_pokemon_screen", "pokemon_added", "%s was added to your team!"):format(species))
 	local all_moves = utils.shuffle2(utils.merge(pokedex.get_starting_moves(species), pokedex.get_moves(species, variant, level)))
 
 	local pokemon = _pokemon.new({species=species, variant=variant})
@@ -25,7 +26,6 @@ function M.add_pokemon(species, variant, level)
 	pokemon.exp = pokedex.get_experience_for_level(level-1)
 
 	poke_abilities = pokedex.get_abilities(species, variant)
-	print(poke_abilities)
 	while #poke_abilities > 1 do
 		table.remove(poke_abilities, rnd.range(1, #poke_abilities))
 	end
@@ -39,6 +39,7 @@ function M.add_pokemon(species, variant, level)
 	if pokedex.enforce_genders() and _pokemon.get_strict_gender(pokemon) ~= pokedex.ANY then
 		pokemon.gender = _pokemon.get_strict_gender(pokemon)
 	else
+		--TODO include actual ratios
 		local genders_list = {}
 		table.insert(genders_list, pokedex.MALE)
 		table.insert(genders_list, pokedex.FEMALE)

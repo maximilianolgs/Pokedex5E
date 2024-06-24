@@ -1,0 +1,30 @@
+{
+	"txt_okay": {
+		"en_us": "OKAY",
+		"es_419": "ACEPTAR"
+	},
+	"help_text_default": {
+		"en_us": "Input a value",
+		"es_419": "Ingresa un valor"
+	},
+	"help_text_update_exp": {
+		"en_us": "Type new value (55), subtract (-55) or add (+55)",
+		"es_419": "Ingresa un nuevo valor (55), resta (-55) o suma (+55)"
+	},
+	"help_text_update_hp": {
+		"en_us": "Specify new HP (55), subtract (-2), or add (+2)",
+		"es_419": "Ingresa los nuevos PG (55), resta (-55) o suma (+55)"
+	},
+	"help_text_update_temp_hp": {
+		"en_us": "Specify temporary HP.\n\nReminder: Temporary HP does not stack!",
+		"es_419": "Ingresa los PG terporales.\n\nRecordatorio: ¡Los PG temporales no se acumulan!"
+	},
+	"help_text_update_profile_name": {
+		"en_us": "Input new profile name.",
+		"es_419": "Ingresa el nuevo nombre de perfil."
+	},
+	"help_text_new_group_name": {
+		"en_us": "What should your group be called?",
+		"es_419": "¿Cómo debería llamarse tu grupo?"
+	}
+}

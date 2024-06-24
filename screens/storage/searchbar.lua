@@ -6,18 +6,21 @@ local url = require "utils.url"
 local dex = require "pokedex.dex"
 local type_data = require "utils.type_data"
 local platform = require "utils.platform"
+local messages = require "utils.messages"
+local gui_utils = require "utils.gui"
+local localization = require "utils.localization"
 
 local M = {}
 
 local function starts_with(str, start)
-	return string.lower(str):sub(1, #start) == string.lower(start)
+	return localization.lower(str):sub(1, #start) == start
 end
 
 local function filter_type(self, search_string)
 	for i=#self.all_pokemons, 1, -1 do
 		local p = storage.get_pokemon(self.all_pokemons[i])
 		for _, type in pairs(_pokemon.get_type(p)) do
-			if type:lower() == search_string:lower() then
+			if localization.get_lower("pokemon_information", "pokemon_type_" .. type, type) == search_string then
 				table.insert(self.filtered_list, 1, self.all_pokemons[i])
 			end
 		end
@@ -50,23 +53,24 @@ function M.filter_list(self, search_string)
 			filter = filter_index
 		else
 			for type, _ in pairs(type_data) do
-				if type:lower() == search_string:lower() then
+				if localization.get_lower("pokemon_information", "pokemon_type_" .. type, type) == localization.lower(search_string) then
 					filter = filter_type
 					break
 				end
 			end
 		end
 		self.filtered_list = {}
-		filter(self, search_string:lower())
+		filter(self, localization.lower(search_string))
 	else
 		self.filtered_list = self.all_pokemons
 	end
-	msg.post(url.STORAGE, "search")
+	msg.post(url.STORAGE, messages.SEARCH)
 end
 
 local function refresh_input(self, input, node_id)
 	if input.empty and not input.selected then
-		gui.set_text(input.node, "search")
+		gui.set_text(input.node, self.DEFAULT_SEARCH_TEXT)
+		gui_utils.scale_text_to_fit_size_2(input.node)
 		gui.set_color(input.node, gui_colors.HERO_TEXT_FADED)
 	end
 
@@ -74,6 +78,7 @@ local function refresh_input(self, input, node_id)
 	if input.selected then
 		if input.empty then
 			gui.set_text(self.text_node, "")
+			gui_utils.scale_text_to_fit_size_2(input.node)
 		end
 		self.all_pokemons = storage.list_of_ids_in_pc()
 		gui.set_enabled(cursor, true)

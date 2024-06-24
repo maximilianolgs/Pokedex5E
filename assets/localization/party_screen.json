@@ -1,0 +1,82 @@
+{
+	"edit_text": {
+		"en_us": "EDIT",
+		"es_419": "EDITAR"
+	},
+	"title": {
+		"en_us": "Party",
+		"es_419": "Equipo"
+	},
+	"title_loyalty": {
+		"en_us": "LOYALTY:",
+		"es_419": "LEALTAD:"
+	},
+	"pokemon_exp": {
+		"en_us": "EXP:",
+		"es_419": "EXP:"
+	},
+	"pokemon_saving_throws": {
+		"en_us": "SAVING THROWS",
+		"es_419": "TIRADAS DE SALVACIÓN"
+	},
+	"txt_no_status": {
+		"en_us": "+ ADD STATUS EFFECTS",
+		"es_419": "+ AGREGAR ESTADO"
+	},
+	"pokemon_moves_tab": {
+		"en_us": "MOVES",
+		"es_419": "MOVIMIENTOS"
+	},
+	"pokemon_features_tab": {
+		"en_us": "FEATURES",
+		"es_419": "APTITUDES"
+	},
+	"pokemon_traits_tab": {
+		"en_us": "TRAITS",
+		"es_419": "RAZGOS"
+	},
+	"pokemon_traits_stab": {
+		"en_us": "STAB:",
+		"es_419": "BAMT:"
+	},
+	"pokemon_traits_prof": {
+		"en_us": "PROF:",
+		"es_419": "PROF:"
+	},
+	"pokemon_traits_hitdice": {
+		"en_us": "HIT DICE:",
+		"es_419": "DADO\nDE GOLPE:"
+	},
+	"pokemon_skills": {
+		"en_us": "Skills",
+		"es_419": "HABILIDADES"
+	},
+	"pokemon_speeds": {
+		"en_us": "SPEEDS",
+		"es_419": "VELOCIDADES"
+	},
+	"pokemon_senses": {
+		"en_us": "SENSES",
+		"es_419": "SENTIDOS"
+	},
+	"pokemon_sr": {
+		"en_us": "SR:",
+		"es_419": "CE:"
+	},
+	"pokemon_catch_dc": {
+		"en_us": "CATCH DC:",
+		"es_419": "CD DE CAPTURA:"
+	},
+	"pokemon_exp_worth": {
+		"en_us": "EXP WORTH:",
+		"es_419": "EXP OTORGADA:"
+	},
+	"pokemon_move_ab": {
+		"en_us": "AB",
+		"es_419": "BA"
+	},
+	"pokemon_move_dc": {
+		"en_us": "DC",
+		"es_419": "CD"
+	}
+}

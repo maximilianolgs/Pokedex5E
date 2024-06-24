@@ -1,0 +1,86 @@
+{
+	"reckless": {
+		"en_us": "Reckless",
+		"es_419": "Imprudente"
+	},
+	"rash": {
+		"en_us": "Rash",
+		"es_419": "Precipitado"
+	},
+	"brave": {
+		"en_us": "Brave",
+		"es_419": "Valiente"
+	},
+	"arrogant": {
+		"en_us": "Arrogant",
+		"es_419": "Arrogante"
+	},
+	"skittish": {
+		"en_us": "Skittish",
+		"es_419": "Asustadizo"
+	},
+	"hasty": {
+		"en_us": "Hasty",
+		"es_419": "Apresurado"
+	},
+	"energetic": {
+		"en_us": "Energetic",
+		"es_419": "Energético"
+	},
+	"clumsy": {
+		"en_us": "Clumsy",
+		"es_419": "Torpe"
+	},
+	"apathetic": {
+		"en_us": "Apathetic",
+		"es_419": "Apático"
+	},
+	"stubborn": {
+		"en_us": "Stubborn",
+		"es_419": "Terco"
+	},
+	"grumpy": {
+		"en_us": "Grumpy",
+		"es_419": "Gruñón"
+	},
+	"relaxed": {
+		"en_us": "Relaxed",
+		"es_419": "Relajado"
+	},
+	"careful": {
+		"en_us": "Careful",
+		"es_419": "Cuidadoso"
+	},
+	"curious": {
+		"en_us": "Curious",
+		"es_419": "Curioso"
+	},
+	"naughty": {
+		"en_us": "Naughty",
+		"es_419": "Travieso"
+	},
+	"cheerful": {
+		"en_us": "Cheerful",
+		"es_419": "Alegre"
+	},
+	"sassy": {
+		"en_us": "Sassy",
+		"es_419": "Atrevido"
+	},
+	"innocent": {
+		"en_us": "Innocent",
+		"es_419": "Inocente"
+	},
+	"hardy": {
+		"en_us": "Hardy",
+		"es_419": "Resistente"
+	},
+	"nimble": {
+		"en_us": "Nimble",
+		"es_419": "Ágil"
+	},
+	"no nature": {
+		"en_us" : "No Nature",
+		"es_419" : "Sin Naturaleza"
+	}
+}

@@ -1,6 +1,5 @@
 local pokemon_edit = require "screens.change_pokemon.change_pokemon"
 local button = require "utils.button"
-local natures = require "pokedex.natures"
 local monarch = require "monarch.monarch"
 local storage = require "pokedex.storage"
 local pokedex = require "pokedex.pokedex"
@@ -13,6 +12,8 @@ local notify = require "utils.notify"
 local dex = require "pokedex.dex"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local gui_utils = require "utils.gui"
+local localization = require "utils.localization"
 
 local HAVE_EVOLVED = false
 
@@ -43,9 +44,9 @@ end
 local function add_pokemon(self)
 	dex.set(self.pokemon.species.current, dex.states.CAUGHT)
 	if storage.is_party_full() then
-		notify.notify(self.pokemon.species.current .. " added to PC")
+		notify.notify(localization.get("change_pokemon_screen", "notif_added_to_pc", "%s added to PC"):format(self.pokemon.species.current))
 	else
-		notify.notify(self.pokemon.species.current .. " added to party")
+		notify.notify(localization.get("change_pokemon_screen", "notif_added_to_party", "%s added to party"):format(self.pokemon.species.current))
 	end
 	storage.add(self.pokemon)
 	exit(self)
@@ -53,8 +54,11 @@ end
 
 function init(self)
 	button.acquire()
+	
+	gui.set_text(gui.get_node("change_pokemon/top/title"), localization.get("change_pokemon_screen", "import_pokemon_title", "Pick Pokemon"))
+	
 	gui.set_enabled(gui.get_node("change_pokemon/cursor"), false)
-
+	
 	-- Delay the message 1 frame
 	timer.delay(0, false, function() msg.post(url.MENU, messages.HIDE) end)
 	
@@ -63,14 +67,18 @@ function init(self)
 	pokemon_edit.redraw(self)
 
 	pokemon_image(self.pokemon)
-	pokemon_edit.init(self)
+	--why is trying to re-init?
+	--pokemon_edit.init(self)
 	
 	local b = {node="btn_add", func=function() add_pokemon(self) end, refresh=function(b) gooey_buttons.common_button(b, gui.get_node("txt_add")) end}
 	table.insert(active_buttons, b)
 
 	if storage.is_party_full() then
-		gui.set_text(gui.get_node("txt_add"), "IMPORT TO PC")
+		gui.set_text(gui.get_node("txt_add"), localization.get("change_pokemon_screen", "import_to_pc","IMPORT TO PC"))
+	else
+		gui.set_text(gui.get_node("txt_add"), localization.get("change_pokemon_screen", "import_to_party","IMPORT TO PARTY"))
 	end
+	gui_utils.scale_text_to_fit_size_2(gui.get_node("txt_add"))
 end
 
 function final(self)

@@ -1,0 +1,38 @@
+{
+	"title": {
+		"en_us": "Move Info",
+		"es_419": "Información del Movimiento"
+	},
+	"txt_reset_pp": {
+		"en_us": "RESET PP",
+		"es_419": "RESTABLECER PP"
+	},
+	"lbl_pp": {
+		"en_us": "PP",
+		"es_419": "PP"
+	},
+	"lbl_dmg": {
+		"en_us": "Damage",
+		"es_419": "Daño"
+	},
+	"lbl_range": {
+		"en_us": "Range",
+		"es_419": "Rango"
+	},
+	"lbl_time": {
+		"en_us": "Move Time",
+		"es_419": "Tiempo de Movimiento"
+	},
+	"lbl_duration": {
+		"en_us": "Duration",
+		"es_419": "Duración"
+	},
+	"lbl_move_power": {
+		"en_us": "Move Power",
+		"es_419": "Mod. de Movimiento"
+	},
+	"notif_reset_pp": {
+		"en_us": "PP for %s has been reset",
+		"es_419": "Los PP de %s fueron restablecidos"
+	}
+}

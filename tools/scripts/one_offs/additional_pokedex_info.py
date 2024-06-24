@@ -3,17 +3,35 @@ import json
 import re
 
 # https://github.com/PokeAPI/api-data
-input_location = Path().home() / "downloads" / "api-data-master" / "data" / "api" / "v2"
+
+input_location = Path(__file__).parent.parent.parent.parent.parent / "pokeapi-data" / "data" / "api" / "v2"
 output_location = Path(__file__).parent.parent.parent.parent / "assets" / "datafiles"
 
 output_data = {}
 pokemon_index_cap = 809
 
+lang_map = {
+            "en": ".json",
+            "es": "-es_419.json",
+            "fr": "-fr_fr.json",
+            "de": "-de_de.json",
+            "it": "-it_it.json"
+            }
+
+lang = input('Input target lang: ')
+lang = lang.lower()
+iso_lang = lang_map.get(lang, False)
+if not iso_lang:
+    print('invalid lang.')
+    print('next time input one of the following valid languages:')
+    for key, valie in lang_map.items():
+        print(key)
+    raise SystemExit()
 
 def get(_json_data, version):
     _flavor_text = ""
     for _flavor in _json_data["flavor_text_entries"]:
-        if _flavor["language"]["name"] == "en" and (
+        if _flavor["language"]["name"] == lang and (
                 _flavor["version"]["name"] == version):
             _flavor_text = _flavor["flavor_text"].replace(species.upper(), species.capitalize()).replace("\n",
                                                                                                        " ").replace(
@@ -55,10 +73,10 @@ for index in range(pokemon_index_cap):
             flavor_text = get(json_data, "sword")
 
         for genus in json_data["genera"]:
-            if genus["language"]["name"] == "en":
+            if genus["language"]["name"] == lang:
                 genus_text = genus["genus"]
                 break
     output_data[index] = {"flavor": flavor_text, "height": height_text, "weight": weight_text, "genus": genus_text}
 
-with open(output_location / "pokedex_extra.json", "w", encoding="utf-8") as f:
+with open(output_location / ("pokedex_extra" + iso_lang), "w", encoding="utf-8") as f:
     json.dump(output_data, f, indent="  ", ensure_ascii=False)

@@ -1,16 +1,22 @@
 local monarch = require "monarch.monarch"
 local gooey = require "gooey.gooey"
 local messages = require "utils.messages"
+local localization = require "utils.localization"
 
 function init(self)
     msg.post(".", messages.ACQUIRE_INPUT_FOCUS)
     self.data = monarch.data("version")
+
+    gui.set_text(gui.get_node("txt_title"), localization.get("version_popup", "title", "Version"))
+    gui.set_text(gui.get_node("txt_open"), localization.get("version_popup", "btn_download", "DOWNLOAD"))
+    gui.set_text(gui.get_node("txt_close"), localization.get("version_popup", "btn_close", "CLOSE"))
+    
     local text = ""
     if self.data.up_to_date then
-        text = "You have the latest version"
+        text = localization.get("version_popup", "version_up_to_date", "You have the latest version")
         gui.set_enabled(gui.get_node("btn_open"), false)
     else
-        text = "Your are " .. self.data.versions_behind .. " versions behind!"
+        text = localization.get("version_popup", "version_outdated", "Your are %s versions behind!"):format(self.data.versions_behind)
     end
     gui.set_text(gui.get_node("txt"), text)
 end

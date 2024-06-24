@@ -25,6 +25,7 @@ local backup = require "utils.backup"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
 local platform = require "utils.platform"
+local localization = require "utils.localization"
 
 local function send_crash_on_start()
 	crash.write_dump()
@@ -130,6 +131,8 @@ function init(self)
 	msg.post("#", messages.SHOW_SPLASH)
 	
 	flow.start(function()
+		localization.init()
+		
 		if platform.WEB then
 			log.info("HTML5: Skipping LuaFileSystem")
 		else

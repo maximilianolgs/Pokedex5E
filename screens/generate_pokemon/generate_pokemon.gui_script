@@ -16,6 +16,7 @@ local dex_data = require "pokedex.dex_data"
 local constants = require "utils.constants"
 local messages = require "utils.messages"
 local screens = require "utils.screens"
+local localization = require "utils.localization"
 
 local storage_data = {}
 local action_position = vmath.vector3()
@@ -26,6 +27,9 @@ local img_map = {["Water's-edge"] = "Waters-edge", Forest = "Forest", Cave = "Ca
 				Urban = "Urban", ["Rough-terrain"] = "Rough", Mountain = "Mountain", Grassland = "Grassland",
 				Rare = "Rare", All = "All"
 }
+
+local optional_text
+local optional_filter = "Optional"
 
 local MAX_SR = constants.SR_TO_NUMBER[constants.SR_LIST[#constants.SR_LIST]]
 local MIN_SR = constants.SR_TO_NUMBER[constants.SR_LIST[1]]
@@ -87,7 +91,7 @@ local function update_item(list, item)
 			if data[i].sprite then
 				gui.play_flipbook(sprite_node, data[i].sprite)
 			end
-			gui.set_text(text_node, data[i].species:upper() .. "\nLv. " .. data[i].level)
+			gui.set_text(text_node, data[i].species:upper() .. "\n" .. localization.get("pokemon_information", "pokemon_level", "Lv.") .. " " .. data[i].level)
 		else
 			gui.set_enabled(background, false)
 		end
@@ -129,19 +133,19 @@ end
 
 
 local function update_colors(self)
-	if self.habitat == "Optional" then
+	if self.habitat == optional_filter then
 		gui.set_color(gui.get_node("txt_habitat"), gui_colors.HERO_TEXT_FADED)
 	else
 		gui.set_color(gui.get_node("txt_habitat"), gui_colors.HERO_TEXT)
 	end
 	
-	if self.trainer_class == "Optional" then
+	if self.trainer_class == optional_filter then
 		gui.set_color(gui.get_node("txt_trainer"), gui_colors.HERO_TEXT_FADED)
 	else
 		gui.set_color(gui.get_node("txt_trainer"), gui_colors.HERO_TEXT)
 	end
 	
-	if self.type == "Optional" then
+	if self.type == optional_filter then
 		gui.set_color(gui.get_node("txt_type"), gui_colors.HERO_TEXT_FADED)
 	else
 		gui.set_color(gui.get_node("txt_type"), gui_colors.HERO_TEXT)
@@ -158,7 +162,7 @@ local function update_colors(self)
 	else
 		gui.set_color(gui.get_node("txt_max_sr"), gui_colors.HERO_TEXT)
 	end
-	if self.min_generation == 0 then
+	if self.min_generation == 1 then
 		gui.set_color(gui.get_node("txt_min_generation"), gui_colors.HERO_TEXT_FADED)
 	else
 		gui.set_color(gui.get_node("txt_min_generation"), gui_colors.HERO_TEXT)
@@ -167,6 +171,11 @@ local function update_colors(self)
 		gui.set_color(gui.get_node("txt_max_generation"), gui_colors.HERO_TEXT_FADED)
 	else
 		gui.set_color(gui.get_node("txt_max_generation"), gui_colors.HERO_TEXT)
+	end
+	if self.level == 0 then
+		gui.set_color(gui.get_node("txt_level"), gui_colors.HERO_TEXT_FADED)
+	else
+		gui.set_color(gui.get_node("txt_level"), gui_colors.HERO_TEXT)
 	end
 end
 
@@ -177,95 +186,98 @@ local function update_pokemons_list_view(self)
 	update_colors(self)
 end
 
-function init(self)
-	gooey.acquire_input()
-	gui_extra_functions.init()
-	msg.post(url.MENU, messages.HIDE)
-	self.trainer_class_list = filters.trainer_class_list()
-	self.habitat_list = filters.habitat_list()
-	self.type_list = filters.type_list()
-	self.trainer_class = "Optional"
-	self.habitat = "Optional"
-	self.type = "Optional"
-	self.min_sr = MIN_SR
-	self.max_sr = MAX_SR
-	self.level = 0
-	self.min_generation = 0
-	self.max_generation = #GENERATIONS
-	
-	self.filtered_pokemons = get_filtered(self)
-	
-	update_storage_data(self)
-
-	self.scrolling_list = gooey_scrolling_list.create_vertical_dynamic("storage", "scroll_list", "pokemon/row", "scrollbar/handle", "scrollbar/bar", "scrollbar/visual", update_item, function(list) on_item_selected(self, list) end)
-	self.scrolling_list.refresh(self.pokemon_rows)
-
-	update_colors(self)
-
-	self.dropdown_generation_min = dropdown.create("generation_min", "min_generation", "txt_min_generation", "scroll_selection", "scroll_bg", "scroll_text", function()
-		local t = gui.get_text(gui.get_node("txt_min_generation"))
-		self.min_generation = tonumber(t)
-		update_pokemons_list_view(self)
-	end)
-
-	self.dropdown_generation_max = dropdown.create("generation_max", "max_generation", "txt_max_generation", "scroll_selection", "scroll_bg", "scroll_text", function()
-		local t = gui.get_text(gui.get_node("txt_max_generation"))
-		self.max_generation = tonumber(t)
-		update_pokemons_list_view(self)
-	end)
-
-	self.dropdown_sr_min = dropdown.create("sr_min", "min_sr", "txt_min_sr", "scroll_selection", "scroll_bg", "scroll_text", function()
-		local t = gui.get_text(gui.get_node("txt_min_sr"))
-		self.min_sr = constants.SR_TO_NUMBER[t]
-		update_pokemons_list_view(self)
-	end)
-
-	self.dropdown_sr_max = dropdown.create("sr_max", "max_sr", "txt_max_sr", "scroll_selection", "scroll_bg", "scroll_text", function()
-		local t = gui.get_text(gui.get_node("txt_max_sr"))
-		self.max_sr = constants.SR_TO_NUMBER[t]
-		update_pokemons_list_view(self)
-	end)
-
-	self.dropdown_habitat = dropdown.create("Habitat", "habitat", "txt_habitat", "scroll_selection", "scroll_bg", "scroll_text", function()
-		self.habitat = gui.get_text(gui.get_node("txt_habitat"))
-		update_pokemons_list_view(self)
-	end)
-
-	self.dropdown_trainers = dropdown.create("Trainers", "trainer", "txt_trainer", "scroll_selection", "scroll_bg", "scroll_text", function()
-		self.trainer_class = gui.get_text(gui.get_node("txt_trainer"))
-		update_pokemons_list_view(self)
-	end)
-
-	self.dropdown_type = dropdown.create("Type", "type", "txt_type", "scroll_selection", "scroll_bg", "scroll_text", function()
-		self.type = gui.get_text(gui.get_node("txt_type"))
-		update_pokemons_list_view(self)
-	end)	
-end
-
-
-
 local function reset_filters(self)
-	self.trainer_class = "Optional"
-	self.habitat = "Optional"
-	self.type = "Optional"
+	self.min_generation = 1
+	self.max_generation = #GENERATIONS
 	self.min_sr = MIN_SR
 	self.max_sr = MAX_SR
+	self.habitat = optional_filter
+	self.trainer_class = optional_filter
+	self.type = optional_filter
 	self.level = 0
-	self.min_generation = 0
-	self.max_generation = #GENERATIONS
-	
-	gui.set_text(gui.get_node("txt_trainer"), self.trainer_class:upper())
-	gui.set_text(gui.get_node("txt_habitat"), self.habitat:upper())
-	gui.set_text(gui.get_node("txt_min_sr"), "MIN")
-	gui.set_text(gui.get_node("txt_max_sr"), "MAX")
-	gui.set_text(gui.get_node("txt_min_generation"), "MIN")
-	gui.set_text(gui.get_node("txt_max_generation"), "MAX")
-	gui.set_text(gui.get_node("txt_level"), self.level)
-	gui.set_text(gui.get_node("txt_type"), self.type:upper())
+
+	gui.set_text(gui.get_node("txt_min_generation"), self.min_generation)
+	gui.set_text(gui.get_node("txt_max_generation"), self.max_generation)
+	gui.set_text(gui.get_node("txt_min_sr"), constants.NUMBER_TO_SR[MIN_SR])
+	gui.set_text(gui.get_node("txt_max_sr"), constants.NUMBER_TO_SR[MAX_SR])
+	gui.set_text(gui.get_node("txt_habitat"), optional_text)
+	gui.set_text(gui.get_node("txt_trainer"), optional_text)
+	gui.set_text(gui.get_node("txt_type"), optional_text)
+	gui.set_text(gui.get_node("txt_level"), "-")
 
 	selected_pokemon = {}
 
 	update_pokemons_list_view(self)
+end
+
+function init(self)
+	gooey.acquire_input()
+	gui_extra_functions.init()
+	msg.post(url.MENU, messages.HIDE)
+	
+	optional_text = localization.get_upper("generate_pokemon_screen", "optional_text", "OPTIONAL")
+	
+	gui.set_text(gui.get_node("template/title"), localization.get("generate_pokemon_screen", "title", "Pokemon Generator"))
+	gui_utils.scale_text_to_fit_size_2(gui.get_node("template/title"))
+	gui.set_text(gui.get_node("title2"), localization.get("generate_pokemon_screen", "filter_title", "FILTER ATTRIBUTES"))
+	gui.set_text(gui.get_node("txt_reset"), localization.get("generate_pokemon_screen", "txt_reset_filters", "RESET FILTERS"))
+	gui.set_text(gui.get_node("desc_generation"), localization.get("generate_pokemon_screen", "desc_generation", "GENERATION"))
+	gui.set_text(gui.get_node("desc_sr"), localization.get("generate_pokemon_screen", "desc_sr", "SR RANGE:"))
+	gui.set_text(gui.get_node("desc_habitat"), localization.get("generate_pokemon_screen", "desc_habitat", "HABITAT:"))
+	gui.set_text(gui.get_node("desc_trainer"), localization.get("generate_pokemon_screen", "desc_trainer", "TRAINER TYPE:"))
+	gui.set_text(gui.get_node("desc_type"), localization.get("generate_pokemon_screen", "desc_type", "POKEMON TYPE:"))
+	gui.set_text(gui.get_node("desc_level"), localization.get("generate_pokemon_screen", "desc_level", "POKEMON LV."))
+	
+	gui.set_text(gui.get_node("txt_add"), localization.get("generate_pokemon_screen", "txt_add_to_team", "ADD TO PC"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("txt_add"))
+	gui.set_text(gui.get_node("txt_random"), localization.get("generate_pokemon_screen", "txt_random", "RANDOM"))
+	
+	self.trainer_class_list = filters.trainer_class_list()
+	self.habitat_list = filters.habitat_list()
+	self.type_list = filters.type_list()
+
+	self.scrolling_list = gooey_scrolling_list.create_vertical_dynamic("storage", "scroll_list", "pokemon/row", "scrollbar/handle", "scrollbar/bar", "scrollbar/visual", update_item, function(list) on_item_selected(self, list) end)
+	
+	reset_filters(self)
+	
+	self.dropdown_generation_min = dropdown.create("generation_min", "min_generation", "txt_min_generation", "scroll_selection", "scroll_bg", "scroll_text", function(index)
+		local t = GENERATIONS[index]
+		self.min_generation = tonumber(t)
+		update_pokemons_list_view(self)
+	end)
+
+	self.dropdown_generation_max = dropdown.create("generation_max", "max_generation", "txt_max_generation", "scroll_selection", "scroll_bg", "scroll_text", function(index)
+		local t = GENERATIONS[index]
+		self.max_generation = tonumber(t)
+		update_pokemons_list_view(self)
+	end)
+
+	self.dropdown_sr_min = dropdown.create("sr_min", "min_sr", "txt_min_sr", "scroll_selection", "scroll_bg", "scroll_text", function(index)
+		local t = constants.SR_LIST[index]
+		self.min_sr = constants.SR_TO_NUMBER[t]
+		update_pokemons_list_view(self)
+	end)
+
+	self.dropdown_sr_max = dropdown.create("sr_max", "max_sr", "txt_max_sr", "scroll_selection", "scroll_bg", "scroll_text", function(index)
+		local t = constants.SR_LIST[index]
+		self.max_sr = constants.SR_TO_NUMBER[t]
+		update_pokemons_list_view(self)
+	end)
+
+	self.dropdown_habitat = dropdown.create("Habitat", "habitat", "txt_habitat", "scroll_selection", "scroll_bg", "scroll_text", function(index)
+		self.habitat = self.habitat_list[index]
+		update_pokemons_list_view(self)
+	end)
+
+	self.dropdown_trainers = dropdown.create("Trainers", "trainer", "txt_trainer", "scroll_selection", "scroll_bg", "scroll_text", function(index)
+		self.trainer_class = self.trainer_class_list[index]
+		update_pokemons_list_view(self)
+	end)
+
+	self.dropdown_type = dropdown.create("Type", "type", "txt_type", "scroll_selection", "scroll_bg", "scroll_text", function(index)
+		self.type = self.type_list[index]
+		update_pokemons_list_view(self)
+	end)
 end
 
 function on_input(self, action_id, action)
@@ -278,7 +290,7 @@ function on_input(self, action_id, action)
 	if self.dropdown_generation_max.on_input(GENERATIONS, action_id, action) then
 		return true
 	end
-	
+
 	if self.dropdown_sr_min.on_input(constants.SR_LIST, action_id, action) then
 		return true
 	end
@@ -287,15 +299,15 @@ function on_input(self, action_id, action)
 		return true
 	end
 	
-	if self.dropdown_habitat.on_input(self.habitat_list, action_id, action) then
+	if self.dropdown_habitat.on_input(localization.translate_table("generate_pokemon_screen", "habitat_", self.habitat_list), action_id, action) then
 		return true
 	end
 		
-	if self.dropdown_trainers.on_input(self.trainer_class_list, action_id, action) then
+	if self.dropdown_trainers.on_input(localization.translate_table("generate_pokemon_screen", "trainer_", self.trainer_class_list), action_id, action) then
 		return true
 	end
 	
-	if self.dropdown_type.on_input(self.type_list, action_id, action) then
+	if self.dropdown_type.on_input(localization.translate_table("pokemon_information", "pokemon_type_", self.type_list), action_id, action) then
 		return true
 	end
 
@@ -315,7 +327,11 @@ function on_input(self, action_id, action)
 	
 	gooey.button("level/btn_minus", action_id, action, function()
 		self.level = math.max(self.level - 1, 0)
-		gui.set_text(gui.get_node("txt_level"), self.level)
+		if self.level == 0 then
+			gui.set_text(gui.get_node("txt_level"), "-")
+		else
+			gui.set_text(gui.get_node("txt_level"), self.level)
+		end
 		update_pokemons_list_view(self)
 	end, gooey_buttons.minus_button)
 
@@ -325,37 +341,37 @@ function on_input(self, action_id, action)
 
 
 	gooey.button("btn_clear_generation", action_id, action, function()
-		self.min_generation = 0
+		self.min_generation = 1
 		self.max_generation = #GENERATIONS
-		gui.set_text(gui.get_node("txt_min_generation"), "MIN")
-		gui.set_text(gui.get_node("txt_max_generation"), "MAX")
+		gui.set_text(gui.get_node("txt_min_generation"), self.min_generation)
+		gui.set_text(gui.get_node("txt_max_generation"), self.max_generation)
 		update_pokemons_list_view(self)
 	end)
 	gooey.button("btn_clear_sr", action_id, action, function()
 		self.min_sr = MIN_SR
 		self.max_sr = MAX_SR
-		gui.set_text(gui.get_node("txt_min_sr"), "MIN")
-		gui.set_text(gui.get_node("txt_max_sr"), "MAX")
+		gui.set_text(gui.get_node("txt_min_sr"), constants.NUMBER_TO_SR[MIN_SR])
+		gui.set_text(gui.get_node("txt_max_sr"), constants.NUMBER_TO_SR[MAX_SR])
 		update_pokemons_list_view(self)
 	end)
 	gooey.button("btn_clear_habitat", action_id, action, function()
-		self.habitat = "Optional"
-		gui.set_text(gui.get_node("txt_habitat"), self.habitat:upper())
+		self.habitat = optional_filter
+		gui.set_text(gui.get_node("txt_habitat"), optional_text)
 		update_pokemons_list_view(self)
 	end)
 	gooey.button("btn_clear_trainer_type", action_id, action, function()
-		self.trainer_class = "Optional"
-		gui.set_text(gui.get_node("txt_trainer"), self.trainer_class:upper())
+		self.trainer_class = optional_filter
+		gui.set_text(gui.get_node("txt_trainer"), optional_text)
 		update_pokemons_list_view(self)
 	end)
 	gooey.button("btn_clear_pokemon_type", action_id, action, function()
-		self.type = "Optional"
-		gui.set_text(gui.get_node("txt_type"), self.type:upper())
+		self.type = optional_filter
+		gui.set_text(gui.get_node("txt_type"), optional_text)
 		update_pokemons_list_view(self)
 	end)
 	gooey.button("btn_clear_pokemon_level", action_id, action, function()
 		self.level = 0
-		gui.set_text(gui.get_node("txt_level"), self.level)
+		gui.set_text(gui.get_node("txt_level"), "-")
 		update_pokemons_list_view(self)
 	end)
 	

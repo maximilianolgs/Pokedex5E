@@ -4,6 +4,8 @@ local _feats = require "pokedex.feats"
 local gooey = require "gooey.gooey"
 local party_utils = require "screens.party.utils"
 local scrollhandler = require "screens.party.components.scrollhandler"
+local gui_utils = require "utils.gui"
+local localization = require "utils.localization"
 
 local M = {}
 
@@ -11,6 +13,8 @@ local active_ability_lists = {[1]={}, [2]={}}
 local active_page
 local start_position
 local is_playing = {}
+
+local ABILITY_TITLE_TEXT_SCALE = vmath.vector3(1.5)
 
 
 local function setup_entry(nodes, name, desc, p, i)
@@ -26,9 +30,12 @@ local function setup_entry(nodes, name, desc, p, i)
 	gui.set_enabled(root_node, true)
 
 	gui.set_position(root_node, p)
-	gui.set_text(name_node, name:upper())
+	gui.set_text(name_node, localization.upper(name))
+	gui.set_scale(name_node, ABILITY_TITLE_TEXT_SCALE)
+	gui_utils.scale_text_to_fit_size(name_node)
 	gui.set_text(desc_node, desc)
-	local desc_height, name_height = gui.get_text_metrics_from_node(desc_node).height, gui.get_text_metrics_from_node(name_node).height
+	local desc_height = gui.get_text_metrics_from_node(desc_node).height * gui.get_scale(desc_node).y
+	local name_height = gui.get_text_metrics_from_node(name_node).height * ABILITY_TITLE_TEXT_SCALE.y
 	local size = gui.get_size(root_node)
 	size.y = desc_height + name_height
 	gui.set_size(root_node, size)
@@ -56,7 +63,7 @@ local function setup_features(nodes, pokemon)
 		for i, name in pairs(abilities) do
 			index = index + 1
 			local desc = pokedex.get_ability_description(name)
-			_setup(list, name, desc, index, p)
+			_setup(list, localization.get("abilities", name, name), desc, index, p)
 		end
 		table.insert(active_ability_lists[active_page], list)
 	end
@@ -64,7 +71,7 @@ local function setup_features(nodes, pokemon)
 		for i, name in pairs(feats) do
 			index = index + 1
 			local desc = _feats.get_feat_description(name)
-			_setup(list, name, desc, index, p)
+			_setup(list, localization.get("feats", name, name), desc, index, p)
 		end
 		table.insert(active_ability_lists[active_page], list)
 	end

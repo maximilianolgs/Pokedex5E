@@ -1,0 +1,130 @@
+{
+	"connect_title": {
+		"en_us": "CONNECT",
+		"es_419": "GRUPO"
+	},
+	"txt_join_nearby": {
+		"en_us": "JOIN NEARBY HOST:\n%s",
+		"es_419": "UNIRSE A UN GRUPO CERCANO\n%s"
+	},
+	"txt_join": {
+		"en_us": "JOIN",
+		"es_419": "UNIRSE"
+	},
+	"txt_host": {
+		"en_us": "HOST",
+		"es_419": "DIRIGIR"
+	},
+	"txt_disconnect": {
+		"en_us": "DISCONNECT",
+		"es_419": "SALIR"
+	},
+	"txt_status_serving": {
+		"en_us": "HOSTING",
+		"es_419": "ANFITRIÓN"
+	},
+	"txt_status_connecting": {
+		"en_us": "JOINING",
+		"es_419": "UNIÉNDOTE"
+	},
+	"txt_status_connected": {
+		"en_us": "JOINED",
+		"es_419": "INTEGRANTE"
+	},
+	"txt_group_members": {
+		"en_us": "GROUP MEMBERS:",
+		"es_419": "INTEGRANTES DEL GRUPO:"
+	},
+	"txt_ip_title": {
+		"en_us": "GLOBAL IP:",
+		"es_419": "IP PÚBLICA:"
+	},
+	"txt_port_title": {
+		"en_us": "PORT:",
+		"es_419": "PUERTO:"
+	},
+	"txt_local_ip_title": {
+		"en_us": "LOCAL IP:",
+		"es_419": "IP LOCAL:"
+	},
+	"txt_connecting": {
+		"en_us": "Please wait, attempting to connect...",
+		"es_419": "Un momento por favor, intentando conectar..."
+	},
+	"txt_help": {
+		"en_us": "From here, you can connect to other Trainers to share Pokemon.\n\nOne Trainer must Host a Group, then others can Join the Group. Once connected in a Group, you can send each other Pokemon via the PC.\n\nIf you are far away from each other, the Host may need to Port Forward. See the Host screen for more info.",
+		"es_419": "Desde aquí, puedes conectarte con otros Entrenadores para compartir Pokémon.\n\nUn Entrenador debe Dirigir un Grupo, y otros pueden Unirse. Una vez unido al Grupo, pueden enviarse Pokémon desde la PC.\n\nSi no están en la misma red, puede que el Anfitrión necesite configurar la Redirección de Puertos. Mira la pantalla de Dirigir para más información."
+	},
+	"host_title": {
+		"en_us": "HOST",
+		"es_419": "DIRIGIR GRUPO"
+	},
+	"txt_start_hosting": {
+		"en_us": "START HOSTING",
+		"es_419": "COMENZAR A DIRIGIR"
+	},
+	"txt_create_new": {
+		"en_us": "NEW GROUP",
+		"es_419": "NUEVO GRUPO"
+	},
+	"txt_groups": {
+		"en_us": "GROUPS",
+		"es_419": "GRUPOS"
+	},
+	"txt_delete_group": {
+		"en_us": "DELETE",
+		"es_419": "BORRAR"
+	},
+	"txt_port_info_help": {
+		"en_us": "Players joining must connect to your device's address and port.\n\nIf they are far away, you may need to set up TCP Port Forwarding through your router.\n\nTo learn more about how to do this, please search for \"How to Port Forward\" and/or look at your router's instructions.\n\nThis is a common practice when hosting many games, so you should be able to find plenty of info about it!",
+		"es_419": "Los jugadores que se unan, deben conectarse a la IP y puerto de tu dispositivo.\n\nSi no están en la misma red, probablemente debas configurar la Redirección de Puertos TCP en tu router.\n\nPara aprender más sobre cómo hacerlo, buscá \"cómo redireccionar puertos\" y/o leé las instrucciones de tu router.\n\n¡Esta es una práctica muy común cuando se crea un servidor para un juego, por lo que deberías encontrar mucha información al respecto!"
+	},
+	"txt_port_info_help_local": {
+		"en_us": "Your local IP for port forwarding is %s",
+		"es_419": "Tu IP local para Redirección de Puertos es %s"
+	},
+	"txt_port_info_btn": {
+		"en_us": "SOUNDS GOOD!",
+		"es_419": "¡SUENA BIEN!"
+	},
+	"create_new_group": {
+		"en_us": "%s's Group",
+		"es_419": "El Grupo de %s"
+	},
+	"host_address_info": {
+		"en_us": "You will need to provide the IP and Port to anyone wishing to join your group.\n\nThey can input these values on the \"JOIN\" screen.",
+		"es_419": "Necesitarás compartir la IP y Puerto a cualquiera que quiera unirse a tu grupo.\n\nEllos pueden ingresar estos valores en la sección \"UNIRSE\""
+	},
+	"join_title": {
+		"en_us": "JOIN",
+		"es_419": "UNIRSE A UN GRUPO"
+	},
+	"txt_join_host": {
+		"en_us": "JOIN HOST",
+		"es_419": "UNIRSE"
+	},
+	"txt_address_title": {
+		"en_us": "ADDRESS:",
+		"es_419": "IP:"
+	},
+	"join_address_info": {
+		"en_us": "The address and port should be provided by your host. They can be found on your host's \"CONNECT\" screen.",
+		"es_419": "La IP y Puerto deben ser compartidas por el Anfitrión. Puede encontrarlas en su pantalla de \"GRUPO\"."
+	},
+	"choose_member_title": {
+		"en_us": "CHOOSE MEMBER",
+		"es_419": "ELEGIR INTEGRANTE"
+	},
+	"version_mismatch_notif": {
+		"en_us": "Wrong host version!\nHost's: %s, Ours: %s",
+		"es_419": "¡La versión de Anfitrión no coicide!\nAnfitrión: %s, Integrante: %s"
+	},
+	"could_not_connect": {
+		"en_us": "Could not connect! Did you\nuse the right address/port?",
+		"es_419": "¡No se pudo conectar!\n¿Estás usando la IP y Puerto correctos?"
+	},
+	"unknown_connection_error": {
+		"en_us": "Could not connect! Host may be using\na different version (yours is %s).",
+		"es_419": "¡No se pudo conectar! Puede que el Anfitrión esté\nutiliando una versión diferente (tu versión %s)"
+	}
+}

@@ -28,6 +28,62 @@ function M.scale_fit_node_with_stretch(node)
 	gui.set_size(node, node_size)
 end
 
+function M.scale_text_with_line_breaks(text_node)
+	local size = gui.get_size(text_node)
+	local metrics = gui.get_text_metrics_from_node(text_node)
+	local scale = gui.get_scale(text_node)
+	if metrics.height <= size.y then
+		return
+	end
+	
+	-- if it has overflow
+	-- correction
+	local correction = size.y / metrics.height
+	local target_size_y = size.y*scale.y
+	local new_scale = scale.y * correction
+
+	local target_size_x = size.x*scale.x
+	
+	gui.set_scale(text_node, vmath.vector3(new_scale))
+	gui.set_size(text_node, vmath.vector3(size.x*(1/correction), size.y, size.z))
+	metrics = gui.get_text_metrics_from_node(text_node)
+	
+	-- fits perfect
+	if size.y*scale.y == metrics.height*new_scale then
+		return
+	end
+	
+	-- the new line break made it too little, let's find out if we can do better
+	local min = new_scale
+	local max = scale.y
+	local iteration = 0
+	
+	repeat
+		size = gui.get_size(text_node)
+		if (metrics.height * new_scale) > target_size_y then
+			max = new_scale
+		else
+			min = new_scale
+		end
+		local mid_point = (min + max) / 2
+		correction = mid_point / new_scale
+		new_scale = new_scale*correction
+
+		gui.set_scale(text_node, vmath.vector3(new_scale))
+		gui.set_size(text_node, vmath.vector3(target_size_x / new_scale, size.y, size.z))
+		metrics = gui.get_text_metrics_from_node(text_node)
+		
+		iteration = iteration +1
+	until((metrics.height * new_scale) == target_size_y or iteration == 10)
+	-- we tried enough
+	if iteration == 10 then
+		correction = min / new_scale
+		new_scale = new_scale * correction
+		gui.set_scale(text_node, vmath.vector3(new_scale))
+		gui.set_size(text_node, vmath.vector3(target_size_x / new_scale, size.y, size.z))
+	end
+end
+
 function M.scale_text_to_fit_size(text_node)
 	local metrics = gui.get_text_metrics_from_node(text_node)
 	local scale = gui.get_scale(text_node)
@@ -38,6 +94,40 @@ function M.scale_text_to_fit_size(text_node)
 		local new_scale = node_width / text_width
 		gui.set_scale(text_node, vmath.vector3(new_scale * scale.x))
 	end
+end
+
+function M.scale_text_to_fit_parent_size(text_node)
+	local metrics = gui.get_text_metrics_from_node(text_node)
+	local scale = gui.get_scale(text_node)
+	local text_width = scale.x * metrics.width
+	local node_width = gui.get_size(gui.get_parent(text_node)).x
+	if text_width > node_width then
+		local new_scale = node_width / text_width
+		gui.set_scale(text_node, vmath.vector3(new_scale * scale.x))
+	end
+end
+
+function M.scale_group_text_to_fit_x(fn_fit, ...)
+	nodes = {...}
+	group_scale = nil
+	for i,v in ipairs(nodes) do
+		fn_fit(v)
+		if not group_scale or group_scale.x > gui.get_scale(v).x then
+			group_scale = gui.get_scale(v)
+		end
+	end
+
+	for i,v in ipairs(nodes) do
+		gui.set_scale(v, group_scale)
+	end
+end
+
+function M.scale_group_text_to_fit_size(...)
+	return M.scale_group_text_to_fit_x(M.scale_text_to_fit_size, ...)
+end
+
+function M.scale_group_text_to_fit_parent_size(...)
+	return M.scale_group_text_to_fit_x(M.scale_text_to_fit_parent_size, ...)
 end
 
 -- Second function that assumes a base text scale of 1 is acceptable. This is better than the above function

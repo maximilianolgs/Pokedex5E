@@ -1,0 +1,42 @@
+{
+	"version_text": {
+		"en_us": "Version: ",
+		"es_419": "Versión: "
+	},
+	"about_title": {
+		"en_us": "About",
+		"es_419": "Acerca de"
+	},
+	"about_desc": {
+		"en_us": "Made by Jerakin for the 'Pokémon in 5th Edition' created by JoetheDM.\n\nAs you probably have noticed this app is free and without ad (and will always be)! If you would like to help me (Jerakin) to keep my motivation up I would be happy to receive a coffee!",
+		"es_419": "Hecho por Jerakin para el 'Pokémon en 5ta Edición' creado por JoetheDM.\n\nComo probablemente hayas notado, esta app es gratuita y sin anuncios (¡y siempre lo será!). Si quieres ayudarme (Jerakin) a mantener mi motivación, estaré encantado de recibir un café!"
+	},
+	"about_maeb": {
+		"en_us": "Hi! MeAfanaronElBuzon here. Since Jerakin stopped actively supporting this application, I have been adding some features and fixing small bugs, and I plan to continue doing so (always respecting the references to its original creator).\nIf something I did was useful to you and you want to thank me, you can buy me a coffee (Invitame un Cafecito).",
+		"es_419": "¡Hola! MeAfanaronElBuzon aquí. Desde que Jerakin dejó de darle soporte activo a esta aplicación, estuve agregando algunas funcionalidades y solucionando pequeños errores, y tengo planeado seguir haciéndolo (siempre respetando las referencias a su creador original)\nSi algo de lo que hice te fué de utilidad y querés agradecerme, podés invitarme un Cafecito."
+	},
+	"contact_title": {
+		"en_us": "Contact",
+		"es_419": "Contacto"
+	},
+	"contact_desc": {
+		"en_us": "Have Ideas, Bug Reports or Questions? Contact @Jerakin on the Pokemon5e discord (https://discord.gg/DA9gQAa)\nOr send a mail to pokedex5e@gmail.com",
+		"es_419": "¿Tienes ideas, informes de errores o preguntas? Ponte en contacto con @Jerakin en el Discord de Pokemon5e (https://discord.gg/DA9gQAa)\nO envíe un correo a pokedex5e@gmail.com"
+	},
+	"disclaimer_title": {
+		"en_us": "Disclaimer",
+		"es_419": "Descargo de Responsabilidad"
+	},
+	"disclaimer_desc": {
+		"en_us": "Based on the original game by Satoshi Taijiri\n© Game Freak © Nintendo Company Inc.\nWe do not claim ownership of anything related to Pokémon or Dungeons and Dragons. Please support the original source.\nNo profits are made from the release of this supplement.\n\nHigh resolution Pokémon images come from bulbapedia.bulbagarden.net and are owned by Nintendo.\n\nLow resolution Pokémon images come from pokemondb.net and are owned by Nintendo.",
+		"es_419": "Basado en el juego original de Satoshi Taijiri\n© Game Freak © Nintendo Company Inc.\nNo reclamamos la propiedad de nada relacionado con Pokémon o Calabozos y Dragones. Por favor apoye la fuente original. No se obtienen ganancias por el lanzamiento de este suplemento.\n\nLas imágenes de Pokémon de alta resolución provienen de bulbapedia.bulbagarden.net y son propiedad de Nintendo.\n\nLas imágenes de Pokémon de baja resolución provienen de pokemondb.net y son propiedad de Nintendo."
+	},
+	"share_log": {
+		"en_us": "Share Log",
+		"es_419": "Compartir Registro"
+	},
+	"change_log": {
+		"en_us": "Changelog",
+		"es_419": "Registro de Cambios"
+	}
+}

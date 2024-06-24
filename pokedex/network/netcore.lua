@@ -7,6 +7,7 @@ local notify = require "utils.notify"
 local broadcast = require "utils.broadcast"
 local settings = require "pokedex.settings"
 local log = require "utils.log"
+local localization = require "utils.localization"
 
 local M = {}
 
@@ -322,7 +323,10 @@ end
 local function client_process_initial_packet_response(packet)
 	if packet.version ~= version then
 		local server_version = packet.version or "Unknown"
-		fail_client_connect("Wrong host version!\nHost's: " .. tostring(server_version) .. ", Ours: " .. tostring(version))
+		local version_mismatch = localization.get("connect_screen", "version_mismatch_notif", "Wrong host version!\nHost's: %s, Ours: %s")
+		version_mismatch = version_mismatch:format(tostring(server_version), tostring(version))
+		
+		fail_client_connect(version_mismatch)
 	else
 		client_latest_server_info =
 		{
@@ -541,7 +545,7 @@ end
 function M.init()
 	local system = sys.get_sys_info().system_name
 	version = sys.get_config("project.version", "unknown")
-
+	
 	netcore_settings = settings.get("netcore") or {}
 	settings.set("netcore", netcore_settings)
 	
@@ -743,11 +747,12 @@ local function start_client(server_ip, server_port)
 
 	change_state_to(M.STATE_CONNECTING)
 
-	local data_func = QUEUE_RECEIVED_MESSAGES and client_on_data_queue or client_on_data	
+	local data_func = QUEUE_RECEIVED_MESSAGES and client_on_data_queue or client_on_data
 	client = tcp_client.create(server_ip, server_port, data_func, function()
 		M.stop_client()			
 		if current_state == M.STATE_CONNECTING then
-			fail_client_connect("Could not connect! Host may be using\na different version (yours is " .. version .. ").")
+			local unk_error = localization.get("connection_screen", "unknown_connection_error", "Could not connect! Host may be using\na different version (yours is %s).")
+			fail_client_connect(unk_error:format(version))
 		end
 	end)
 
@@ -768,7 +773,7 @@ local function start_client(server_ip, server_port)
 		return true
 	else
 		-- TODO: This should not fire a notification message, the caller should instead.
-		fail_client_connect("Could not connect! Did you\nuse the right address/port?")
+		fail_client_connect(localization.get("connect_screen", "could_not_connect", "Could not connect! Did you\nuse the right address/port?"))
 		return false
 	end
 end

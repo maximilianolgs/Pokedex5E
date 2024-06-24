@@ -8,6 +8,8 @@ local gooey = require "gooey.gooey"
 local url = require "utils.url"
 local natures = require "pokedex.natures"
 local messages = require "utils.messages"
+local gui_utils = require "utils.gui"
+local localization = require "utils.localization"
 
 local selected_item
 local sender
@@ -16,14 +18,14 @@ local message_id
 local function format_text(nature)
 	local s = ""
 	for key, value in pairs(natures.get_nature_attributes(nature)) do
-		s = s .. key .. ": " .. value .. "  "
+		s = s .. localization.get("pokemon_information", "pokemon_" .. key, key) .. ": " .. value .. "  "
 	end
 	return s:upper()
 end
 
 local function update_listitem(list, item)
 	gui.set_text(item.nodes["txt_desc"], format_text(item.data))
-	gui.set_text(item.nodes["txt_item"], item.data:upper())
+	gui.set_text(item.nodes["txt_item"], localization.get_upper("natures", item.data, item.data))
 	if item.index == list.selected_item then
 		selected_item = item.data
 	end
@@ -40,6 +42,11 @@ end
 
 function init(self)
 	msg.post(url.MENU, messages.HIDE)
+
+	gui.set_text(gui.get_node("topbar/title"), localization.get("change_pokemon_screen", "choose_nature_title", "Pick Nature"))
+	gui_utils.scale_text_to_fit_size_2(gui.get_node("topbar/title"))
+	gui.set_text(gui.get_node("search_text"), localization.get("change_pokemon_screen", "search_text", "SEARCH"))
+	
 	local d = monarch.data("natures_scrollist")
 	sender = d.sender
 	message_id = d.message_id
@@ -53,10 +60,10 @@ end
 
 local function filter_list(self, search_string)
 	local function starts_with(str, start)
-		return string.lower(str):sub(1, #start) == string.lower(start)
+		return localization.get_lower("natures", str, str):sub(1, #start) == localization.lower(start) or str:lower():sub(1, #start) == localization.lower(start)
 	end
 	local function is_in(_in, str)
-		return string.lower(_in):find(string.lower(str))
+		return localization.get_lower("natures", _in, _in):find(localization.lower(str)) or _in:lower():find(localization.lower(str))
 	end
 	if #search_string > 0 then
 		self.list_items = {}
@@ -73,7 +80,7 @@ end
 
 local function refresh_input(self, input, node_id)
 	if input.empty and not input.selected then
-		gui.set_text(input.node, "SEARCH")
+		gui.set_text(input.node, localization.get("change_pokemon_screen", "search_text", "SEARCH"))
 	end
 
 	local cursor = gui.get_node("cursor")

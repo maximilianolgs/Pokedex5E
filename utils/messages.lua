@@ -21,7 +21,7 @@ M.UPDATE_TEMP_HP = hash("update_temp_hp")
 M.REFRESH_PP = hash("refresh_pp")
 M.REFRESH_STATUS = hash("refresh_status")
 M.PARTY_SET_ACTIVE = hash("party_set_active")
-M.FULL_RESET = hash("full_rest")
+M.FULL_REST = hash("full_rest")
 
 -- Pokedex
 M.MARK = hash("mark")
@@ -43,6 +43,7 @@ M.NATURE = hash("nature")
 M.SPECIES = hash("species")
 M.VARIANT = hash("variant")
 M.EVOLVE = hash("evolve")
+M.EVOLVE_CONFIRM = hash("evolve_confirm")
 M.ABILITIES = hash("abilities")
 M.FEATS = hash("feats")
 M.ITEM = hash("item")
@@ -53,6 +54,14 @@ M.RESET = hash("reset")
 
 M.PC_UPDATED = hash("pc_updated")
 M.PARTY_UPDATED = hash("party_updated")
+
+M.UPDATE_PROFILE_NAME = hash("UPDATE_PROFILE_NAME")
+M.DELETE_PROFILE = hash("delete_profile")
+M.NEW_GROUP_NAME = hash("new_group_name")
+M.DELETE_GROUP = hash("delete_group")
+M.TRANSFER_POKEMON = hash("transfer_pokemon")
+M.TRANSFER_POKEMON_LOCAL = hash("transfer_pokemon_local")
+M.RELEASE_POKEMON = hash("release_pokemon")
 
 
 -- Used for debugging, makes sure that our message is in this table

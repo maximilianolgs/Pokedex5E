@@ -7,7 +7,7 @@ local dex_data = require "pokedex.dex_data"
 local ptypes = require "ptypes.main"
 local trainer = require "pokedex.trainer"
 local settings = require "pokedex.settings"
-
+local localization = require "utils.localization"
 
 local M = {}
 
@@ -143,8 +143,8 @@ function M.init()
 		pokedex = {}
 		pokedex_variants = {}
 		pokedex["MissingNo"] = file.load_json_from_resource("/assets/datafiles/MissingNo.json")
-		pokedex_extra = file.load_json_from_resource("/assets/datafiles/pokedex_extra.json")
-		abilities = file.load_json_from_resource("/p5e-data/data/abilities.json")
+		pokedex_extra = localization.load_localized_json_from_resource("/assets/datafiles/pokedex_extra.json")
+		abilities = localization.load_localized_json_from_resource("/p5e-data/data/abilities.json")
 		evolvedata = file.load_json_from_resource("/p5e-data/data/evolve.json")
 		leveldata = file.load_json_from_resource("/assets/datafiles/leveling.json")
 		exp_grid = file.load_json_from_resource("/assets/datafiles/exp_grid.json")

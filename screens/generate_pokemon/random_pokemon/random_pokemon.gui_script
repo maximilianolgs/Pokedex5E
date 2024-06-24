@@ -3,14 +3,17 @@ local gooey = require "gooey.gooey"
 local generate = require "screens.generate_pokemon.generate_pokemon"
 local pokedex = require "pokedex.pokedex"
 local gooey_buttons = require "utils.gooey_buttons"
+local gui_utils = require "utils.gui"
+local localization = require "utils.localization"
 
 local function update_pokemon(self)
-	local sprite, texture = pokedex.get_sprite(self.species)
+	local sprite, texture = pokedex.get_sprite(self.species, self.variant)
 	gui.set_texture(gui.get_node("pokemon_sprite"), texture)
 	gui.play_flipbook(gui.get_node("pokemon_sprite"), sprite)
 	local level = self.level == 0 and pokedex.get_minimum_wild_level(self.species) or self.level
-	local species_text = pokedex.get_species_display(self.species, self.variant)
-	gui.set_text(gui.get_node("txt_pokemon"), species_text:upper() .. "\nLv. " .. level)
+	local species_display = pokedex.get_species_display(self.species, self.variant)
+	local species_text = localization.get("pokemon_variants", species_display, species_display)
+	gui.set_text(gui.get_node("txt_pokemon"), species_text:upper() .. "\n" .. localization.get("pokemon_information", "pokemon_level", "Lv.") .. " " .. level)
 end
 
 function init(self)
@@ -20,6 +23,11 @@ function init(self)
 	self.species = data.species
 	self.level = data.level
 	self.variant = data.variant
+
+	gui.set_text(gui.get_node("template/title"), localization.get("generate_pokemon_screen", "title_random_pokemon", "Random Pokemon"))
+	gui.set_text(gui.get_node("txt_add"), localization.get("generate_pokemon_screen", "txt_add_to_team", "ADD TO PC"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("txt_add"))
+	gui.set_text(gui.get_node("txt_random"), localization.get("generate_pokemon_screen", "txt_re_roll", "RE-ROLL"))
 	
 	update_pokemon(self)
 end

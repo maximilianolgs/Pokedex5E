@@ -1,0 +1,38 @@
+{
+	"capture_status": {
+		"en_us": "Capture Status: ",
+		"es_419": "Estado de Captura: "
+	},
+	"capture_status_unavailable": {
+		"en_us": "UNAVAILABLE",
+		"es_419": "Estado de Captura: "
+	},
+	"capture_status_on": {
+		"en_us": "ON",
+		"es_419": "ENCENDIDA"
+	},
+	"capture_status_off": {
+		"en_us": "OFF",
+		"es_419": "APAGADA"
+	},
+	"capture_status_error": {
+		"en_us": "ERROR",
+		"es_419": "ERROR"
+	},
+	"capture_status_no_permission": {
+		"en_us": "NO PERMISSION",
+		"es_419": "SIN PERMISOS"
+	},
+	"capture_status_nothing": {
+		"en_us": "NOTHING",
+		"es_419": "NADA"
+	},
+	"header_text": {
+		"en_us": "Searching for a QR code",
+		"es_419": "Buscando un código QR"
+	},
+	"footer_text": {
+		"en_us": "Touch anywhere to dismiss",
+		"es_419": "Toca en cualquier lado para volver"
+	}
+}
