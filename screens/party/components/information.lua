@@ -96,26 +96,23 @@ local function setup_info_tab(nodes, pokemon)
 
 	local skill_string = ""
 	local skills = _pokemon.get_skills(pokemon)
-	local skills_attributes = _pokemon.get_skills_modifier(pokemon)
-	if #skills > 8 then
-		for _, skill in pairs(skills) do
-			localized_skill = localization.get("pokemon_information", "pokemon_skill_" .. skill, skill)
-			skill_string = skill_string .. localized_skill
-			if skills_attributes[skill] ~= nil then
-				skill_string = skill_string .. " (" .. skills_attributes[skill] .. ")"
-			end
-			skill_string = skill_string .. " , "
-		end
-	else
-		for _, skill in pairs(skills) do
-			localized_skill = localization.get("pokemon_information", "pokemon_skill_" .. skill, skill)
-			skill_string = skill_string .. "• " .. localized_skill
-			if skills_attributes[skill] ~= nil then
-				skill_string = skill_string .. " (" .. skills_attributes[skill] .. ")"
-			end
-			skill_string = skill_string .. "\n"
-		end
+
+	local prefix = ""
+	local suffix = " , "
+	if skills.count <= 8 then
+		prefix = "• "
+		suffix = "\n"
 	end
+	skills.count = nil
+	for skill, modif in pairs(skills) do
+		localized_skill = localization.get("pokemon_information", "pokemon_skill_" .. skill, skill)
+		skill_string = skill_string .. prefix .. localized_skill
+		if modif ~= "" then
+			skill_string = skill_string .. " (" .. modif .. ")"
+		end
+		skill_string = skill_string .. suffix
+	end
+	
 	gui.set_text(nodes["pokemon/traits/txt_skills"], skill_string)
 
 	local sr = _pokemon.get_SR(pokemon)
@@ -199,9 +196,7 @@ local function setup_info_tab(nodes, pokemon)
 end
 
 local function show_skill_list()
-	local skill_list = utils.deep_copy(pokedex.skills)
 	local tbl = {}
-	local add
 	for skill, value in pairs(_pokemon.get_skills_modifier(active_pokemon)) do 
 		tbl[#tbl+1] = skill .. " (" .. value .. ")"
 	end
