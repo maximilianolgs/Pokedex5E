@@ -229,17 +229,6 @@ function M.remove_move(pkmn, index)
 	end
 end
 
-
-function M.reset_abilities(pkmn)
-	for i, name in pairs(M.get_abilities(pkmn)) do
-		table.remove(pkmn.abilities, i)
-	end
-	for i, name in pairs(pokedex.get_abilities(M.get_current_species(pkmn), M.get_variant(pkmn))) do
-		table.insert(pkmn.abilities, name)
-	end
-end
-
-
 function M.remove_ability(pkmn, ability)
 	for i, name in pairs(M.get_abilities(pkmn)) do
 		if name == ability then
@@ -621,7 +610,6 @@ end
 function M.add_ability(pkmn, ability)
 	table.insert(pkmn.abilities, ability)
 end
-
 
 function M.get_abilities(pkmn, as_raw)
 	local species = M.get_current_species(pkmn)
