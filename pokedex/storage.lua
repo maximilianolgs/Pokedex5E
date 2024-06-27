@@ -413,11 +413,11 @@ function M.move_to_pc(pokemon_id)
 	local pokemon = player_pokemon[pokemon_id]
 	pokemon.slot = nil
 	pokemon.location = LOCATION_PC
-	profiles.set_party(get_party())
 	
 	-- Update location id
 	pokemon_by_location.party[pokemon_id] = nil
 	pokemon_by_location.pc[pokemon_id] = true
+	profiles.set_party(get_party())
 	M.save()
 end
 
@@ -437,11 +437,11 @@ function M.move_to_party(pokemon_id)
 		local pokemon = player_pokemon[pokemon_id]
 		pokemon.slot = slot
 		pokemon.location = LOCATION_PARTY
-		profiles.set_party(get_party())
 
 		-- Update location id
 		pokemon_by_location.party[pokemon_id] = true
 		pokemon_by_location.pc[pokemon_id] = nil
+		profiles.set_party(get_party())
 		M.save()
 	else
 		assert(false, "Your party is full")
