@@ -680,7 +680,7 @@ local function add_skill(self)
 	local add
 	for a_skill, _ in pairs(skill_list) do 
 		add = true
-		for _, skill in pairs(_pokemon.get_skills(self.pokemon)) do
+		for _, skill in pairs(_pokemon.extra_skills(self.pokemon)) do
 			if a_skill == skill then
 				add = false
 			end

@@ -643,31 +643,13 @@ function M.get_abilities(pkmn, as_raw)
 	return t
 end
 
+-- full list of modifiers
 function M.get_skills_modifier(pkmn)
-	local prof = M.get_proficency_bonus(pkmn)
-	local proficencies = M.get_skills(pkmn)
-	local attributes = M.get_attributes(pkmn)
+	local full_skill_info = M.get_full_skill_info(pkmn)
 	local tbl = {}
 
-	-- Determine which skills pkmn is proficient in
-	local is_proficient = {}
-	local proficient_in_all = false
-	if #proficencies == 1 and proficencies[1] == "All Skills" then
-		-- Some pokemon are proficient in everything
-		proficient_in_all = true
-	else
-		for _, skill in pairs(proficencies) do
-			is_proficient[skill] = true
-		end
-	end
-
-	-- Determine modifier for every avaialble skill
-	for skill, mod in pairs(pokedex.skills) do
-		local score = math.floor((attributes[pokedex.skills[skill]] - 10) / 2)
-		if proficient_in_all or is_proficient[skill] then
-			score = score + prof
-		end
-		tbl[skill] = score
+	for skill, s_data in pairs(full_skill_info) do
+		tbl[skill] = s_data.mod
 	end
 
 	return tbl
@@ -688,50 +670,107 @@ function M.extra_skills(pkmn)
 	return pkmn.skills or {}
 end
 
-function M.get_skills(pkmn)
-	-- natural species skill proficiencies
-	local skills = utils.deep_copy(pokedex.get_skills(M.get_current_species(pkmn), M.get_variant(pkmn)) or {})
-
-	local proficient_in_all = false
-	if #skills == 1 and skills[1] == "All Skills" then
-		-- Some pokemon are proficient in everything
-		proficient_in_all = true
-	end
-
-	-- extra skill proficiencies, added from the edit menu
-	for _, extra_skill in pairs(M.extra_skills(pkmn)) do
-		local add = true
-		for _, s in pairs(skills) do
-			if s == extra_skill or proficient_in_all then
-				-- already proficient, no need to duplicate
-				add = false
-				break
-			end
-		end
-		if add then
-			table.insert(skills, extra_skill)
-		end
-	end
-
-	-- feats granting skill proficiency or expertise
+function M.get_feat_based_skills(pkmn)
+	local feat_skills = {}
 	for feat, skill in pairs(feat_to_skill) do
 		if M.have_feat(pkmn, feat) then
-			local add = true
-			for _, s in pairs(skills) do
-				if s == skill or proficient_in_all then
-					-- has expertise
-					add = false
-					break
-				end
-			end
-			if add then
-				table.insert(skills, skill)
+			table.insert(feat_skills, skill)
+		end
+	end
+	return feat_skills
+end
+
+-- returns "All Skills" or the list of proficient skills
+function M.get_skills(pkmn)
+	-- natural species skill proficiencies
+	local skills = pokedex.get_skills(M.get_current_species(pkmn), M.get_variant(pkmn)) or {}
+	local skill_tbl = {}
+	
+	if #skills == 1 and skills[1] == "All Skills" then
+		-- Some pokemon are proficient in everything
+		skill_tbl[skills[1]] = ""
+		skill_tbl.count = 1
+		return skill_tbl
+	end
+
+	local full_skill_info = M.get_full_skill_info(pkmn)
+	local skill_count = 0
+	for skill, s_data in pairs(full_skill_info) do
+		if s_data.is_proficient then
+			skill_count = skill_count + 1
+			skill_tbl[skill] = s_data.mod
+		end
+	end
+	skill_tbl.count = skill_count
+	return skill_tbl
+end
+
+function M.get_base_skill_modifiers(pkmn)
+	local attributes = M.get_attributes(pkmn)
+	local tbl = {}
+	
+	-- Determine base modifier for every avaialble skill
+	for skill, mod in pairs(pokedex.skills) do
+		tbl[skill] = math.floor((attributes[mod] - 10) / 2)
+	end
+	
+	return tbl
+end
+
+function M.get_full_skill_info(pkmn)
+	local full_skill_info = {}
+	local prof = M.get_proficency_bonus(pkmn)
+	local base_skill_modif = M.get_base_skill_modifiers(pkmn)
+	
+	for skill, mod in pairs(base_skill_modif) do
+		full_skill_info[skill] = { }
+		full_skill_info[skill].mod = mod
+	end
+	
+	-- natural pokemon skills
+	local natural_skills = pokedex.get_skills(M.get_current_species(pkmn), M.get_variant(pkmn)) or {}
+	if #natural_skills == 1 and natural_skills[1] == "All Skills" then
+		for skill, mod in pairs(pokedex.skills) do
+			full_skill_info[skill].mod = full_skill_info[skill].mod + prof
+			full_skill_info[skill].is_proficient = true
+			full_skill_info[skill].is_natural = true
+		end
+	else
+		for _, skill in pairs(natural_skills) do
+			full_skill_info[skill].mod = full_skill_info[skill].mod + prof
+			full_skill_info[skill].is_proficient = true
+			full_skill_info[skill].is_natural = true
+		end
+	end
+	
+	-- extra skill proficiencies, added from the edit menu
+	for _, extra_skill in pairs(M.extra_skills(pkmn)) do
+		full_skill_info[extra_skill].mod = full_skill_info[extra_skill].mod + prof
+		full_skill_info[extra_skill].is_extra = true
+	
+		if not full_skill_info[extra_skill].is_proficient then
+			full_skill_info[extra_skill].is_proficient = true
+		else
+			full_skill_info[extra_skill].is_expert = true
+		end
+	end
+	
+	-- feats granting skill proficiency or expertise
+	for _, feat_skill in pairs(M.get_feat_based_skills(pkmn)) do
+		full_skill_info[feat_skill].is_feat = true
+		
+		if not full_skill_info[feat_skill].is_proficient or not full_skill_info[feat_skill].is_expert then
+			full_skill_info[feat_skill].mod = full_skill_info[feat_skill].mod + prof
+			if not full_skill_info[feat_skill].is_proficient then
+				full_skill_info[feat_skill].is_proficient = true
+			else
+				full_skill_info[feat_skill].is_expert = true
 			end
 		end
 	end
-	return skills
-end
 
+	return full_skill_info
+end
 
 function M.set_move_pp(pkmn, move, pp)
 	pkmn.moves[move].pp = pp
