@@ -5901,31 +5901,31 @@ nodes {
   material: ""
 }
 layers {
-  name: "gui"
-}
-layers {
   name: "pokemon0"
 }
 layers {
   name: "pokemon1"
 }
 layers {
-  name: "script"
-}
-layers {
   name: "sprite"
-}
-layers {
-  name: "title"
-}
-layers {
-  name: "script_bold"
 }
 layers {
   name: "gui_stencil"
 }
 layers {
   name: "script_stencil"
+}
+layers {
+  name: "gui"
+}
+layers {
+  name: "script"
+}
+layers {
+  name: "script_bold"
+}
+layers {
+  name: "title"
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT
