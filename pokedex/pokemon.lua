@@ -689,24 +689,45 @@ function M.extra_skills(pkmn)
 end
 
 function M.get_skills(pkmn)
+	-- natural species skill proficiencies
 	local skills = utils.deep_copy(pokedex.get_skills(M.get_current_species(pkmn), M.get_variant(pkmn)) or {})
+
+	local proficient_in_all = false
+	if #skills == 1 and skills[1] == "All Skills" then
+		-- Some pokemon are proficient in everything
+		proficient_in_all = true
+	end
+
+	-- extra skill proficiencies, added from the edit menu
+	for _, extra_skill in pairs(M.extra_skills(pkmn)) do
+		local add = true
+		for _, s in pairs(skills) do
+			if s == extra_skill or proficient_in_all then
+				-- already proficient, no need to duplicate
+				add = false
+				break
+			end
+		end
+		if add then
+			table.insert(skills, extra_skill)
+		end
+	end
+
+	-- feats granting skill proficiency or expertise
 	for feat, skill in pairs(feat_to_skill) do
-		local added = false
 		if M.have_feat(pkmn, feat) then
-			for i=#skills, -1, -1 do
-				if skill == skills[i] then
-					table.remove(skills, i)
-					table.insert(skills, skill .. " (e)")
-					added = true
+			local add = true
+			for _, s in pairs(skills) do
+				if s == skill or proficient_in_all then
+					-- has expertise
+					add = false
+					break
 				end
 			end
-			if not added then
+			if add then
 				table.insert(skills, skill)
 			end
 		end
-	end
-	for _, s in pairs(M.extra_skills(pkmn)) do
-		table.insert(skills, s)
 	end
 	return skills
 end
