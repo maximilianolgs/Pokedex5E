@@ -33,20 +33,14 @@ function M.check_version()
 	if M.releases == nil then
 		M.get_latest()
 		flow.until_true(function() return not M.BUSY end)
-		if M.releases then
-			if M.releases[current_version] == nil then
-				log.info("Current version not in version json")
-				return
-			end
-			if M.releases.latest == M.releases[current_version].number then
-				return true, 0
-			else
-				return false, M.releases.latest - M.releases[current_version].number, M.releases[M.releases.latest].url
-			end
-		end
-	else
-		return M.releases.latest - M.releases[current_version].number==0, M.releases.latest - M.releases[current_version].number, M.releases[M.releases.latest].url
 	end
+	
+	if M.releases[current_version] == nil then
+		log.info("Current version not in version json")
+		return
+	end
+
+	return M.releases.latest == current_version, M.releases[M.releases.latest].number - M.releases[current_version].number, M.releases[M.releases.latest].url
 end
 
 function M.current_version()
