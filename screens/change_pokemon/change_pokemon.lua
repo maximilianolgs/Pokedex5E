@@ -12,7 +12,6 @@ local type_data = require "utils.type_data"
 local url = require "utils.url"
 local utils = require "utils.utils"
 local movedex = require "pokedex.moves"
-local selected_item
 local flow = require "utils.flow"
 local gooey_buttons = require "utils.gooey_buttons"
 local gui_utils = require "utils.gui"
@@ -185,7 +184,7 @@ local function redraw_list(data_table, entry_table, text_hash, btn_hash, delete_
 	text_node = nodes[text_hash]
 	btn_id = set_id(button_node)
 
-	gui.set_text(text_node, localization.get("change_pokemon_screen", "txt_add_new_ability", "ADD NEW"))
+	gui.set_text(text_node, localization.get("change_pokemon_screen", "txt_add_new", "ADD NEW"))
 	gui.set_color(text_node, gui_colors.HERO_TEXT_FADED)
 	gui.set_position(nodes[root_hash], ability_position)
 	gui.set_enabled(nodes[delete_hash], false)
@@ -551,6 +550,7 @@ function M.init(self, pokemon)
 		gooey.checkbox("change_pokemon/bg_shiny").set_checked(is_shiny)
 		gender = _pokemon.get_gender(self.pokemon)
 		set_gender_icon(self, gender)
+		self.pkmn_abilities = utils.shallow_copy(self.pokemon.abilities)
 	else
 		gui.set_enabled(gui.get_node("change_pokemon/checkmark_shiny_mark"), false)
 	end
@@ -719,7 +719,11 @@ end
 
 local function ability_buttons(self, action_id, action)
 	gooey.button("change_pokemon/btn_reset_abilities", action_id, action, function()
-		_pokemon.reset_abilities(self.pokemon)
+		if self.pkmn_abilities then
+			self.pokemon.abilities = utils.shallow_copy(self.pkmn_abilities)
+		else
+			self.pokemon.abilities = {}
+		end
 		redraw(self)
 	end)
 	for _, data in pairs(self.ability_data) do
