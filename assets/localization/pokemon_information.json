@@ -255,6 +255,10 @@
 		"en_us": "Persuasion",
 		"es_419": "Persuasión"
 	},
+	"pokemon_skill_all skills": {
+		"en_us": "All Skills",
+		"es_419": "Todas"
+	},
 	"pokemon_speed_walking": {
 		"en_us": "Walking",
 		"es_419": "Caminando"
