@@ -46,7 +46,7 @@ local function setup(message_id, items)
 		category = "pokemon_information"
 		prefix = "pokemon_skill_"
 		--if it comes from party, the format is "skill (modif)"
-		if items[1]:sub(#items[1]) == ")" then
+		if items[1] and items[1]:sub(#items[1]) == ")" then
 			--in this case, nothing is returned, we can safely translate here
 			litems = {}
 			for _, full_skill in ipairs(items) do
