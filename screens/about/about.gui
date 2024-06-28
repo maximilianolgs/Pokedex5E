@@ -236,7 +236,7 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   text: "Version: {}"
   font: "script"
-  id: "version_android"
+  id: "version_updatable"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
