@@ -1537,7 +1537,7 @@
 	},
 	"night shade": {
 		"name": "Tinieblas",
-		"description": "Golpeas a un objetivo con una onda siniestra de energía oscura. Realiza un ataque a distancia contra un objetivo, infligiendo daño tipo fantasma al golpear. El daño es igual al nivel del usuario + la tirada de daño correspondiente SIN sumar el modificador de movimiento."
+		"description": "Golpeas a un objetivo con una onda siniestra de energía oscura. Realiza un ataque a distancia contra un objetivo, infligiendo daño tipo fantasma al golpear. El daño es igual al nivel del usuario + la tirada de dados correspondiente."
 	},
 	"night slash": {
 		"name": "Tajo Umbrío",

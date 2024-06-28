@@ -37,15 +37,19 @@ local function on_item_selected(list)
 end
 
 local function filter_out_current_abilities(self, list_of_abilities)
-	list_of_abilities = utils.shallow_copy(list_of_abilities)
-	for ability, _ in pairs(self.current_abilities) do
-		for i, selected_ability in pairs(list_of_abilities) do
-			if ability == selected_ability or selected_ability == "Error" then
-				table.remove(list_of_moves, i)
+	local show_list = {}
+	for _, ability in pairs(list_of_abilities) do
+		local add = true
+		for _, p_ability in pairs(self.current_abilities) do
+			if ability == p_ability then
+				add = false
 			end
 		end
+		if add then
+			table.insert(show_list, ability)
+		end
 	end
-	return list_of_abilities
+	return show_list
 end
 
 local function refresh_list(self)

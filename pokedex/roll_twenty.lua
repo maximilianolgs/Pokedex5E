@@ -270,8 +270,7 @@ local function localize_information(pkmn)
 	linfo.pkmn.hit_dice = pokemon.get_hit_dice(pkmn)
 	linfo.pkmn.raw_attributes = pokemon.get_attributes(pkmn)
 	linfo.pkmn.raw_saving_throw_modifier = pokemon.get_saving_throw_modifier(pkmn)
-	linfo.pkmn.raw_skills = pokemon.get_skills(pkmn)
-	linfo.pkmn.raw_skills_modifier = pokemon.get_skills_modifier(pkmn)
+	linfo.pkmn.raw_skills = pokemon.get_full_skill_info(pkmn)
 	linfo.pkmn.raw_abilities = pkmn.abilities
 	linfo.pkmn.raw_feats = pkmn.feats
 	--SPEEDS-----------------------------------
@@ -438,18 +437,7 @@ function M.create_sheet(_pkmn)
 	end
 
 	-- skill proficiency table for the pokemon
-	local pkmn_skills_prof = pkmn.raw_skills
-	local is_proficient = {}
-	local proficient_in_all
-	if #pkmn_skills_prof == 1 and pkmn_skills_prof[1] == "All Skills" then
-		proficient_in_all = true
-	else
-		for _, skill in pairs(pkmn_skills_prof) do
-			is_proficient[skill] = true
-		end
-	end
-
-	local pkmn_skills_mod = pkmn.raw_skills_modifier
+	local pkmn_skills_list = pkmn.raw_skills
 
 	-- skill modifiers and proficiencies
 	-- proficiencies are weird, all need to have a flag set to one, except for the last one
@@ -458,7 +446,7 @@ function M.create_sheet(_pkmn)
 	for _skill, att_abrev in pairs(pokedex.skills) do
 		local skill = _skill:lower():gsub(" ", "_")
 		-- hacky skill proficiencies flag handling
-		if proficient_in_all or is_proficient[_skill] then 
+		if pkmn_skills_list[_skill].is_proficient then 
 			skill_flag = skill_flag + 1
 			if last_prof.abrev ~= nil then
 				-- all intermediate profs are a 1
@@ -467,7 +455,7 @@ function M.create_sheet(_pkmn)
 				table.insert(attribs, create_attrib(pkmn.id, "npc_" .. last_prof.abrev .. "_base", "" .. last_prof.mod))
 			end
 			last_prof.abrev = skill
-			last_prof.mod = pkmn_skills_mod[_skill]
+			last_prof.mod = pkmn_skills_list[_skill].mod
 
 		else 
 			-- if not proficient, roll20 doesn't need the mod
@@ -476,7 +464,7 @@ function M.create_sheet(_pkmn)
 		end
 		-- skill bonus without proficiency and skill roll
 		table.insert(attribs, create_attrib(pkmn.id, skill .. "_bonus", pkmn_attrb_mod[att_abrev]))
-		table.insert(attribs, create_attrib(pkmn.id, skill .. "_roll", "@{wtype}&{template:simple} {{rname=^{" .. skill .. "-u}}} {{mod=@{" .. skill .. "_bonus}}} {{r1=[[@{d20}+" .. pkmn_skills_mod[_skill] .. "[" .. skill .. "]@{pbd_safe}]]}} @{advantagetoggle}+" .. pkmn_skills_mod[_skill] .. "[" .. skill .. "]@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}"))
+		table.insert(attribs, create_attrib(pkmn.id, skill .. "_roll", "@{wtype}&{template:simple} {{rname=^{" .. skill .. "-u}}} {{mod=@{" .. skill .. "_bonus}}} {{r1=[[@{d20}+" .. pkmn_skills_list[_skill].mod .. "[" .. skill .. "]@{pbd_safe}]]}} @{advantagetoggle}+" .. pkmn_skills_list[_skill].mod .. "[" .. skill .. "]@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}"))
 	end
 
 	-- hacky skill proficiencies flag handling

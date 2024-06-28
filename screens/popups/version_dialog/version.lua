@@ -26,27 +26,28 @@ function M.get_latest()
 	end)
 end
 
-function M.check_version()
+function M.get_version_information()
 	-- Call this through a flow
 	M.BUSY = true
-	local current_version = M.current_version()
+	local version_information = {}
+	version_information.current = M.current_version()
 	if M.releases == nil then
 		M.get_latest()
 		flow.until_true(function() return not M.BUSY end)
-		if M.releases then
-			if M.releases[current_version] == nil then
-				log.info("Current version not in version json")
-				return
-			end
-			if M.releases.latest == M.releases[current_version].number then
-				return true, 0
-			else
-				return false, M.releases.latest - M.releases[current_version].number, M.releases[M.releases.latest].url
-			end
-		end
-	else
-		return M.releases.latest - M.releases[current_version].number==0, M.releases.latest - M.releases[current_version].number, M.releases[M.releases.latest].url
 	end
+
+	version_information.latest = M.releases.latest
+	version_information.latest_number = M.releases[M.releases.latest].number
+	version_information.latest_url = M.releases[M.releases.latest].url
+	version_information.latest_win_url = M.releases[M.releases.latest].win_url
+	version_information.current_number = M.releases[version_information.current] and M.releases[version_information.current].number
+	version_information.up_to_date = version_information.current == M.releases.latest
+	
+	if version_information.current_number == nil then
+		log.info("Current version not in version json")
+	end
+
+	return version_information
 end
 
 function M.current_version()

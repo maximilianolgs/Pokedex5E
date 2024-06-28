@@ -12,11 +12,15 @@
 		"es_419": "CERRAR"
 	},
 	"version_up_to_date": {
-		"en_us": "You have the latest version",
-		"es_419": "Tienes la versión más reciente"
+		"en_us": "You have the latest version of Pokedex5e",
+		"es_419": "Tienes la versión más reciente de Pokédex5e"
 	},
 	"version_outdated": {
-		"en_us": "Your are %s versions behind!",
-		"es_419": "¡Estás %s versiones por detrás de la última!"
+		"en_us": "Pokedex5e is %s versions behind!",
+		"es_419": "¡Tu Pokédex5e está %s versiones por detrás de la última!"
+	},
+	"version_not_recognized": {
+		"en_us": "Version number %s not found among official releases",
+		"es_419": "No se encontró el número de versión %s entre las publicadas oficialmente"
 	}
 }

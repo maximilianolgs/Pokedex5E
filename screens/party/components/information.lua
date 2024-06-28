@@ -21,6 +21,7 @@ local touching = false
 local _action = vmath.vector3(0)
 local POKEMON_SPECIES_TEXT_SCALE = vmath.vector3(1.5)
 local POKEMON_SENSES_TEXT_SCALE = vmath.vector3(0.7)
+local TXT_SKILL_SCALE = vmath.vector3(0.7)
 
 local item_button
 local rest_button
@@ -96,27 +97,34 @@ local function setup_info_tab(nodes, pokemon)
 
 	local skill_string = ""
 	local skills = _pokemon.get_skills(pokemon)
-	local skills_attributes = _pokemon.get_skills_modifier(pokemon)
-	if #skills > 8 then
-		for _, skill in pairs(skills) do
-			localized_skill = localization.get("pokemon_information", "pokemon_skill_" .. skill, skill)
-			skill_string = skill_string .. localized_skill
-			if skills_attributes[skill] ~= nil then
-				skill_string = skill_string .. " (" .. skills_attributes[skill] .. ")"
-			end
-			skill_string = skill_string .. " , "
-		end
-	else
-		for _, skill in pairs(skills) do
-			localized_skill = localization.get("pokemon_information", "pokemon_skill_" .. skill, skill)
-			skill_string = skill_string .. "• " .. localized_skill
-			if skills_attributes[skill] ~= nil then
-				skill_string = skill_string .. " (" .. skills_attributes[skill] .. ")"
-			end
-			skill_string = skill_string .. "\n"
-		end
+
+	local prefix = ""
+	local suffix = " , "
+	if skills.count <= 8 then
+		prefix = "• "
+		suffix = "\n"
 	end
+	if skills.count == 18 then
+		--you monster...
+		skill_string = "• " .. localization.get("pokemon_information", "pokemon_skill_all skills", "All Skills")
+	else
+		skills.count = nil
+		local skills_table = {}
+		for skill, modif in pairs(skills) do
+			localized_skill = localization.get("pokemon_information", "pokemon_skill_" .. skill, skill)
+			skill_string = skill_string .. prefix .. localized_skill
+			if modif ~= "" then
+				skill_string = skill_string .. " (" .. modif .. ")"
+			end
+			table.insert(skills_table, skill_string)
+			skill_string = ""
+		end
+		skill_string = table.concat(skills_table, suffix)
+	end
+	
 	gui.set_text(nodes["pokemon/traits/txt_skills"], skill_string)
+	gui.set_scale(nodes["pokemon/traits/txt_skills"], TXT_SKILL_SCALE)
+	gui_utils.scale_text_with_line_breaks(nodes["pokemon/traits/txt_skills"])
 
 	local sr = _pokemon.get_SR(pokemon)
 	gui.set_text(nodes["pokemon/traits/txt_sr"], constants.NUMBER_TO_SR[sr])
@@ -199,9 +207,7 @@ local function setup_info_tab(nodes, pokemon)
 end
 
 local function show_skill_list()
-	local skill_list = utils.deep_copy(pokedex.skills)
 	local tbl = {}
-	local add
 	for skill, value in pairs(_pokemon.get_skills_modifier(active_pokemon)) do 
 		tbl[#tbl+1] = skill .. " (" .. value .. ")"
 	end

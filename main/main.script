@@ -171,14 +171,17 @@ function init(self)
 			msg.post("#", messages.SHOW_PROFILE)
 		end
 
-		local sysinfo = sys.get_sys_info()
-		if platform.ANDROID then
-			local up_to_date, versions_behind, _ = version.check_version()
-			if not up_to_date and versions_behind then
-				timer.delay(3, false, function()
-					notify.notify("Pokedex5e is " ..versions_behind .. " versions behind!")
-				end)
-			end 
+		if platform.ANDROID or platform.WINDOWS then
+			local version_info = version.get_version_information()
+			local message = ""
+			if not version_info.up_to_date and version_info.current_number then
+				message = localization.get("version_popup", "version_outdated", "Pokedex5e is %s versions behind!"):format(version_info.latest_number - version_info.current_number)
+			elseif version_info.up_to_date then
+				message = localization.get("version_popup", "version_up_to_date", "You have the latest version of Pokedex5e")
+			else
+				message = localization.get("version_popup", "version_not_recognized", "Version number %s not found among the official releases"):format(version_info.current)
+			end
+			timer.delay(3, false, function() notify.notify(message) end)
 		end
 	end)
 end

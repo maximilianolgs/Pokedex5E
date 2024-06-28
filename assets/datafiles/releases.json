@@ -1,5 +1,5 @@
 {
-    "latest": "1.16.0",
+    "latest": "1.16.1",
     "1.10.0": {
         "number": 1,
         "url":"https://github.com/Jerakin/Pokedex5E/releases/download/minor%2Fv1.10.0/Pokedex5E.apk"
@@ -106,19 +106,23 @@
     },
     "1.14.0": {
         "number": 27,
-        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.0/Pokedex5E.apk"
+        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.0/Pokedex5E.apk",
+        "win_url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.0/Pokedex5E.zip"
     },
     "1.14.1": {
         "number": 28,
-        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.1/Pokedex5E.apk"
+        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.1/Pokedex5E.apk",
+        "win_url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.1/Pokedex5E_win.zip"
     },
     "1.14.2": {
         "number": 29,
-        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.2/Pokedex5E.apk"
+        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.2/Pokedex5E.apk",
+        "win_url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.2/Pokedex5E_win.zip"
     },
     "1.14.3": {
         "number": 30,
-        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.3/Pokedex5E.apk"
+        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.3/Pokedex5E.apk",
+        "win_url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.14.3/Pokedex5E_win.zip"
     },
     "1.14.4": {
         "number": 31,
@@ -126,14 +130,22 @@
     },
     "1.15.0": {
         "number": 32,
-        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.15.0/Pokedex5E.apk"
+        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.15.0/Pokedex5E.apk",
+        "win_url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.15.0/Pokedex5E_win.zip"
     },
     "1.15.1": {
         "number": 33,
-        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.15.1/Pokedex5E.apk"
+        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.15.1/Pokedex5E.apk",
+        "win_url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.15.1/Pokedex5E_win.zip"
     },
     "1.16.0": {
         "number": 34,
-        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.16.0/Pokedex5E.apk"
+        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.16.0/Pokedex5E.apk",
+        "win_url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.16.0/Pokedex5E_win.zip"
+    },
+    "1.16.1": {
+        "number": 35,
+        "url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.16.1/Pokedex5E.apk",
+        "win_url":"https://github.com/maximilianolgs/Pokedex5E/releases/download/patch%2Fv1.16.1/Pokedex5E_win.zip"
     }
 }

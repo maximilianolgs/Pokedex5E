@@ -543,7 +543,6 @@ local function on_active_profile_changed()
 end
 
 function M.init()
-	local system = sys.get_sys_info().system_name
 	version = sys.get_config("project.version", "unknown")
 	
 	netcore_settings = settings.get("netcore") or {}

@@ -15,7 +15,7 @@ function init(self)
 	msg.post(url.MENU, messages.HIDE)
 	
 	gui.set_text(gui.get_node("version"), localization.get("about_screen", "version_text", "Version: ") .. sys.get_config("project.version"))
-	gui.set_text(gui.get_node("version_android"), localization.get("about_screen", "version_text", "Version: ") .. sys.get_config("project.version"))
+	gui.set_text(gui.get_node("version_updatable"), localization.get("about_screen", "version_text", "Version: ") .. sys.get_config("project.version"))
 	gui.set_text(gui.get_node("about"), localization.get("about_screen", "about_title", "About"))
 	gui.set_text(gui.get_node("about_desc"), localization.get("about_screen", "about_desc", "Made for the 'Pokémon in 5th Edition' created by JoetheDM.\n\nAs you probably have noticed this app is free and without ad (and will always be)! If you would like to help me (Jerakin) to keep my motivation up I would be happy to receive a coffee!"))
 	gui.set_text(gui.get_node("about_maeb"), localization.get("about_screen", "about_maeb", "Hi! MeAfanaronElBuzon here. Since Jerakin stopped actively supporting this application, I have been adding some features and fixing small bugs, and I plan to continue doing so (always respecting the references to its original creator).\nIf something I did was useful to you and you want to thank me, you can buy me a coffee (Invitame un Cafecito)."))
@@ -28,7 +28,7 @@ function init(self)
 	
 	self.lock = true
 	timer.delay(0.1, false, function() self.lock = false end)
-	if platform.ANDROID then
+	if platform.ANDROID or platform.WINDOWS then
 		gui.set_enabled(gui.get_node("version"), false)
 	else
 		gui.set_enabled(gui.get_node("version_btn"), false)
@@ -44,13 +44,16 @@ function on_input(self, action_id, action)
 	end)
 	local a = gooey.button("version_btn", action_id, action, function()
 		flow.start(function()
-			local up_to_date, versions_behind, _url = version.check_version()
-			if up_to_date ~= nil then
-				monarch.show(screens.VERSION, {}, {up_to_date=up_to_date, versions_behind=versions_behind, url=_url})
+			local version_info = version.get_version_information()
+			local url = "latest" .. ((platform.WINDOWS and "_win_") or "_") .. "url"
+			
+			if version_info.current_number ~= nil then
+				monarch.show(screens.VERSION, {}, {up_to_date=version_info.up_to_date, versions_behind=version_info.latest_number - version_info.current_number, url=version_info[url]})
 			else
-				log.info("Version got nil")
+				log.info(string.format("Version %s not found on the release list. Latest version is %s", version_info.current, version_info.latest))
+				monarch.show(screens.VERSION, {}, {up_to_date=version_info.up_to_date, current=version_info.current, url=version_info[url]})
 			end
-		end, function(b) gooey_buttons.common_button(b, gui.get_node("version_android")) end)
+		end, function(b) gooey_buttons.common_button(b, gui.get_node("version_updatable")) end)
 		
 	end)
 	local c = gooey.button("share_log", action_id, action, function()
