@@ -115,7 +115,7 @@ local function reset()
 		pp_text = move_data.PP .. "/" .. move_data.PP
 	end	
 	gui.set_text(gui.get_node("txt_pp"), pp_text)
-	notify.notify(localization.get("move_info_popup", "notif_reset_pp", "PP for %s has been reset"):format(data.name))
+	notify.notify(localization.get("move_info_popup", "notif_reset_pp", "PP for %s has been reset"):format(move_data.name))
 	gui.set_enabled(gui.get_node("btn_reset"), false)
 	msg.post(url.PARTY, messages.REFRESH_PP)
 end
