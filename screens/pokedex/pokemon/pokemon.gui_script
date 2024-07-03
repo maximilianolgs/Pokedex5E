@@ -60,7 +60,7 @@ function init(self)
 		gui.set_enabled(gui.get_node("bg_type" .. i), true)
 		gui.set_text(gui.get_node("txt_type" .. i), localization.get_upper("pokemon_information", "pokemon_type_" .. t, t))
 	end
-	gui.set_text(gui.get_node("txt_species"), self.species:upper())
+	gui.set_text(gui.get_node("txt_species"), localization.upper(self.species))
 	gui.set_text(gui.get_node("txt_index"),  string.format("#%03d", index))
 	gui.set_text(gui.get_node("txt_genus"), genus)
 	

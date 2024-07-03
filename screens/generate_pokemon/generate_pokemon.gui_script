@@ -91,7 +91,7 @@ local function update_item(list, item)
 			if data[i].sprite then
 				gui.play_flipbook(sprite_node, data[i].sprite)
 			end
-			gui.set_text(text_node, data[i].species:upper() .. "\n" .. localization.get("pokemon_information", "pokemon_level", "Lv.") .. " " .. data[i].level)
+			gui.set_text(text_node, localization.upper(data[i].species) .. "\n" .. localization.get("pokemon_information", "pokemon_level", "Lv.") .. " " .. data[i].level)
 		else
 			gui.set_enabled(background, false)
 		end
@@ -120,7 +120,7 @@ local function on_item_selected(self, list)
 end
 
 local function titleCase( first, rest )
-	return first:upper()..rest:lower()
+	return localization.upper(first)..localization.lower(rest)
 end
 
 

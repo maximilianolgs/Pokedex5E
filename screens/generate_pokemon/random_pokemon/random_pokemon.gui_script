@@ -13,7 +13,7 @@ local function update_pokemon(self)
 	local level = self.level == 0 and pokedex.get_minimum_wild_level(self.species) or self.level
 	local species_display = pokedex.get_species_display(self.species, self.variant)
 	local species_text = localization.get("pokemon_variants", species_display, species_display)
-	gui.set_text(gui.get_node("txt_pokemon"), species_text:upper() .. "\n" .. localization.get("pokemon_information", "pokemon_level", "Lv.") .. " " .. level)
+	gui.set_text(gui.get_node("txt_pokemon"), localization.upper(species_text) .. "\n" .. localization.get("pokemon_information", "pokemon_level", "Lv.") .. " " .. level)
 end
 
 function init(self)
