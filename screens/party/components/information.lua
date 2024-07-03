@@ -32,7 +32,7 @@ local skills_button
 local function setup_main_information(nodes, pokemon)
 	local nickname = _pokemon.get_nickname(pokemon)
 	local species = _pokemon.get_current_species(pokemon)
-	nickname = nickname or species:upper()
+	nickname = nickname or localization.upper(species)
 	
 	local pokemon_sprite, texture = _pokemon.get_sprite(pokemon)
 	gui.set_texture(nodes["pokemon/pokemon_sprite"], texture)
