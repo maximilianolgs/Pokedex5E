@@ -95,6 +95,10 @@
 		"en_us": "Water's Edge",
 		"es_419": "Orilla del Agua"
 	},
+	"habitat_rare": {
+		"en_us": "Rare",
+		"es_419": "Raro"
+	},
 	"trainer_ace trainer": {
 		"en_us": "Ace Trainer",
 		"es_419": "Entrenador Guay"
