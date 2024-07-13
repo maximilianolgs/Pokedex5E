@@ -11,8 +11,13 @@ local localization = require "utils.localization"
 local M = {}
 
 function M.add_pokemon(species, variant, level)
-	notify.notify(localization.get("generate_pokemon_screen", "pokemon_added", "%s was added to your team!"):format(species))
-	local all_moves = utils.shuffle2(utils.merge(pokedex.get_starting_moves(species), pokedex.get_moves(species, variant, level)))
+	local name = pokedex.get_species_display(species, variant)
+	if variant then
+		name = localization.get("pokemon_variants", name, name)
+	end
+	notify.notify(localization.get("generate_pokemon_screen", "pokemon_added", "%s was added to your team!"):format(name))
+	
+	local all_moves = utils.shuffle2(pokedex.get_moves(species, variant, level))
 
 	local pokemon = _pokemon.new({species=species, variant=variant})
 	local moves = {}

@@ -21,6 +21,7 @@ local minimum_level = {}
 local generations
 
 local _pokedex
+local full_list
 
 local SR_GROUPING = {}
 
@@ -115,6 +116,37 @@ local function generation_list()
 	return output
 end
 
+local function list_all()
+	full_list = {}
+	local temp_list = {}
+	for p, data in pairs(_pokedex) do
+		if not temp_list[data.index] then
+			temp_list[data.index] = {species = {}}
+		end
+		if not data.variant then
+			table.insert(temp_list[data.index].species, p)
+		else
+			if not temp_list[data.index].variants then
+				temp_list[data.index].variants = {}
+			end
+			table.insert(temp_list[data.index].variants, p)
+		end
+	end
+	local index = 1
+	for i, poke in pairs(temp_list) do
+		for _, s in pairs(poke.species) do
+			full_list[index] = s
+			index = index+1
+		end
+		if poke.variants then
+			for _, v in ipairs(poke.variants) do
+				full_list[index] = v
+				index = index+1
+			end
+		end
+	end
+end
+
 function M.init()
 	if not initialized then
 		_pokedex =file.load_json_from_resource("/p5e-data/data/filter_data.json")
@@ -131,6 +163,7 @@ function M.init()
 				_pokedex[name]["MIN LVL FD"] = data["MIN LVL FD"]
 			end
 		end
+		list_all()
 		if fakemon.trainer_classes then
 			for name, data in pairs(fakemon.trainer_classes) do
 				trainer_classes[name] = data
@@ -154,9 +187,9 @@ function M.init()
 		end
 		type_list = _type_list()
 
-		habitats.Optional = pokedex.list
-		pokemon_types.Optional = pokedex.list
-		trainer_classes.Optional = pokedex.list
+		habitats.Optional = full_list
+		pokemon_types.Optional = full_list
+		trainer_classes.Optional = full_list
 		species_rating()
 		minimum_found_level()
 		initialized = true
