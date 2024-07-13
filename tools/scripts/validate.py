@@ -2,19 +2,20 @@ from pathlib import Path
 import json
 import os
 
-root = Path(__file__).parent.parent.parent / "assets" / "datafiles"
-habitat_json = root / "habitat.json"
-pokemon_folder = root / "pokemon"
-pokedex_extra_json = root / "pokedex_extra.json"
-pokemon_order_json = root / "pokemon_order.json"
-moves_json = root / "moves.json"
-tm_json = root / "move_machines.json"
-abilities_json = root / "abilities.json"
-feats_json = root / "feats.json"
+root = Path(__file__).parent.parent.parent
+datafiles = root / "assets" / "datafiles"
+habitat_json = datafiles / "habitat.json"
+poke_data = root / "p5e-data" / "data"
+pokemon_folder = poke_data / "pokemon"
+pokedex_extra_json = datafiles / "pokedex_extra.json"
+moves_json = poke_data / "move_index.json"
+tm_json = datafiles / "move_machines.json"
+abilities_json = poke_data / "abilities.json"
+feats_json = datafiles / "feats.json"
 
-evolve_json = root / "evolve.json"
+evolve_json = poke_data / "evolve.json"
 
-images_path = root.parent / "textures"
+images_path = datafiles.parent / "textures"
 
 
 def iter_pokemon_names():
@@ -31,18 +32,24 @@ def get_json(name):
 
 
 def evolve():
+    print("######### check_evolve #########")
     with open(evolve_json, "r") as f:
         evolve_data = json.load(f)
-        for species in iter_pokemon_names():
-            data = get_json(species)
-            if species not in evolve_data:
-                print("Species {} not in evolve data".format(species))
+    pokemon_species = [x for x in iter_pokemon_names()]
+    for species in iter_pokemon_names():
+        #data = get_json(species)
+        if species in evolve_data:
+            if species in pokemon_species:
+                pokemon_species.remove(species)
+            data = evolve_data[species]
             current = data["current_stage"]
             total = data["total_stages"]
             if current == total:
                 if "into" in data:
                     print("Last stage", species)
-
+    
+    print("Species not in evolve data")
+    print(sorted(pokemon_species))
 
 def pokedex_order():
     order = []
@@ -57,6 +64,7 @@ def pokedex_order():
 
 
 def habitat():
+    print("######### check_habitat #########")
     with open(habitat_json, "r") as fp:
         habitat_data = json.load(fp)
     pokemon_species = [x for x in iter_pokemon_names()]
@@ -79,6 +87,7 @@ def print_habitat():
 
 
 def pokedex_extra():
+    print("######### check_pokedex_extra #########")
     with open(pokedex_extra_json, "r", encoding="utf8") as fp:
         pokedex_extra_data = json.load(fp)
     for species in iter_pokemon_names():
@@ -90,6 +99,7 @@ def pokedex_extra():
 
 
 def moves():
+    print("######### check_moves #########")
     for pokemon in iter_pokemon_names():
         data = get_json(pokemon)
         with open(moves_json, "r") as f:
@@ -104,6 +114,7 @@ def moves():
 
 
 def tm():
+    print("######### check_tm #########")
     with open(tm_json, "r") as fp:
         with open(moves_json, "r") as f:
             move_data = json.load(f)
@@ -115,26 +126,28 @@ def tm():
 
 
 def abilities():
+    print("######### check_abilities #########")
     for pokemon in iter_pokemon_names():
         data = get_json(pokemon)
         with open(abilities_json, "r") as f:
             ability_data = json.load(f)
-            for _, data in data.items():
-                for ability in data["Abilities"]:
-                    if not ability in ability_data:
-                        print("Can't find ability ", ability)
-                if "Hidden Ability" in data and data["Hidden Ability"] not in ability_data:
-                    print("Can't find hidden ability ", data["Hidden Ability"])
+            #for _, data in data.items():
+            for ability in data["Abilities"]:
+                if not ability in ability_data:
+                    print("Can't find ability ", ability)
+            if "Hidden Ability" in data and data["Hidden Ability"] not in ability_data:
+                print("Can't find hidden ability ", data["Hidden Ability"])
 
 
 def images():
+    print("######### check_images #########")
     def check_image(_data, _sprite_suffix):
         _sprite_suffix = _sprite_suffix.replace(":","").replace(" ♀", "-f").replace(" ♂", "-m")
         _file_path = images_path / x / "{}{}.png".format(_data["index"], _sprite_suffix)
         if not os.path.exists(_file_path):
             print("Can't find image: ", "{}{}.png".format(_data["index"], p), "in", x)
-        else:
-            print(f"Checked {_file_path.stem}")
+        #else:
+        #    print(f"Checked {_file_path.stem}")
 
 
     for p in iter_pokemon_names():
@@ -182,6 +195,7 @@ def validate_all():
     pokedex_extra()
     habitat()
     evolve()
+    #tm()
 
 
 def pokemon_list():
@@ -207,4 +221,4 @@ def split():
         with open(pokemon_folder / (species + ".json"), "w", encoding="utf8") as fp:
             json.dump(data, fp, indent="  ", ensure_ascii=False)
 
-images()
+validate_all()

@@ -12,16 +12,16 @@
 		"es_419": "Hecho por Jerakin para el 'Pokémon en 5ta Edición' creado por JoetheDM.\n\nComo probablemente hayas notado, esta app es gratuita y sin anuncios (¡y siempre lo será!). Si quieres ayudarme (Jerakin) a mantener mi motivación, estaré encantado de recibir un café!"
 	},
 	"about_maeb": {
-		"en_us": "Hi! MeAfanaronElBuzon here. Since Jerakin stopped actively supporting this application, I have been adding some features and fixing small bugs, and I plan to continue doing so (always respecting the references to its original creator).\nIf something I did was useful to you and you want to thank me, you can buy me a coffee (Invitame un Cafecito).",
-		"es_419": "¡Hola! MeAfanaronElBuzon aquí. Desde que Jerakin dejó de darle soporte activo a esta aplicación, estuve agregando algunas funcionalidades y solucionando pequeños errores, y tengo planeado seguir haciéndolo (siempre respetando las referencias a su creador original)\nSi algo de lo que hice te fué de utilidad y querés agradecerme, podés invitarme un Cafecito."
+		"en_us": "Hi! MeAfanaronElBuzon here. Since Jerakin stopped actively supporting this application, I have been adding some features and fixing small bugs, and I plan to continue doing so.\nIf something I did was useful to you and you want to thank me, you can buy me a coffee (Invitame un Cafecito).",
+		"es_419": "¡Hola! MeAfanaronElBuzon aquí. Desde que Jerakin dejó de darle soporte activo a esta aplicación, estuve agregando algunas funcionalidades y solucionando pequeños errores, y tengo planeado seguir haciéndolo.\nSi algo de lo que hice te fué de utilidad y querés agradecerme, podés invitarme un Cafecito."
 	},
 	"contact_title": {
 		"en_us": "Contact",
 		"es_419": "Contacto"
 	},
 	"contact_desc": {
-		"en_us": "Have Ideas, Bug Reports or Questions? Contact @Jerakin on the Pokemon5e discord (https://discord.gg/DA9gQAa)\nOr send a mail to pokedex5e@gmail.com",
-		"es_419": "¿Tienes ideas, informes de errores o preguntas? Ponte en contacto con @Jerakin en el Discord de Pokemon5e (https://discord.gg/DA9gQAa)\nO envíe un correo a pokedex5e@gmail.com"
+		"en_us": "Have Ideas, Bug Reports or Questions? You can create requests in the project's GitHub.\nhttps://github.com/maximilianolgs/Pokedex5E/issues",
+		"es_419": "¿Tenés ideas, informes de errores o preguntas? Podés crear solicitudes en el GitHub del proyecto.\nhttps://github.com/maximilianolgs/Pokedex5E/issues"
 	},
 	"disclaimer_title": {
 		"en_us": "Disclaimer",

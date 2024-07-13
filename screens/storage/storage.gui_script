@@ -39,7 +39,7 @@ local function update_storage_data(self)
 				local sprite, texture = _pokemon.get_sprite(pokemon)
 				local species = _pokemon.get_current_species(pokemon)
 				local name = _pokemon.get_nickname(pokemon)
-				local display = name or species:upper()
+				local display = name or localization.upper(species)
 				local level = _pokemon.get_current_level(pokemon)
 				local holding_item = _pokemon.get_held_item(pokemon) or false
 				local have_status = next(_pokemon.get_status_effects(pokemon)) ~= nil and true or false

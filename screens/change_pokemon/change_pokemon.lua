@@ -301,7 +301,7 @@ local function redraw(self)
 
 	local nickname = _pokemon.get_nickname(self.pokemon)
 	local species = _pokemon.get_current_species(self.pokemon)
-	nickname = nickname or species:upper()
+	nickname = nickname or localization.upper(species)
 	gui.set_text(gui.get_node("change_pokemon/species"), nickname)
 
 	gui.set_text(gui.get_node("change_pokemon/txt_level"), _pokemon.get_current_level(self.pokemon))
@@ -481,7 +481,7 @@ local function finish_create_flow(self, species, variant)
 
 	gui.set_color(gui.get_node("change_pokemon/pokemon_sprite"), vmath.vector4(1))
 	gui.set_color(gui.get_node("change_pokemon/species"), gui_colors.TEXT)
-	gui.set_text(gui.get_node("change_pokemon/species"), _pokemon.get_current_species(self.pokemon):upper())
+	gui.set_text(gui.get_node("change_pokemon/species"), localization.upper(_pokemon.get_current_species(self.pokemon)))
 	gui_utils.scale_text_to_fit_size(gui.get_node("change_pokemon/species"))
 	gui.set_scale(gui.get_node("change_pokemon/species"), POKEMON_SPECIES_TEXT_SCALE)
 	local gender = _pokemon.get_gender(self.pokemon)

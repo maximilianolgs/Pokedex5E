@@ -20,7 +20,7 @@ local function update_listitem(list, item)
 	if item and translate then
 		gui.set_text(item.nodes["txt_item"], localization.get_upper(category, prefix .. item.data, item.data))
 	else
-		gui.set_text(item.nodes["txt_item"], tostring(item.data:upper() or "-"))
+		gui.set_text(item.nodes["txt_item"], localization.upper(tostring(item.data or "-")))
 	end
 	gui_utils.scale_text_to_fit_size_2(item.nodes["txt_item"])
 	if item.index == list.selected_item then
