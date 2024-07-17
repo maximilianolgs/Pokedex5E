@@ -14,6 +14,7 @@ local screens = require "utils.screens"
 local messages = require "utils.messages"
 local flow = require "utils.flow"
 local localization = require "utils.localization"
+local log = require "utils.log"
 
 local function pokemon_image(pkmn)
 	local pokemon_sprite, texture = _pokemon.get_icon(pkmn)
@@ -187,6 +188,10 @@ end
 local function refresh_input(self, input, node_id)
 	if input.empty and not input.selected then
 		gui.set_text(input.node, self.nickname or localization.upper(_pokemon.get_current_species(self.pokemon)))
+		if self.nickname then
+			input.text = self.nickname
+			input.empty = false
+		end
 	end
 
 	local cursor = gui.get_node("change_pokemon/cursor")
