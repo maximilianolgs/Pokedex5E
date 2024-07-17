@@ -16,6 +16,7 @@ local pokemon_by_location = {}
 
 local counters = {}
 local sorting = {}
+local order_asc = true
 local storage_settings = {}
 
 local initialized = false
@@ -51,25 +52,45 @@ local function sort_on_index(a, b)
 	return function(a, b) 
 		local c = pokedex.get_index_number(_pokemon.get_current_species(a))
 		local d = pokedex.get_index_number(_pokemon.get_current_species(b))
-		return c < d  
+		if order_asc then
+			return c < d
+		else
+			return c > d
+		end
 	end
 end
 
 
 local function sort_on_caught(a, b)
-	return function(a, b) 
-		return a.number < b.number  
+	return function(a, b)
+		if order_asc then
+			return a.number < b.number
+		else
+			return a.number > b.number
+		end
 	end
 end
 
 
 local function sort_on_level(a, b)
-	return function(a, b) return _pokemon.get_current_level(a) > _pokemon.get_current_level(b) end
+	return function(a, b)
+		if order_asc then
+			return _pokemon.get_current_level(a) < _pokemon.get_current_level(b)
+		else
+			return _pokemon.get_current_level(a) > _pokemon.get_current_level(b)
+		end
+	end
 end
 
 
 local function sort_alphabetical(a, b)
-	return function(a, b) return _pokemon.get_current_species(a) < _pokemon.get_current_species(b) end
+	return function(a, b)
+		if order_asc then
+			return _pokemon.get_current_species(a) < _pokemon.get_current_species(b)
+		else
+			return _pokemon.get_current_species(a) > _pokemon.get_current_species(b)
+		end
+	end
 end
 
 
@@ -207,6 +228,7 @@ end
 
 
 function M.set_sorting_method(method)
+	order_asc = sorting.method ~= method or not order_asc
 	sorting.method = method
 end
 
