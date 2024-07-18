@@ -246,6 +246,9 @@ function init(self)
 	self.trainer_class_list = filters.trainer_class_list()
 	self.habitat_list = filters.habitat_list()
 	self.type_list = filters.type_list()
+	localization.sort_table("generate_pokemon_screen", "trainer_", self.trainer_class_list)
+	localization.sort_table("generate_pokemon_screen", "habitat_", self.habitat_list)
+	localization.sort_table("pokemon_information", "pokemon_type_", self.type_list)
 
 	self.scrolling_list = gooey_scrolling_list.create_vertical_dynamic("storage", "scroll_list", "pokemon/row", "scrollbar/handle", "scrollbar/bar", "scrollbar/visual", update_item, function(list) on_item_selected(self, list) end)
 	
