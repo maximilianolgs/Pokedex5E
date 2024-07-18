@@ -51,7 +51,7 @@ function init(self)
 	button.acquire()
 
 	gui.set_text(gui.get_node("change_pokemon/top/title"), localization.get("change_pokemon_screen", "add_pokemon_title", "Pick Pokemon"))
-	gui.set_text(gui.get_node("change_pokemon/txt_nature"), localization.get_upper("natures", "no nature", "No Nature"))
+	gui.set_text(gui.get_node("change_pokemon/txt_nature"), localization.get_upper("natures", natures.NO_NATURE, natures.NO_NATURE))
 	gui.set_text(gui.get_node("change_pokemon/txt_level_mod"), localization.get("change_pokemon_screen","txt_level","Lv."))
 	gui.set_text(gui.get_node("change_pokemon/txt_max_hp_mod"), localization.get("change_pokemon_screen","txt_changed_max_hp","CHANGED MAX HP:") .. " (+10)")
 	gui.set_text(gui.get_node("change_pokemon/txt_hit_dice"), localization.get("change_pokemon_screen", "txt_hit_dice", "Hit Dice:"))
