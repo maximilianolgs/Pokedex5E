@@ -51,7 +51,19 @@ function init(self)
 	sender = d.sender
 	message_id = d.message_id
 	self.all_items = utils.shallow_copy(d.items)
-	self.list_items = utils.shallow_copy(d.items)
+	
+	-- remove the "No Nature" from the list
+	for i = 1, #self.all_items do
+		if self.all_items[i] == natures.NO_NATURE then
+			table.remove(self.all_items, i)
+			break
+		end
+	end
+	--sort
+	localization.sort_table("natures", "", self.all_items)
+	-- add "No Nature" as the first option
+	table.insert(self.all_items, 1, natures.NO_NATURE)
+	self.list_items = utils.shallow_copy(self.all_items)
 	
 	self.scrolling_list = gooey_scrolling_list.create_vertical_dynamic("scrollist", "scroll_area", "btn_item", "scrollbar/handle", "scrollbar/bar", "scrollbar/visual", update_listitem, on_item_selected)
 	self.scrolling_list.refresh(self.list_items, false)
@@ -67,9 +79,9 @@ local function filter_list(self, search_string)
 	end
 	if #search_string > 0 then
 		self.list_items = {}
-		for i=#self.all_items, 1, -1 do
+		for i=1, #self.all_items do
 			if starts_with(self.all_items[i], search_string) then
-				table.insert(self.list_items, 1, self.all_items[i])
+				table.insert(self.list_items, self.all_items[i])
 			end
 		end
 		self.scrolling_list.refresh(self.list_items, false)

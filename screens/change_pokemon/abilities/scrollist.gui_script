@@ -115,7 +115,7 @@ local function filter_list(self, search_string)
 		end
 		self.scrolling_list.refresh(self.list_items)
 	else
-		self.list_items = utils.shallow_copy(self.all_items)
+		self.list_items = self.all_items
 	end
 end
 
