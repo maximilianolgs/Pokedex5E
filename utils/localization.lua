@@ -127,6 +127,10 @@ function M.translate_table(source, prefix, table)
 	return t
 end
 
+function M.comparator(a, b)
+	return remove_accents(a) < remove_accents(b)
+end
+
 -- sorts the native table by it's localized names
 function M.sort_table(source, prefix, tbl)
 	local t = {}
@@ -134,9 +138,7 @@ function M.sort_table(source, prefix, tbl)
 		for _, v in pairs(tbl) do
 			table.insert(t, v)
 		end
-		table.sort(t, function(a, b)
-			return remove_accents(M.get(source, prefix .. a, a)) < remove_accents(M.get(source, prefix .. b, b))
-		end)
+		table.sort(t, function(a,b) return M.comparator(M.get(source, prefix .. a, a), M.get(source, prefix .. b, b)) end)
 	end
 	return t
 end
