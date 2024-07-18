@@ -53,7 +53,8 @@ local function filter_out_current_abilities(self, list_of_abilities)
 end
 
 local function refresh_list(self)
-	self.list_items = localization.sort_table("abilities", "", self.all_items)
+	localization.sort_table("abilities", "", self.all_items)
+	self.list_items = utils.shallow_copy(self.all_items)
 	self.scrolling_list.refresh(self.list_items, true)
 end
 
@@ -80,7 +81,8 @@ function init(self)
 	self.current_abilities = d.current_abilities
 	self.species = _pokemon.get_current_species(d.pokemon)
 	self.variant = _pokemon.get_variant(d.pokemon)
-	self.all_items = localization.sort_table("abilities", "", d.items)
+	self.all_items = utils.shallow_copy(d.items)
+	localization.sort_table("abilities", "", self.all_items)
 	self.list_items = utils.shallow_copy(self.all_items)
 	
 	gui.set_text(gui.get_node("scrollist/topbar/title"), localization.get("change_pokemon_screen", "choose_ability_title", "Pick Ability"))
@@ -106,15 +108,14 @@ local function filter_list(self, search_string)
 	end
 	if #search_string > 0 then
 		self.list_items = {}
-		for i=#self.all_items, 1, -1 do
+		for i=1, #self.all_items do
 			if is_in(self.all_items[i], search_string) then
 				table.insert(self.list_items, self.all_items[i])
 			end
 		end
-		self.list_items = localization.sort_table("abilities", "", self.list_items)
 		self.scrolling_list.refresh(self.list_items)
 	else
-		self.list_items = localization.sort_table("abilities", "", self.all_items)
+		self.list_items = utils.shallow_copy(self.all_items)
 	end
 end
 

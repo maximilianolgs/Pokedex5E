@@ -89,10 +89,9 @@ function init(self)
 	gui.set_text(gui.get_node("topbar/title"), d.title)
 	gui_utils.scale_text_to_fit_size_2(gui.get_node("topbar/title"))
 	gui.set_text(gui.get_node("search_text"), localization.get("scrollist_popup", "search_text", "SEARCH"))
+	self.all_items = utils.shallow_copy(d_items)
 	if sort then
-		self.all_items = localization.sort_table(category, prefix, d_items)
-	else
-		self.all_items = utils.shallow_copy(d_items)
+		localization.sort_table(category, prefix, self.all_items)
 	end
 	self.list_items = utils.shallow_copy(self.all_items)
 	self.scrolling_list = gooey_scrolling_list.create_vertical_dynamic("scrollist", "scroll_area", "btn_item", "scrollbar/handle", "scrollbar/bar", "scrollbar/visual", update_listitem, on_item_selected)
@@ -117,9 +116,9 @@ local function filter_list(self, search_string)
 	end
 	if #search_string > 0 then
 		self.list_items = {}
-		for i=#self.all_items, 1, -1 do
+		for i=1, #self.all_items do
 			if is_in(self.all_items[i], search_string) then
-				table.insert(self.list_items, 1, self.all_items[i])
+				table.insert(self.list_items, self.all_items[i])
 			end
 		end
 		self.scrolling_list.refresh(self.list_items)

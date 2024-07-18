@@ -133,14 +133,9 @@ end
 
 -- sorts the native table by it's localized names
 function M.sort_table(source, prefix, tbl)
-	local t = {}
 	if tbl ~= nil then
-		for _, v in pairs(tbl) do
-			table.insert(t, v)
-		end
-		table.sort(t, function(a,b) return M.comparator(M.get(source, prefix .. a, a), M.get(source, prefix .. b, b)) end)
+		table.sort(tbl, function(a,b) return M.comparator(M.get(source, prefix .. a, a), M.get(source, prefix .. b, b)) end)
 	end
-	return t
 end
 
 local function get_localized_filename(filename)
