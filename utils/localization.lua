@@ -43,6 +43,34 @@ function M.upper(str)
 	return sUppercase
 end
 
+local function remove_accents(str)
+	local accent_table = {}
+	accent_table["ñ"] = "n"
+	accent_table["á"] = "a"
+	accent_table["é"] = "e"
+	accent_table["í"] = "i"
+	accent_table["ó"] = "o"
+	accent_table["ú"] = "u"
+	accent_table["ü"] = "u"
+	accent_table["Ñ"] = "N"
+	accent_table["Á"] = "A"
+	accent_table["É"] = "E"
+	accent_table["Í"] = "I"
+	accent_table["Ó"] = "O"
+	accent_table["Ú"] = "U"
+	accent_table["Ü"] = "U"
+	
+	local o_str = ""
+	for strChar in string.gmatch(str, "([%z\1-\127\194-\244][\128-\191]*)") do
+		if accent_table[strChar] ~= nil then
+			o_str = o_str..accent_table[strChar]
+		else
+			o_str = o_str..strChar
+		end
+	end
+	return o_str
+end
+
 function M.get(source, key, default)
 	if not source or not key or not default then
 		log.warn("source, key or default missing")
@@ -95,6 +123,20 @@ function M.translate_table(source, prefix, table)
 		for i,v in ipairs(table) do
 			t[i] = M.get(source, prefix .. v, v)
 		end
+	end
+	return t
+end
+
+-- sorts the native table by it's localized names
+function M.sort_table(source, prefix, tbl)
+	local t = {}
+	if tbl ~= nil then
+		for _, v in pairs(tbl) do
+			table.insert(t, v)
+		end
+		table.sort(t, function(a, b)
+			return remove_accents(M.get(source, prefix .. a, a)) < remove_accents(M.get(source, prefix .. b, b))
+		end)
 	end
 	return t
 end
