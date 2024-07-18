@@ -1293,7 +1293,7 @@ function M.new(data)
 	this.attributes.increased = {STR=0, DEX=0, CON=0, INT=0, WIS=0, CHA=0}
 	this.attributes.custom = {STR=0, DEX=0, CON=0, INT=0, WIS=0, CHA=0}
 
-	this.nature = "No Nature"
+	this.nature = natures.NO_NATURE
 
 	this.feats = {}
 	this.abilities = {}
