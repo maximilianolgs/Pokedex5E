@@ -15,6 +15,7 @@ local netcore = require "pokedex.network.netcore"
 local broadcast = require "utils.broadcast"
 local _share = require "pokedex.share"
 local localization = require "utils.localization"
+local log = require "utils.log"
 
 local map = {
 	[screens.PARTY] = "btn_party",
@@ -70,7 +71,7 @@ local function redraw_connected()
 	gui.set_enabled(gui.get_node("icon_connected"), netcore.is_connected())
 end
 
-function initialize_text(self)
+local function initialize_text(self)
 	gui.set_text(gui.get_node("txt_party"), localization.get("menu_screen", "txt_party", "PARTY"))
 	gui.set_text(gui.get_node("txt_add"), localization.get("menu_screen", "txt_add", "ADD POKEMON"))
 	gui.set_text(gui.get_node("txt_pokedex"), localization.get("menu_screen", "txt_pokedex", "POKEDEX"))
@@ -83,6 +84,27 @@ function initialize_text(self)
 	gui.set_text(gui.get_node("txt_about"), localization.get("menu_screen", "txt_about", "ABOUT"))
 
 	self.text_initialized = true
+end
+
+local function arrange_buttons()
+	local button_order = {}
+	local disabled_buttons = 0
+	for s, b in pairs(map) do
+		if gui.get_yanchor(gui.get_node(b)) ~= 1 then
+			table.insert(button_order, b)
+			if not gui.is_enabled(gui.get_node(b)) then
+				disabled_buttons = disabled_buttons + 1
+			end
+		end
+	end
+	table.sort(button_order, function(a, b) return gui.get_position(gui.get_node(a)).y > gui.get_position(gui.get_node(b)).y end)
+	
+	for i = #button_order, 1, -1 do
+		gui.set_position(gui.get_node(button_order[i]), gui.get_position(gui.get_node(button_order[i - disabled_buttons])))
+		if not gui.is_enabled(gui.get_node(button_order[i])) then
+			disabled_buttons = disabled_buttons - 1
+		end
+	end
 end
 
 function init(self)
@@ -112,6 +134,8 @@ function init(self)
 	if not _share.ENABLED.NETWORK then
 		gui.set_enabled(self.btn_connect, false)
 	end
+	
+	arrange_buttons()
 	
 	button.register(self.btn_party, function()
 		monarch.show(screens.PARTY)
