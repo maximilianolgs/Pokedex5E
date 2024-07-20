@@ -202,8 +202,8 @@ function init(self)
 	gui_utils.scale_group_text_to_fit_size(gui.get_node("txt_seen"), gui.get_node("txt_caught"),
 											gui.get_node("txt_unecountered"), gui.get_node("txt_no_mark"))
 	
-	self.all_pokemons = pokedex.unique
-	self.filtered_list = pokedex.unique
+	self.all_pokemons = pokedex.list
+	self.filtered_list = pokedex.list
 	local rows = math.ceil(#self.all_pokemons/5)
 	if #self.all_pokemons ~= dex_data.max_index[dex_data.total_regions] then
 		for region, data in pairs(region_map) do
@@ -324,7 +324,7 @@ function on_message(self, message_id, message)
 		update_pokedex_info(self)
 	elseif message_id == messages.SEARCH then
 		update_dex_data(self)
-		is_searching = #pokedex.unique ~= #self.filtered_list
+		is_searching = #pokedex.list ~= #self.filtered_list
 		self.scrolling_list.refresh(self.pokemon_rows)
 	end
 end
