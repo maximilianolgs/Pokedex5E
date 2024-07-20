@@ -15,7 +15,6 @@ local netcore = require "pokedex.network.netcore"
 local broadcast = require "utils.broadcast"
 local _share = require "pokedex.share"
 local localization = require "utils.localization"
-local log = require "utils.log"
 
 local map = {
 	[screens.PARTY] = "btn_party",
