@@ -1,0 +1,62 @@
+{
+	"title": {
+		"en_us": "Debug",
+		"es_419": "Debug"
+	},
+	"add_one": {
+		"en_us": "Add one",
+		"es_419": "Agregar 1"
+	},
+	"add_five": {
+		"en_us": "Add 5",
+		"es_419": "Agregar 5"
+	},
+	"add_hundred": {
+		"en_us": "Add 100",
+		"es_419": "Agregar 100"
+	},
+	"add_all": {
+		"en_us": "Add all",
+		"es_419": "Agregar Todos"
+	},
+	"load_backup": {
+		"en_us": "Load Backup",
+		"es_419": "Cargar Respaldo"
+	},
+	"add_random_moves": {
+		"en_us": "Add Random Moves",
+		"es_419": "Agregar Movimientos"
+	},
+	"missing_version": {
+		"en_us": "missing",
+		"es_419": "???"
+	},
+	"missing_key": {
+		"en_us": "missing",
+		"es_419": "Clave no encontrada"
+	},
+	"missing_secret": {
+		"en_us": "missing",
+		"es_419": "Secreto no encontrado"
+	},
+	"platform_not_supported": {
+		"en_us": "Not supported",
+		"es_419": "Sin Soporte"
+	},
+	"txt_version": {
+		"en_us": "Version",
+		"es_419": "Versión"
+	},
+	"txt_active": {
+		"en_us": "Active",
+		"es_419": "Activo"
+	},
+	"txt_key": {
+		"en_us": "Key",
+		"es_419": "Clave"
+	},
+	"txt_secret": {
+		"en_us": "Secret",
+		"es_419": "Secreto"
+	}
+}

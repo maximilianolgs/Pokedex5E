@@ -6,42 +6,43 @@ local debug = require "screens.debug.debug"
 local gui_utils = require "utils.gui"
 local messages = require "utils.messages"
 local platform = require "utils.platform"
+local localization = require "utils.localization"
 
 local function game_analyctics()
 	local active = true
-	local version = ""
-	local key = ""
-	local secret = ""
+	local version = localization.get("debug_screen", "missing_version", "missing")
+	local key = localization.get("debug_screen", "missing_key", "missing")
+	local secret = localization.get("debug_screen", "missing_secret", "missing")
 
 	if gameanalytics.mock then
 		active = false
 	end
 	if platform.MACOS then
-		version = "Not supported"
-		key = "Not supported"
-		secret = "Not supported"
+		version = localization.get("debug_screen", "platform_not_supported", "Not supported")
+		key = localization.get("debug_screen", "platform_not_supported", "Not supported")
+		secret = localization.get("debug_screen", "platform_not_supported", "Not supported")
 	elseif platform.WINDOWS then
-		version = sys.get_config("gameanalytics.build_windows", "missing")
-		key = sys.get_config("gameanalytics.game_key_windows", "missing")
-		secret = sys.get_config("gameanalytics.secret_key_windows", "missing")
+		version = sys.get_config("gameanalytics.build_windows", version)
+		key = sys.get_config("gameanalytics.game_key_windows", key)
+		secret = sys.get_config("gameanalytics.secret_key_windows", secret)
 	elseif platform.IOS then
-		version = sys.get_config("gameanalytics.build_ios", "missing")
-		key = sys.get_config("gameanalytics.game_key_ios", "missing")
-		secret = sys.get_config("gameanalytics.secret_key_windows", "missing")
+		version = sys.get_config("gameanalytics.build_ios", version)
+		key = sys.get_config("gameanalytics.game_key_ios", key)
+		secret = sys.get_config("gameanalytics.secret_key_windows", secret)
 	elseif platform.ANDROID then
-		version = sys.get_config("gameanalytics.build_android", "missing")
-		key = sys.get_config("gameanalytics.game_key_android", "missing")
-		secret = sys.get_config("gameanalytics.secret_key_windows", "missing")
+		version = sys.get_config("gameanalytics.build_android", version)
+		key = sys.get_config("gameanalytics.game_key_android", key)
+		secret = sys.get_config("gameanalytics.secret_key_windows", secret)
 	elseif platform.WEB then
-		version = sys.get_config("gameanalytics.build_html5", "missing")
-		key = sys.get_config("gameanalytics.game_key_html5", "missing")
-		secret = sys.get_config("gameanalytics.secret_key_windows", "missing")
+		version = sys.get_config("gameanalytics.build_html5", version)
+		key = sys.get_config("gameanalytics.game_key_html5", key)
+		secret = sys.get_config("gameanalytics.secret_key_windows", secret)
 	end
 	
-	gui.set_text(gui.get_node("ga_active"), "Active: " .. tostring(active))
-	gui.set_text(gui.get_node("ga_version"), "Version: " .. version)
-	gui.set_text(gui.get_node("ga_gamekey"), "Key: " .. key)
-	gui.set_text(gui.get_node("ga_gamesecret"), "Secret: " .. secret)
+	gui.set_text(gui.get_node("ga_active"), localization.get("debug_screen", "txt_active", "Active") .. ": " .. tostring(active))
+	gui.set_text(gui.get_node("ga_version"), localization.get("debug_screen", "txt_version", "Version") .. ": " .. version)
+	gui.set_text(gui.get_node("ga_gamekey"), localization.get("debug_screen", "txt_key", "Key") .. ": " .. key)
+	gui.set_text(gui.get_node("ga_gamesecret"), localization.get("debug_screen", "txt_secret", "Secret") .. ": " .. secret)
 	gui_utils.scale_text_to_fit_size(gui.get_node("ga_gamesecret"))
 	gui_utils.scale_text_to_fit_size(gui.get_node("ga_gamekey"))
 end
@@ -51,6 +52,17 @@ function init(self)
 	msg.post(url.MENU, messages.HIDE)
 	game_analyctics()
 
+	gui.set_text(gui.get_node("template/title"), localization.get_upper("debug_screen", "title", "DEBUG"))
+	gui.set_text(gui.get_node("add_one/txt"), localization.get_upper("debug_screen", "add_one", "Add One"))
+	gui.set_text(gui.get_node("add_5/txt"), localization.get_upper("debug_screen", "add_five", "Add 5"))
+	gui.set_text(gui.get_node("add_100/txt"), localization.get_upper("debug_screen", "add_hundred", "Add 100"))
+	gui.set_text(gui.get_node("add_all/txt"), localization.get_upper("debug_screen", "add_all", "Add All"))
+	gui.set_text(gui.get_node("load/txt"), localization.get("debug_screen", "load_backup", "Load Backup"))
+	gui.set_text(gui.get_node("moves/txt"), localization.get("debug_screen", "add_random_moves", "Add Random Moves"))
+
+	gui_utils.scale_group_text_to_fit_parent_size(gui.get_node("add_one/txt"), gui.get_node("add_5/txt"), gui.get_node("add_100/txt"),
+													gui.get_node("add_all/txt"), gui.get_node("load/txt"), gui.get_node("moves/txt"))
+	
 	gui.set_enabled(gui.get_node("load/btn"), false)
 	if platform.WINDOWS then
 		gui.set_enabled(gui.get_node("load/btn"), true)
