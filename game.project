@@ -28,8 +28,8 @@ dependencies#21 = https://github.com/Jerakin/deftest/archive/master.zip
 [gameanalytics]
 custom_dimensions_01 = live,debug
 auto_detect_app_version = 1
-build_windows = 1.11.4
-build_html5 = 1.11.4
+build_windows = 1.16.2
+build_html5 = 1.16.2
 game_key_windows = 
 secret_key_windows = 
 game_key_android = 
