@@ -13,15 +13,16 @@ local id
 local cb
 
 local text_key_map = { 
-	[messages.CHANGE_HP] = "change_hp",
-	[messages.RESET] = "reset",
-	[messages.EVOLVE_CONFIRM] = "evolve_confirm",
-	[messages.DELETE_GROUP] = "delete_group",
-	[messages.FULL_REST] = "full_rest",
-	[messages.TRANSFER_POKEMON] = "transfer_pokemon",
-	[messages.TRANSFER_POKEMON_LOCAL] = "transfer_pokemon_local",
-	[messages.RELEASE_POKEMON] = "release_pokemon",
-	[messages.DELETE_PROFILE] = "delete_profile"
+	[messages.CHANGE_HP] = {key = "change_hp", text = true, sub_text = false},
+	[messages.RESET] = {key = "reset", text = true, sub_text = true},
+	[messages.EVOLVE_CONFIRM] = {key = "evolve_confirm", text = true, sub_text = false},
+	[messages.DELETE_GROUP] = {key = "delete_group", text = true, sub_text = false},
+	[messages.FULL_REST] = {key = "full_rest", text = true, sub_text = false},
+	[messages.TRANSFER_POKEMON] = {key = "transfer_pokemon", text = true, sub_text = true},
+	[messages.TRANSFER_POKEMON_LOCAL] = {key = "transfer_pokemon_local", text = true, sub_text = true},
+	[messages.RELEASE_POKEMON] = {key = "release_pokemon", text = false, sub_text = false},
+	[messages.DELETE_PROFILE] = {key = "delete_profile", text = false, sub_text = false},
+	default = {key = "default"}
 }
 
 function init(self)
@@ -32,41 +33,35 @@ function init(self)
 	sender = data.sender
 	id = data.id
 	
-	local title = data.title
 	local title_args = data.title_args
-	local text = data.text
 	local text_args = data.text_args
-	local sub_text = data.sub_text
 	local sub_text_args = data.sub_text_args
 	
 	gui.set_text(gui.get_node("txt_confim"), localization.get("are_you_sure_popup", "txt_confim", "YES"))
 	gui.set_text(gui.get_node("txt_exit"), localization.get("are_you_sure_popup", "txt_exit", "NO"))
 	-- get localization key
-	local text_key = text_key_map[data.message] or "default"
+	local map = text_key_map[data.message] or text_key_map.default
 	
 	-- set title
-	if not title then
-		title = localization.get("are_you_sure_popup", text_key .. "_title", localization.get("are_you_sure_popup", "default_title", "<Delete stuff?>"))
-	end
+	local title = localization.get("are_you_sure_popup", map.key .. "_title", "<Delete stuff?>")
 	if title_args then
 		title = string.format(title, unpack(title_args))
 	end
 	gui.set_text(gui.get_node("txt_title"), title)
 	
 	-- set text
-	if not text then
-		text = localization.get("are_you_sure_popup", text_key .. "_text", localization.get("are_you_sure_popup", "default_text", "Are you sure?"))
-	end
-	if text_args then
-		text = string.format(text, unpack(text_args))
+	local text = localization.get("are_you_sure_popup", "default_text", "Are you sure?")
+	if map.text then
+		text = localization.get("are_you_sure_popup", map.key .. "_text", text)
+		if text_args then
+			text = string.format(text, unpack(text_args))
+		end
 	end
 	gui_utils.adjust_for_text_change_vertical("txt", text, {"box"}, {"btn_exit", "btn_confirm", "txt_sub"}, {"txt", "txt_title"})
 	
 	-- set sub_text
-	if not sub_text then
-		sub_text = localization.get("are_you_sure_popup", text_key .. "_sub_text", "")
-	end
-	if sub_text and sub_text ~= "" then
+	if map.sub_text then
+		local sub_text = localization.get("are_you_sure_popup", map.key .. "_sub_text", "")
 		if sub_text_args then
 			sub_text = string.format(sub_text, unpack(sub_text_args))
 		end
