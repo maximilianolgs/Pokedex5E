@@ -86,7 +86,7 @@ function M.get(source, key, default)
 		M.dictionary[source] = file.load_json_from_resource(M.LOCALIZATION_ASSETS_ROOT .. source .. ".json")
 	end
 
-	if not M.dictionary[source]then
+	if not M.dictionary[source] then
 		log.error("Error loading localization file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json'")
 		return default
 	end

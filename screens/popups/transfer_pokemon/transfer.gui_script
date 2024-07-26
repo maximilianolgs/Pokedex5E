@@ -278,7 +278,7 @@ local function on_send_pokemon(self)
 			text_args={pokemon_nickname, member_name},
 			sub_text_args={pokemon_nickname, member_name},
 			cb=are_you_sure_cb,
-			message=messages.TRANSFER_POKEMON
+			message=message
 		})
 	end
 	monarch.show(screens.NETWORK_CHOOSE_MEMBER, nil,
@@ -376,7 +376,13 @@ end
 
 local function release(self)
 	if not storage.is_party_pokemon(self.pokemon_id) or #storage.list_of_ids_in_party() > 1 then
-		monarch.show(screens.ARE_YOU_SURE, nil, {title_args={self.nickname} ,title, data=self.pokemon_id, sender=msg.url(), message=messages.RELEASE_POKEMON})
+		monarch.show(screens.ARE_YOU_SURE, nil, 
+		{
+			title_args={ self.nickname }, 
+			data=self.pokemon_id, 
+			sender=msg.url(), 
+			message=messages.RELEASE_POKEMON
+		})
 	end
 end
 
