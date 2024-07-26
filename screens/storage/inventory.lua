@@ -49,12 +49,14 @@ function M.setup()
 			table.insert(inventory_buttons, inventory_button(sprite, inventory[i]))
 		else
 			gui.set_texture(sprite, "gui")
-			if left_in_storage > 0 and i <= storage.get_max_party_pokemon() then
-				gui.play_flipbook(sprite, "menu_add")
+			gui.play_flipbook(sprite, "sort_type")
+			if i <= storage.get_max_party_pokemon() then
 				gui.set_color(sprite, vmath.vector4(1))
+				if left_in_storage > 0 then
+					gui.play_flipbook(sprite, "menu_add")
+				end
 			else
 				gui.set_color(sprite, gui_colors.INACTIVE)
-				gui.play_flipbook(sprite, "sort_type")
 			end
 			left_in_storage = left_in_storage - 1
 		end
