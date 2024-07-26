@@ -48,8 +48,12 @@ local function create_party_indicators(pokemons_in_party)
 		else
 			gui.set_scale(party_sprite, vmath.vector3(1))
 			gui.set_texture(party_sprite, "gui")
-			gui.set_color(party_sprite, gui_colors.INACTIVE)
 			gui.play_flipbook(party_sprite, "sort_type")
+			if i <= storage.get_max_party_pokemon() then
+				gui.set_color(party_sprite, vmath.vector4(1))
+			else
+				gui.set_color(party_sprite, gui_colors.INACTIVE)
+			end
 			
 			local b = {node="party_indicator/inventory_pokemon_" .. i .. "/pokemon_sprite", func=function() activate_unused_pokemon(i) end}
 			table.insert(buttons, b)
