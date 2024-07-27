@@ -20,7 +20,7 @@
 		"es_419": "¡Tu Pokédex5e está %s versiones por detrás de la última!"
 	},
 	"version_not_recognized": {
-		"en_us": "Version number %s not found among official releases",
-		"es_419": "No se encontró el número de versión %s entre las publicadas oficialmente"
+		"en_us": "Version number %s not found among official releases\nDownload the latest official version?",
+		"es_419": "No se encontró el número de versión %s entre las publicadas oficialmente\n¿Descargar la versión oficial más reciente?"
 	}
 }
