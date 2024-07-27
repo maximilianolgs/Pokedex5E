@@ -6,6 +6,8 @@ local M = {}
 local initialized = false
 local natures
 
+M.NO_NATURE = "No Nature"
+
 local function list()
 	local temp_list = {}
 	local total = 1
@@ -16,7 +18,7 @@ local function list()
 	table.sort(temp_list)
 	table.remove(temp_list, 15)
 	
-	table.insert(temp_list, 1, "No Nature")
+	table.insert(temp_list, 1, M.NO_NATURE)
 	return temp_list, total
 end
 
@@ -28,7 +30,7 @@ function M.get_nature_attributes(nature)
 	if natures[nature] then
 		return natures[nature]
 	end
-	return natures["No Nature"]
+	return natures[M.NO_NATURE]
 end
 
 function M.get_AC(nature)

@@ -43,6 +43,34 @@ function M.upper(str)
 	return sUppercase
 end
 
+local function remove_accents(str)
+	local accent_table = {}
+	accent_table["ñ"] = "n"
+	accent_table["á"] = "a"
+	accent_table["é"] = "e"
+	accent_table["í"] = "i"
+	accent_table["ó"] = "o"
+	accent_table["ú"] = "u"
+	accent_table["ü"] = "u"
+	accent_table["Ñ"] = "N"
+	accent_table["Á"] = "A"
+	accent_table["É"] = "E"
+	accent_table["Í"] = "I"
+	accent_table["Ó"] = "O"
+	accent_table["Ú"] = "U"
+	accent_table["Ü"] = "U"
+	
+	local o_str = ""
+	for strChar in string.gmatch(str, "([%z\1-\127\194-\244][\128-\191]*)") do
+		if accent_table[strChar] ~= nil then
+			o_str = o_str..accent_table[strChar]
+		else
+			o_str = o_str..strChar
+		end
+	end
+	return o_str
+end
+
 function M.get(source, key, default)
 	if not source or not key or not default then
 		log.warn("source, key or default missing")
@@ -58,7 +86,7 @@ function M.get(source, key, default)
 		M.dictionary[source] = file.load_json_from_resource(M.LOCALIZATION_ASSETS_ROOT .. source .. ".json")
 	end
 
-	if not M.dictionary[source]then
+	if not M.dictionary[source] then
 		log.error("Error loading localization file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json'")
 		return default
 	end
@@ -97,6 +125,17 @@ function M.translate_table(source, prefix, table)
 		end
 	end
 	return t
+end
+
+function M.comparator(a, b)
+	return remove_accents(a) < remove_accents(b)
+end
+
+-- sorts the native table by it's localized names
+function M.sort_table(source, prefix, tbl)
+	if tbl ~= nil then
+		table.sort(tbl, function(a,b) return M.comparator(M.get(source, prefix .. a, a), M.get(source, prefix .. b, b)) end)
+	end
 end
 
 local function get_localized_filename(filename)

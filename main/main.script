@@ -65,7 +65,7 @@ local function error_handler(source, message, traceback)
 			message = error_message
 		}
 	end
-	log.critical(error_message)
+	log.fatal(error_message)
 end
 
 

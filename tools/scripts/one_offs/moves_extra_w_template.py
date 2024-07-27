@@ -27,7 +27,7 @@ iso_lang = lang_map.get(lang, False)
 if not iso_lang:
     print('invalid lang.')
     print('next time input one of the following valid languages:')
-    for key, valie in lang_map.items():
+    for key, value in lang_map.items():
         print(key)
     raise SystemExit()
 

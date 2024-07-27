@@ -1256,7 +1256,7 @@
 		"description": "Intentas cortar a una criatura con una hoja afilada. Realiza un ataque cuerpo a cuerpo contra un objetivo, infligiendo daño tipo planta al golpear. Este movimiento ocasiona un golpe crítico con una tirada de ataque natural de 19 o 20."
 	},
 	"leaf storm": {
-		"name": "Lluevahojas",
+		"name": "Lluevehojas",
 		"description": "Levantas una poderosa tormenta de hojas en un círculo de 40 pies, centrado en un punto dentro del alcance. Cualquier criatura en el área debe realizar una tirada de salvación de DES contra la CD del movimiento, recibiendo daño tipo planta si falla o la mitad si tiene éxito. Después de activar este movimiento, te quedas sin energía. En cualquier movimiento dañino que actives antes del final de tu siguiente turno, reduce el daño infligido por tu modificador de movimiento."
 	},
 	"leaf tornado": {

@@ -15,6 +15,7 @@ local message_id
 local category
 local prefix
 local translate
+local sort
 
 local function update_listitem(list, item)
 	if item and translate then
@@ -39,6 +40,7 @@ end
 
 local function setup(message_id, items)
 	translate = true
+	sort = true
 	if messages.ITEM == message_id then
 		category = "items"
 		prefix = ""
@@ -54,7 +56,11 @@ local function setup(message_id, items)
 				skill = full_skill:sub(1, #full_skill - #modif)
 				litems[#litems+1] = localization.get_upper(category, prefix .. skill, skill) .. modif
 			end
+			-- already translated
 			translate = false
+			table.sort(litems, localization.comparator)
+			-- already sorted
+			sort = false
 			return litems
 		end
 	elseif messages.FEATS == message_id then
@@ -66,6 +72,8 @@ local function setup(message_id, items)
 	else
 		-- pokemon names don't need to be translated
 		translate = false
+		-- pokemon are already sorted
+		sort = false
 	end
 	return items
 end
@@ -82,7 +90,10 @@ function init(self)
 	gui_utils.scale_text_to_fit_size_2(gui.get_node("topbar/title"))
 	gui.set_text(gui.get_node("search_text"), localization.get("scrollist_popup", "search_text", "SEARCH"))
 	self.all_items = utils.shallow_copy(d_items)
-	self.list_items = utils.shallow_copy(d_items)
+	if sort then
+		localization.sort_table(category, prefix, self.all_items)
+	end
+	self.list_items = utils.shallow_copy(self.all_items)
 	self.scrolling_list = gooey_scrolling_list.create_vertical_dynamic("scrollist", "scroll_area", "btn_item", "scrollbar/handle", "scrollbar/bar", "scrollbar/visual", update_listitem, on_item_selected)
 	self.scrolling_list.refresh(self.list_items)
 	gui.set_enabled(gui.get_node("cursor"), false)
@@ -105,9 +116,9 @@ local function filter_list(self, search_string)
 	end
 	if #search_string > 0 then
 		self.list_items = {}
-		for i=#self.all_items, 1, -1 do
+		for i=1, #self.all_items do
 			if is_in(self.all_items[i], search_string) then
-				table.insert(self.list_items, 1, self.all_items[i])
+				table.insert(self.list_items, self.all_items[i])
 			end
 		end
 		self.scrolling_list.refresh(self.list_items)
