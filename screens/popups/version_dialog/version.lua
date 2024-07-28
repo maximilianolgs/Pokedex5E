@@ -19,8 +19,8 @@ function M.get_latest()
 				severity = "Warning",
 				message = "Version:LoadIndex:HTTP:" .. res.status 
 			}
-			log.info("Version:BAD STATUS:" .. res.status)
-			log.info(res.response)
+			log.warn("Version:BAD STATUS:" .. res.status)
+			log.warn(res.response)
 		end
 		M.BUSY = false
 	end)

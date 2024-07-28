@@ -1,4 +1,3 @@
-local ljson = require "defsave.json"
 local storage = require "pokedex.storage"
 local url = require "utils.url"
 local notify = require "utils.notify"

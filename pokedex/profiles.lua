@@ -64,7 +64,7 @@ function M.update(slot, data)
 			severity = "Critical",
 			message = e
 		}
-		log.error(e)
+		log.fatal(e)
 	else
 		for key, value in pairs(data) do
 			profiles.slots[slot][key] = value
@@ -158,7 +158,7 @@ function M.get_active_name()
 			severity = "Critical",
 			message = e
 		}
-		log.error(e)
+		log.fatal(e)
 	end
 end
 
@@ -179,7 +179,7 @@ function M.set_active_name(new_name)
 			severity = "Critical",
 			message = e
 		}
-		log.error(e)
+		log.fatal(e)
 	end
 end
 

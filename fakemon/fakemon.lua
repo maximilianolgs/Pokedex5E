@@ -125,8 +125,8 @@ function M.load_index()
 				severity = "Warning",
 				message = "Fakemon:LoadIndex:HTTP:" .. res.status 
 			}
-			log.info("BAD STATUS:" .. res.status)
-			log.info(res.response)
+			log.warn("BAD STATUS:" .. res.status)
+			log.warn(res.response)
 		end
 	end)
 end

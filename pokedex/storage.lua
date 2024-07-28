@@ -173,7 +173,7 @@ function M.get_copy(id)
 			severity = "Critical",
 			message = e
 		}
-		log.error(e)
+		log.fatal(e)
 		return nil
 	end
 end

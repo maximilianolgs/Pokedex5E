@@ -34,7 +34,7 @@ function M.get_move_data(move)
 					severity = "Critical",
 					message = e
 				}
-				log.error(e)
+				log.fatal(e)
 			end
 			warning_list[tostring(move)] = true
 			return M.get_move_data("Error")
