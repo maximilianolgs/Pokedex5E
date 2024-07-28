@@ -28,7 +28,6 @@ local platform = require "utils.platform"
 local localization = require "utils.localization"
 
 local function send_crash_on_start()
-	crash.write_dump()
 	local handle = crash.load_previous()
 	if handle then
 		gameanalytics.addErrorEvent {
@@ -36,6 +35,14 @@ local function send_crash_on_start()
 			message =  crash.get_extra_data(handle)
 		}
 		crash.release(handle)
+	end
+end
+
+local function ga_remote_config_listener()
+	local raw_config = gameanalytics.getRemoteConfigsContentAsString()
+	if raw_config and raw_config ~= "{}" then
+		-- Placeholder for config handling
+		local remote_config = json.decode(raw_config)
 	end
 end
 
@@ -89,13 +96,14 @@ function init(self)
 	if not gameanalytics or ga_config == nil or ga_config == "" then
 		gameanalytics = require "utils.mock_gameanalytics"
 		log.info("Skipping GameAnalytics")
-	else
-		send_crash_on_start()
-		sys.set_error_handler(error_handler)
 	end
-
+	
+	gameanalytics.setRemoteConfigsListener(ga_remote_config_listener)
+	sys.set_error_handler(error_handler)
+	send_crash_on_start()
+	
 	log.outfile = sys.get_save_file("pokedex5E", "log")
-
+	
 	defsave.appname = "pokedex5E"
 	defsave.verbose = false
 	defsave.use_default_data = false
