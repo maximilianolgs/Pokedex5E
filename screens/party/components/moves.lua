@@ -207,7 +207,7 @@ function M.create(nodes, pokemon, index)
 			severity = "Critical",
 			message = e
 		}
-		log.error(e)
+		log.fatal(e)
 	end
 	current_index = index
 	pp_buttons = {}

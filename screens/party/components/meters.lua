@@ -298,7 +298,7 @@ local function parse_number(str, current)
 				severity = "Critical",
 				message = e
 			}
-			log.error(e)
+			log.fatal(e)
 			return current
 		end
 		value, err = fnc()
