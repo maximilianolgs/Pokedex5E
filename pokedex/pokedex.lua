@@ -210,7 +210,7 @@ function M.init()
 			severity = "Warning",
 			message = e
 		}
-		log.warning(e)
+		log.warn(e)
 	end
 end
 
