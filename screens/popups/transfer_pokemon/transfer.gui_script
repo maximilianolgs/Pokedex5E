@@ -312,6 +312,7 @@ function init(self)
 	setup_info(self)
 	if not _share.ENABLED.CLIPBOARD then
 		gui.set_enabled(gui.get_node("btn_clipboard_share"), false)
+		gui.set_enabled(gui.get_node("btn_roll_twenty_share"), false)
 	end
 	if not _share.ENABLED.QRCODE_GENERATE then
 		gui.set_enabled(gui.get_node("btn_qr_share"), false)
