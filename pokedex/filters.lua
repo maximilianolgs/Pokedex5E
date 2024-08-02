@@ -207,6 +207,7 @@ local function filter(t1, t2)
 			if v == b and not cache[b] then
 				cache[b] = true
 				table.insert(out, b)
+				break;
 			end
 		end
 	end
@@ -259,12 +260,13 @@ local function get_generations(min, max)
 end
 
 function M.get_list(trainer_class, habitat, sr_min, sr_max, min_level, type, min_generation, max_generation)
-	local class_habitat = filter(trainer_classes[trainer_class], habitats[habitat]) 
-	local class_habitat_sr = filter(class_habitat, SR_list(sr_min, sr_max))
-	local class_habitat_sr_lvl = filter(class_habitat_sr, minimum_level_list(min_level))
-	local class_habitat_sr_lvl_type = filter(class_habitat_sr_lvl, pokemon_types[type])
-	local class_habitat_sr_lvl_type_generation = filter(class_habitat_sr_lvl_type, get_generations(min_generation, max_generation))
-	return class_habitat_sr_lvl_type_generation
+	local trainer = filter(full_list, trainer_classes[trainer_class])
+	local trainer_habitat = filter(trainer, habitats[habitat]) 
+	local trainer_habitat_sr = filter(trainer_habitat, SR_list(sr_min, sr_max))
+	local trainer_habitat_sr_lvl = filter(trainer_habitat_sr, minimum_level_list(min_level))
+	local trainer_habitat_sr_lvl_type = filter(trainer_habitat_sr_lvl, pokemon_types[type])
+	local trainer_habitat_sr_lvl_type_generation = filter(trainer_habitat_sr_lvl_type, get_generations(min_generation, max_generation))
+	return trainer_habitat_sr_lvl_type_generation
 end
 
 function M.trainer_class_list()
