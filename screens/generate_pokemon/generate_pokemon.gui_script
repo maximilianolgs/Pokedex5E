@@ -136,9 +136,10 @@ end
 
 
 local function get_filtered(self)
-	self.trainer_class = string.gsub(self.trainer_class, "(%a)([%w_']*)", titleCase)
-	self.habitat = string.gsub(self.habitat, "(%a)([%w_']*)", titleCase)
-	self.type = string.gsub(self.type, "(%a)([%w_']*)", titleCase)
+	local word_split_regex = "(%a)([^ ]*)"
+	self.trainer_class = string.gsub(self.trainer_class, word_split_regex, titleCase)
+	self.habitat = string.gsub(self.habitat, word_split_regex, titleCase)
+	self.type = string.gsub(self.type, word_split_regex, titleCase)
 	return filters.get_list(self.trainer_class, self.habitat, self.min_sr, self.max_sr, self.level, self.type, self.min_generation, self.max_generation)
 end
 
