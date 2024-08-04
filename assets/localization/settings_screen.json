@@ -31,8 +31,12 @@
 		"en_us": "Game Analytics",
 		"es_419": "Game Analytics"
 	},
+	"ga_design_events": {
+		"en_us": "Usage Statistics",
+		"es_419": "Estadísticas de Uso"
+	},
 	"ga_error_report": {
-		"en_us": "Send Error Reports",
+		"en_us": "Error Reports",
 		"es_419": "Reportes de Error"
 	}
 }
