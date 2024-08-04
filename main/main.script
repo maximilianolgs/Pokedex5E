@@ -175,7 +175,6 @@ function on_message(self, message_id, message, sender)
 	end
 end
 
-
 function final(self)
 	if not debug.loaded_backup then
 		network.save()

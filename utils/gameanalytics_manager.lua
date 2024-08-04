@@ -18,8 +18,17 @@ local gameanalytics_keys = {
 local function ga_remote_config_listener()
 	local raw_config = gameanalytics.getRemoteConfigsContentAsString()
 	if raw_config and raw_config ~= "{}" then
+		--use pcall to test this w/o breaking anything
+		--use notify.notify(message) to see the results in the app
 		-- Placeholder for config handling
-		-- local remote_config = json.decode(raw_config)
+		log.info(raw_config)
+		--works on html, doesn't in windows
+		raw_config = gameanalytics.getRemoteConfigsValueAsString({key="test"})
+		log.info(raw_config)
+		--works on windows, doesn't in html (sometimes it works)
+		raw_config = gameanalytics.getRemoteConfigsContentAsString()
+		log.info(raw_config)
+		--local remote_config = json.decode(raw_config)
 	end
 end
 
