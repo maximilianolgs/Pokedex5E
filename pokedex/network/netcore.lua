@@ -427,7 +427,12 @@ local function server_on_data(data, ip, port, client)
 	end
 
 	if not success then
-		log.warn("Server received unknown data: " .. tostring(data) .. " from client: " .. tostring(ip) .. ", removing it!")
+		local e = "Server received unknown data: " .. tostring(data) .. " from client: " .. tostring(ip) .. ", removing it!"
+		gameanalytics.addErrorEvent {
+			severity = gameanalytics.SEVERITY_WARNING,
+			message = e
+		}
+		log.warn(e)
 		server.remove_client(client)
 	end
 end
@@ -493,7 +498,12 @@ local function client_on_data(data)
 	end
 
 	if not success then
-		log.warn("Client received unknown data from server: " .. tostring(data))
+		local e = "Client received unknown data from server: " .. tostring(data)
+		gameanalytics.addErrorEvent {
+			severity = gameanalytics.SEVERITY_WARNING,
+			message = e
+		}
+		log.warn(e)
 		M.stop_client()
 	end
 end

@@ -61,7 +61,7 @@ function M.update(slot, data)
 	if not profiles.slots[slot] then
 		local e = "Can not find slot '" .. tostring(slot) .. "' in profile\n" .. debug.traceback()
 		gameanalytics.addErrorEvent {
-			severity = "Critical",
+			severity = gameanalytics.SEVERITY_CRITICAL,
 			message = e
 		}
 		log.fatal(e)
@@ -155,7 +155,7 @@ function M.get_active_name()
 	else
 		local e = "Can not find active_slot " .. tostring(active_slot) ..  "\n" .. debug.traceback()
 		gameanalytics.addErrorEvent {
-			severity = "Critical",
+			severity = gameanalytics.SEVERITY_CRITICAL,
 			message = e
 		}
 		log.fatal(e)
@@ -176,7 +176,7 @@ function M.set_active_name(new_name)
 	else
 		local e = "Can not find active_slot " .. tostring(active_slot) ..  "\n" .. debug.traceback()
 		gameanalytics.addErrorEvent {
-			severity = "Critical",
+			severity = gameanalytics.SEVERITY_CRITICAL,
 			message = e
 		}
 		log.fatal(e)

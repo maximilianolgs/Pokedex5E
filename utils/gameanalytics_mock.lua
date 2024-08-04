@@ -3,16 +3,16 @@ local log = require "utils.log"
 
 local M = {}
 
-function M.addDesignEvent(e)
-	log.info("[Local_GA-Design_Event] " .. json:encode(e))
+function M.addDesignEvent(event)
+	log.info("[Local_GA-Design_Event] " .. json:encode(event))
 end
 
-function M.addErrorEvent(e)
-	log.error("[Local_GA-Error_Event] " .. json:encode(e))
+function M.addErrorEvent(event)
+	log.error("[Local_GA-Error_Event] " .. json:encode(event))
 end
 
-function M.setCustomDimension01(e)
-	log.info("[Local_GA-CustomDimension01] " .. e)
+function M.setCustomDimension01(d)
+	log.info("[Local_GA-CustomDimension01] " .. d)
 end
 
 function M.setRemoteConfigsListener(fn)

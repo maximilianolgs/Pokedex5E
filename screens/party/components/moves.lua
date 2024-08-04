@@ -204,7 +204,7 @@ function M.create(nodes, pokemon, index)
 	if pokemon == nil then
 		local e = string.format("Moves initated with nil\n\n%s", debug.traceback())
 		gameanalytics.addErrorEvent {
-			severity = "Critical",
+			severity = gameanalytics.SEVERITY_CRITICAL,
 			message = e
 		}
 		log.fatal(e)

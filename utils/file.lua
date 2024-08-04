@@ -45,7 +45,12 @@ function M.load_json_from_resource(filename)
 		return json_data
 	end
 
-	log.error("Unable to load json file '" .. filename .. "'")
+	local e = "Unable to load json file '" .. filename .. "'"
+	gameanalytics.addErrorEvent {
+		severity = gameanalytics.SEVERITY_ERROR,
+		message = e
+	}
+	log.error(e)
 	return nil
 end
 

@@ -52,7 +52,7 @@ mt.__index = function(self, i)
 
 		local e = "Type '" .. tostring(i) .. "' does not exist"
 		gameanalytics.addErrorEvent {
-			severity = "Error",
+			severity = gameanalytics.SEVERITY_ERROR,
 			message = e
 		}
 		log.error(e)

@@ -78,12 +78,11 @@ local function resume(instance)
 			instance.on_error(error)
 		else
 			local e = "Warning: Flow resulted in error " .. error
-			log.error(e)
-
 			gameanalytics.addErrorEvent {
-				severity = "Error",
-				message = error
+				severity = gameanalytics.SEVERITY_ERROR,
+				message = e
 			}
+			log.error(e)
 		end
 	end
 end

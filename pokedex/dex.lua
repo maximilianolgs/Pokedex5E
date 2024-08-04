@@ -116,7 +116,7 @@ end
 local function convert()
 	local e = "Converting the Pokedex"
 	gameanalytics.addErrorEvent {
-		severity = "Info",
+		severity = gameanalytics.SEVERITY_INFO,
 		message = e
 	}
 	log.info(e)

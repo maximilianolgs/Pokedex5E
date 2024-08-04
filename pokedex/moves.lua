@@ -31,7 +31,7 @@ function M.get_move_data(move)
 			if not warning_list[tostring(move)] then
 				local e = string.format("Can not find move data for: '%s'", tostring(move))
 				gameanalytics.addErrorEvent {
-					severity = "Critical",
+					severity = gameanalytics.SEVERITY_CRITICAL,
 					message = e
 				}
 				log.fatal(e)
@@ -64,7 +64,12 @@ local function get_type_data(move)
 	if type_data[M.get_move_type(move)] then
 		return type_data[M.get_move_type(move)]
 	end
-	log.error(string.format("Can not find type data for: '%s'", tostring(move)))
+	local e = string.format("Can not find type data for: '%s'", tostring(move))
+	gameanalytics.addErrorEvent {
+		severity = gameanalytics.SEVERITY_ERROR,
+		message = e
+	}
+	log.error(e)
 end
 
 function M.get_move_color(move)
@@ -90,7 +95,7 @@ function M.get_TM(number)
 	else
 		local e = string.format("Can not find TM: '%s'", tostring(number))  .. "\n" .. debug.traceback()
 		gameanalytics.addErrorEvent {
-			severity = "Error",
+			severity = gameanalytics.SEVERITY_ERROR,
 			message = e
 		}
 		log.error(e)
