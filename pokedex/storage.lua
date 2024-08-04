@@ -170,7 +170,7 @@ function M.get_copy(id)
 	else
 		local e = string.format("Trying to get '" .. tostring(id) .. "' from storage\n\n%s", debug.traceback())
 		gameanalytics.addErrorEvent {
-			severity = "Critical",
+			severity = gameanalytics.SEVERITY_CRITICAL,
 			message = e
 		}
 		log.fatal(e)

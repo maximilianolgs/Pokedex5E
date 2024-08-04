@@ -69,7 +69,7 @@ function M.init()
 	else
 		local e = "The items have already been initialized"
 		gameanalytics.addErrorEvent {
-			severity = "Warning",
+			severity = gameanalytics.SEVERITY_WARNING,
 			message = e
 		}
 		log.warn(e)

@@ -207,7 +207,7 @@ function M.init()
 	else
 		local e = "The pokedex have already been initialized"
 		gameanalytics.addErrorEvent {
-			severity = "Warning",
+			severity = gameanalytics.SEVERITY_WARNING,
 			message = e
 		}
 		log.warn(e)
@@ -219,7 +219,12 @@ local function dex_extra(pokemon)
 	local pokemon_index = M.get_index_number(pokemon)
 	local mon = pokedex_extra[tostring(pokemon_index)]
 	if not mon then
-		log.error("Can't find extra information for " .. tostring(pokemon))
+		local e = "Can't find extra information for " .. tostring(pokemon)
+		gameanalytics.addErrorEvent {
+			severity = gameanalytics.SEVERITY_ERROR,
+			message = e
+		}
+		log.error(e)
 	end
 	return mon or pokedex_extra["MissingNo"]
 end
@@ -357,7 +362,12 @@ function M.get_icon(pokemon, variant)
 			local icon_name = "icon" .. pokemon .. (variant or "")
 			local success, status = gui.new_texture(icon_name, img.width, img.height, img.type, img.buffer, false)
 			if not success then
-				log.info("Can not create texture: " .. icon_name .. "| Reason:" .. _error_to_string[status])
+				local e = "Can not create texture: " .. icon_name .. "| Reason:" .. _error_to_string[status]
+				gameanalytics.addErrorEvent {
+					severity = gameanalytics.SEVERITY_INFO,
+					message = e
+				}
+				log.info(e)
 			end
 			return nil, icon_name
 		elseif data.index >= dex_data.max_index[#dex_data.order -1] then
@@ -410,7 +420,12 @@ function M.get_sprite(pokemon, variant)
 			local sprite_name = "sprite" .. pokemon .. (variant or "")
 			local success, status = gui.new_texture(sprite_name, img.width, img.height, img.type, img.buffer, false)
 			if not success then
-				log.info("Can not create texture: " .. sprite_name .. "| Reason:" .. _error_to_string[status])
+				local e = "Can not create texture: " .. sprite_name .. "| Reason:" .. _error_to_string[status]
+				gameanalytics.addErrorEvent {
+					severity = gameanalytics.SEVERITY_INFO,
+					message = e
+				}
+				log.info(e)
 			end
 			return nil, sprite_name
 		elseif data.index < dex_data.max_index[#dex_data.order -1] then
@@ -421,12 +436,16 @@ function M.get_sprite(pokemon, variant)
 	return pokemon_sprite, "pokemon0"
 end
 
-
 function M.level_data(level)
 	if leveldata[tostring(level)] then
 		return leveldata[tostring(level)]
 	end
-	log.error("Can not find level data for: " .. tostring(level))
+	local e = "Can not find level data for: " .. tostring(level)
+	gameanalytics.addErrorEvent {
+		severity = gameanalytics.SEVERITY_ERROR,
+		message = e
+	}
+	log.error(e)
 end
 
 
@@ -510,7 +529,7 @@ function M.get_ability_description(ability)
 	else
 		local e = string.format("Can not find Ability: '%s'", tostring(ability))  .. "\n" .. debug.traceback()
 		gameanalytics.addErrorEvent {
-			severity = "Error",
+			severity = gameanalytics.SEVERITY_ERROR,
 			message = e
 		}
 		log.error(e)
@@ -579,7 +598,12 @@ function M.get_evolution_data(pokemon)
 	if evolvedata[pokemon] then
 		return evolvedata[pokemon]
 	end
-	log.info("Can not find evolution data for pokemon : " .. tostring(pokemon))
+	local e = "Can not find evolution data for pokemon : " .. tostring(pokemon)
+	gameanalytics.addErrorEvent {
+		severity = gameanalytics.SEVERITY_DEBUG,
+		message = e
+	}
+	log.debug(e)
 end
 
 

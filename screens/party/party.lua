@@ -94,7 +94,7 @@ function M.show(index)
 	else
 		local e = "Party can not show pokemon with id: " .. tostring(id) .. "\n" .. debug.traceback()
 		gameanalytics.addErrorEvent {
-			severity = "Error",
+			severity = gameanalytics.SEVERITY_ERROR,
 			message = e
 		}
 		log.error(e)
