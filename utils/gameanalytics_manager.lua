@@ -50,9 +50,10 @@ function M.init()
 	else
 		M.core = gameanalytics
 	end
-	
 	gameanalytics = M
 	M.setRemoteConfigsListener(ga_remote_config_listener)
+
+	-- manual start can be done here
 	send_crash_on_start()
 end
 
@@ -102,6 +103,10 @@ function M.getRemoteConfigsValueAsString(options)
 	else
 		return mock.getRemoteConfigsValueAsString(options)
 	end
+end
+
+function M.final()
+	-- placeholder for manual end
 end
 
 return M

@@ -58,12 +58,12 @@ local function window_resized()
 end
 
 function init(self)
+	gam.init()
 	collectionfactory.create("/menu#collectionfactory")
 	msg.post(url.MENU, messages.HIDE)
 	
 	window.set_listener(window_resized)
 	
-	gam.init()
 	
 	sys.set_error_handler(error_handler)
 	
@@ -181,5 +181,6 @@ function final(self)
 		storage.save()
 		settings.save()
 	end
+	gam.final()
 	log.info("Clean Exit")
 end
