@@ -26,30 +26,10 @@ local screens = require "utils.screens"
 local messages = require "utils.messages"
 local platform = require "utils.platform"
 local localization = require "utils.localization"
-
-local function send_crash_on_start()
-	local handle = crash.load_previous()
-	if handle then
-		gameanalytics.addErrorEvent {
-			severity = "Error",
-			message =  crash.get_extra_data(handle)
-		}
-		crash.release(handle)
-	end
-end
-
-local function ga_remote_config_listener()
-	local raw_config = gameanalytics.getRemoteConfigsContentAsString()
-	if raw_config and raw_config ~= "{}" then
-		-- Placeholder for config handling
-		local remote_config = json.decode(raw_config)
-	end
-end
+local gam = require "utils.gameanalytics_manager"
 
 local error_table = {}
 local VERSION = sys.get_config("project.version")
--- https://gameanalytics.com/docs/item/ga-data
--- https://gameanalytics.com/docs/item/resource-events
 
 local function error_handler(source, message, traceback)
 	-- don't flood the same unique message more than once
@@ -66,22 +46,12 @@ local function error_handler(source, message, traceback)
 	end
 	local error_message = VERSION .. " - " .. source .. " - " .. message .. " - " .. traceback
 	
-	if gameanalytics then
-		gameanalytics.addErrorEvent {
-			severity = severity_rating,
-			message = error_message
-		}
-	end
+	gameanalytics.addErrorEvent {
+		severity = severity_rating,
+		message = error_message
+	}
 	log.fatal(error_message)
 end
-
-
-local gameanalytics_keys = {
-	["Windows"] = "gameanalytics.game_key_windows",
-	["Android"] = "gameanalytics.game_key_android",
-	["HTML5"] = "gameanalytics.game_key_html5",
-	["iPhone OS"] = "gameanalytics.game_key_ios"
-}
 
 local function window_resized()
 	msg.post("@render:", "window_event")
@@ -92,15 +62,10 @@ function init(self)
 	msg.post(url.MENU, messages.HIDE)
 	
 	window.set_listener(window_resized)
-	local ga_config = sys.get_config(gameanalytics_keys[platform.CURRENT])
-	if not gameanalytics or ga_config == nil or ga_config == "" then
-		gameanalytics = require "utils.mock_gameanalytics"
-		log.info("Skipping GameAnalytics")
-	end
 	
-	gameanalytics.setRemoteConfigsListener(ga_remote_config_listener)
+	gam.init()
+	
 	sys.set_error_handler(error_handler)
-	send_crash_on_start()
 	
 	log.outfile = sys.get_save_file("pokedex5E", "log")
 	

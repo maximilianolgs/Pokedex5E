@@ -26,5 +26,13 @@
 	"language": {
 		"en_us": "Language",
 		"es_419": "Idioma"
+	},
+	"ga_title": {
+		"en_us": "Game Analytics",
+		"es_419": "Game Analytics"
+	},
+	"ga_error_report": {
+		"en_us": "Send Error Reports",
+		"es_419": "Reportes de Error"
 	}
 }
