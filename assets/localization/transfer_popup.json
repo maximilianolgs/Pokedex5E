@@ -43,6 +43,18 @@
 		"en_us": "GOODBYE, %s!\nHAVE FUN WITH %s!",
 		"es_419": "¡ADIÓS %s!\nDIVIÉRTETE CON %s"
 	},
+	"pokemon_received_catch": {
+		"en_us": "YOU CAUGHT %s!",
+		"es_419": "¡CAPTURASTE A %s!"
+	},
+	"pokemon_received_gift": {
+		"en_us": "%s SENT YOU %s!",
+		"es_419": "¡%s TE ENVIÓ A %s!"
+	},
+	"pokemon_received": {
+		"en_us": "WELCOME, %s!",
+		"es_419": "¡BIENVENIDO %s!"
+	},
 	"moved_to_pc": {
 		"en_us": "%s MOVED TO PC",
 		"es_419": "%s FUE ENVIADO A LA PC"

@@ -45,6 +45,11 @@ local function add_pokemon(self)
 	end
 	storage.add(self.pokemon)
 	exit(self)
+
+	gameanalytics.addDesignEvent {
+		eventId = "Pokemon:Add",
+		value = _pokemon.get_index_number(self.pokemon)
+	}
 end
 
 function init(self)

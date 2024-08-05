@@ -46,3 +46,7 @@ for section in build_config:
 with open(game_project_file, 'w') as configfile:
     live_config.write(configfile)
 
+if has_production_values:
+    print('\nlive values are set to DEVELOP')
+else:
+    print('\nlive values are set to PRODUCTION')

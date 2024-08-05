@@ -30,7 +30,10 @@ function init(self)
 		local species = pokedex.get_species_display(_pokemon.get_current_species(self.pokemon), _pokemon.get_variant(self.pokemon))
 		species = localization.get("pokemon_variants", species, species)
 		local level = _pokemon.get_current_level(self.pokemon)
-		
+		gameanalytics.addDesignEvent {
+			eventId = "Pokemon:Receive:Clipboard",
+			value = _pokemon.get_index_number(self.pokemon)
+		}
 		gui.set_text(node_txt_title, localization.get("import_popup", "title_success", "Import"))
 		gui.set_text(node_txt, localization.get("import_popup", "text_success", "Do you want to import level %s %s?"):format(level, species))
 		gui.set_text(gui.get_node("txt_exit"), localization.get("import_popup", "cancel_btn_success", "CANCEL"))
