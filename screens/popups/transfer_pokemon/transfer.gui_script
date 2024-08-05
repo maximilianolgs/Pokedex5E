@@ -203,7 +203,9 @@ local function setup_info(self)
 	local species = _pokemon.get_current_species(pokemon)
 	local species_text = pokedex.get_species_display(species, _pokemon.get_variant(pokemon))
 	if self.nickname or species ~= species_text then
-		species_text = localization.get("pokemon_variants", species_text, species_text)
+		if species ~= species_text then
+			species_text = localization.get("pokemon_variants", species_text, species_text)
+		end
 		gui.set_text(gui.get_node("txt_index"), string.format("#%03d", _pokemon.get_index_number(pokemon)) .. " " .. species_text)
 	else
 		gui.set_text(gui.get_node("txt_index"), string.format("#%03d", _pokemon.get_index_number(pokemon)))

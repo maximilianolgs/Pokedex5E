@@ -47,7 +47,7 @@ local function add_pokemon(self)
 	exit(self)
 
 	gameanalytics.addDesignEvent {
-		eventId = "Pokemon:Add",
+		eventId = "Pokemon:Add:Menu",
 		value = _pokemon.get_index_number(self.pokemon)
 	}
 end

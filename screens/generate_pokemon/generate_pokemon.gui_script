@@ -395,6 +395,10 @@ function on_input(self, action_id, action)
 			local species, variant = variants.get_species_variant_for(p)
 			local level = self.level == 0 and pokedex.get_minimum_wild_level(species, variant) or self.level
 			generate.add_pokemon(species, variant, level)
+			gameanalytics.addDesignEvent {
+				eventId = "Pokemon:Add:Generator",
+				value = pokedex.get_index_number(p)
+			}
 		end
 		selected_pokemon = {}
 	end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_add")) end)

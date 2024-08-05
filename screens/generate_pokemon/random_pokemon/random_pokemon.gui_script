@@ -58,6 +58,10 @@ function on_input(self, action_id, action)
 	local b = gooey.button("btn_add", action_id, action, function()
 		local level = self.level == 0 and pokedex.get_minimum_wild_level(self.species) or self.level
 		generate.add_pokemon(self.species, self.variant, level)
+		gameanalytics.addDesignEvent {
+			eventId = "Pokemon:Add:Random",
+			value = pokedex.get_index_number(self.species)
+		}
 	end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_add")) end)
 
 	local c = gooey.button("btn_back", action_id, action, back)
