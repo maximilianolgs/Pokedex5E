@@ -26,9 +26,14 @@ function init(self)
 	local pos_btn_confirm = gui.get_position(node_btn_confirm)	
 	local metrics_txt = gui.get_text_metrics_from_node(node_txt)
 	
-	if self.pokemon then		
-		local species = pokedex.get_species_display(_pokemon.get_current_species(self.pokemon), _pokemon.get_variant(self.pokemon))
-		species = localization.get("pokemon_variants", species, species)
+	if self.pokemon then
+		local current_species = _pokemon.get_current_species(self.pokemon)
+		local species = pokedex.get_species_display(current_species, _pokemon.get_variant(self.pokemon))
+		
+		if current_species ~= species then
+			species = localization.get("pokemon_variants", species, species)
+		end
+		
 		local level = _pokemon.get_current_level(self.pokemon)
 		gameanalytics.addDesignEvent {
 			eventId = "Pokemon:Receive:Clipboard",

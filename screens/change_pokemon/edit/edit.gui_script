@@ -106,6 +106,9 @@ end
 local function evolve_pokemon_confirm(self)
 	if self.evolve_species then
 		local display = pokedex.get_species_display(self.evolve_species, self.evolve_variant)
+		if self.evolve_species ~= display then
+			display = localization.get("pokemon_variants", display, display)
+		end
 		flow.start(function()
 			flow.until_true(function() return not monarch.is_busy() end)
 			monarch.show(screens.ARE_YOU_SURE, nil, 
@@ -113,7 +116,7 @@ local function evolve_pokemon_confirm(self)
 				sender=msg.url(), 
 				text_args=
 				{
-					localization.get("pokemon_variants", display, display), 
+					display, 
 					_pokemon.get_current_level(self.pokemon)
 				}, 
 				id=messages.EVOLVE_CONFIRM, 
