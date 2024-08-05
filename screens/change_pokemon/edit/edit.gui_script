@@ -28,7 +28,17 @@ end
 local function save_pokemon(self)
 	_pokemon.set_nickname(self.pokemon, self.nickname)
 	storage.update_pokemon(self.pokemon)
-
+	if _pokemon.get_index_number(self.pokemon) > self.pkstat.index then
+		gameanalytics.addDesignEvent {
+			eventId = "Pokemon:Evolve",
+			value = self.pkstat.index
+		}
+	elseif _pokemon.get_current_level(self.pokemon) > self.pkstat.level then
+		gameanalytics.addDesignEvent {
+			eventId = "Pokemon:LevelUp",
+			value = self.pkstat.index
+		}
+	end
 	monarch.show(screens.PARTY)
 end
 
@@ -161,7 +171,7 @@ local function evolve_pokemon_variant(self)
 			if should_choose then
 				flow.start(function()
 					flow.until_true(function() return not monarch.is_busy() end)
-					monarch.show(screens.SCROLLIST, {}, {items=variant_list, message_id="evolve_variant", sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_variant_title", "Choose Variant")})
+					monarch.show(screens.SCROLLIST, {}, {items=variant_list, message_id=messages.EVOLVE_VARIANT, sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_variant_title", "Choose Variant")})
 				end)
 			else
 				evolve_pokemon_confirm(self)
@@ -177,17 +187,17 @@ local function evolve_pokemon_species(self)
 		self.evolve_species = evolve_into[1]
 		evolve_pokemon_variant(self)
 	else
-		monarch.show(screens.SCROLLIST, {}, {items=evolve_into, message_id="evolve_species", sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_evolution_title", "Pick evolution")})
+		monarch.show(screens.SCROLLIST, {}, {items=evolve_into, message_id=messages.EVOLVE_SPECIES, sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_evolution_title", "Pick evolution")})
 	end
 end
 
 function on_message(self, message_id, message, sender)
 	pokemon_edit.on_message(self, message_id, message, sender)
 	
-	if message_id == hash("evolve_species") and message.item then
+	if message_id == messages.EVOLVE_SPECIES and message.item then
 		self.evolve_species = message.item
 		evolve_pokemon_variant(self)
-	elseif message_id == hash("evolve_variant") and message.item then
+	elseif message_id == messages.EVOLVE_VARIANT and message.item then
 		self.evolve_variant = message.item
 		evolve_pokemon_confirm(self)
 	elseif message_id == messages.RESPONSE and message.response and message.id == messages.EVOLVE_CONFIRM then

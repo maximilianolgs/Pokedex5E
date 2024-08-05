@@ -46,6 +46,7 @@ end
 
 
 local function activate(slot)
+	local profile_change = profiles.get_active_slot() and profiles.get_active_slot() ~= slot
 	profiles.set_active(slot)
 	local needs_save = storage.load(profiles.get_active())
 	if needs_save then
@@ -60,6 +61,12 @@ local function activate(slot)
 		monarch.show(screens.ADD)
 	end
 	profiles.set_active_complete()
+
+	if profile_change then
+		gameanalytics.addDesignEvent {
+			eventId = "Profile:Change"
+		}
+	end
 end
 
 
@@ -107,6 +114,10 @@ local function delete_profile(self, slot)
 	end
 	self.filtered_list = utils.deep_copy(self.scrolling_data)
 	self.scrolling_list.refresh(self.filtered_list)
+
+	gameanalytics.addDesignEvent {
+		eventId = "Profile:Delete"
+	}
 end
 
 local function profile_list_clicked(list)

@@ -2,6 +2,8 @@ local share = require "pokedex.share"
 local net_members = require "pokedex.network.net_members"
 local net_member_name = require "pokedex.network.net_member_name"
 local notify = require "utils.notify"
+local localization = require "utils.localization"
+local _pokemon = require "pokedex.pokemon"
 
 local KEY = "SEND_POKEMON"
 
@@ -21,11 +23,23 @@ local function on_pokemon_received(from_member_id, message)
 		local notify_msg
 		local pkmn_name = (pokemon.nickname or pokemon.species.current)
 		if send_type == M.SEND_TYPE_CATCH then
-			notify_msg = "YOU CAUGHT " .. pkmn_name .."!"
+			notify_msg = localization.get("transfer_popup", "pokemon_received_catch", "YOU CAUGHT %s!"):format(pkmn_name)
+			gameanalytics.addDesignEvent {
+				eventId = "Pokemon:Receive:Group:Catch",
+				value = _pokemon.get_index_number(pokemon)
+			}
 		elseif send_type == M.SEND_TYPE_GIFT then
-			notify_msg = from_name .. " SENT YOU " .. pkmn_name .."!"
+			notify_msg = localization.get("transfer_popup", "pokemon_received_gift", "%s SENT YOU %s!"):format(from_name, pkmn_name)
+			gameanalytics.addDesignEvent {
+				eventId = "Pokemon:Receive:Group:Gift",
+				value = _pokemon.get_index_number(pokemon)
+			}
 		else
-			notify_msg = "WELCOME, " .. pkmn_name .. "!"
+			notify_msg = localization.get("transfer_popup", "pokemon_received", "WELCOME, %s!"):format(pkmn_name)
+			gameanalytics.addDesignEvent {
+				eventId = "Pokemon:Receive:Group",
+				value = _pokemon.get_index_number(pokemon)
+			}
 		end
 		notify.notify(notify_msg)
 	end	

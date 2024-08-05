@@ -26,6 +26,14 @@ function init(self)
 end
 
 function on_input(self, action_id, action)
-    gooey.button("btn_close", action_id, action, function() monarch.back() end)
-    gooey.button("btn_open", action_id, action, function() sys.open_url(self.data.url) end)
+    gooey.button("btn_close", action_id, action, function()
+        monarch.back()
+    end)
+    gooey.button("btn_open", action_id, action, function()
+        gameanalytics.addDesignEvent {
+            eventId = "Version:Update",
+            value = self.data.versions_behind
+        }
+        sys.open_url(self.data.url)
+    end)
 end
