@@ -73,7 +73,7 @@ end
 
 function M.get(source, key, default)
 	if not source or not key or not default then
-		local e = "source " .. (source or "missing") .. ", key" .. (key or "missing") .. ", default " .. (default or "missing")
+		local e = "source " .. (source or "missing") .. ", key " .. (key or "missing") .. ", defaultValue " .. (default or "missing")
 		gameanalytics.addErrorEvent {
 			severity = gameanalytics.SEVERITY_CRITICAL,
 			message = e
@@ -92,6 +92,8 @@ function M.get(source, key, default)
 		return default
 	end
 
+	local lkey = key:lower()
+
 	if not M.dictionary[source] then
 		M.dictionary[source] = file.load_json_from_resource(M.LOCALIZATION_ASSETS_ROOT .. source .. ".json")
 	end
@@ -103,18 +105,29 @@ function M.get(source, key, default)
 			message = e
 		}
 		log.error(e)
+		M.dictionary[source] = { [lkey] = { [settings.get("lang")] = default } }
 		return default
 	end
 
-	local lkey = key:lower()
-
-	if not M.dictionary[source][lkey] or not M.dictionary[source][lkey][settings.get("lang")] then
+	if not M.dictionary[source][lkey] then
+		local e = "Key " .. lkey .. " not found on file " .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json"
+		gameanalytics.addErrorEvent {
+			severity = gameanalytics.SEVERITY_WARNING,
+			message = e
+		}
+		log.warn(e)
+		M.dictionary[source][lkey] = { [settings.get("lang")] = default }
+		return default
+	end
+	
+	if not M.dictionary[source][lkey][settings.get("lang")] then
 		local e = "Key " .. lkey .. "/" .. settings.get("lang") .. " not found on file " .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json"
 		gameanalytics.addErrorEvent {
 			severity = gameanalytics.SEVERITY_WARNING,
 			message = e
 		}
 		log.warn(e)
+		M.dictionary[source][lkey][settings.get("lang")] = default
 		return default
 	end
 	
