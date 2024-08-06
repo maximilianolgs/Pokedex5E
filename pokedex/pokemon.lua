@@ -436,12 +436,11 @@ function M.get_default_max_hp(pkmn)
 			if from_pkmn == nil then
 				from_pkmn = "MissingNo"
 				local e = "Could not find which Pokemon " .. current .. " evolved from."
-				log.error(e)
-
 				gameanalytics.addErrorEvent {
-					severity = "Error",
+					severity = gameanalytics.SEVERITY_ERROR,
 					message = e
 				}
+				log.error(e)
 			end
 			
 			at_level = table.remove(evolutions)
@@ -1136,7 +1135,12 @@ function M.get_move_data(pkmn, move_name)
 	local move = movedex.get_move_data(move_name)
 	if not move then
 		-- Problem with the move, may be an issue with an old Fakemon package or a move that got removed
-		log.error("Move " .. move_name .. " not found")
+		local e = "Move " .. move_name .. " not found"
+		gameanalytics.addErrorEvent {
+			severity = gameanalytics.SEVERITY_ERROR,
+			message = e
+		}
+		log.error(e)
 		return move_data
 	end
 	

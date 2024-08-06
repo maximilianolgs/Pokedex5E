@@ -522,7 +522,7 @@ local function localize_text()
 	gui.set_text(gui.get_node("change_pokemon/txt_skills"), localization.get_upper("change_pokemon_screen","txt_skills","Skills"))
 end
 
-function M.init(self, pokemon)
+function M.init(self)
 	msg.post(url.MENU, messages.HIDE)
 	localize_text()
 	
@@ -545,6 +545,9 @@ function M.init(self, pokemon)
 	gui.set_enabled(self.move_node, false)
 
 	if self.pokemon then
+		self.pkstat = {}
+		self.pkstat.index = _pokemon.get_index_number(self.pokemon)
+		self.pkstat.level = _pokemon.get_current_level(self.pokemon)
 		local is_shiny =_pokemon.is_shiny(self.pokemon) or false
 		gui.set_enabled(gui.get_node("change_pokemon/checkmark_shiny_mark"), is_shiny)
 		gooey.checkbox("change_pokemon/bg_shiny").set_checked(is_shiny)

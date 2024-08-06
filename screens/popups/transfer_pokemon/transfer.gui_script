@@ -203,7 +203,9 @@ local function setup_info(self)
 	local species = _pokemon.get_current_species(pokemon)
 	local species_text = pokedex.get_species_display(species, _pokemon.get_variant(pokemon))
 	if self.nickname or species ~= species_text then
-		species_text = localization.get("pokemon_variants", species_text, species_text)
+		if species ~= species_text then
+			species_text = localization.get("pokemon_variants", species_text, species_text)
+		end
 		gui.set_text(gui.get_node("txt_index"), string.format("#%03d", _pokemon.get_index_number(pokemon)) .. " " .. species_text)
 	else
 		gui.set_text(gui.get_node("txt_index"), string.format("#%03d", _pokemon.get_index_number(pokemon)))
@@ -253,6 +255,7 @@ local function on_send_pokemon(self)
 	-- self will go away when we leave this screen so keep the variables around
 	local pokemon_id = self.pokemon_id
 	local pokemon_nickname = tostring(self.nickname)
+	local index = self.index
 	local is_local_host = net_members.is_local_member_host()
 	local prev_screen = monarch.top(-1)
 	local fn_member_chosen = function(member_id)
@@ -262,6 +265,10 @@ local function on_send_pokemon(self)
 			if accepted then
 				send_pokemon.send_pokemon(member_id, pokemon_id, send_pokemon.SEND_TYPE_GIFT)
 				notify.notify(localization.get("transfer_popup", "pokemon_sent","GOODBYE, %s!\nHAVE FUN WITH %s!"):format(pokemon_nickname, member_name))
+				gameanalytics.addDesignEvent {
+					eventId = "Pokemon:Send:Group",
+					value = index
+				}
 				storage.release_pokemon(pokemon_id)	
 				monarch.show(prev_screen, {clear=true})
 			end
@@ -312,6 +319,7 @@ function init(self)
 	setup_info(self)
 	if not _share.ENABLED.CLIPBOARD then
 		gui.set_enabled(gui.get_node("btn_clipboard_share"), false)
+		gui.set_enabled(gui.get_node("btn_roll_twenty_share"), false)
 	end
 	if not _share.ENABLED.QRCODE_GENERATE then
 		gui.set_enabled(gui.get_node("btn_qr_share"), false)
@@ -393,6 +401,10 @@ function on_message(self, message_id, message, sender)
 			flow.start(function()
 				flow.until_true(function() return not monarch.is_busy() end)
 				storage.release_pokemon(message.data)
+				gameanalytics.addDesignEvent {
+					eventId = "Pokemon:Release",
+					value = self.index
+				}
 				notify.notify(localization.get("transfer_popup", "pokemon_released", "%s WAS RELEASED"):format(self.nickname))
 				update_storage()
 				monarch.back()

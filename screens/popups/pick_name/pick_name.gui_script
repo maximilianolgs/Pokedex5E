@@ -82,8 +82,14 @@ local function okay()
 	if name ~= enter_name then
 		local profile = profiles.get_slot(slot)
 		if profile == nil then
+			gameanalytics.addDesignEvent {
+				eventId = "Profile:Create"
+			}
 			profile = profiles.add(name, slot)
 		else
+			gameanalytics.addDesignEvent {
+				eventId = "Profile:Rename"
+			}
 			profiles.update(slot, { name = name })
 		end
 		profiles.set_active(profile.slot)

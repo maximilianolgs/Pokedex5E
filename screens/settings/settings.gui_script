@@ -22,8 +22,46 @@ local function update_checkbox(checkbox)
 end
 
 local function on_gender_checked(self, checkbox)
+	if checkbox.checked then
+		gameanalytics.addDesignEvent {
+			eventId = "Settings:StrictGender:Enable"
+		}
+	else
+		gameanalytics.addDesignEvent {
+			eventId = "Settings:StrictGender:Disable"
+		}
+	end
 	settings.set("strict_gender", checkbox.checked)
 	self.strict_gender = checkbox.checked
+end
+
+local function on_ga_design_events_checked(self, checkbox)
+	if checkbox.checked then
+		settings.set("ga_design_events", checkbox.checked)
+		gameanalytics.addDesignEvent {
+			eventId = "Settings:GA:DesignEvents:Enable"
+		}
+	else
+		gameanalytics.addDesignEvent {
+			eventId = "Settings:GA:DesignEvents:Disable"
+		}
+		settings.set("ga_design_events", checkbox.checked)
+	end
+	self.ga_design_events = checkbox.checked
+end
+
+local function on_ga_error_report_checked(self, checkbox)
+	if checkbox.checked then
+		gameanalytics.addDesignEvent {
+			eventId = "Settings:GA:ErrorReports:Enable"
+		}
+	else
+		gameanalytics.addDesignEvent {
+			eventId = "Settings:GA:ErrorReports:Disable"
+		}
+	end
+	settings.set("ga_error_report", checkbox.checked)
+	self.ga_error_report = checkbox.checked
 end
 
 local function update_radio(radio)
@@ -49,9 +87,15 @@ local function load_localized_text()
 	gui.set_text(gui.get_node("txt_paste"), localization.get("settings_screen", "txt_paste", "PICK"))
 	gui.set_text(gui.get_node("strict_gender/text"), localization.get("settings_screen", "strict_gender", "Use Strict Gender"))
 	gui.set_text(gui.get_node("language/title"), localization.get("settings_screen", "language", "Language"))
+	gui.set_text(gui.get_node("ga_title"), localization.get("settings_screen", "ga_title", "Game Analytics"))
+	gui.set_text(gui.get_node("ga_design_events/text"), localization.get("settings_screen", "ga_design_events", "Usage Statistics"))
+	gui.set_text(gui.get_node("ga_error_report/text"), localization.get("settings_screen", "ga_error_report", "Error Reports"))
 end
 
 local function set_lang(lang)
+	gameanalytics.addDesignEvent {
+		eventId = "Settings:Language:"..lang
+	}
 	settings.set("lang", lang)
 	load_localized_text()
 end
@@ -60,17 +104,24 @@ function init(self)
 	msg.post(".", messages.ACQUIRE_INPUT_FOCUS)
 	msg.post(url.MENU, messages.HIDE)
 	self.strict_gender = settings.get("strict_gender", false)
+	self.ga_design_events = settings.get("ga_design_events", true)
+	self.ga_error_report = settings.get("ga_error_report", true)
 	self.lang = settings.get("lang")
 
 	load_localized_text()
-	
+
 	gooey.checkbox("strict_gender/checkmark").set_checked(self.strict_gender)
 	update_checkbox(gooey.checkbox("strict_gender/checkmark"))
+	gooey.checkbox("ga_design_events/checkmark").set_checked(self.ga_design_events)
+	update_checkbox(gooey.checkbox("ga_design_events/checkmark"))
+	gooey.checkbox("ga_error_report/checkmark").set_checked(self.ga_error_report)
+	update_checkbox(gooey.checkbox("ga_error_report/checkmark"))
 
 	refresh_language_radio()
 
 	if platforms.WEB then
 		gui.set_enabled(gui.get_node("fakemon"), false)
+		gui.set_enabled(gui.get_node("game_analytics"), false)
 	else
 		if fakemon.LOCAL_INDEX then
 			gui.set_text(gui.get_node("name_fakemon"), fakemon.LOCAL_INDEX["name"])
@@ -82,6 +133,9 @@ end
 
 function on_input(self, action_id, action)
 	gooey.button("btn_pick_fakemon", action_id, action, function()
+		gameanalytics.addDesignEvent {
+			eventId = "Settings:Fakemon"
+		}
 		monarch.show(screens.FAKEMON)
 	end, function(button) gooey_buttons.common_button(button, gui.get_node("txt_paste")) end)
 	
@@ -99,9 +153,10 @@ function on_input(self, action_id, action)
 
 	gooey.checkbox("strict_gender/checkmark", action_id, action, function(ck) on_gender_checked(self, ck) end, update_checkbox)
 	gooey.button("strict_gender/bg", action_id, action, function()
-		self.strict_gender = not self.strict_gender
-		gooey.checkbox("strict_gender/checkmark").set_checked(self.strict_gender)
-		update_checkbox(gooey.checkbox("strict_gender/checkmark"))
+		local checkbox = gooey.checkbox("strict_gender/checkmark")
+		checkbox.set_checked(not checkbox.checked)
+		update_checkbox(checkbox)
+		on_gender_checked(self, checkbox)
 	end)
 
 	gooey.radiogroup("lang", action_id, action, function(group_id, action_id, action)
@@ -121,7 +176,22 @@ function on_input(self, action_id, action)
 		set_lang("es_419")
 		refresh_language_radio()
 	end)
-	
+
+	gooey.checkbox("ga_design_events/checkmark", action_id, action, function(ck) on_ga_design_events_checked(self, ck) end, update_checkbox)
+	gooey.button("ga_design_events/bg", action_id, action, function()
+		local checkbox = gooey.checkbox("ga_design_events/checkmark")
+		checkbox.set_checked(not checkbox.checked)
+		update_checkbox(checkbox)
+		on_ga_design_events_checked(self, checkbox)
+	end)
+
+	gooey.checkbox("ga_error_report/checkmark", action_id, action, function(ck) on_ga_error_report_checked(self, ck) end, update_checkbox)
+	gooey.button("ga_error_report/bg", action_id, action, function()
+		local checkbox = gooey.checkbox("ga_error_report/checkmark")
+		checkbox.set_checked(not checkbox.checked)
+		update_checkbox(checkbox)
+		on_ga_error_report_checked(self, checkbox)
+	end)
 	
 	gooey.button("btn_remove_fakemon", action_id, action, function()
 		flow.start(function()

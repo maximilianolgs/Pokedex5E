@@ -15,12 +15,13 @@ function M.get_latest()
 			M.releases = json.decode(res.response)
 		else
 			M.releases = nil
+			local e = "Version:LoadIndex:HTTP:" .. res.status
 			gameanalytics.addErrorEvent {
-				severity = "Warning",
-				message = "Version:LoadIndex:HTTP:" .. res.status 
+				severity = gameanalytics.SEVERITY_WARNING,
+				message = e
 			}
-			log.info("Version:BAD STATUS:" .. res.status)
-			log.info(res.response)
+			log.warn(e)
+			log.warn(res.response)
 		end
 		M.BUSY = false
 	end)

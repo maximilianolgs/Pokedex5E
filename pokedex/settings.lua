@@ -5,8 +5,11 @@ local M = {}
 M.settings = {}
 
 function M.get(name, default)
-	default = default == nil and nil or default
-	return M.settings[name] ~= nil and M.settings[name] or default
+	if M.settings[name] ~= nil then
+		return M.settings[name]
+	else
+		return default
+	end
 end
 
 function M.set(name, value)

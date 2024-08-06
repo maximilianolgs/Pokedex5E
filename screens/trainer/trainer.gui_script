@@ -132,6 +132,10 @@ function on_message(self, message_id, message)
         profiles.set_active_name(new_name)
         gui.set_text(gui.get_node("top_divider/title"), new_name)
         redraw(self)
+
+        gameanalytics.addDesignEvent {
+            eventId = "Profile:Rename"
+        }
     end
 end
 

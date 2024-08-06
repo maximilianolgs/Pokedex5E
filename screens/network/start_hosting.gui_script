@@ -148,7 +148,7 @@ function on_message(self, message_id, message)
 			self.group_list.refresh(self.group_ids)
 			redraw(self)
 		end
-	elseif message_id == MSG_NEW_GROUP_NAME then
+	elseif message_id == messages.NEW_GROUP_NAME then
 		local group_name = message.str
 		self.suspend_group_refresh = true
 		self.selected_group_id = net_groups.add_group(group_name)
@@ -157,6 +157,9 @@ function on_message(self, message_id, message)
 		self.group_ids = net_groups.get_group_ids()
 		self.group_list.refresh(self.group_ids)
 		redraw(self)
+		gameanalytics.addDesignEvent {
+			eventId = "Group:Create"
+		}
 	end
 end
 
@@ -170,6 +173,9 @@ function on_input(self, action_id, action)
 	if self.has_selected_group then
 		gooey.button("btn_start_hosting", action_id, action, function()
 			net_groups.start_server(self.selected_group_id, self.port)
+			gameanalytics.addDesignEvent {
+				eventId = "Group:Host"
+			}
 			monarch.back()
 		end, function(b) gooey_buttons.common_button(b, gui.get_node("btn_start_hosting")) end)
 		
@@ -179,6 +185,9 @@ function on_input(self, action_id, action)
 					local selected_id = self.selected_group_id
 					self.selected_group_id = nil
 					net_groups.delete_group(selected_id)
+					gameanalytics.addDesignEvent {
+						eventId = "Group:Delete"
+					}
 				end
 			end
 

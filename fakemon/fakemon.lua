@@ -100,12 +100,11 @@ function M.unpack()
 		local output, err = zzlib.unzip_archive(input, M.UNZIP_PATH)
 		if err then
 			local e = "Fakemon:UnpackZIP:" .. err
-			log.error(e)
-
 			gameanalytics.addErrorEvent {
-				severity = "Error",
+				severity = gameanalytics.SEVERITY_ERROR,
 				message = e
 			}
+			log.fatal(e)
 		end
 		log.info("Unpacking finished")
 	end)
@@ -121,12 +120,13 @@ function M.load_index()
 			M.BUSY = false
 		else
 			M.INDEX = nil
+			local e = "Fakemon:LoadIndex:HTTP:" .. res.status
 			gameanalytics.addErrorEvent {
-				severity = "Warning",
-				message = "Fakemon:LoadIndex:HTTP:" .. res.status 
+				severity = gameanalytics.SEVERITY_WARNING,
+				message = e
 			}
-			log.info("BAD STATUS:" .. res.status)
-			log.info(res.response)
+			log.warn(e)
+			log.warn(res.response)
 		end
 	end)
 end
@@ -159,20 +159,20 @@ function M.download_package(package)
 				file:close()
 			else
 				local e = "Fakemon:File:\n" .. err
-				log.warn(e)
 				gameanalytics.addErrorEvent {
-					severity = "Warning",
-					message =  e
+					severity = gameanalytics.SEVERITY_WARNING,
+					message = e
 				}
+				log.warn(e)
 			end
 			log.info("FINISHED DOWNLOAD")
 		else
 			local e = "Fakemon:DownloadPackage:HTTP:" .. res.status  .. " URL: " .. package_url
-			log.warn(e)
 			gameanalytics.addErrorEvent {
-				severity = "Warning",
+				severity = gameanalytics.SEVERITY_WARNING,
 				message = e
 			}
+			log.warn(e)
 		end
 		M.BUSY = false
 	end)
