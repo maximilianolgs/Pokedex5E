@@ -40,9 +40,8 @@ local function setup_main_information(nodes, pokemon)
 		gui.play_flipbook(nodes["pokemon/pokemon_sprite"], pokemon_sprite)
 	end
 
-	local variant_txt = _pokemon.get_variant(pokemon)
-	local species_text = pokedex.get_species_display(species, variant_txt)
-	if variant_txt	then
+	local species_text = pokedex.get_species_display(species, _pokemon.get_variant(pokemon))
+	if species ~= species_text then
 		species_text = localization.get("pokemon_variants", species_text, species_text)
 	end
 	gui.set_text(nodes["pokemon/index"], string.format("#%03d %s", _pokemon.get_index_number(pokemon), species_text))
