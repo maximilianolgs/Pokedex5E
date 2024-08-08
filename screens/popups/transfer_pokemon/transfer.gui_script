@@ -258,16 +258,21 @@ local function on_send_pokemon(self)
 	local index = self.index
 	local is_local_host = net_members.is_local_member_host()
 	local prev_screen = monarch.top(-1)
-	local fn_member_chosen = function(member_id)
+	local fn_member_chosen = function(member_id, send_as_wild)
 		local member_name = tostring(net_member_name.get_name(member_id))
-
+		local send_type = send_pokemon.SEND_TYPE_GIFT
+		local eventId = "Gift:"
+		if send_as_wild then
+			send_type = send_pokemon.SEND_TYPE_CATCH
+			eventId = "Catch:"
+		end
 		local are_you_sure_cb = function(accepted)
 			if accepted then
-				send_pokemon.send_pokemon(member_id, pokemon_id, send_pokemon.SEND_TYPE_GIFT)
+				send_pokemon.send_pokemon(member_id, pokemon_id, send_type)
 				notify.notify(localization.get("transfer_popup", "pokemon_sent","GOODBYE, %s!\nHAVE FUN WITH %s!"):format(pokemon_nickname, member_name))
+				--TODO append pokename
 				gameanalytics.addDesignEvent {
-					eventId = "Pokemon:Send:Group",
-					value = index
+					eventId = "Pokemon:Send:" .. eventId
 				}
 				storage.release_pokemon(pokemon_id)	
 				monarch.show(prev_screen, {clear=true})

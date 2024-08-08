@@ -115,6 +115,10 @@
 		"en_us": "CHOOSE MEMBER",
 		"es_419": "ELEGIR INTEGRANTE"
 	},
+	"send_as_wild": {
+		"en_us": "As Wild Pokémon",
+		"es_419": "Pokémon Salvaje"
+	},
 	"version_mismatch_notif": {
 		"en_us": "Wrong host version!\nHost's: %s, Ours: %s",
 		"es_419": "¡La versión de Anfitrión no coicide!\nAnfitrión: %s, Integrante: %s"
