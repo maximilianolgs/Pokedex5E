@@ -200,17 +200,18 @@ local function setup_info(self)
 	update_hp_meter(m, c)
 	
 	self.nickname = _pokemon.get_nickname(pokemon)
-	local species = _pokemon.get_current_species(pokemon)
-	local species_text = pokedex.get_species_display(species, _pokemon.get_variant(pokemon))
-	if self.nickname or species ~= species_text then
-		if species ~= species_text then
-			species_text = localization.get("pokemon_variants", species_text, species_text)
+	local current_species = _pokemon.get_current_species(pokemon)
+	self.species_display = pokedex.get_species_display(current_species, _pokemon.get_variant(pokemon))
+	if self.nickname or current_species ~= self.species_display then
+		local display = current_species
+		if current_species ~= self.species_display then
+			display = localization.get("pokemon_variants", self.species_display, self.species_display)
 		end
-		gui.set_text(gui.get_node("txt_index"), string.format("#%03d", _pokemon.get_index_number(pokemon)) .. " " .. species_text)
+		gui.set_text(gui.get_node("txt_index"), string.format("#%03d", _pokemon.get_index_number(pokemon)) .. " " .. display)
 	else
 		gui.set_text(gui.get_node("txt_index"), string.format("#%03d", _pokemon.get_index_number(pokemon)))
 	end
-	self.nickname = self.nickname or localization.upper(species)
+	self.nickname = self.nickname or current_species
 	gui.set_text(gui.get_node("txt_species"), self.nickname)
 	gui_utils.scale_text_to_fit_size(gui.get_node("txt_species"))
 	
@@ -256,6 +257,7 @@ local function on_send_pokemon(self)
 	local pokemon_id = self.pokemon_id
 	local pokemon_nickname = tostring(self.nickname)
 	local index = self.index
+	local species_display = self.species_display
 	local is_local_host = net_members.is_local_member_host()
 	local prev_screen = monarch.top(-1)
 	local fn_member_chosen = function(member_id, send_as_wild)
@@ -270,9 +272,8 @@ local function on_send_pokemon(self)
 			if accepted then
 				send_pokemon.send_pokemon(member_id, pokemon_id, send_type)
 				notify.notify(localization.get("transfer_popup", "pokemon_sent","GOODBYE, %s!\nHAVE FUN WITH %s!"):format(pokemon_nickname, member_name))
-				--TODO append pokename
 				gameanalytics.addDesignEvent {
-					eventId = "Pokemon:Send:" .. eventId
+					eventId = "Pokemon:Send:" .. eventId .. species_display
 				}
 				storage.release_pokemon(pokemon_id)	
 				monarch.show(prev_screen, {clear=true})
@@ -407,8 +408,7 @@ function on_message(self, message_id, message, sender)
 				flow.until_true(function() return not monarch.is_busy() end)
 				storage.release_pokemon(message.data)
 				gameanalytics.addDesignEvent {
-					eventId = "Pokemon:Release",
-					value = self.index
+					eventId = "Pokemon:Send:Release:" .. self.species_display
 				}
 				notify.notify(localization.get("transfer_popup", "pokemon_released", "%s WAS RELEASED"):format(self.nickname))
 				update_storage()

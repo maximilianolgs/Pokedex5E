@@ -96,8 +96,7 @@ function M.generate_qr(id)
 	local pokemon = storage.get_copy(id)
 	if pokemon then
 		gameanalytics.addDesignEvent {
-			eventId = "Pokemon:Send:QR",
-			value = _pokemon.get_index_number(pokemon)
+			eventId = "Pokemon:Send:QR:" .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
 		}
 		return qrcode.generate(serialize_pokemon(pokemon))
 	end
@@ -114,8 +113,7 @@ function M.export(id)
 	clipboard.copy(serialize_pokemon(pokemon))
 	notify.notify(localization.get("transfer_popup", "pokemon_copied_notif", "%s copied to clipboard!"):format(pokemon.nickname or pokemon.species.current))
 	gameanalytics.addDesignEvent {
-		eventId = "Pokemon:Send:Clipboard",
-		value = _pokemon.get_index_number(pokemon)
+		eventId = "Pokemon:Send:Clipboard:" .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
 	}
 end
 
@@ -129,8 +127,7 @@ function M.roll20_export(id)
 	clipboard.copy(encoded_sheet)
 	notify.notify(localization.get("transfer_popup", "roll20_sheet_copied_notif", "%s's roll20 sheet copied to clipboard!"):format(pokemon.nickname or pokedex.get_species_display(pokemon.species.current, pokemon.variant)))
 	gameanalytics.addDesignEvent {
-		eventId = "Pokemon:Send:Roll20",
-		value = _pokemon.get_index_number(pokemon)
+		eventId = "Pokemon:Send:Roll20:" .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
 	}
 end
 

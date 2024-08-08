@@ -37,18 +37,27 @@ local function add_pokemon(self)
 	self.pokemon.level.caught = _pokemon.get_current_level(self.pokemon)
 	self.pokemon.exp = pokedex.get_experience_for_level(self.pokemon.level.caught-1)
 	self.pokemon.hp.current = _pokemon.get_total_max_hp(self.pokemon)
+	local species_display = pokedex.get_species_display(self.pokemon.species.current, self.pokemon.variant)
+	local lspecies_display = species_display
+	if species_display ~= self.pokemon.species.current then
+		lspecies_display = localization.get("pokemon_variants", display, display)
+	end
 	dex.set(self.pokemon.species.current, dex.states.CAUGHT)
 	if storage.is_party_full() then
-		notify.notify(localization.get("change_pokemon_screen", "notif_added_to_pc", "%s added to PC"):format(self.pokemon.species.current))
+		notify.notify(localization.get("change_pokemon_screen", "notif_added_to_pc", "%s added to PC"):format(lspecies_display))
 	else
-		notify.notify(localization.get("change_pokemon_screen", "notif_added_to_party", "%s added to party"):format(self.pokemon.species.current))
+		notify.notify(localization.get("change_pokemon_screen", "notif_added_to_party", "%s added to party"):format(lspecies_display))
+	end
+	local event = "Menu:"
+	if #storage.list_of_ids_in_party() == 0 and #storage.list_of_ids_in_pc() == 0 then
+		event = "Starter:"
 	end
 	storage.add(self.pokemon)
 	exit(self)
 
+
 	gameanalytics.addDesignEvent {
-		eventId = "Pokemon:Add:Menu",
-		value = _pokemon.get_index_number(self.pokemon)
+		eventId = "Pokemon:Add:" .. event .. species_display
 	}
 end
 
