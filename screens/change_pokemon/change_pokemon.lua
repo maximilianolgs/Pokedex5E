@@ -548,6 +548,7 @@ function M.init(self)
 		self.pkstat = {}
 		self.pkstat.index = _pokemon.get_index_number(self.pokemon)
 		self.pkstat.level = _pokemon.get_current_level(self.pokemon)
+		self.pkstat.species_display = pokedex.get_species_display(self.pokemon.species.current, self.pokemon.variant)
 		local is_shiny =_pokemon.is_shiny(self.pokemon) or false
 		gui.set_enabled(gui.get_node("change_pokemon/checkmark_shiny_mark"), is_shiny)
 		gooey.checkbox("change_pokemon/bg_shiny").set_checked(is_shiny)

@@ -28,15 +28,14 @@ end
 local function save_pokemon(self)
 	_pokemon.set_nickname(self.pokemon, self.nickname)
 	storage.update_pokemon(self.pokemon)
+	if _pokemon.get_current_level(self.pokemon) > self.pkstat.level then
+		gameanalytics.addDesignEvent {
+			eventId = "Pokemon:Edit:LevelUp:" .. self.pkstat.species_display
+		}
+	end
 	if _pokemon.get_index_number(self.pokemon) > self.pkstat.index then
 		gameanalytics.addDesignEvent {
-			eventId = "Pokemon:Evolve",
-			value = self.pkstat.index
-		}
-	elseif _pokemon.get_current_level(self.pokemon) > self.pkstat.level then
-		gameanalytics.addDesignEvent {
-			eventId = "Pokemon:LevelUp",
-			value = self.pkstat.index
+			eventId = "Pokemon:Edit:Evolve:" .. self.pkstat.species_display
 		}
 	end
 	monarch.show(screens.PARTY)
