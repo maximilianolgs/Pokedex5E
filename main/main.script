@@ -61,6 +61,7 @@ end
 
 function init(self)
 	gam.init()
+	localization.init()
 	collectionfactory.create("/menu#collectionfactory")
 	msg.post(url.MENU, messages.HIDE)
 	
@@ -106,8 +107,6 @@ function init(self)
 	msg.post("#", messages.SHOW_SPLASH)
 	
 	flow.start(function()
-		localization.init()
-		
 		if platform.WEB then
 			log.info("HTML5: Skipping LuaFileSystem")
 		else
