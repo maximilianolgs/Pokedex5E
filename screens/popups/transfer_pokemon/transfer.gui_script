@@ -323,7 +323,7 @@ function init(self)
 	self.pokemon_id = d.id
 	self.index = _pokemon.get_index_number(storage.get_pokemon(d.id))
 	setup_info(self)
-	if not _share.ENABLED.CLIPBOARD then
+	if not _share.ENABLED.CLIPBOARD_WRITE then
 		gui.set_enabled(gui.get_node("btn_clipboard_share"), false)
 		gui.set_enabled(gui.get_node("btn_roll_twenty_share"), false)
 	end
