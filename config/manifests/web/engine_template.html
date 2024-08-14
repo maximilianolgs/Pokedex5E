@@ -94,6 +94,20 @@
 	</div>
 	<!-- -->
 	<script type='text/javascript' src="GameAnalytics.js"></script>
+	<script type="text/javascript">
+	async function check_read_permission() {
+		// Will be 'granted', 'denied' or 'prompt'
+		var read_permission = await navigator.permissions.query({name: 'clipboard-read'});
+		JsToDef.send("read_permission", read_permission.state);
+	}
+	function clipboard_copy(thing_to_copy) {
+		navigator.clipboard.writeText(thing_to_copy);
+	}
+	async function clipboard_paste() {
+		var clipboard_content = await navigator.clipboard.readText();
+		JsToDef.send("clipboard_paste", clipboard_content);
+	}
+	</script>
 	<script id='engine-loader' type='text/javascript' src="dmloader.js"></script>
 	<!-- -->
 	<script id='engine-setup' type='text/javascript'>

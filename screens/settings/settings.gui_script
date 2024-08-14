@@ -10,6 +10,7 @@ local settings = require "pokedex.settings"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
 local platforms = require "utils.platform"
+local share = require "pokedex.share"
 local localization = require "utils.localization"
 
 
@@ -82,6 +83,7 @@ end
 
 local function load_localized_text()
 	gui.set_text(gui.get_node("top_divider/title"), localization.get("settings_screen", "title", "Settings"))
+	gui.set_text(gui.get_node("html_clipboard_txt"), localization.get("settings_screen", "html_clipboard", "Make sure to enable clipboard permissons to enable the Receive menu"))
 	gui.set_text(gui.get_node("txt_remove"), localization.get("settings_screen", "txt_remove", "REMOVE"))
 	gui.set_text(gui.get_node("desc_fakemon"), localization.get("settings_screen", "desc_fakemon", "Add a package of Fakemon to your app."))
 	gui.set_text(gui.get_node("txt_paste"), localization.get("settings_screen", "txt_paste", "PICK"))
@@ -122,6 +124,7 @@ function init(self)
 	if platforms.WEB then
 		gui.set_enabled(gui.get_node("fakemon"), false)
 		gui.set_enabled(gui.get_node("game_analytics"), false)
+		gui.set_enabled(gui.get_node("html_clipboard_txt"), not share.ENABLED.CLIPBOARD_READ)
 	else
 		if fakemon.LOCAL_INDEX then
 			gui.set_text(gui.get_node("name_fakemon"), fakemon.LOCAL_INDEX["name"])

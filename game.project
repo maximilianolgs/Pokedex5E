@@ -24,6 +24,7 @@ dependencies#18 = https://github.com/britzl/defold-luasocket/archive/0.11.1.zip
 dependencies#19 = https://github.com/defold/extension-camera/archive/2.2.2.zip
 dependencies#20 = https://github.com/defold/extension-qrcode/archive/f14e2b85be3bd92db92fd6e2e4b80d25413312f5.zip
 dependencies#21 = https://github.com/Jerakin/deftest/archive/master.zip
+dependencies#22 = https://github.com/AGulev/jstodef/archive/2.0.0.zip
 
 [gameanalytics]
 custom_dimensions_01 = live,debug

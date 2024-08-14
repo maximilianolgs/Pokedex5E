@@ -18,15 +18,26 @@ local M = {}
 
 -- For checking if sharing is enabled
 M.ENABLED = {
-	CLIPBOARD = clipboard ~= nil,
+	CLIPBOARD_READ = clipboard ~= nil,
+	CLIPBOARD_WRITE = clipboard ~= nil,
 	NETWORK = platform.MOBILE_PHONE or platform.MACOS or platform.WINDOWS,
 	QRCODE_GENERATE = true,
 	QRCODE_READ = platform.MOBILE_PHONE or platform.MACOS,
 }
-M.ENABLED.ANY = M.ENABLED.CLIPBOARD or M.ENABLED.QRCODE_READ
 
-local function get_clipboard_pokemon()
-	local paste = clipboard.paste()
+if platform.WEB then
+	clipboard = require "utils.html_clipboard"
+	M.ENABLED.CLIPBOARD_WRITE = true
+	clipboard.has_read_permission(function(has_permission)
+		M.ENABLED.CLIPBOARD_READ = has_permission
+		if not has_permission then
+			notify.notify(localization.get("settings_screen", "html_clipboard", "Make sure to enable clipboard permissons to enable the Receive menu"))
+		end
+	end)
+end
+
+local function get_clipboard_pokemon(clipboard_content)
+	local paste = clipboard_content
 	local pokemon = nil
 
 	if paste then
@@ -67,16 +78,24 @@ function M.encode_status(pokemon)
 	pokemon.statuses = new
 end
 
-function M.get_clipboard()
-	local pokemon = get_clipboard_pokemon()
+local function get_clipboard_callback(callback, clipboard_content)
+	local pokemon = get_clipboard_pokemon(clipboard_content)
 	if pokemon then
 		if not M.validate(pokemon) then
 			return 
 		end
 		M.encode_status(pokemon)
-		return pokemon
+		callback(pokemon)
 	end
-	return nil
+	callback(nil)
+end
+
+function M.get_clipboard(callback)
+	if platform.WEB then
+		clipboard.paste(function(clipboard_content) get_clipboard_callback(callback, clipboard_content) end)
+	else
+		get_clipboard_callback(callback, clipboard.paste())
+	end
 end
 
 local function decode_status(pokemon)
