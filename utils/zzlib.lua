@@ -493,7 +493,7 @@ function zzlib.unzip_archive(buf, directory)
           result = inflate_main(bs)
         end
         if crc ~= crc32(result) then
-         print("checksum verification failed")
+          log.error("checksum verification failed")
         end
         write(result, name, directory)
       end

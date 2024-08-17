@@ -60,26 +60,26 @@ local function window_resized()
 end
 
 function init(self)
+	defsave.appname = "pokedex5E"
+	defsave.verbose = false
+	defsave.use_default_data = false
+	settings.load()
+	
 	gam.init()
+	localization.init()
 	collectionfactory.create("/menu#collectionfactory")
 	msg.post(url.MENU, messages.HIDE)
 	
 	window.set_listener(window_resized)
 	
-	
 	sys.set_error_handler(error_handler)
 	
 	log.outfile = sys.get_save_file("pokedex5E", "log")
-	
-	defsave.appname = "pokedex5E"
-	defsave.verbose = false
-	defsave.use_default_data = false
 	
 	if sys.get_engine_info().is_debug and share and debug.SHARE then
 		backup.save_backup()
 	end
 
-	settings.load()
 	msg.post("@render:", "clear_color", {color=gui_colors.BACKGROUND})
 	
 	--input order
@@ -106,8 +106,6 @@ function init(self)
 	msg.post("#", messages.SHOW_SPLASH)
 	
 	flow.start(function()
-		localization.init()
-		
 		if platform.WEB then
 			log.info("HTML5: Skipping LuaFileSystem")
 		else

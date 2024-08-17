@@ -18,6 +18,7 @@ local gui_utils = require "utils.gui"
 local constants = require "utils.constants"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local log = require "utils.log"
 local localization = require "utils.localization"
 
 local POKEMON_SPECIES_TEXT_SCALE = vmath.vector3(1)
@@ -290,7 +291,7 @@ end
 
 local function redraw(self)
 	if not self.pokemon then
-		print("Why do we redraw now?")
+		log.debug("Why do we redraw now?")
 		return
 	end
 	local id = _pokemon.get_id(self.pokemon)
@@ -548,6 +549,7 @@ function M.init(self)
 		self.pkstat = {}
 		self.pkstat.index = _pokemon.get_index_number(self.pokemon)
 		self.pkstat.level = _pokemon.get_current_level(self.pokemon)
+		self.pkstat.species_display = pokedex.get_species_display(self.pokemon.species.current, self.pokemon.variant)
 		local is_shiny =_pokemon.is_shiny(self.pokemon) or false
 		gui.set_enabled(gui.get_node("change_pokemon/checkmark_shiny_mark"), is_shiny)
 		gooey.checkbox("change_pokemon/bg_shiny").set_checked(is_shiny)

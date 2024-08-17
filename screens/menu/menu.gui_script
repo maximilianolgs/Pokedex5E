@@ -85,24 +85,47 @@ local function initialize_text(self)
 	self.text_initialized = true
 end
 
-local function arrange_buttons()
+local function redraw_buttons(self)
 	local button_order = {}
-	local disabled_buttons = 0
 	for s, b in pairs(map) do
 		if gui.get_yanchor(gui.get_node(b)) ~= 1 then
 			table.insert(button_order, b)
-			if not gui.is_enabled(gui.get_node(b)) then
-				disabled_buttons = disabled_buttons + 1
-			end
 		end
 	end
 	table.sort(button_order, function(a, b) return gui.get_position(gui.get_node(a)).y > gui.get_position(gui.get_node(b)).y end)
-	
-	for i = #button_order, 1, -1 do
-		gui.set_position(gui.get_node(button_order[i]), gui.get_position(gui.get_node(button_order[i - disabled_buttons])))
+
+	local x_offset = gui.get_position(gui.get_node(button_order[1])).x
+	local y_offset = gui.get_position(gui.get_node(button_order[1])).y
+	local z_offset = gui.get_position(gui.get_node(button_order[1])).z
+	local button_spacing = gui.get_position(gui.get_node(button_order[2])).y - y_offset
+	local disabled_buttons = 0
+
+	for i = 1, #button_order do
 		if not gui.is_enabled(gui.get_node(button_order[i])) then
-			disabled_buttons = disabled_buttons - 1
+			disabled_buttons = disabled_buttons + 1
 		end
+		gui.set_position(gui.get_node(button_order[i]), vmath.vector3(x_offset, y_offset + (button_spacing * (i - disabled_buttons - 1)), z_offset))
+	end
+end
+
+local function arrange_buttons(self)
+	local redraw = false
+	local current_status = gui.is_enabled(self.btn_receive)
+	local new_status = _share.ENABLED.CLIPBOARD_READ or _share.ENABLED.QRCODE_READ
+	if current_status ~= new_status then
+		gui.set_enabled(self.btn_receive, new_status)
+		redraw = true
+	end
+
+	current_status = gui.is_enabled(self.btn_connect)
+	new_status = _share.ENABLED.NETWORK
+	if current_status ~= new_status then
+		gui.set_enabled(self.btn_connect, new_status)
+		redraw = true
+	end
+
+	if redraw then
+		redraw_buttons(self)
 	end
 end
 
@@ -125,16 +148,8 @@ function init(self)
 	self.btn_trainer = gui.get_node("btn_trainer")
 	self.btn_connect = gui.get_node("btn_connect")
 	gui.set_enabled(self.menu, false)
-
-	if not _share.ENABLED.ANY then
-		gui.set_enabled(self.btn_receive, false)
-	end
 	
-	if not _share.ENABLED.NETWORK then
-		gui.set_enabled(self.btn_connect, false)
-	end
-	
-	arrange_buttons()
+	arrange_buttons(self)
 	
 	button.register(self.btn_party, function()
 		monarch.show(screens.PARTY)
@@ -242,6 +257,7 @@ function on_message(self, message_id, message)
 		if not self.text_initialized then
 			initialize_text(self)
 		end
+		arrange_buttons(self)
 		local name = profiles.get_active_name() or localization.get("menu_screen", "default_pc_name", "Someone")
 		txt_storage = localization.get("menu_screen", "txt_storage_format", "%s's PC"):format(name)
 		gui.set_text(gui.get_node("txt_storage"), string.upper(txt_storage))

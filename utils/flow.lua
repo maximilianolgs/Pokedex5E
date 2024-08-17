@@ -452,11 +452,11 @@ function M.play_animation(sprite_url, id)
 end
 
 function M.ray_cast()
-	print("flow.ray_cast() is deprecated. Use synchronous ray casts released in Defold 1.2.150 instead!")
+	log.warn("flow.ray_cast() is deprecated. Use synchronous ray casts released in Defold 1.2.150 instead!")
 end
 
 function M.update()
-	print("flow.update() is deprecated. You no longer need to call it!")
+	log.warn("flow.update() is deprecated. You no longer need to call it!")
 end
 
 

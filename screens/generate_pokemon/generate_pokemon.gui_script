@@ -425,8 +425,7 @@ function on_input(self, action_id, action)
 				local level = self.level == 0 and pokedex.get_minimum_wild_level(species, variant) or self.level
 				generate.add_pokemon(species, variant, level)
 				gameanalytics.addDesignEvent {
-					eventId = "Pokemon:Add:Generator",
-					value = pokedex.get_index_number(p)
+					eventId = "Pokemon:Add:Generator:" .. p
 				}
 			end
 			selected_pokemon = {}

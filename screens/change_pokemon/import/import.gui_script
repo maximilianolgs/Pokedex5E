@@ -50,6 +50,10 @@ local function add_pokemon(self)
 	end
 	storage.add(self.pokemon)
 	exit(self)
+	local species_display = pokedex.get_species_display(self.pokemon.species.current, self.pokemon.variant)
+	gameanalytics.addDesignEvent {
+		eventId = "Pokemon:Receive:" .. self.source .. ":" .. species_display
+	}
 end
 
 function init(self)
