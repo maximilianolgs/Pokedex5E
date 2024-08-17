@@ -39,9 +39,13 @@
 		"en_us": "ADD TO PC",
 		"es_419": "AGREGAR AL EQUIPO"
 	},
-	"txt_random": {
-		"en_us": "RANDOM",
-		"es_419": "ALEATORIO"
+	"txt_random_filter": {
+		"en_us": "RANDOM (FILTER)",
+		"es_419": "ALEATORIO (FILTRO)"
+	},
+	"txt_random_selection": {
+		"en_us": "RANDOM (SELECTION)",
+		"es_419": "ALEATORIO (SELECCIÓN)"
 	},
 	"optional_text": {
 		"en_us": "OPTIONAL",
