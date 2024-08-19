@@ -40,7 +40,7 @@
 		"es_419": "Reportes de Error"
 	},
 	"html_clipboard": {
-		"en_us": "Make sure to enable clipboard permissons to enable the Receive menu",
-		"es_419": "Activa el permiso de uso de portapapeles para activar el menú Recibir"
+		"en_us": "Make sure to enable clipboard permissons to activate the Receive menu",
+		"es_419": "Debes permitir de uso del portapapeles para activar el menú Recibir"
 	}
 }
