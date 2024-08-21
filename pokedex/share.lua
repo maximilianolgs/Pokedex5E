@@ -31,7 +31,7 @@ if platform.WEB then
 	clipboard.has_read_permission(function(has_permission)
 		M.ENABLED.CLIPBOARD_READ = has_permission
 		if not has_permission then
-			notify.notify(localization.get("settings_screen", "html_clipboard", "Make sure to enable clipboard permissons to enable the Receive menu"))
+			notify.notify(localization.get("settings_screen", "html_clipboard", "Make sure to enable clipboard permissons to activate the Receive menu"))
 		end
 	end)
 end

@@ -1,11 +1,11 @@
 {
 	"title_success": {
 		"en_us": "Import",
-		"es_419": "Importar"
+		"es_419": "Recibir"
 	},
 	"text_success": {
 		"en_us": "Do you want to import level %s %s?",
-		"es_419": "¿Querés importar el siguiente Pokémon?\n\nNivel: %s\nEspecie: %s"
+		"es_419": "¿Querés recibir el siguiente Pokémon?\n\nNivel: %s\nEspecie: %s"
 	},
 	"cancel_btn_success": {
 		"en_us": "CANCEL",
@@ -13,15 +13,15 @@
 	},
 	"confirm_btn_success": {
 		"en_us": "IMPORT",
-		"es_419": "IMPORTAR"
+		"es_419": "RECIBIR"
 	},
 	"title_fail": {
 		"en_us": "Import Failed",
-		"es_419": "Error al Importar"
+		"es_419": "Error al Recibir"
 	},
 	"text_fail": {
 		"en_us": "To import, first copy a Pokemon string to your clipboard.\n\nPokemon strings can be exported from \"Someone's PC\"",
-		"es_419": "Para importar, primero copiá un string Pokémon en tu portapapeles.\n\nLos strings Pokémon pueden ser exportados desde la \"PC de Alguien\""
+		"es_419": "Para recibir, primero copiá un string Pokémon en tu portapapeles.\n\nLos strings Pokémon pueden ser copiados desde la \"PC de Alguien\""
 	},
 	"confirm_btn_fail": {
 		"en_us": "OK",
