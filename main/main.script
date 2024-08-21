@@ -147,14 +147,19 @@ function init(self)
 		if platform.ANDROID or platform.WINDOWS then
 			local version_info = version.get_version_information()
 			local message = ""
-			if not version_info.up_to_date and version_info.current_number then
-				message = localization.get("version_popup", "version_outdated", "Pokedex5e is %s versions behind!"):format(version_info.latest_number - version_info.current_number)
-			elseif version_info.up_to_date then
-				message = localization.get("version_popup", "version_up_to_date", "You have the latest version of Pokedex5e")
-			else
-				message = localization.get("version_popup", "version_not_recognized", "Version number %s not found among the official releases"):format(version_info.current)
+			if not version_info.up_to_date then
+				if version_info.current_number then
+					local v_diff = version_info.latest_number - version_info.current_number
+					local quantifier = "many"
+					if v_diff == 1 then
+						quantifier = "one"
+					end
+					message = localization.get("version_popup", "version_outdated_" .. quantifier, "Pokedex5e is %s versions behind!"):format(v_diff)
+				else
+					message = localization.get("version_popup", "version_not_recognized", "Version number %s not found among the official releases"):format(version_info.current)
+				end
+				timer.delay(3, false, function() notify.notify(message) end)
 			end
-			timer.delay(3, false, function() notify.notify(message) end)
 		end
 	end)
 end
