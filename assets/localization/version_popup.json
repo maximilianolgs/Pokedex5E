@@ -15,7 +15,11 @@
 		"en_us": "You have the latest version of Pokedex5e",
 		"es_419": "Tienes la versión más reciente de Pokédex5e"
 	},
-	"version_outdated": {
+	"version_outdated_one": {
+		"en_us": "Pokedex5e is %s version behind!",
+		"es_419": "¡Tu Pokédex5e está %s versión por detrás de la última!"
+	},
+	"version_outdated_many": {
 		"en_us": "Pokedex5e is %s versions behind!",
 		"es_419": "¡Tu Pokédex5e está %s versiones por detrás de la última!"
 	},
