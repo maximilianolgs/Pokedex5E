@@ -107,6 +107,27 @@
 		var clipboard_content = await navigator.clipboard.readText();
 		JsToDef.send("clipboard_paste", clipboard_content);
 	}
+	var file_url = null;
+	function download_file(file_name, file_type, file_content) {
+		var link = document.createElement('a');
+		link.setAttribute('download', file_name);
+		var data = new Blob([file_content], {type: file_type});
+		
+		if (file_url !== null) {
+			window.URL.revokeObjectURL(file_url);
+		}
+		
+		file_url = window.URL.createObjectURL(data);
+		
+		link.href = file_url;
+		document.body.appendChild(link)
+		
+		window.requestAnimationFrame(function () {
+			var event = new MouseEvent('click');
+			link.dispatchEvent(event);
+			document.body.removeChild(link);
+			});
+	}
 	</script>
 	<script id='engine-loader' type='text/javascript' src="dmloader.js"></script>
 	<!-- -->
