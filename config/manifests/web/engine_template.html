@@ -94,6 +94,41 @@
 	</div>
 	<!-- -->
 	<script type='text/javascript' src="GameAnalytics.js"></script>
+	<script type="text/javascript">
+	async function check_read_permission() {
+		// Will be 'granted', 'denied' or 'prompt'
+		var read_permission = await navigator.permissions.query({name: 'clipboard-read'});
+		JsToDef.send("read_permission", read_permission.state);
+	}
+	function clipboard_copy(thing_to_copy) {
+		navigator.clipboard.writeText(thing_to_copy);
+	}
+	async function clipboard_paste() {
+		var clipboard_content = await navigator.clipboard.readText();
+		JsToDef.send("clipboard_paste", clipboard_content);
+	}
+	var file_url = null;
+	function download_file(file_name, file_type, file_content) {
+		var link = document.createElement('a');
+		link.setAttribute('download', file_name);
+		var data = new Blob([file_content], {type: file_type});
+		
+		if (file_url !== null) {
+			window.URL.revokeObjectURL(file_url);
+		}
+		
+		file_url = window.URL.createObjectURL(data);
+		
+		link.href = file_url;
+		document.body.appendChild(link)
+		
+		window.requestAnimationFrame(function () {
+			var event = new MouseEvent('click');
+			link.dispatchEvent(event);
+			document.body.removeChild(link);
+			});
+	}
+	</script>
 	<script id='engine-loader' type='text/javascript' src="dmloader.js"></script>
 	<!-- -->
 	<script id='engine-setup' type='text/javascript'>

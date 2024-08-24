@@ -14,13 +14,18 @@ function M.load_json(j)
 	end
 end
 
-function M.load_file(filepath)
+function M.load_raw_file(filepath)
 	local file = io.open(filepath, "rb")
 	if not file then
 		assert(nil, "Error loading file: " .. filepath)
 	end
 	local data = file:read("*all")
 	file:close()
+	return data
+end
+
+function M.load_file(filepath)
+	local data = M.load_raw_file(filepath)
 	if pcall(function() json_data = json.decode(data) end) then
 		return json_data
 	else

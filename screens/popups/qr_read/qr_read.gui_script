@@ -93,11 +93,7 @@ function update(self, dt)
 					share.encode_status(pokemon)
 					_pokemon.upgrade_pokemon(pokemon)
 					camera.stop_capture()
-					gameanalytics.addDesignEvent {
-						eventId = "Pokemon:Receive:QR",
-						value = _pokemon.get_index_number(pokemon)
-					}
-					monarch.show(screens.IMPORT_POKEMON, nil, {pokemon=pokemon})
+					monarch.show(screens.IMPORT_POKEMON, nil, {pokemon=pokemon, source="QR"})
 				end
 			end
 		end

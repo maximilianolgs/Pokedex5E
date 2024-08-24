@@ -60,26 +60,26 @@ local function window_resized()
 end
 
 function init(self)
+	defsave.appname = "pokedex5E"
+	defsave.verbose = false
+	defsave.use_default_data = false
+	settings.load()
+	
 	gam.init()
+	localization.init()
 	collectionfactory.create("/menu#collectionfactory")
 	msg.post(url.MENU, messages.HIDE)
 	
 	window.set_listener(window_resized)
 	
-	
 	sys.set_error_handler(error_handler)
 	
 	log.outfile = sys.get_save_file("pokedex5E", "log")
-	
-	defsave.appname = "pokedex5E"
-	defsave.verbose = false
-	defsave.use_default_data = false
 	
 	if sys.get_engine_info().is_debug and share and debug.SHARE then
 		backup.save_backup()
 	end
 
-	settings.load()
 	msg.post("@render:", "clear_color", {color=gui_colors.BACKGROUND})
 	
 	--input order
@@ -106,8 +106,6 @@ function init(self)
 	msg.post("#", messages.SHOW_SPLASH)
 	
 	flow.start(function()
-		localization.init()
-		
 		if platform.WEB then
 			log.info("HTML5: Skipping LuaFileSystem")
 		else
@@ -149,14 +147,19 @@ function init(self)
 		if platform.ANDROID or platform.WINDOWS then
 			local version_info = version.get_version_information()
 			local message = ""
-			if not version_info.up_to_date and version_info.current_number then
-				message = localization.get("version_popup", "version_outdated", "Pokedex5e is %s versions behind!"):format(version_info.latest_number - version_info.current_number)
-			elseif version_info.up_to_date then
-				message = localization.get("version_popup", "version_up_to_date", "You have the latest version of Pokedex5e")
-			else
-				message = localization.get("version_popup", "version_not_recognized", "Version number %s not found among the official releases"):format(version_info.current)
+			if not version_info.up_to_date then
+				if version_info.current_number then
+					local v_diff = version_info.latest_number - version_info.current_number
+					local quantifier = "many"
+					if v_diff == 1 then
+						quantifier = "one"
+					end
+					message = localization.get("version_popup", "version_outdated_" .. quantifier, "Pokedex5e is %s versions behind!"):format(v_diff)
+				else
+					message = localization.get("version_popup", "version_not_recognized", "Version number %s not found among the official releases"):format(version_info.current)
+				end
+				timer.delay(3, false, function() notify.notify(message) end)
 			end
-			timer.delay(3, false, function() notify.notify(message) end)
 		end
 	end)
 end

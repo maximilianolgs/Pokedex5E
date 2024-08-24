@@ -17,7 +17,11 @@ function init(self)
         gui.set_enabled(gui.get_node("btn_open"), false)
     else
         if self.data.versions_behind then
-            text = localization.get("version_popup", "version_outdated", "Your are %s versions behind!"):format(self.data.versions_behind)
+            local quantifier = "many"
+            if self.data.versions_behind == 1 then
+                quantifier = "one"
+            end
+            text = localization.get("version_popup", "version_outdated_" .. quantifier, "Your are %s versions behind!"):format(self.data.versions_behind)
         else
             text = localization.get("version_popup", "version_not_recognized", "Version number %s not found among the official releases"):format(self.data.current)
         end

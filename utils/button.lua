@@ -26,6 +26,7 @@
 -- 		input_gui.on_input(action_id, action)
 -- end
 
+local log = require "utils.log"
 
 local M = {}
 
@@ -104,7 +105,7 @@ function M.dump()
 	local url = msg.url()
 	for k,registered_node in pairs(registered_nodes) do
 		if registered_node.url == url then
-			print(k, registered_node.node)
+			log.debug(k, registered_node.node)
 		end
 	end
 end

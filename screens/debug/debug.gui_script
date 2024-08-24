@@ -6,6 +6,7 @@ local debug = require "screens.debug.debug"
 local gui_utils = require "utils.gui"
 local messages = require "utils.messages"
 local platform = require "utils.platform"
+local log = require "utils.log"
 local localization = require "utils.localization"
 
 local function game_analyctics()
@@ -101,13 +102,13 @@ function on_input(self, action_id, action)
 	gooey.button("ga_bg", action_id, action, function()
 		local loaded = crash.load_previous()
 		if loaded then
-			print("### BACKTRACE ###")
-			print(crash.get_backtrace(loaded))
-			print("### EXTRA DATA ###")
-			print(crash.get_extra_data(loaded))
-			print("####### END ######")
+			log.debug("### BACKTRACE ###")
+			log.debug(crash.get_backtrace(loaded))
+			log.debug("### EXTRA DATA ###")
+			log.debug(crash.get_extra_data(loaded))
+			log.debug("####### END ######")
 		else
-			print("##### NO LOGS #####")
+			log.debug("##### NO LOGS #####")
 		end
 	end)
 

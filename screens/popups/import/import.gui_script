@@ -4,15 +4,14 @@ local gooey_buttons = require "utils.gooey_buttons"
 local gooey = require "gooey.gooey"
 local pokedex = require "pokedex.pokedex"
 local _pokemon = require "pokedex.pokemon"
-local share = require "pokedex.share"
 local screens = require "utils.screens"
 local localization = require "utils.localization"
 
 function init(self)
 	gooey.acquire_input()
 	gui.set_render_order(render_order.POPUP_ON_POPUP)
-
-	self.pokemon = share.get_clipboard()
+	self.data = monarch.data(screens.IMPORT)
+	self.pokemon = self.data.clipboard_content
 	if self.pokemon then 
 		_pokemon.upgrade_pokemon(self.pokemon)
 	end
@@ -29,16 +28,11 @@ function init(self)
 	if self.pokemon then
 		local current_species = _pokemon.get_current_species(self.pokemon)
 		local species = pokedex.get_species_display(current_species, _pokemon.get_variant(self.pokemon))
-		
 		if current_species ~= species then
 			species = localization.get("pokemon_variants", species, species)
 		end
 		
 		local level = _pokemon.get_current_level(self.pokemon)
-		gameanalytics.addDesignEvent {
-			eventId = "Pokemon:Receive:Clipboard",
-			value = _pokemon.get_index_number(self.pokemon)
-		}
 		gui.set_text(node_txt_title, localization.get("import_popup", "title_success", "Import"))
 		gui.set_text(node_txt, localization.get("import_popup", "text_success", "Do you want to import level %s %s?"):format(level, species))
 		gui.set_text(gui.get_node("txt_exit"), localization.get("import_popup", "cancel_btn_success", "CANCEL"))
@@ -82,7 +76,7 @@ end
 
 local function confirm(self)
 	if self.pokemon then
-		monarch.show(screens.IMPORT_POKEMON, nil, {pokemon=self.pokemon})
+		monarch.show(screens.IMPORT_POKEMON, nil, {pokemon=self.pokemon, source="Clipboard"})
 	else
 		exit()
 	end

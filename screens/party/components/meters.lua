@@ -305,7 +305,7 @@ local function parse_number(str, current)
 		if value ~= nil then
 			value = value - current
 		else
-			local e = "Party:HP:Error" .. err
+			local e = "Party:HP:Error " .. err
 			gameanalytics.addErrorEvent {
 				severity = gameanalytics.SEVERITY_ERROR,
 				message = e
@@ -334,6 +334,16 @@ function M.on_message(message_id, message)
 		_pokemon.set_exp(pkmn, exp)
 		setup_exp(active_nodes, pkmn)
 		storage.save()
+		local species_display = pokedex.get_species_display(pkmn.species.current, pkmn.variant)
+		if exp > current_exp then
+			gameanalytics.addDesignEvent {
+				eventId = "Pokemon:Edit:GainXP:" .. species_display
+			}
+		elseif exp < current_exp then
+			gameanalytics.addDesignEvent {
+				eventId = "Pokemon:Edit:LooseXP:" .. species_display
+			}
+		end
 	elseif message_id == messages.UPDATE_HP then
 		local current_hp = _pokemon.get_current_hp(pkmn)
 		local hp, _ = parse_number(message.str, current_hp)

@@ -8,6 +8,7 @@ local member_list = require "screens.network.member_list"
 local net_members = require "pokedex.network.net_members"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
+local gui_colors = require "utils.gui_colors"
 local localization = require "utils.localization"
 
 local function on_back()
@@ -16,8 +17,16 @@ end
 
 local function on_member_chosen(self, id)
 	if self.fn_member_chosen then
-		self.fn_member_chosen(id)
+		self.fn_member_chosen(id, self.send_as_wild)
 		monarch.back()
+	end
+end
+
+local function update_checkbox(checkbox)
+	if checkbox.checked then
+		gui.set_color(checkbox.node, gui_colors.ORANGE)
+	else
+		gui.set_color(checkbox.node, gui_colors.WHITE)
 	end
 end
 
@@ -30,6 +39,11 @@ function init(self)
 	self.fn_member_chosen = data.fn_member_chosen
 	
 	gui.set_text(gui.get_node("template/title"), localization.get("connect_screen", "choose_member_title", "CHOOSE MEMBER"))
+
+	self.send_as_wild = false
+	gooey.checkbox("send_as_wild/checkmark").set_checked(self.send_as_wild)
+	update_checkbox(gooey.checkbox("send_as_wild/checkmark"))
+	gui.set_text(gui.get_node("send_as_wild/text"), localization.get("connect_screen", "send_as_wild", "Send as Wild"))
 	
 	local prompt = data.prompt or ""
 	gui.set_text(gui.get_node("txt_prompt"), prompt)
@@ -47,8 +61,20 @@ function on_message(self, message_id, message)
 	self.list_group_members.on_message(message_id, message)
 end
 
+local function on_send_as_wild_checked(self, checkbox)
+	self.send_as_wild = checkbox.checked
+end
+
 function on_input(self, action_id, action)
 	gooey.button("btn_back", action_id, action, on_back)
+
+	gooey.checkbox("send_as_wild/checkmark", action_id, action, function(ck) on_send_as_wild_checked(self, ck) end, update_checkbox)
+	gooey.button("send_as_wild/bg", action_id, action, function()
+		local checkbox = gooey.checkbox("send_as_wild/checkmark")
+		checkbox.set_checked(not checkbox.checked)
+		update_checkbox(checkbox)
+		on_send_as_wild_checked(self, checkbox)
+	end)
 	
-	self.list_group_members.on_input(action_id, action)	
+	self.list_group_members.on_input(action_id, action)
 end
