@@ -670,9 +670,6 @@ end
 function M.disconnect()
 	M.stop_server()
 	M.stop_client()
-	gameanalytics.addDesignEvent {
-		eventId = "Group:Disconnect"
-	}
 end
 
 function M.get_default_host_port()
