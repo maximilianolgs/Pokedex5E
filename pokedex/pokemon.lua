@@ -6,6 +6,7 @@ local movedex = require "pokedex.moves"
 local trainer = require "pokedex.trainer"
 local variants = require "pokedex.variants"
 local constants = require "utils.constants"
+local profiles = require "pokedex.profiles"
 local log = require "utils.log"
 
 local M = {}
@@ -41,7 +42,7 @@ local feat_to_attribute = {
 	Acrobat="DEX"
 }
 
-local LATEST_POKEMON_VERSION = 9
+local LATEST_POKEMON_VERSION = 10
 
 M.GENDERLESS = pokedex.GENDERLESS
 M.MALE = pokedex.MALE
@@ -1227,15 +1228,21 @@ end
 
 function M.upgrade_pokemon(pkmn)
 	local version = pkmn and pkmn.version or 1
-
+	
 	local needs_upgrade = version ~= LATEST_POKEMON_VERSION
-
+	
 	if needs_upgrade then
 		for i=version,LATEST_POKEMON_VERSION-1 do
 			if false then
-
+				
 				-- NOTE: If a new data upgrade is needed, update the above LATEST_POKEMON_VERSION value and add a new block here like so:
 				--elseif i == ??? then
+				
+			elseif i == 9 then
+				-- add OT data
+				if pkmn.ot == nil then
+					pkmn.ot = { name=profiles.get_active_name(), id=profiles.get_active_file_name()}
+				end
 			elseif i == 8 then
 				-- There was a bug in the prior version where a pokemon with the feat Hidden Ability and a Variant which provided a different
 				-- hidden ability would accidentally get the base variant's hidden ability
