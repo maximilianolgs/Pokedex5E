@@ -65,14 +65,13 @@ function init(self)
 	
 	-- Delay the message 1 frame
 	timer.delay(0, false, function() msg.post(url.MENU, messages.HIDE) end)
-	
-	self.pokemon = monarch.data("import_pokemon").pokemon
+	local data = monarch.data("import_pokemon")
+	self.pokemon = data.pokemon
+	self.source = data.source
 	pokemon_edit.init(self)
 	pokemon_edit.redraw(self)
 
 	pokemon_image(self.pokemon)
-	--why is trying to re-init?
-	--pokemon_edit.init(self)
 	
 	local b = {node="btn_add", func=function() add_pokemon(self) end, refresh=function(b) gooey_buttons.common_button(b, gui.get_node("txt_add")) end}
 	table.insert(active_buttons, b)
