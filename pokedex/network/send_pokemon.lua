@@ -18,8 +18,6 @@ local function on_pokemon_received(from_member_id, message)
 	local from_name = net_member_name.get_name(from_member_id)
 	
 	if send_type and pokemon and share.validate(pokemon) then
-		share.add_new_pokemon(pokemon)
-
 		local notify_msg
 		local pkmn_name = pokemon.nickname or pokemon.species.current
 		local display_species =  pokedex.get_species_display(pokemon.species.current, pokemon.variant)
@@ -42,6 +40,7 @@ local function on_pokemon_received(from_member_id, message)
 				eventId = "Pokemon:Receive:Group:" .. display_species
 			}
 		end
+		share.add_new_pokemon(pokemon)
 		notify.notify(notify_msg)
 	end	
 end

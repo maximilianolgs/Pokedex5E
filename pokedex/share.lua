@@ -51,7 +51,6 @@ local function get_clipboard_pokemon(clipboard_content)
 end
 
 function M.add_new_pokemon(pokemon)
-	_pokemon.upgrade_pokemon(pokemon)
 	storage.add(pokemon)
 	dex.set(pokemon.species.current, dex.states.CAUGHT)
 	if url.PARTY then
