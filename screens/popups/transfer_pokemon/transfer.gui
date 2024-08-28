@@ -163,7 +163,7 @@ nodes {
   }
   size {
     x: 640.0
-    y: 800.0
+    y: 830.0
     z: 0.0
     w: 1.0
   }
@@ -204,7 +204,7 @@ nodes {
 nodes {
   position {
     x: 0.0
-    y: 365.0
+    y: 380.0
     z: 0.0
     w: 1.0
   }
@@ -271,7 +271,7 @@ nodes {
 nodes {
   position {
     x: 0.0
-    y: -251.0
+    y: -266.0
     z: 0.0
     w: 1.0
   }
@@ -2278,7 +2278,7 @@ nodes {
 nodes {
   position {
     x: 195.834
-    y: 559.999
+    y: 590.0
     z: 0.0
     w: 1.0
   }
@@ -2404,7 +2404,7 @@ nodes {
 nodes {
   position {
     x: 0.0
-    y: 324.0
+    y: 339.0
     z: 0.0
     w: 1.0
   }
@@ -2471,7 +2471,7 @@ nodes {
 nodes {
   position {
     x: -143.0
-    y: 172.0
+    y: 187.0
     z: 0.0
     w: 1.0
   }
@@ -2588,8 +2588,260 @@ nodes {
 }
 nodes {
   position {
+    x: -152.0
+    y: 57.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 0.6
+    y: 0.6
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 480.0
+    y: 46.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "gui/details_backing"
+  id: "bg_ot_name"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "background"
+  layer: "gui"
+  inherit_alpha: true
+  slice9 {
+    x: 8.0
+    y: 8.0
+    z: 8.0
+    w: 8.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+  material: ""
+}
+nodes {
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 464.0
+    y: 30.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 0.24313726
+    y: 0.24313726
+    z: 0.24313726
+    w: 1.0
+  }
+  type: TYPE_TEXT
+  blend_mode: BLEND_MODE_ALPHA
+  text: "OT: Lt. Surge"
+  font: "script"
+  id: "txt_ot_name"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  adjust_mode: ADJUST_MODE_FIT
+  line_break: false
+  parent: "bg_ot_name"
+  layer: "script"
+  inherit_alpha: true
+  alpha: 1.0
+  outline_alpha: 0.0
+  shadow_alpha: 1.0
+  template_node_child: false
+  text_leading: 1.0
+  text_tracking: 0.0
+  custom_type: 0
+  enabled: true
+  visible: true
+  material: ""
+}
+nodes {
+  position {
+    x: 152.0
+    y: 57.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 0.6
+    y: 0.6
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 480.0
+    y: 46.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "gui/details_backing"
+  id: "bg_ot_id"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "background"
+  layer: "gui"
+  inherit_alpha: true
+  slice9 {
+    x: 8.0
+    y: 8.0
+    z: 8.0
+    w: 8.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+  material: ""
+}
+nodes {
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 464.0
+    y: 30.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 0.24313726
+    y: 0.24313726
+    z: 0.24313726
+    w: 1.0
+  }
+  type: TYPE_TEXT
+  blend_mode: BLEND_MODE_ALPHA
+  text: "ID: jh128"
+  font: "script"
+  id: "txt_ot_id"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  adjust_mode: ADJUST_MODE_FIT
+  line_break: false
+  parent: "bg_ot_id"
+  layer: "script"
+  inherit_alpha: true
+  alpha: 1.0
+  outline_alpha: 0.0
+  shadow_alpha: 1.0
+  template_node_child: false
+  text_leading: 1.0
+  text_tracking: 0.0
+  custom_type: 0
+  enabled: true
+  visible: true
+  material: ""
+}
+nodes {
+  position {
     x: -200.0
-    y: 31.0
+    y: 14.0
     z: 0.0
     w: 1.0
   }
@@ -2715,7 +2967,7 @@ nodes {
 nodes {
   position {
     x: 0.0
-    y: 31.0
+    y: 14.0
     z: 0.0
     w: 1.0
   }
@@ -2841,7 +3093,7 @@ nodes {
 nodes {
   position {
     x: 200.0
-    y: 31.0
+    y: 14.0
     z: 0.0
     w: 1.0
   }
@@ -3026,7 +3278,7 @@ nodes {
 nodes {
   position {
     x: 0.0
-    y: -31.0
+    y: -46.0
     z: 0.0
     w: 1.0
   }
@@ -3270,7 +3522,7 @@ nodes {
 nodes {
   position {
     x: 131.0
-    y: 258.0
+    y: 273.0
     z: 0.0
     w: 1.0
   }
@@ -3396,7 +3648,7 @@ nodes {
 nodes {
   position {
     x: 131.0
-    y: 178.0
+    y: 193.0
     z: 0.0
     w: 1.0
   }
@@ -3522,7 +3774,7 @@ nodes {
 nodes {
   position {
     x: 131.0
-    y: 99.0
+    y: 114.0
     z: 0.0
     w: 1.0
   }
@@ -3648,7 +3900,7 @@ nodes {
 nodes {
   position {
     x: -157.0
-    y: -440.0
+    y: -455.0
     z: 0.0
     w: 1.0
   }
@@ -3833,7 +4085,7 @@ nodes {
 nodes {
   position {
     x: 0.0
-    y: -90.0
+    y: -105.0
     z: 0.0
     w: 1.0
   }
@@ -3959,7 +4211,7 @@ nodes {
 nodes {
   position {
     x: 130.0
-    y: -444.834
+    y: -460.0
     z: 0.0
     w: 1.0
   }
@@ -4018,7 +4270,7 @@ nodes {
 nodes {
   position {
     x: 280.0
-    y: -444.834
+    y: -460.0
     z: 0.0
     w: 1.0
   }
@@ -4077,7 +4329,7 @@ nodes {
 nodes {
   position {
     x: 55.0
-    y: -444.834
+    y: -460.0
     z: 0.0
     w: 1.0
   }
@@ -4136,7 +4388,7 @@ nodes {
 nodes {
   position {
     x: 205.0
-    y: -444.834
+    y: -460.0
     z: 0.0
     w: 1.0
   }
