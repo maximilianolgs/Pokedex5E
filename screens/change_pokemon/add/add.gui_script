@@ -79,6 +79,7 @@ function init(self)
 	pokemon_edit.config[hash("change_pokemon/extra")].active = true
 	pokemon_edit.config[hash("change_pokemon/asi/root")].active = false
 	pokemon_edit.block = true
+	pokemon_edit.read_only = false
 	pokemon_edit.init(self)
 	function self.register_buttons_after_species(self)
 		pokemon_edit.config[hash("change_pokemon/abilities")].active = true
