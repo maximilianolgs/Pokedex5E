@@ -55,7 +55,7 @@ M.config = {
 	[hash("change_pokemon/skills")] = {open=vmath.vector3(720, 200, 0), closed=vmath.vector3(720, 50, 0), active=false},
 	[hash("change_pokemon/nature")] = {open=vmath.vector3(720, 70, 0), closed=vmath.vector3(720, 0, 0), active=true},
 	[hash("change_pokemon/variant")] = {open=vmath.vector3(720, 70, 0), closed=vmath.vector3(720, 0, 0), active=true},
-	[hash("change_pokemon/held_item")] = {open=vmath.vector3(720, 200, 0), closed=vmath.vector3(720, 50, 0), active=false},
+	[hash("change_pokemon/held_item")] = {open=vmath.vector3(720, 120, 0), closed=vmath.vector3(720, 50, 0), active=false},
 	[hash("change_pokemon/custom_asi/root")] = {open=vmath.vector3(720, 420, 0), closed=vmath.vector3(720, 50, 0), active=false}
 }
 local node_index = 0
