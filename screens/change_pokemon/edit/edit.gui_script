@@ -61,6 +61,7 @@ function init(self)
 	local pokemon_id = monarch.data("edit").id
 	self.pokemon = storage.get_copy(pokemon_id)
 	pokemon_edit.block = false
+	pokemon_edit.read_only = false
 	pokemon_edit.config[hash("change_pokemon/extra")].active = true
 	pokemon_edit.init(self)
 	pokemon_edit.redraw(self)

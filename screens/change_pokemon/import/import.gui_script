@@ -70,6 +70,8 @@ function init(self)
 	self.source = data.source
 	pokemon_edit.init(self)
 	pokemon_edit.redraw(self)
+	pokemon_edit.block = false
+	pokemon_edit.read_only = true
 
 	pokemon_image(self.pokemon)
 	
