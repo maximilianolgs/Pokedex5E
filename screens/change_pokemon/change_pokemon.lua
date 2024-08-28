@@ -496,6 +496,8 @@ local function localize_text()
 	gui.set_text(gui.get_node("change_pokemon/title_move"), localization.get("change_pokemon_screen","title_move_set","MOVE SET"))
 	gui.set_text(gui.get_node("change_pokemon/txt_move"), localization.get("change_pokemon_screen","txt_move","MOVE"))
 	gui.set_text(gui.get_node("change_pokemon/species"), localization.get("change_pokemon_screen","txt_pick_species","PICK POKEMON"))
+	gui.set_text(gui.get_node("change_pokemon/ot_name_lbl"), localization.get_upper("change_pokemon_screen","txt_ot_name","OT") .. ":")
+	gui.set_text(gui.get_node("change_pokemon/ot_id_lbl"), localization.get_upper("change_pokemon_screen","txt_ot_id","ID") .. ":")
 	gui.set_text(gui.get_node("change_pokemon/asi/STR1"), localization.get_upper("pokemon_information","pokemon_attribute_str","STRENGTH"))
 	gui.set_text(gui.get_node("change_pokemon/asi/DEX1"), localization.get_upper("pokemon_information","pokemon_attribute_dex","DEXTERITY"))
 	gui.set_text(gui.get_node("change_pokemon/asi/CON1"), localization.get_upper("pokemon_information","pokemon_attribute_con","CONSTITUTION"))
@@ -544,6 +546,7 @@ function M.init(self)
 	gui_utils.scale_text_to_fit_size(gui.get_node("change_pokemon/species"))
 	self.move_node = gui.get_node("change_pokemon/btn_move")
 	gui.set_enabled(self.move_node, false)
+	gui.set_enabled(gui.get_node("change_pokemon/ot_box"), false)
 
 	if self.pokemon then
 		self.pkstat = {}
@@ -556,6 +559,11 @@ function M.init(self)
 		gender = _pokemon.get_gender(self.pokemon)
 		set_gender_icon(self, gender)
 		self.pkmn_abilities = utils.shallow_copy(self.pokemon.abilities)
+		if self.pokemon.ot then
+			gui.set_text(gui.get_node("change_pokemon/ot_name_txt"), self.pokemon.ot.name)
+			gui.set_text(gui.get_node("change_pokemon/ot_id_txt"), self.pokemon.ot.id)
+			gui.set_enabled(gui.get_node("change_pokemon/ot_box"), true)
+		end
 	else
 		gui.set_enabled(gui.get_node("change_pokemon/checkmark_shiny_mark"), false)
 	end

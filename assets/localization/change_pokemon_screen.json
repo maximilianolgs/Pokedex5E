@@ -198,5 +198,13 @@
 	"txt_cancel": {
 		"en_us": "CANCEL",
 		"es_419": "CANCELAR"
+	},
+	"txt_ot_name": {
+		"en_us": "OT",
+		"es_419": "EO"
+	},
+	"txt_ot_id": {
+		"en_us": "ID",
+		"es_419": "ID"
 	}
 }
