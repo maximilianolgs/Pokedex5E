@@ -51,7 +51,9 @@ end
 
 function M.send_pokemon(member_id, pokemon_id, send_type)
 	local pokemon = share.get_sendable_pokemon_copy(pokemon_id)
-
+	if send_type ~= M.SEND_TYPE_GIFT then
+		pokemon.ot = nil
+	end
 	local message = 
 	{
 		pokemon=pokemon,
