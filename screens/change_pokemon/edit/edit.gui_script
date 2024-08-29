@@ -60,7 +60,7 @@ function init(self)
 	
 	local pokemon_id = monarch.data("edit").id
 	self.pokemon = storage.get_copy(pokemon_id)
-	self.editable_nickname = self.pokemon.ot.name .. self.pokemon.ot.id == profiles.get_active_file_name()
+	self.editable_nickname = self.pokemon.ot.uid == profiles.get_active_uid() or self.pokemon.nickname == nil
 	pokemon_edit.block = false
 	pokemon_edit.read_only = false
 	pokemon_edit.config[hash("change_pokemon/extra")].active = true

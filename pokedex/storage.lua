@@ -255,7 +255,7 @@ end
 function M.add(pokemon)
 	_pokemon.upgrade_pokemon(pokemon)
 	if pokemon.ot == nil then
-		pokemon.ot = { name = profiles.get_active_name(), id = profiles.get_active_file_name():sub(#profiles.get_active_name() + 1) }
+		pokemon.ot = { name = profiles.get_active_name(), id = profiles.get_active_uid():sub(1,5), uid = profiles.get_active_uid() }
 	end
 	for i=#pokemon.moves, 1, -1 do
 		if pokemon.moves[i] == "" or pokemon.moves[i] == "None" then

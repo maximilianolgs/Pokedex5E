@@ -1241,7 +1241,7 @@ function M.upgrade_pokemon(pkmn)
 			elseif i == 9 then
 				-- add OT data
 				if pkmn.ot == nil then
-					pkmn.ot = { name = profiles.get_active_name(), id = profiles.get_active_file_name():sub(#profiles.get_active_name() + 1) }
+					pkmn.ot = { name = profiles.get_active_name(), id = profiles.get_active_uid():sub(1,5), uid = profiles.get_active_uid() }
 				end
 			elseif i == 8 then
 				-- There was a bug in the prior version where a pokemon with the feat Hidden Ability and a Variant which provided a different
