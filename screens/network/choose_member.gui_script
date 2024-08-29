@@ -41,6 +41,7 @@ function init(self)
 	gui.set_text(gui.get_node("template/title"), localization.get("connect_screen", "choose_member_title", "CHOOSE MEMBER"))
 
 	self.send_as_wild = false
+	gui.set_enabled(gui.get_node("send_as_wild/bg"), data.can_be_wild)
 	gooey.checkbox("send_as_wild/checkmark").set_checked(self.send_as_wild)
 	update_checkbox(gooey.checkbox("send_as_wild/checkmark"))
 	gui.set_text(gui.get_node("send_as_wild/text"), localization.get("connect_screen", "send_as_wild", "Send as Wild"))

@@ -24,6 +24,7 @@ local send_pokemon = require "pokedex.network.send_pokemon"
 local utils = require "utils.utils"
 local _share = require "pokedex.share"
 local localization = require "utils.localization"
+local profiles = require "pokedex.profiles"
 
 
 -- Because the "swap pokemon" popup isn't actually its own screen, it doesn't re-init and reset positions of everything
@@ -189,7 +190,7 @@ local function setup_info(self)
 
 	gui.set_text(gui.get_node("txt_ot_name"), localization.get_upper("pokemon_information","ot_name","OT") .. ": " .. pokemon.ot.name)
 	gui.set_text(gui.get_node("txt_ot_id"), localization.get_upper("pokemon_information","ot_id","ID") .. ": " .. pokemon.ot.id)
-	
+	self.can_be_wild = pokemon.ot.uid == profiles.get_active_uid()
 	gui.set_text(gui.get_node("txt_lvl"), localization.get("pokemon_information", "pokemon_level","Lv.") .. " " .. _pokemon.get_current_level(pokemon))
 	gui.set_text(gui.get_node("txt_ac"), localization.get("pokemon_information", "pokemon_ac","AC") .. ": " .. _pokemon.get_AC(pokemon))
 
@@ -302,6 +303,7 @@ local function on_send_pokemon(self)
 	{
 		prompt=localization.get("transfer_popup", "choose_member_prompt", "Who should receive %s?"):format(pokemon_nickname),
 		fn_member_chosen=fn_member_chosen,
+		can_be_wild=self.can_be_wild
 	})
 end
 
