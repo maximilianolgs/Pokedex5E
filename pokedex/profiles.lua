@@ -9,7 +9,7 @@ local M = {}
 local profiles = {}
 local active_slot
 local profile_changing = false
-local LATEST_PROFILE_VERSION = 3
+local LATEST_PROFILE_VERSION = 4
 
 -- TODO: Should probably use broadcast, but I couldn't figure out how to get it to work on a non-UI screen
 local active_profile_changing_cbs = {}
@@ -28,18 +28,20 @@ end
 local function generate_id()
 	local m = md5.new()
 	m:update(tostring(socket.gettime()))
-	return md5.tohex(m:finish()):sub(1, 5)
+	return md5.tohex(m:finish())
 end
 
 function M.add(profile_name, slot)
 	slot = slot or 1
+	local guid = generate_id()
 	local profile = {
 		slot=slot,
 		name=profile_name,
+		uid=guid,
 		seen=0,
 		caught=0,
 		released=0,
-		file_name=profile_name .. generate_id()
+		file_name=profile_name .. guid:sub(1,5)
 	}
 	if profiles.slots == nil then
 		profiles.slots = {}
@@ -145,6 +147,10 @@ function M.get_active_file_name()
 	return M.get_file_name(active_slot)
 end
 
+function M.get_active_uid()
+	return M.get_active() and M.get_active().uid or ""
+end
+
 function M.get_file_name(slot)
 	return slot ~= nil and profiles.slots[slot].file_name or nil
 end
@@ -233,10 +239,14 @@ local function upgrade_profiles()
 				-- NOTE: If a new data upgrade is needed, update the above LATEST_PROFILE_VERSION value and add a new block here like so:
 				--elseif i == ??? then
 
-			elseif i == 2 then
-
+			elseif i == 3 then
 				if profiles.slots then
-
+					for s=1,#profiles.slots do
+						profiles.slots[s].uid = profiles.slots[s].file_name:sub(#profiles.slots[s].file_name-4) .. generate_id():sub(6)
+					end
+				end
+			elseif i == 2 then
+				if profiles.slots then
 					for s=1,#profiles.slots do
 						local old_party = profiles.slots[s].party
 						local converted_party = {}
@@ -249,14 +259,12 @@ local function upgrade_profiles()
 						end
 					end
 				end
-
 			elseif i == 1 then
 				convert_to_rolling_profile_slot()				
 			else
 				assert(false, "Unknown profiles data version " .. version)
 			end
 		end
-
 		profiles.version = LATEST_PROFILE_VERSION
 	end
 	
