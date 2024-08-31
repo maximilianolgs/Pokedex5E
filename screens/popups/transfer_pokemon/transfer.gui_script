@@ -280,7 +280,7 @@ local function on_send_pokemon(self)
 				gameanalytics.addDesignEvent {
 					eventId = "Pokemon:Send:" .. eventId .. species_display
 				}
-				storage.release_pokemon(pokemon_id)	
+				storage.release_pokemon(pokemon_id)
 				monarch.show(prev_screen, {clear=true})
 			end
 		end
@@ -311,6 +311,7 @@ local function refresh_send_button(self)
 	local has_enough_left = not storage.is_party_pokemon(self.pokemon_id) or #storage.list_of_ids_in_party() > 1
 	self.send_button_enabled = has_enough_left and net_members.has_other_members()
 	gui.set_enabled(gui.get_node("btn_network_share"), self.send_button_enabled)
+	self.share_button_enabled = self.share_button_enabled or self.send_button_enabled
 end
 
 function init(self)
@@ -329,6 +330,7 @@ function init(self)
 	self.pokemon_id = d.id
 	self.index = _pokemon.get_index_number(storage.get_pokemon(d.id))
 	setup_info(self)
+	self.share_button_enabled = _share.ENABLED.CLIPBOARD_WRITE or _share.ENABLED.QRCODE_GENERATE
 	if not _share.ENABLED.CLIPBOARD_WRITE then
 		gui.set_enabled(gui.get_node("btn_clipboard_share"), false)
 		gui.set_enabled(gui.get_node("btn_roll_twenty_share"), false)
@@ -338,8 +340,10 @@ function init(self)
 	end
 	self.swap = gui.get_node("swap")
 	self.move = gui.get_node("move")
-	gui.set_enabled(self.swap, false)
+	self.share = gui.get_node("share")
 	gui.set_enabled(self.move, true)
+	gui.set_enabled(self.swap, false)
+	gui.set_enabled(self.share, false)
 	
 	if self.to == messages.LOCATION_PC then
 		gui.set_text(gui.get_node("txt_move"), localization.get("transfer_popup", "move_to_" .. DESTINATION_PC, "MOVE TO " .. DESTINATION_PC))
@@ -388,10 +392,14 @@ local function move(self)
 	end
 end
 
-
 local function cancel_swap(self)
 	gui.set_enabled(self.swap, false)
 	gui.set_enabled(self.move, true)
+end
+
+local function share_popup(self)
+	gui.set_enabled(self.move, not gui.is_enabled(self.move))
+	gui.set_enabled(self.share, not gui.is_enabled(self.share))
 end
 
 local function release(self)
@@ -405,7 +413,6 @@ local function release(self)
 		})
 	end
 end
-
 
 function on_message(self, message_id, message, sender)
 	if message_id == messages.RESPONSE then
@@ -426,46 +433,65 @@ function on_message(self, message_id, message, sender)
 	end
 end
 
-
 function on_input(self, action_id, action)
 	local b = button.on_input(action_id, action)
 
 	if gui.is_enabled(self.swap) then
-		local bg1 = gooey.button("swap_background", action_id, action, function() end)
-		local bg2 = gooey.button("max_active_pokemon_tutorial", action_id, action, function() end)
-		if not b and not bg1.over and not bg2.over then
-			gooey.button("dimmer1", action_id, action, function() cancel_swap(self) end)
+		local swap_background = gooey.button("swap_background", action_id, action, function() end)
+		local tutorial = gooey.button("max_active_pokemon_tutorial", action_id, action, function() end)
+		if not b and not swap_background.over and not tutorial.over then
+			gooey.button("swap_dimmer", action_id, action, function() cancel_swap(self) end)
 		end
-	else
-		local c, a, d, s, cp, rt
-		if self.move_button_enabled then
-			a = gooey.button("btn_move", action_id, action, function() move(self) end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_move")) end)
-			c = gooey.button("btn_release", action_id, action, function() release(self) end)
-		end
-		d = gooey.button("btn_qr_share", action_id, action, function() 
+	elseif gui.is_enabled(self.share) then
+		local share_background = gooey.button("share_background", action_id, action, function() end)
+		local btn_qr, btn_network, btn_clipboard, btn_roll_twenty
+		btn_qr = gooey.button("btn_qr_share", action_id, action, function() 
 			monarch.show(screens.QR_DISPLAY, {}, {id=self.pokemon_id})
 		end, gooey_buttons.qr_share)
 
-		cp = gooey.button("btn_clipboard_share", action_id, action, function() 
+		btn_clipboard = gooey.button("btn_clipboard_share", action_id, action, function() 
 			share.export(self.pokemon_id)
 		end, gooey_buttons.clipboard_share)
 		
-		rt = gooey.button("btn_roll_twenty_share", action_id, action, function() 
+		btn_roll_twenty = gooey.button("btn_roll_twenty_share", action_id, action, function() 
 			share.roll20_export(self.pokemon_id)
 		end, gooey_buttons.roll_twenty_share)
-
-		gooey.button("btn_close", action_id, action, back, gooey_buttons.close_button)
-		gooey.button("btn_cancel", action_id, action, function() cancel_swap(self) end, gooey_buttons.close_button)
-		local g = gooey.button("background", action_id, action, function() end)
-
+		
 		if self.send_button_enabled then
-			s = gooey.button("btn_network_share", action_id, action, function() 
+			btn_network = gooey.button("btn_network_share", action_id, action, function() 
 				on_send_pokemon(self)
 			end, gooey_buttons.network_share)
 		end
+		
+		if not b and
+		not share_background.over and
+		not btn_qr.over and
+		(not self.send_button_enabled or not btn_network.over) and
+		not btn_clipboard.over and
+		not btn_roll_twenty.over then
+			gooey.button("share_dimmer", action_id, action, function() share_popup(self) end)
+		end
+	else
+		local btn_release, btn_move, btn_share
+		if self.move_button_enabled then
+			btn_move = gooey.button("btn_move", action_id, action, function() move(self) end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_move")) end)
+			btn_release = gooey.button("btn_release", action_id, action, function() release(self) end)
+		end
+		
+		if self.share_button_enabled then
+			btn_share = gooey.button("btn_share", action_id, action, function() share_popup(self) end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_share")) end)
+		end
+		
+		gooey.button("btn_close", action_id, action, back, gooey_buttons.close_button)
+		gooey.button("btn_cancel", action_id, action, function() cancel_swap(self) end, gooey_buttons.close_button)
+		local background = gooey.button("background", action_id, action, function() end)
 
-		if (not self.move_button_enabled or not a.over) and not b and (not self.move_button_enabled or not c.over) and not d.over and not g.over and (not self.send_button_enabled or not s.over) and not cp.over and not rt.over then
-			gooey.button("dimmer", action_id, action, back)
+		if (not self.move_button_enabled or not btn_move.over) and
+			(not self.share_button_enabled or not btn_share.over) and
+			not b and
+			(not self.move_button_enabled or not btn_release.over) and
+			not background.over then
+			gooey.button("bg_dimmer", action_id, action, back)
 		end
 	end
 	
