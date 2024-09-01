@@ -303,6 +303,17 @@ function M.get_variant_create_mode(pokemon)
 end
 
 
+function M.is_variant_permanent(pokemon)
+	if pokemon then
+		local raw = get_pokemon_raw(pokemon)
+		if raw.variant_data then
+			return raw.variant_data.permanent
+		end
+	end
+	return nil
+end
+
+
 function M.get_default_variant(pokemon)
 	local raw = get_pokemon_raw(pokemon)
 	return raw.variant_data and raw.variant_data.default or nil

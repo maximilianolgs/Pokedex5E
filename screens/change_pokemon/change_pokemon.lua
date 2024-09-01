@@ -1020,7 +1020,7 @@ function M.on_input(self, action_id, action)
 			monarch.show(screens.NATURES_SCROLLIST, {}, {items=natures.list, message_id=messages.NATURE, sender=msg.url()})
 		end)
 	end
-	if M.config[hash("change_pokemon/variant")].active then
+	if M.config[hash("change_pokemon/variant")].active and not pokedex.is_variant_permanent(_pokemon.get_current_species(self.pokemon)) then
 		gooey.button("change_pokemon/btn_variant", action_id, action, function()
 			local variants = pokedex.get_variants(_pokemon.get_current_species(self.pokemon))
 			monarch.show(screens.SCROLLIST, {}, {items=variants, message_id=messages.VARIANT, sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_variant_title", "Choose Variant")})
