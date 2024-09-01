@@ -242,7 +242,7 @@ local function create_reaction(id_prefix, attribs, move)
 	-- the actions in roll20 are a mess.. it needs to have a bonding id across several attributes... as part of the name...
 	-- and then it orders them, by this "in name" id, so we add a prefix to mantain order
 	local move_id = "repeating_npcreaction_" .. id_prefix .. get_id(pkmn.id .. move.orig_data.name)
-	table.insert(attribs, create_attrib(pkmn.id, move_id .. "_name", move_data.name))
+	table.insert(attribs, create_attrib(pkmn.id, move_id .. "_name", move.name))
 	table.insert(attribs, create_attrib(pkmn.id, move_id .. "_description", move_full_description(move)))
 end
 

@@ -72,17 +72,23 @@ function on_input(self, action_id, action)
 		gameanalytics.addDesignEvent {
 			eventId = "About:Report"
 		}
+		local temp_file
 		if platform.ANDROID or platform.IOS then
-			share.file(sys.get_save_file("pokedex5E", "log"), "Debug log")
+			temp_file = log.generate_full_log_file("pokedex5e-andoid.log")
+			share.file(temp_file, "Debug log")
 		elseif platform.WINDOWS or platform.MACOS or platform.LINUX then
 			sys.open_url("file://" .. sys.get_save_file("pokedex5E", ""))
 		elseif platform.WEB then
-			local log_file = file.load_raw_file(sys.get_save_file("pokedex5E", "log"))
+			temp_file = log.generate_full_log_file("web.dmp")
+			local log_file = file.load_raw_file(temp_file)
 			if log_file then
 				log_file = log_file:gsub("'", '"')
 				log_file = log_file:gsub("\n", "\\n")
-				html5.run("download_file('log.log', 'text/plain', '" .. log_file .. "')")
+				html5.run("download_file('pokedex5e-html.log', 'text/plain', '" .. log_file .. "')")
 			end
+		end
+		if temp_file then
+			os.remove(temp_file)
 		end
 	end)
 	local c2 = gooey.button("changelog", action_id, action, function()

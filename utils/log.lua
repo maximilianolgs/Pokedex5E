@@ -12,7 +12,70 @@ local log = { _version = "0.1.0" }
 log.usecolor = false
 log.outfile = nil
 log.level = "trace"
+log.log_rotation_enabled = true
 
+local max_backup_files = math.max(sys.get_config("logging.max_files") or 2, 2)-1
+local max_file_size = math.max(sys.get_config("logging.max_file_size") or (2*1024*1024), (2*1024*1024))
+
+local function rotate_logs()
+	log.log_rotation_enabled = false
+	log.info("rotating logs")
+	log.log_rotation_enabled = true
+	if sys.exists(log.outfile .. "-" .. max_backup_files) then
+		local _, err = os.remove(log.outfile .. "-" .. max_backup_files)
+		if err then
+			log.log_rotation_enabled = false
+			log.error("Error removing. Logs can't be rotated: " .. err)
+			return
+		end
+	end
+	
+	for i=max_backup_files-1, 1, -1 do
+		if sys.exists(log.outfile .. "-" .. i) then
+			local _, err = os.rename(log.outfile .. "-" .. i, log.outfile .. "-" .. (i+1))
+			if err then
+				log.log_rotation_enabled = false
+				log.error("Error renaming. Logs can't be rotated: " .. err)
+				return
+			end
+		end
+	end
+
+	local _, err = os.rename(log.outfile, log.outfile .. "-1")
+	if err then
+		log.log_rotation_enabled = false
+		log.fatal("Error renaming base log. Logs can't be rotated: " .. err)
+		return
+	end
+end
+
+local function write_to_file(line)
+	local fp = io.open(log.outfile, "a")
+	if log.log_rotation_enabled and fp:seek("end") > max_file_size then
+		fp:close()
+		rotate_logs()
+		fp = io.open(log.outfile, "a")
+	end
+	fp:write(line)
+	fp:close()
+end
+
+function log.generate_full_log_file(filename)
+	local full_log_file = sys.get_save_file("pokedex5E", filename)
+	local consolidated_log = io.open(full_log_file, "w+")
+	for i=max_backup_files, 1, -1 do
+		if sys.exists(log.outfile .. "-" .. i) then
+			local log_fragment = io.open(log.outfile .. "-" .. i)
+			consolidated_log:write(log_fragment:read("*all") .. "\n")
+			log_fragment:close()
+		end
+	end
+	local log_fragment = io.open(log.outfile)
+	consolidated_log:write(log_fragment:read("*all"))
+	log_fragment:close()
+	consolidated_log:close()
+	return full_log_file
+end
 
 local modes = {
 	{ name = "trace", color = "\27[34m", },
@@ -51,6 +114,7 @@ local tostring = function(...)
 	return table.concat(t, " ")
 end
 
+local buffer = {}
 
 for i, x in ipairs(modes) do
 	local nameupper = x.name:upper()
@@ -81,14 +145,25 @@ for i, x in ipairs(modes) do
 		msg))
 		
 		-- Output to log file
+		local str = string.format("[%-6s%s] %s: %s\n",
+		nameupper, os.date(), lineinfo, msg)
 		if log.outfile then
-			local fp = io.open(log.outfile, "a")
-			local str = string.format("[%-6s%s] %s: %s\n",
-			nameupper, os.date(), lineinfo, msg)
-			fp:write(str)
-			fp:close()
+			write_to_file(str)
+		else
+			table.insert(buffer, str)
 		end
 
+	end
+end
+
+
+function log.set_outfile(filename)
+	log.outfile = filename
+	if log.outfile then
+		for _, line in ipairs(buffer) do
+			write_to_file(line)
+		end
+		buffer = {}
 	end
 end
 

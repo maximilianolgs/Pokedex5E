@@ -145,3 +145,7 @@ show_made_with_defold = 0
 [windows]
 app_icon = /assets/app_icons/icon.ico
 
+[logging]
+max_files = 2
+max_file_size = 5242880
+
