@@ -110,13 +110,11 @@ local function serialize_pokemon(pokemon)
 	return sjson:encode(pokemon)
 end
 
-function M.generate_qr(id, send_as_wild)
-	local pokemon = storage.get_copy(id)
+function M.generate_qr(id, as_wild)
+	local pokemon = storage.get_copy(id, as_wild)
 	if pokemon then
 		local eventId = "Pokemon:Send:QR:"
-		if send_as_wild then
-			pokemon.ot = nil
-			pokemon.nickname = nil
+		if as_wild then
 			eventId = "Pokemon:Wild:QR:"
 		end
 		gameanalytics.addDesignEvent {
@@ -126,18 +124,16 @@ function M.generate_qr(id, send_as_wild)
 	end
 end
 
-function M.get_sendable_pokemon_copy(id)
-	local pokemon = storage.get_pokemon(id)
+function M.get_sendable_pokemon_copy(id, as_wild)
+	local pokemon = storage.get_copy(id, as_wild)
 	decode_status(pokemon)
 	return pokemon
 end
 
-function M.export(id, send_as_wild)
-	local pokemon = storage.get_copy(id)
+function M.export(id, as_wild)
+	local pokemon = storage.get_copy(id, as_wild)
 	local eventId = "Pokemon:Send:Clipboard:"
-	if send_as_wild then
-		pokemon.ot = nil
-		pokemon.nickname = nil
+	if as_wild then
 		eventId = "Pokemon:Wild:Clipboard:"
 	end
 	clipboard.copy(serialize_pokemon(pokemon))
