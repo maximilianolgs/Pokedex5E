@@ -7530,7 +7530,7 @@ nodes {
   scale {
     x: 1.0
     y: 1.0
-    z: 0.5
+    z: 1.0
     w: 1.0
   }
   size {
@@ -7573,6 +7573,7 @@ nodes {
   alpha: 1.0
   outline_alpha: 0.0
   shadow_alpha: 1.0
+  overridden_fields: 3
   overridden_fields: 8
   overridden_fields: 20
   template_node_child: true
@@ -7831,13 +7832,13 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 0.9
+    y: 0.9
     z: 1.0
     w: 1.0
   }
   size {
-    x: 200.0
+    x: 550.0
     y: 40.0
     z: 0.0
     w: 1.0
@@ -7957,13 +7958,13 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 0.9
+    y: 0.9
     z: 1.0
     w: 1.0
   }
   size {
-    x: 200.0
+    x: 550.0
     y: 40.0
     z: 0.0
     w: 1.0
@@ -7976,7 +7977,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Copy to clipboard"
+  text: "Copy to Clipboard"
   font: "script"
   id: "clipboard_share_txt"
   xanchor: XANCHOR_NONE
@@ -8083,13 +8084,13 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 0.9
+    y: 0.9
     z: 1.0
     w: 1.0
   }
   size {
-    x: 200.0
+    x: 550.0
     y: 40.0
     z: 0.0
     w: 1.0
@@ -8209,13 +8210,13 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 0.9
+    y: 0.9
     z: 1.0
     w: 1.0
   }
   size {
-    x: 200.0
+    x: 550.0
     y: 40.0
     z: 0.0
     w: 1.0

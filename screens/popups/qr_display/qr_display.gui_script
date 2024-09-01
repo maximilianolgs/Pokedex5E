@@ -13,7 +13,7 @@ function init(self)
 		"\n\nThey must visit the \"RECEIVE\" screen, choose \"READ QR\", and point their camera at this image."))
 	
 	local screen_data = monarch.data("qr_display")
-	local qrcode, qrsize = share.generate_qr(screen_data.id)
+	local qrcode, qrsize = share.generate_qr(screen_data.id, screen_data.send_as_wild)
 
 	if qrcode then
 		self.qr_texture = {

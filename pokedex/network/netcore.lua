@@ -316,7 +316,7 @@ local function server_process_initial_packet(client, packet)
 			end
 
 			gameanalytics.addDesignEvent {
-				eventId = "Pokemon:Group:MemberJoined"
+				eventId = "Group:MemberJoined"
 			}
 		else
 			assert(nil, "server_process_initial_packet - client did not send unique_id")
@@ -521,7 +521,7 @@ end
 
 local function server_on_client_connected(ip, port, client)
 	gameanalytics.addDesignEvent {
-		eventId = "Pokemon:Group:MemberConnected"
+		eventId = "Group:MemberConnected"
 	}
 	-- Server will wait for client to send info about its version before deciding the
 	-- client if officially recognized. If it sends anything other than the version
@@ -530,7 +530,7 @@ end
 
 local function server_on_client_disconnected(ip, port, client)
 	gameanalytics.addDesignEvent {
-		eventId = "Pokemon:Group:MemberDisconnected"
+		eventId = "Group:MemberDisconnected"
 	}
 	local unique_id = server_client_to_unique_id[client]
 	if unique_id then
