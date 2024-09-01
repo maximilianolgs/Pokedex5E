@@ -110,28 +110,36 @@ local function serialize_pokemon(pokemon)
 	return sjson:encode(pokemon)
 end
 
-function M.generate_qr(id)
-	local pokemon = storage.get_copy(id)
+function M.generate_qr(id, as_wild)
+	local pokemon = storage.get_copy(id, as_wild)
 	if pokemon then
+		local eventId = "Pokemon:Send:QR:"
+		if as_wild then
+			eventId = "Pokemon:Wild:QR:"
+		end
 		gameanalytics.addDesignEvent {
-			eventId = "Pokemon:Send:QR:" .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
+			eventId = eventId .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
 		}
 		return qrcode.generate(serialize_pokemon(pokemon))
 	end
 end
 
-function M.get_sendable_pokemon_copy(id)
-	local pokemon = storage.get_pokemon(id)
+function M.get_sendable_pokemon_copy(id, as_wild)
+	local pokemon = storage.get_copy(id, as_wild)
 	decode_status(pokemon)
 	return pokemon
 end
 
-function M.export(id)
-	local pokemon = storage.get_copy(id)
+function M.export(id, as_wild)
+	local pokemon = storage.get_copy(id, as_wild)
+	local eventId = "Pokemon:Send:Clipboard:"
+	if as_wild then
+		eventId = "Pokemon:Wild:Clipboard:"
+	end
 	clipboard.copy(serialize_pokemon(pokemon))
 	notify.notify(localization.get("transfer_popup", "pokemon_copied_notif", "%s copied to clipboard!"):format(pokemon.nickname or pokemon.species.current))
 	gameanalytics.addDesignEvent {
-		eventId = "Pokemon:Send:Clipboard:" .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
+		eventId = eventId .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
 	}
 end
 
