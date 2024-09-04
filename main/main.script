@@ -60,6 +60,7 @@ local function window_resized()
 end
 
 function init(self)
+	log.info("Initializing Pokédex5E v" .. version.current_version())
 	defsave.appname = "pokedex5E"
 	defsave.verbose = false
 	defsave.use_default_data = false
@@ -143,7 +144,6 @@ function init(self)
 			-- no Pokemon (yet), so for now go to the profile screen
 			msg.post("#", messages.SHOW_PROFILE)
 		end
-
 		if platform.ANDROID or platform.WINDOWS then
 			local version_info = version.get_version_information()
 			local message = ""

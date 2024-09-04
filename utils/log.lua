@@ -115,6 +115,7 @@ local tostring = function(...)
 end
 
 local buffer = {}
+table.insert(buffer, "#################### LOGGER INITIALIZED ####################\n")
 
 for i, x in ipairs(modes) do
 	local nameupper = x.name:upper()
