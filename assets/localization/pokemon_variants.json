@@ -611,6 +611,18 @@
 		"en_us": "Solo Form",
 		"es_419": "Forma Individual"
 	},
+	"burmy (plant cloak)": {
+		"en_us": "Burmy (Plant Cloak)",
+		"es_419": "Burmy (Tronco Planta)"
+	},
+	"burmy (sand cloak)": {
+		"en_us": "Burmy (Sand Cloak)",
+		"es_419": "Burmy (Tronco Arena)"
+	},
+	"burmy (trash cloak)": {
+		"en_us": "Burmy (Trash Cloak)",
+		"es_419": "Burmy (Tronco Basura)"
+	},
 	"wormadam (plant cloak)": {
 		"en_us": "Wormadam (Plant Cloak)",
 		"es_419": "Wormadam (Tronco Planta)"

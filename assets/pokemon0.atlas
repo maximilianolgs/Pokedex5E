@@ -1447,7 +1447,15 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/pokemons/412Burmy.png"
+  image: "/assets/textures/pokemons/412Burmy Plant Cloak.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/412Burmy Sand Cloak.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/412Burmy Trash Cloak.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
