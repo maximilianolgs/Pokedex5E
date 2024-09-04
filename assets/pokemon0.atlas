@@ -2143,6 +2143,10 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/pokemons/555Darmanitan Zen Mode.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/pokemons/556Maractus.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }

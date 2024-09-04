@@ -171,6 +171,18 @@
 		"en_us": "Sunny",
 		"es_419": "Soleado"
 	},
+	"darmanitan zen mode": {
+		"en_us": "Darmanitan Zen Mode",
+		"es_419": "Darmanitan Daruma"
+	},
+	"standard mode": {
+		"en_us": "Standard Mode",
+		"es_419": "Forma Normal"
+	},
+	"zen mode": {
+		"en_us": "Zen Mode",
+		"es_419": "Forma Daruma"
+	},
 	"alolan diglett": {
 		"en_us": "Alolan Diglett",
 		"es_419": "Diglett de Alola"

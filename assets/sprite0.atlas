@@ -2135,6 +2135,10 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/sprites/555Darmanitan Zen Mode.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/sprites/556Maractus.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
