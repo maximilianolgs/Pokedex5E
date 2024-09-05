@@ -71,6 +71,22 @@
 		"en_us": "Fairy",
 		"es_419": "Hada"
 	},
+	"aegislash shield forme": {
+		"en_us": "Aegislash Shield Forme",
+		"es_419": "Aegislash Escudo"
+	},
+	"aegislash blade forme": {
+		"en_us": "Aegislash Blade Forme",
+		"es_419": "Aegislash Filo"
+	},
+	"shield forme": {
+		"en_us": "Shield Forme",
+		"es_419": "Forma Escudo"
+	},
+	"blade forme": {
+		"en_us": "Blade Forme",
+		"es_419": "Forma Filo"
+	},
 	"arceus (bug)": {
 		"en_us": "Arceus (Bug)",
 		"es_419": "Arceus (Bicho)"

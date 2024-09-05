@@ -2715,6 +2715,10 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/sprites/681Aegislash Blade.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/sprites/682Spritzee.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
