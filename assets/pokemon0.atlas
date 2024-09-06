@@ -1327,6 +1327,18 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/pokemons/386Deoxys Attack.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/386Deoxys Defense.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/386Deoxys Speed.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/pokemons/387Turtwig.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }

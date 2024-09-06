@@ -1319,6 +1319,18 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/sprites/386Deoxys Attack.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/386Deoxys Defense.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/386Deoxys Speed.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/sprites/387Turtwig.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }

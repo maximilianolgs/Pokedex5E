@@ -199,6 +199,34 @@
 		"en_us": "Zen Mode",
 		"es_419": "Forma Daruma"
 	},
+	"deoxys attack forme": {
+		"en_us": "Deoxys Attack Forme",
+		"es_419": "Deoxys Forma Ataque"
+	},
+	"deoxys defense forme": {
+		"en_us": "Deoxys Defense Forme",
+		"es_419": "Deoxys Forma Defensa"
+	},
+	"deoxys speed forme": {
+		"en_us": "Deoxys Speed Forme",
+		"es_419": "Deoxys Forma Velocidad"
+	},
+	"normal forme": {
+		"en_us": "Normal Forme",
+		"es_419": "Forma Normal"
+	},
+	"attack forme": {
+		"en_us": "Attack Forme",
+		"es_419": "Forma Ataque"
+	},
+	"defense forme": {
+		"en_us": "Defense Forme",
+		"es_419": "Forma Defensa"
+	},
+	"speed forme": {
+		"en_us": "Speed Forme",
+		"es_419": "Forma Velocidad"
+	},
 	"alolan diglett": {
 		"en_us": "Alolan Diglett",
 		"es_419": "Diglett de Alola"
