@@ -647,6 +647,22 @@
 		"en_us": "Silvally (Water)",
 		"es_419": "Silvally (Agua)"
 	},
+	"tornadus incarnate forme": {
+		"en_us": "Tornadus Incarnate Forme",
+		"es_419": "Tornadus Forma Avatar"
+	},
+	"tornadus therian forme": {
+		"en_us": "Tornadus Therian Forme",
+		"es_419": "Tornadus Forma Tótem"
+	},
+	"incarnate forme": {
+		"en_us": "Incarnate Forme",
+		"es_419": "Forma Avatar"
+	},
+	"therian forme": {
+		"en_us": "Therian Forme",
+		"es_419": "Forma Tótem"
+	},
 	"alolan vulpix": {
 		"en_us": "Alolan Vulpix",
 		"es_419": "Vulpix de Alola"

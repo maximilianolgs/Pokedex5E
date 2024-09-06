@@ -2535,6 +2535,10 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/sprites/641Tornadus Therian.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/sprites/642Thundurus.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }

@@ -2543,6 +2543,10 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/pokemons/641Tornadus Therian.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/pokemons/642Thundurus.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
