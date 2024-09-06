@@ -2543,6 +2543,10 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/sprites/642Thundurus Therian.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/sprites/643Reshiram.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
