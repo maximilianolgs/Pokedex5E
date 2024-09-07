@@ -1327,6 +1327,18 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/pokemons/386Deoxys Attack.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/386Deoxys Defense.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/386Deoxys Speed.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/pokemons/387Turtwig.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
@@ -1447,7 +1459,15 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/pokemons/412Burmy.png"
+  image: "/assets/textures/pokemons/412Burmy Plant Cloak.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/412Burmy Sand Cloak.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/412Burmy Trash Cloak.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -2111,7 +2131,11 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/pokemons/550Basculin.png"
+  image: "/assets/textures/pokemons/550Basculin Red.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/550Basculin Blue.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -2132,6 +2156,10 @@ images {
 }
 images {
   image: "/assets/textures/pokemons/555Darmanitan.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/555Darmanitan Zen Mode.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -2519,7 +2547,15 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/pokemons/641Tornadus Therian.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/pokemons/642Thundurus.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/642Thundurus Therian.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -2532,6 +2568,10 @@ images {
 }
 images {
   image: "/assets/textures/pokemons/645Landorus.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/645Landorus Therian.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -2712,6 +2752,10 @@ images {
 }
 images {
   image: "/assets/textures/pokemons/681Aegislash.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/681Aegislash Blade.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {

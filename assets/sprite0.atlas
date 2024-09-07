@@ -1319,6 +1319,18 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/sprites/386Deoxys Attack.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/386Deoxys Defense.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/386Deoxys Speed.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/sprites/387Turtwig.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
@@ -1439,7 +1451,15 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/sprites/412Burmy.png"
+  image: "/assets/textures/sprites/412Burmy Plant Cloak.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/412Burmy Sand Cloak.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/412Burmy Trash Cloak.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -2103,7 +2123,11 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/sprites/550Basculin.png"
+  image: "/assets/textures/sprites/550Basculin Red.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/550Basculin Blue.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -2124,6 +2148,10 @@ images {
 }
 images {
   image: "/assets/textures/sprites/555Darmanitan.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/555Darmanitan Zen Mode.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -2511,7 +2539,15 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/sprites/641Tornadus Therian.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/sprites/642Thundurus.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/642Thundurus Therian.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -2524,6 +2560,10 @@ images {
 }
 images {
   image: "/assets/textures/sprites/645Landorus.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/645Landorus Therian.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -2700,6 +2740,10 @@ images {
 }
 images {
   image: "/assets/textures/sprites/681Aegislash.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/681Aegislash Blade.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
