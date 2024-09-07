@@ -159,9 +159,21 @@
 		"en_us": "Arceus (Water)",
 		"es_419": "Arceus (Agua)"
 	},
-	"castform": {
-		"en_us": "Castform",
-		"es_419": "Castform Normal"
+	"basculin (red-striped)": {
+		"en_us": "Basculin (Red-Striped)",
+		"es_419": "Basculin (raya roja)"
+	},
+	"basculin (blue-striped)": {
+		"en_us": "Basculin (Blue-Striped)",
+		"es_419": "Basculin (raya azul)"
+	},
+	"red-striped": {
+		"en_us": "Red-Striped",
+		"es_419": "Raya Roja"
+	},
+	"blue-striped": {
+		"en_us": "Blue-Striped",
+		"es_419": "Raya Azul"
 	},
 	"rainy castform": {
 		"en_us": "Rainy Castform",

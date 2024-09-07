@@ -2123,7 +2123,11 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/sprites/550Basculin.png"
+  image: "/assets/textures/sprites/550Basculin Red.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/sprites/550Basculin Blue.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {

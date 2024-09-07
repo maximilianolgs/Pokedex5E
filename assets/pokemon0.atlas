@@ -2131,7 +2131,11 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/textures/pokemons/550Basculin.png"
+  image: "/assets/textures/pokemons/550Basculin Red.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/textures/pokemons/550Basculin Blue.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
