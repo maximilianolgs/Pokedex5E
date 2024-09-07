@@ -655,9 +655,21 @@
 		"en_us": "Tornadus Therian Forme",
 		"es_419": "Tornadus Forma Tótem"
 	},
+	"thundurus incarnate forme": {
+		"en_us": "Thundurus Incarnate Forme",
+		"es_419": "Thundurus Forma Avatar"
+	},
 	"thundurus therian forme": {
 		"en_us": "Thundurus Therian Forme",
 		"es_419": "Thundurus Forma Tótem"
+	},
+	"landorus incarnate forme": {
+		"en_us": "Landorus Incarnate Forme",
+		"es_419": "Landorus Forma Avatar"
+	},
+	"landorus therian forme": {
+		"en_us": "Landorus Therian Forme",
+		"es_419": "Landorus Forma Tótem"
 	},
 	"incarnate forme": {
 		"en_us": "Incarnate Forme",

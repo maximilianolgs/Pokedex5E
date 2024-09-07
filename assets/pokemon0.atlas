@@ -2567,6 +2567,10 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
+  image: "/assets/textures/pokemons/645Landorus Therian.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
   image: "/assets/textures/pokemons/646Black Kyurem.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
