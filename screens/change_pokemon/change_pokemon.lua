@@ -27,6 +27,7 @@ local ABILITY_BUTTON_TEXT_SCALE = vmath.vector3(0.8)
 local M = {}
 
 M.block = false
+M.read_only = false
 
 local active_buttons = {}
 local move_buttons_list = {}
@@ -54,7 +55,7 @@ M.config = {
 	[hash("change_pokemon/skills")] = {open=vmath.vector3(720, 200, 0), closed=vmath.vector3(720, 50, 0), active=false},
 	[hash("change_pokemon/nature")] = {open=vmath.vector3(720, 70, 0), closed=vmath.vector3(720, 0, 0), active=true},
 	[hash("change_pokemon/variant")] = {open=vmath.vector3(720, 70, 0), closed=vmath.vector3(720, 0, 0), active=true},
-	[hash("change_pokemon/held_item")] = {open=vmath.vector3(720, 200, 0), closed=vmath.vector3(720, 50, 0), active=false},
+	[hash("change_pokemon/held_item")] = {open=vmath.vector3(720, 120, 0), closed=vmath.vector3(720, 50, 0), active=false},
 	[hash("change_pokemon/custom_asi/root")] = {open=vmath.vector3(720, 420, 0), closed=vmath.vector3(720, 50, 0), active=false}
 }
 local node_index = 0
@@ -496,6 +497,8 @@ local function localize_text()
 	gui.set_text(gui.get_node("change_pokemon/title_move"), localization.get("change_pokemon_screen","title_move_set","MOVE SET"))
 	gui.set_text(gui.get_node("change_pokemon/txt_move"), localization.get("change_pokemon_screen","txt_move","MOVE"))
 	gui.set_text(gui.get_node("change_pokemon/species"), localization.get("change_pokemon_screen","txt_pick_species","PICK POKEMON"))
+	gui.set_text(gui.get_node("change_pokemon/ot_name_lbl"), localization.get_upper("pokemon_information","ot_name","OT") .. ":")
+	gui.set_text(gui.get_node("change_pokemon/ot_id_lbl"), localization.get_upper("pokemon_information","ot_id","ID") .. ":")
 	gui.set_text(gui.get_node("change_pokemon/asi/STR1"), localization.get_upper("pokemon_information","pokemon_attribute_str","STRENGTH"))
 	gui.set_text(gui.get_node("change_pokemon/asi/DEX1"), localization.get_upper("pokemon_information","pokemon_attribute_dex","DEXTERITY"))
 	gui.set_text(gui.get_node("change_pokemon/asi/CON1"), localization.get_upper("pokemon_information","pokemon_attribute_con","CONSTITUTION"))
@@ -544,6 +547,7 @@ function M.init(self)
 	gui_utils.scale_text_to_fit_size(gui.get_node("change_pokemon/species"))
 	self.move_node = gui.get_node("change_pokemon/btn_move")
 	gui.set_enabled(self.move_node, false)
+	gui.set_enabled(gui.get_node("change_pokemon/ot_box"), false)
 
 	if self.pokemon then
 		self.pkstat = {}
@@ -556,6 +560,11 @@ function M.init(self)
 		gender = _pokemon.get_gender(self.pokemon)
 		set_gender_icon(self, gender)
 		self.pkmn_abilities = utils.shallow_copy(self.pokemon.abilities)
+		if self.pokemon.ot then
+			gui.set_text(gui.get_node("change_pokemon/ot_name_txt"), self.pokemon.ot.name)
+			gui.set_text(gui.get_node("change_pokemon/ot_id_txt"), self.pokemon.ot.id)
+			gui.set_enabled(gui.get_node("change_pokemon/ot_box"), true)
+		end
 	else
 		gui.set_enabled(gui.get_node("change_pokemon/checkmark_shiny_mark"), false)
 	end
@@ -852,44 +861,6 @@ function M.on_input(self, action_id, action)
 	if M.block then
 		return
 	end
-	for _, button in pairs(active_buttons) do
-		gooey.button(button.node, action_id, action, button.func, button.refresh)
-	end
-
-	gooey.button("change_pokemon/female", action_id, action, function()
-		set_gender(self, _pokemon.FEMALE)
-	end)
-	
-	gooey.button("change_pokemon/male", action_id, action, function()
-		set_gender(self, _pokemon.MALE)
-	end)
-	gooey.button("change_pokemon/hp/btn_minus", action_id, action, function()
-		if _pokemon.have_ability(self.pokemon, "Paper Thin") then
-			monarch.show(screens.INFO, nil, {text=localization.get("change_pokemon_screen", "paper_thin_notif", "Ability: Paper Thin\nThis Pokemon's max HP is always 1")})
-			return
-		end
-		if _pokemon.get_max_hp_forced(self.pokemon) == true then
-			_pokemon.set_current_hp(self.pokemon, _pokemon.get_current_hp(self.pokemon) - 1)
-			_pokemon.set_max_hp(self.pokemon, _pokemon.get_max_hp(self.pokemon) - 1)
-			M.update_hp_counter(self)
-		else
-			monarch.show(screens.ARE_YOU_SURE, nil, {sender=msg.url(), data=-1, id=messages.CHANGE_HP, message=messages.CHANGE_HP})
-		end
-	end, gooey_buttons.minus_button)
-
-	gooey.button("change_pokemon/hp/btn_plus", action_id, action, function()
-		if _pokemon.have_ability(self.pokemon, "Paper Thin") then
-			monarch.show(screens.INFO, nil, {text=localization.get("change_pokemon_screen", "paper_thin_notif", "Ability: Paper Thin\nThis Pokemon's max HP is always 1")})
-			return
-		end
-		if _pokemon.get_max_hp_forced(self.pokemon) then
-			_pokemon.set_current_hp(self.pokemon, _pokemon.get_current_hp(self.pokemon) + 1)
-			_pokemon.set_max_hp(self.pokemon, _pokemon.get_max_hp(self.pokemon) + 1)
-			M.update_hp_counter(self)
-		else
-			monarch.show(screens.ARE_YOU_SURE, nil, {sender=msg.url(), data=1, id=messages.CHANGE_HP, message=messages.CHANGE_HP})
-		end
-	end, gooey_buttons.plus_button)
 
 	gooey.button("change_pokemon/custom_asi/btn_collapse", action_id, action, function()
 		M.config[hash("change_pokemon/custom_asi/root")].active = not M.config[hash("change_pokemon/custom_asi/root")].active
@@ -903,7 +874,7 @@ function M.on_input(self, action_id, action)
 		end
 		update_sections()
 	end)
-	
+
 	gooey.button("change_pokemon/asi/btn_collapse", action_id, action, function()
 		M.config[hash("change_pokemon/asi/root")].active = not M.config[hash("change_pokemon/asi/root")].active
 		if M.config[hash("change_pokemon/asi/root")].active then
@@ -955,7 +926,7 @@ function M.on_input(self, action_id, action)
 		end
 		update_sections()
 	end)
-	
+
 	gooey.button("change_pokemon/btn_collapse_skills", action_id, action, function()
 		M.config[hash("change_pokemon/skills")].active = not M.config[hash("change_pokemon/skills")].active
 		if M.config[hash("change_pokemon/skills")].active then
@@ -968,7 +939,7 @@ function M.on_input(self, action_id, action)
 		end
 		update_sections()
 	end)
-	
+
 	gooey.button("change_pokemon/btn_collapse_item", action_id, action, function()
 		M.config[hash("change_pokemon/held_item")].active = not M.config[hash("change_pokemon/held_item")].active
 		if M.config[hash("change_pokemon/held_item")].active then
@@ -981,6 +952,48 @@ function M.on_input(self, action_id, action)
 		end
 		update_sections()
 	end)
+	if M.read_only then
+		return
+	end
+	for _, button in pairs(active_buttons) do
+		gooey.button(button.node, action_id, action, button.func, button.refresh)
+	end
+
+	gooey.button("change_pokemon/female", action_id, action, function()
+		set_gender(self, _pokemon.FEMALE)
+	end)
+	
+	gooey.button("change_pokemon/male", action_id, action, function()
+		set_gender(self, _pokemon.MALE)
+	end)
+	gooey.button("change_pokemon/hp/btn_minus", action_id, action, function()
+		if _pokemon.have_ability(self.pokemon, "Paper Thin") then
+			monarch.show(screens.INFO, nil, {text=localization.get("change_pokemon_screen", "paper_thin_notif", "Ability: Paper Thin\nThis Pokemon's max HP is always 1")})
+			return
+		end
+		if _pokemon.get_max_hp_forced(self.pokemon) == true then
+			_pokemon.set_current_hp(self.pokemon, _pokemon.get_current_hp(self.pokemon) - 1)
+			_pokemon.set_max_hp(self.pokemon, _pokemon.get_max_hp(self.pokemon) - 1)
+			M.update_hp_counter(self)
+		else
+			monarch.show(screens.ARE_YOU_SURE, nil, {sender=msg.url(), data=-1, id=messages.CHANGE_HP, message=messages.CHANGE_HP})
+		end
+	end, gooey_buttons.minus_button)
+
+	gooey.button("change_pokemon/hp/btn_plus", action_id, action, function()
+		if _pokemon.have_ability(self.pokemon, "Paper Thin") then
+			monarch.show(screens.INFO, nil, {text=localization.get("change_pokemon_screen", "paper_thin_notif", "Ability: Paper Thin\nThis Pokemon's max HP is always 1")})
+			return
+		end
+		if _pokemon.get_max_hp_forced(self.pokemon) then
+			_pokemon.set_current_hp(self.pokemon, _pokemon.get_current_hp(self.pokemon) + 1)
+			_pokemon.set_max_hp(self.pokemon, _pokemon.get_max_hp(self.pokemon) + 1)
+			M.update_hp_counter(self)
+		else
+			monarch.show(screens.ARE_YOU_SURE, nil, {sender=msg.url(), data=1, id=messages.CHANGE_HP, message=messages.CHANGE_HP})
+		end
+	end, gooey_buttons.plus_button)
+
 	if M.config[hash("change_pokemon/custom_asi/root")].active then
 		attribute_buttons(self, action_id, action, "custom_asi", custom_decrease, custom_increase)
 	end
@@ -1007,7 +1020,7 @@ function M.on_input(self, action_id, action)
 			monarch.show(screens.NATURES_SCROLLIST, {}, {items=natures.list, message_id=messages.NATURE, sender=msg.url()})
 		end)
 	end
-	if M.config[hash("change_pokemon/variant")].active then
+	if M.config[hash("change_pokemon/variant")].active and not pokedex.is_variant_permanent(_pokemon.get_current_species(self.pokemon)) then
 		gooey.button("change_pokemon/btn_variant", action_id, action, function()
 			local variants = pokedex.get_variants(_pokemon.get_current_species(self.pokemon))
 			monarch.show(screens.SCROLLIST, {}, {items=variants, message_id=messages.VARIANT, sender=msg.url(), title=localization.get("change_pokemon_screen", "choose_variant_title", "Choose Variant")})

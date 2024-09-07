@@ -162,11 +162,21 @@ function M.is_in_storage(id)
 end
 
 
-function M.get_copy(id)
+local function get(id)
+	local pkmn = player_pokemon[id]
+	_pokemon.upgrade_pokemon(pkmn)
+	return pkmn
+end
+
+
+function M.get_copy(id, as_wild)
 	if player_pokemon[id] then
-		local pkmn = player_pokemon[id]
-		_pokemon.upgrade_pokemon(pkmn)
-		return utils.deep_copy(pkmn)
+		local pkmn = utils.deep_copy(get(id))
+		if as_wild then
+			pkmn.ot = nil
+			pkmn.nickname = nil
+		end
+		return pkmn
 	else
 		local e = string.format("Trying to get '" .. tostring(id) .. "' from storage\n\n%s", debug.traceback())
 		gameanalytics.addErrorEvent {
@@ -176,13 +186,6 @@ function M.get_copy(id)
 		log.fatal(e)
 		return nil
 	end
-end
-
-
-local function get(id)
-	local pkmn = player_pokemon[id]
-	_pokemon.upgrade_pokemon(pkmn)
-	return pkmn
 end
 
 
@@ -254,7 +257,9 @@ end
 
 function M.add(pokemon)
 	_pokemon.upgrade_pokemon(pokemon)
-	
+	if pokemon.ot == nil then
+		pokemon.ot = { name = profiles.get_active_name(), id = profiles.get_active_uid():sub(1,5), uid = profiles.get_active_uid() }
+	end
 	for i=#pokemon.moves, 1, -1 do
 		if pokemon.moves[i] == "" or pokemon.moves[i] == "None" then
 			table.remove(pokemon.moves, i)

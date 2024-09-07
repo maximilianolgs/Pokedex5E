@@ -478,5 +478,13 @@
 	"move_pp_unlimited": {
 		"en_us": "Unlimited",
 		"es_419": "Ilimitado"
+	},
+	"ot_name": {
+		"en_us": "OT",
+		"es_419": "EO"
+	},
+	"ot_id": {
+		"en_us": "ID",
+		"es_419": "ID"
 	}
 }

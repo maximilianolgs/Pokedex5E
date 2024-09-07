@@ -70,5 +70,33 @@
 	"roll20_sheet_copied_notif": {
 		"en_us": "%s's roll20 sheet copied to clipboard!",
 		"es_419": "¡La hoja de personaje de %s para roll20 se copió al portapapeles!"
+	},
+	"txt_share": {
+		"en_us": "EXPORT",
+		"es_419": "COMPARTIR"
+	},
+	"share_title": {
+		"en_us": "SHARE",
+		"es_419": "COMPARTIR"
+	},
+	"send_as_wild": {
+		"en_us": "As Wild Pokémon",
+		"es_419": "Pokémon Salvaje"
+	},
+	"qr_share": {
+		"en_us": "Generate QR code",
+		"es_419": "Generar código QR"
+	},
+	"clipboard_share": {
+		"en_us": "Copy to Clipboard",
+		"es_419": "Copiar al Portapapeles"
+	},
+	"roll20_share": {
+		"en_us": "Generate Roll20 character sheet",
+		"es_419": "Copiar hoja de personaje de Roll20"
+	},
+	"network_share": {
+		"en_us": "Send to a group member",
+		"es_419": "Enviar a un integrante del grupo"
 	}
 }

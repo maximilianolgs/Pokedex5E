@@ -72,8 +72,10 @@ local function remove_accents(str)
 end
 
 function M.get(source, key, default)
+	local info = debug.getinfo(2, "Sl")
+	local caller = info.short_src .. ":" .. info.currentline
 	if not source or not key or not default then
-		local e = "source " .. (source or "missing") .. ", key " .. (key or "missing") .. ", defaultValue " .. (default or "missing")
+		local e = "source " .. (source or "missing") .. ", key " .. (key or "missing") .. ", defaultValue " .. (default or "missing") .. " at " .. caller
 		gameanalytics.addErrorEvent {
 			severity = gameanalytics.SEVERITY_CRITICAL,
 			message = e
@@ -83,7 +85,7 @@ function M.get(source, key, default)
 	end
 	
 	if source == "" or key == "" then
-		local e = "source or key empty: " .. source .. "/" .. key
+		local e = "source or key empty: " .. source .. "/" .. key .. " at " .. caller
 		gameanalytics.addErrorEvent {
 			severity = gameanalytics.SEVERITY_ERROR,
 			message = e
@@ -99,7 +101,7 @@ function M.get(source, key, default)
 	end
 
 	if not M.dictionary[source] then
-		local e = "Error loading localization file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json'"
+		local e = "Error loading localization file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json' at " .. caller
 		gameanalytics.addErrorEvent {
 			severity = gameanalytics.SEVERITY_ERROR,
 			message = e
@@ -110,7 +112,7 @@ function M.get(source, key, default)
 	end
 
 	if not M.dictionary[source][lkey] then
-		local e = "Key " .. lkey .. " not found on file " .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json"
+		local e = "Key " .. lkey .. " not found on file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json' at " .. caller
 		gameanalytics.addErrorEvent {
 			severity = gameanalytics.SEVERITY_WARNING,
 			message = e
@@ -121,7 +123,7 @@ function M.get(source, key, default)
 	end
 	
 	if not M.dictionary[source][lkey][settings.get("lang")] then
-		local e = "Key " .. lkey .. "/" .. settings.get("lang") .. " not found on file " .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json"
+		local e = "Key " .. lkey .. "/" .. settings.get("lang") .. " not found on file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json' at " .. caller
 		gameanalytics.addErrorEvent {
 			severity = gameanalytics.SEVERITY_WARNING,
 			message = e
@@ -191,7 +193,9 @@ function M.load_localized_json_from_resource(filename)
 	if localized_file then
 		return localized_file
 	else
-		local e = lfilename .. " not found. Returning default file."
+		local info = debug.getinfo(2, "Sl")
+		local caller = info.short_src .. ":" .. info.currentline
+		local e = lfilename .. " not found. Returning default file at " .. caller
 		gameanalytics.addErrorEvent {
 			severity = gameanalytics.SEVERITY_WARNING,
 			message = e

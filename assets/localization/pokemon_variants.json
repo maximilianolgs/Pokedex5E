@@ -71,6 +71,22 @@
 		"en_us": "Fairy",
 		"es_419": "Hada"
 	},
+	"aegislash shield forme": {
+		"en_us": "Aegislash Shield Forme",
+		"es_419": "Aegislash Escudo"
+	},
+	"aegislash blade forme": {
+		"en_us": "Aegislash Blade Forme",
+		"es_419": "Aegislash Filo"
+	},
+	"shield forme": {
+		"en_us": "Shield Forme",
+		"es_419": "Forma Escudo"
+	},
+	"blade forme": {
+		"en_us": "Blade Forme",
+		"es_419": "Forma Filo"
+	},
 	"arceus (bug)": {
 		"en_us": "Arceus (Bug)",
 		"es_419": "Arceus (Bicho)"
@@ -143,9 +159,21 @@
 		"en_us": "Arceus (Water)",
 		"es_419": "Arceus (Agua)"
 	},
-	"castform": {
-		"en_us": "Castform",
-		"es_419": "Castform Normal"
+	"basculin (red-striped)": {
+		"en_us": "Basculin (Red-Striped)",
+		"es_419": "Basculin (raya roja)"
+	},
+	"basculin (blue-striped)": {
+		"en_us": "Basculin (Blue-Striped)",
+		"es_419": "Basculin (raya azul)"
+	},
+	"red-striped": {
+		"en_us": "Red-Striped",
+		"es_419": "Raya Roja"
+	},
+	"blue-striped": {
+		"en_us": "Blue-Striped",
+		"es_419": "Raya Azul"
 	},
 	"rainy castform": {
 		"en_us": "Rainy Castform",
@@ -170,6 +198,46 @@
 	"sunny": {
 		"en_us": "Sunny",
 		"es_419": "Soleado"
+	},
+	"darmanitan zen mode": {
+		"en_us": "Darmanitan Zen Mode",
+		"es_419": "Darmanitan Daruma"
+	},
+	"standard mode": {
+		"en_us": "Standard Mode",
+		"es_419": "Forma Normal"
+	},
+	"zen mode": {
+		"en_us": "Zen Mode",
+		"es_419": "Forma Daruma"
+	},
+	"deoxys attack forme": {
+		"en_us": "Deoxys Attack Forme",
+		"es_419": "Deoxys Forma Ataque"
+	},
+	"deoxys defense forme": {
+		"en_us": "Deoxys Defense Forme",
+		"es_419": "Deoxys Forma Defensa"
+	},
+	"deoxys speed forme": {
+		"en_us": "Deoxys Speed Forme",
+		"es_419": "Deoxys Forma Velocidad"
+	},
+	"normal forme": {
+		"en_us": "Normal Forme",
+		"es_419": "Forma Normal"
+	},
+	"attack forme": {
+		"en_us": "Attack Forme",
+		"es_419": "Forma Ataque"
+	},
+	"defense forme": {
+		"en_us": "Defense Forme",
+		"es_419": "Forma Defensa"
+	},
+	"speed forme": {
+		"en_us": "Speed Forme",
+		"es_419": "Forma Velocidad"
 	},
 	"alolan diglett": {
 		"en_us": "Alolan Diglett",
@@ -591,6 +659,38 @@
 		"en_us": "Silvally (Water)",
 		"es_419": "Silvally (Agua)"
 	},
+	"tornadus incarnate forme": {
+		"en_us": "Tornadus Incarnate Forme",
+		"es_419": "Tornadus Forma Avatar"
+	},
+	"tornadus therian forme": {
+		"en_us": "Tornadus Therian Forme",
+		"es_419": "Tornadus Forma Tótem"
+	},
+	"thundurus incarnate forme": {
+		"en_us": "Thundurus Incarnate Forme",
+		"es_419": "Thundurus Forma Avatar"
+	},
+	"thundurus therian forme": {
+		"en_us": "Thundurus Therian Forme",
+		"es_419": "Thundurus Forma Tótem"
+	},
+	"landorus incarnate forme": {
+		"en_us": "Landorus Incarnate Forme",
+		"es_419": "Landorus Forma Avatar"
+	},
+	"landorus therian forme": {
+		"en_us": "Landorus Therian Forme",
+		"es_419": "Landorus Forma Tótem"
+	},
+	"incarnate forme": {
+		"en_us": "Incarnate Forme",
+		"es_419": "Forma Avatar"
+	},
+	"therian forme": {
+		"en_us": "Therian Forme",
+		"es_419": "Forma Tótem"
+	},
 	"alolan vulpix": {
 		"en_us": "Alolan Vulpix",
 		"es_419": "Vulpix de Alola"
@@ -610,6 +710,18 @@
 	"solo form": {
 		"en_us": "Solo Form",
 		"es_419": "Forma Individual"
+	},
+	"burmy (plant cloak)": {
+		"en_us": "Burmy (Plant Cloak)",
+		"es_419": "Burmy (Tronco Planta)"
+	},
+	"burmy (sand cloak)": {
+		"en_us": "Burmy (Sand Cloak)",
+		"es_419": "Burmy (Tronco Arena)"
+	},
+	"burmy (trash cloak)": {
+		"en_us": "Burmy (Trash Cloak)",
+		"es_419": "Burmy (Tronco Basura)"
 	},
 	"wormadam (plant cloak)": {
 		"en_us": "Wormadam (Plant Cloak)",

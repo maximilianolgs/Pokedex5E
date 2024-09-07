@@ -24,6 +24,7 @@ local send_pokemon = require "pokedex.network.send_pokemon"
 local utils = require "utils.utils"
 local _share = require "pokedex.share"
 local localization = require "utils.localization"
+local profiles = require "pokedex.profiles"
 
 
 -- Because the "swap pokemon" popup isn't actually its own screen, it doesn't re-init and reset positions of everything
@@ -186,6 +187,11 @@ local function setup_info(self)
 	if pokemon_sprite then
 		gui.play_flipbook(gui.get_node("pokemon_sprite"), pokemon_sprite)
 	end
+	
+	gui.set_text(gui.get_node("txt_ot_name"), localization.get_upper("pokemon_information","ot_name","OT") .. ": " .. pokemon.ot.name)
+	gui.set_text(gui.get_node("txt_ot_id"), localization.get_upper("pokemon_information","ot_id","ID") .. ": " .. pokemon.ot.id)
+	self.can_be_wild = pokemon.ot.uid == profiles.get_active_uid()
+	
 	gui.set_text(gui.get_node("txt_lvl"), localization.get("pokemon_information", "pokemon_level","Lv.") .. " " .. _pokemon.get_current_level(pokemon))
 	gui.set_text(gui.get_node("txt_ac"), localization.get("pokemon_information", "pokemon_ac","AC") .. ": " .. _pokemon.get_AC(pokemon))
 
@@ -258,24 +264,25 @@ local function on_send_pokemon(self)
 	local pokemon_nickname = tostring(self.nickname)
 	local index = self.index
 	local species_display = self.species_display
+	local send_as_wild = self.send_as_wild
 	local is_local_host = net_members.is_local_member_host()
 	local prev_screen = monarch.top(-1)
-	local fn_member_chosen = function(member_id, send_as_wild)
+	local fn_member_chosen = function(member_id)
 		local member_name = tostring(net_member_name.get_name(member_id))
 		local send_type = send_pokemon.SEND_TYPE_GIFT
-		local eventId = "Gift:"
+		local eventId = "Pokemon:Send:Group:"
 		if send_as_wild then
 			send_type = send_pokemon.SEND_TYPE_CATCH
-			eventId = "Catch:"
+			eventId = "Pokemon:Wild:Group:"
 		end
 		local are_you_sure_cb = function(accepted)
 			if accepted then
 				send_pokemon.send_pokemon(member_id, pokemon_id, send_type)
 				notify.notify(localization.get("transfer_popup", "pokemon_sent","GOODBYE, %s!\nHAVE FUN WITH %s!"):format(pokemon_nickname, member_name))
 				gameanalytics.addDesignEvent {
-					eventId = "Pokemon:Send:" .. eventId .. species_display
+					eventId = eventId .. species_display
 				}
-				storage.release_pokemon(pokemon_id)	
+				storage.release_pokemon(pokemon_id)
 				monarch.show(prev_screen, {clear=true})
 			end
 		end
@@ -297,7 +304,7 @@ local function on_send_pokemon(self)
 	monarch.show(screens.NETWORK_CHOOSE_MEMBER, nil,
 	{
 		prompt=localization.get("transfer_popup", "choose_member_prompt", "Who should receive %s?"):format(pokemon_nickname),
-		fn_member_chosen=fn_member_chosen,
+		fn_member_chosen=fn_member_chosen
 	})
 end
 
@@ -305,6 +312,19 @@ local function refresh_send_button(self)
 	local has_enough_left = not storage.is_party_pokemon(self.pokemon_id) or #storage.list_of_ids_in_party() > 1
 	self.send_button_enabled = has_enough_left and net_members.has_other_members()
 	gui.set_enabled(gui.get_node("btn_network_share"), self.send_button_enabled)
+	self.share_button_enabled = self.share_button_enabled or self.send_button_enabled
+end
+
+local function update_checkbox(checkbox)
+	if checkbox.checked then
+		gui.set_color(checkbox.node, gui_colors.ORANGE)
+	else
+		gui.set_color(checkbox.node, gui_colors.WHITE)
+	end
+end
+
+local function on_send_as_wild_checked(self, checkbox)
+	self.send_as_wild = checkbox.checked
 end
 
 function init(self)
@@ -323,6 +343,7 @@ function init(self)
 	self.pokemon_id = d.id
 	self.index = _pokemon.get_index_number(storage.get_pokemon(d.id))
 	setup_info(self)
+	self.share_button_enabled = _share.ENABLED.CLIPBOARD_WRITE or _share.ENABLED.QRCODE_GENERATE
 	if not _share.ENABLED.CLIPBOARD_WRITE then
 		gui.set_enabled(gui.get_node("btn_clipboard_share"), false)
 		gui.set_enabled(gui.get_node("btn_roll_twenty_share"), false)
@@ -332,8 +353,10 @@ function init(self)
 	end
 	self.swap = gui.get_node("swap")
 	self.move = gui.get_node("move")
-	gui.set_enabled(self.swap, false)
+	self.share = gui.get_node("share")
 	gui.set_enabled(self.move, true)
+	gui.set_enabled(self.swap, false)
+	gui.set_enabled(self.share, false)
 	
 	if self.to == messages.LOCATION_PC then
 		gui.set_text(gui.get_node("txt_move"), localization.get("transfer_popup", "move_to_" .. DESTINATION_PC, "MOVE TO " .. DESTINATION_PC))
@@ -341,6 +364,20 @@ function init(self)
 		gui.set_text(gui.get_node("txt_move"), localization.get("transfer_popup", "move_to_" .. DESTINATION_PARTY, "MOVE TO " .. DESTINATION_PARTY))
 	end
 	gui_utils.scale_text_to_fit_parent_size(gui.get_node("txt_move"))
+
+	-- Export/Share button and popup
+	gui.set_text(gui.get_node("txt_share"), localization.get("transfer_popup", "txt_share", "EXPORT"))
+	gui_utils.scale_text_to_fit_parent_size(gui.get_node("txt_share"))
+	gui.set_text(gui.get_node("share_title"), localization.get("transfer_popup", "share_title", "SHARE"))
+	gui.set_text(gui.get_node("send_as_wild/text"), localization.get("transfer_popup", "send_as_wild", "As Wild Pokémon"))
+	gui.set_text(gui.get_node("qr_share_txt"), localization.get("transfer_popup", "qr_share", "Generate QR"))
+	gui.set_text(gui.get_node("clipboard_share_txt"), localization.get("transfer_popup", "clipboard_share", "Copy to Clipboard"))
+	gui.set_text(gui.get_node("roll20_share_txt"), localization.get("transfer_popup", "roll20_share", "Generate Roll20 character sheet"))
+	gui.set_text(gui.get_node("network_share_txt"), localization.get("transfer_popup", "network_share", "Send to a group member"))
+	self.send_as_wild = false
+	gui.set_enabled(gui.get_node("send_as_wild/bg"), self.can_be_wild)
+	gooey.checkbox("send_as_wild/checkmark").set_checked(self.send_as_wild)
+	update_checkbox(gooey.checkbox("send_as_wild/checkmark"))
 	
 	self.move_button_enabled = true
 	if self.to == messages.LOCATION_PC and #storage.list_of_ids_in_party() == 1 then
@@ -382,10 +419,14 @@ local function move(self)
 	end
 end
 
-
 local function cancel_swap(self)
 	gui.set_enabled(self.swap, false)
 	gui.set_enabled(self.move, true)
+end
+
+local function share_popup(self)
+	gui.set_enabled(self.move, not gui.is_enabled(self.move))
+	gui.set_enabled(self.share, not gui.is_enabled(self.share))
 end
 
 local function release(self)
@@ -399,7 +440,6 @@ local function release(self)
 		})
 	end
 end
-
 
 function on_message(self, message_id, message, sender)
 	if message_id == messages.RESPONSE then
@@ -420,46 +460,70 @@ function on_message(self, message_id, message, sender)
 	end
 end
 
-
 function on_input(self, action_id, action)
 	local b = button.on_input(action_id, action)
 
 	if gui.is_enabled(self.swap) then
-		local bg1 = gooey.button("swap_background", action_id, action, function() end)
-		local bg2 = gooey.button("max_active_pokemon_tutorial", action_id, action, function() end)
-		if not b and not bg1.over and not bg2.over then
-			gooey.button("dimmer1", action_id, action, function() cancel_swap(self) end)
+		local swap_background = gooey.button("swap_background", action_id, action, function() end)
+		local tutorial = gooey.button("max_active_pokemon_tutorial", action_id, action, function() end)
+		if not b and not swap_background.over and not tutorial.over then
+			gooey.button("swap_dimmer", action_id, action, function() cancel_swap(self) end)
 		end
-	else
-		local c, a, d, s, cp, rt
-		if self.move_button_enabled then
-			a = gooey.button("btn_move", action_id, action, function() move(self) end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_move")) end)
-			c = gooey.button("btn_release", action_id, action, function() release(self) end)
+	elseif gui.is_enabled(self.share) then
+		local share_background = gooey.button("share_background", action_id, action, function() end)
+
+		if self.can_be_wild then
+			gooey.checkbox("send_as_wild/checkmark", action_id, action, function(ck) on_send_as_wild_checked(self, ck) end, update_checkbox)
+			gooey.button("send_as_wild/bg", action_id, action, function()
+				local checkbox = gooey.checkbox("send_as_wild/checkmark")
+				checkbox.set_checked(not checkbox.checked)
+				update_checkbox(checkbox)
+				on_send_as_wild_checked(self, checkbox)
+			end)
 		end
-		d = gooey.button("btn_qr_share", action_id, action, function() 
-			monarch.show(screens.QR_DISPLAY, {}, {id=self.pokemon_id})
+		
+		gooey.button("btn_qr_share", action_id, action, function() 
+			monarch.show(screens.QR_DISPLAY, {}, {id=self.pokemon_id, send_as_wild=self.send_as_wild})
 		end, gooey_buttons.qr_share)
 
-		cp = gooey.button("btn_clipboard_share", action_id, action, function() 
-			share.export(self.pokemon_id)
+		gooey.button("btn_clipboard_share", action_id, action, function() 
+			share.export(self.pokemon_id, self.send_as_wild)
 		end, gooey_buttons.clipboard_share)
 		
-		rt = gooey.button("btn_roll_twenty_share", action_id, action, function() 
+		gooey.button("btn_roll_twenty_share", action_id, action, function() 
 			share.roll20_export(self.pokemon_id)
 		end, gooey_buttons.roll_twenty_share)
-
-		gooey.button("btn_close", action_id, action, back, gooey_buttons.close_button)
-		gooey.button("btn_cancel", action_id, action, function() cancel_swap(self) end, gooey_buttons.close_button)
-		local g = gooey.button("background", action_id, action, function() end)
-
+		
 		if self.send_button_enabled then
-			s = gooey.button("btn_network_share", action_id, action, function() 
+			gooey.button("btn_network_share", action_id, action, function() 
 				on_send_pokemon(self)
 			end, gooey_buttons.network_share)
 		end
+		
+		if not share_background.over then
+			gooey.button("share_dimmer", action_id, action, function() share_popup(self) end)
+		end
+	else
+		local btn_release, btn_move, btn_share
+		if self.move_button_enabled then
+			btn_move = gooey.button("btn_move", action_id, action, function() move(self) end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_move")) end)
+			btn_release = gooey.button("btn_release", action_id, action, function() release(self) end)
+		end
+		
+		if self.share_button_enabled then
+			btn_share = gooey.button("btn_share", action_id, action, function() share_popup(self) end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_share")) end)
+		end
+		
+		gooey.button("btn_close", action_id, action, back, gooey_buttons.close_button)
+		gooey.button("btn_cancel", action_id, action, function() cancel_swap(self) end, gooey_buttons.close_button)
+		local background = gooey.button("background", action_id, action, function() end)
 
-		if (not self.move_button_enabled or not a.over) and not b and (not self.move_button_enabled or not c.over) and not d.over and not g.over and (not self.send_button_enabled or not s.over) and not cp.over and not rt.over then
-			gooey.button("dimmer", action_id, action, back)
+		if (not self.move_button_enabled or not btn_move.over) and
+			(not self.share_button_enabled or not btn_share.over) and
+			not b and
+			(not self.move_button_enabled or not btn_release.over) and
+			not background.over then
+			gooey.button("bg_dimmer", action_id, action, back)
 		end
 	end
 	

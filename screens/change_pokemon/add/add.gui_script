@@ -40,7 +40,7 @@ local function add_pokemon(self)
 	local species_display = pokedex.get_species_display(self.pokemon.species.current, self.pokemon.variant)
 	local lspecies_display = species_display
 	if species_display ~= self.pokemon.species.current then
-		lspecies_display = localization.get("pokemon_variants", display, display)
+		lspecies_display = localization.get("pokemon_variants", species_display, species_display)
 	end
 	dex.set(self.pokemon.species.current, dex.states.CAUGHT)
 	if storage.is_party_full() then
@@ -79,6 +79,7 @@ function init(self)
 	pokemon_edit.config[hash("change_pokemon/extra")].active = true
 	pokemon_edit.config[hash("change_pokemon/asi/root")].active = false
 	pokemon_edit.block = true
+	pokemon_edit.read_only = false
 	pokemon_edit.init(self)
 	function self.register_buttons_after_species(self)
 		pokemon_edit.config[hash("change_pokemon/abilities")].active = true

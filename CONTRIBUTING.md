@@ -6,6 +6,8 @@ The app is written with a game engine called [Defold](https://defold.com/). I st
 
 Start with doing a few tutorials from [here](https://defold.com/tutorials/getting-started/) they are all really good but for this project I think "[15 Puzzle](https://defold.com/tutorials/15-puzzle/)" and "[Colorslide](https://defold.com/tutorials/colorslide/)". I would recommend to do them all however.
 
+Keep in mind that the current version of Pokédex5e works with Defold 1.7.0
+
 ## Pull requests
 Submit Pull Requests (PRs) to contribute to Pokedex5e. PRs can introduce new featuers, fix bugs or such.
 
