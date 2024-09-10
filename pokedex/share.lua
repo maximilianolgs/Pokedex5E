@@ -13,6 +13,7 @@ local platform = require "utils.platform"
 local sjson = require "utils.json"
 local localization = require "utils.localization"
 local win_utils = require "utils.win-125x"
+local log = require "utils.log"
 
 local M = {}
 
@@ -130,17 +131,39 @@ function M.get_sendable_pokemon_copy(id, as_wild)
 	return pokemon
 end
 
+local function export_callback(notification_message, eventId, success)
+	if success then
+		notify.notify(notification_message)
+		gameanalytics.addDesignEvent {
+			eventId = eventId
+		}
+	else
+		local e = "Error accesing the clipboard\nThe Pokémon couldn't be exported"
+		notify.notify(localization.get("transfer_popup", "export_share_error", e))
+		gameanalytics.addErrorEvent {
+			severity = gameanalytics.SEVERITY_ERROR,
+			message = e
+		}
+		log.error(e)
+	end
+end
+
 function M.export(id, as_wild)
 	local pokemon = storage.get_copy(id, as_wild)
+	
+	local notification_message = localization.get("transfer_popup", "pokemon_copied_notif", "%s copied to clipboard!"):format(pokemon.nickname or pokemon.species.current)
 	local eventId = "Pokemon:Send:Clipboard:"
 	if as_wild then
 		eventId = "Pokemon:Wild:Clipboard:"
 	end
-	clipboard.copy(serialize_pokemon(pokemon))
-	notify.notify(localization.get("transfer_popup", "pokemon_copied_notif", "%s copied to clipboard!"):format(pokemon.nickname or pokemon.species.current))
-	gameanalytics.addDesignEvent {
-		eventId = eventId .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
-	}
+	eventId = eventId .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
+	
+	if platform.WEB then
+		clipboard.copy(serialize_pokemon(pokemon), function(success) export_callback(notification_message, eventId, success) end)
+	else
+		clipboard.copy(serialize_pokemon(pokemon))
+		export_callback(notification_message, eventId, true)
+	end
 end
 
 function M.roll20_export(id)
@@ -150,11 +173,15 @@ function M.roll20_export(id)
 	if platform.WINDOWS then
 		encoded_sheet = win_utils.utf8_to_win(encoded_sheet)
 	end
-	clipboard.copy(encoded_sheet)
-	notify.notify(localization.get("transfer_popup", "roll20_sheet_copied_notif", "%s's roll20 sheet copied to clipboard!"):format(pokemon.nickname or pokedex.get_species_display(pokemon.species.current, pokemon.variant)))
-	gameanalytics.addDesignEvent {
-		eventId = "Pokemon:Send:Roll20:" .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
-	}
+	local notification_message = localization.get("transfer_popup", "roll20_sheet_copied_notif", "%s's roll20 sheet copied to clipboard!"):format(pokemon.nickname or pokedex.get_species_display(pokemon.species.current, pokemon.variant))
+	local eventId = "Pokemon:Send:Roll20:" .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
+	
+	if platform.WEB then
+		clipboard.copy(encoded_sheet, function(success) export_callback(notification_message, eventId, success) end)
+	else
+		clipboard.copy(encoded_sheet)
+		export_callback(notification_message, eventId, true)
+	end
 end
 
 return M

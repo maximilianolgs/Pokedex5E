@@ -98,5 +98,9 @@
 	"network_share": {
 		"en_us": "Send to a group member",
 		"es_419": "Enviar a un integrante del grupo"
+	},
+	"export_share_error": {
+		"en_us": "Error accesing the clipboard\nThe Pokémon couldn't be exported",
+		"es_419": "Error al acceder al portapapeles\nEl Pokémon no se pudo exportar"
 	}
 }
