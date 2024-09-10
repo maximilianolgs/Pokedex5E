@@ -101,7 +101,16 @@
 		JsToDef.send("read_permission", read_permission.state);
 	}
 	function clipboard_copy(thing_to_copy) {
-		navigator.clipboard.writeText(thing_to_copy);
+		document.addEventListener('copy', (e) => {
+		  e.preventDefault();
+		  e.clipboardData.setData('text/plain', (thing_to_copy));
+		  document.removeEventListener('copy', null);
+		  JsToDef.send("clipboard_copy", true);
+		});
+		if (!document.execCommand('copy')){
+		  document.removeEventListener('copy', null);
+		  JsToDef.send("clipboard_copy", false);
+		}
 	}
 	async function clipboard_paste() {
 		var clipboard_content = await navigator.clipboard.readText();
@@ -126,7 +135,7 @@
 			var event = new MouseEvent('click');
 			link.dispatchEvent(event);
 			document.body.removeChild(link);
-			});
+		});
 	}
 	</script>
 	<script id='engine-loader' type='text/javascript' src="dmloader.js"></script>

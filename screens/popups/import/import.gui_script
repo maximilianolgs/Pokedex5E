@@ -45,7 +45,7 @@ function init(self)
 		
 		-- Only use 1 button, cancel wouldn't do anything anyway
 		gui.set_enabled(node_btn_exit, false)
-		pos_btn_confirm.x = 0		
+		pos_btn_confirm.x = 0
 	end
 
 	-- Shift everything around to account for the new size of the text node
