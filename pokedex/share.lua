@@ -29,12 +29,7 @@ M.ENABLED = {
 if platform.WEB then
 	clipboard = require "utils.html_clipboard"
 	M.ENABLED.CLIPBOARD_WRITE = true
-	clipboard.has_read_permission(function(has_permission)
-		M.ENABLED.CLIPBOARD_READ = has_permission
-		if not has_permission then
-			notify.notify(localization.get("settings_screen", "html_clipboard", "Make sure to enable clipboard permissons to activate the Receive menu"))
-		end
-	end)
+	M.ENABLED.CLIPBOARD_READ = true
 end
 
 local function get_clipboard_pokemon(clipboard_content)
@@ -92,7 +87,8 @@ end
 
 function M.get_clipboard(callback)
 	if platform.WEB then
-		clipboard.paste(function(clipboard_content) get_clipboard_callback(callback, clipboard_content) end)
+		clipboard.paste_listener(function(clipboard_content) get_clipboard_callback(callback, clipboard_content) end)
+		notify.notify(localization.get("receive_screen", "html_clipboard_tutorial", "Press Ctrl + v or Command + v to import Pokémon from Clipboard"))
 	else
 		get_clipboard_callback(callback, clipboard.paste())
 	end

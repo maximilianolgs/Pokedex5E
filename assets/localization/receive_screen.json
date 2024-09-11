@@ -10,5 +10,9 @@
 	"txt_clipboard": {
 		"en_us": "CLIPBOARD",
 		"es_419": "PORTAPAPELES"
+	},
+	"html_clipboard_tutorial": {
+		"en_us": "Press Ctrl + v or Command + v to import Pokémon from Clipboard",
+		"es_419": "Presiona Ctrl + v o Command + v para importar un Pokémon desde el portapapeles"
 	}
 }
