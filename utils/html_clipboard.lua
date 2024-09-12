@@ -37,6 +37,7 @@ jstodef.add_listener(js_listener)
 -- copy str to the clipboard
 function M.copy(value, callback)
 	copy_clipboard_callback = callback
+	value = value:gsub("\\", "\\\\")
 	value = value:gsub("'", "\\'")
 	value = value:gsub("\\n", "\\\\n")
 	html5.run("clipboard_copy('" .. value .. "')")
