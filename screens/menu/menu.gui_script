@@ -70,6 +70,12 @@ local function redraw_connected()
 	gui.set_enabled(gui.get_node("icon_connected"), netcore.is_connected())
 end
 
+local function update_profile_name()
+	local name = profiles.get_active_name() or localization.get("menu_screen", "default_pc_name", "Someone")
+	txt_storage = localization.get("menu_screen", "txt_storage_format", "%s's PC"):format(name)
+	gui.set_text(gui.get_node("txt_storage"), localization.upper(txt_storage))
+end
+
 local function initialize_text(self)
 	gui.set_text(gui.get_node("txt_party"), localization.get("menu_screen", "txt_party", "PARTY"))
 	gui.set_text(gui.get_node("txt_add"), localization.get("menu_screen", "txt_add", "ADD POKEMON"))
@@ -81,7 +87,7 @@ local function initialize_text(self)
 	gui.set_text(gui.get_node("txt_connect"), localization.get("menu_screen", "txt_connect", "CONNECT"))
 	gui.set_text(gui.get_node("txt_settings"), localization.get("menu_screen", "txt_settings", "SETTINGS"))
 	gui.set_text(gui.get_node("txt_about"), localization.get("menu_screen", "txt_about", "ABOUT"))
-
+	update_profile_name()
 	self.text_initialized = true
 end
 
@@ -258,12 +264,11 @@ function on_message(self, message_id, message)
 			initialize_text(self)
 		end
 		arrange_buttons(self)
-		local name = profiles.get_active_name() or localization.get("menu_screen", "default_pc_name", "Someone")
-		txt_storage = localization.get("menu_screen", "txt_storage_format", "%s's PC"):format(name)
-		gui.set_text(gui.get_node("txt_storage"), string.upper(txt_storage))
 		show(self)
 	elseif message_id == messages.HIDE then
 		hide(self)
+	elseif message_id == messages.UPDATE_PROFILE_NAME then
+		update_profile_name()
 	elseif message_id == netcore.MSG_STATE_CHANGED then
 		redraw_connected()
 	end
