@@ -95,15 +95,18 @@
 	<!-- -->
 	<script type='text/javascript' src="GameAnalytics.js"></script>
 	<script type="text/javascript">
-	function clipboard_copy(thing_to_copy) {
-		document.addEventListener('copy', (e) => {
+	async function clipboard_copy(thing_to_copy) {
+		await new Promise(r => setTimeout(r, 1));
+		var copy_listener = function(e) {
+			document.removeEventListener('copy', copy_listener);
 			e.preventDefault();
 			e.clipboardData.setData('text/plain', (thing_to_copy));
-			document.removeEventListener('copy', null);
 			JsToDef.send("clipboard_copy", true);
-		});
+		};
+		document.addEventListener('copy', copy_listener);
+	
 		if (!document.execCommand('copy')){
-		  document.removeEventListener('copy', null);
+		  document.removeEventListener('copy', copy_listener);
 		  JsToDef.send("clipboard_copy", false);
 		}
 	}
