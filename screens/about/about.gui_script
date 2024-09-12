@@ -72,19 +72,22 @@ function on_input(self, action_id, action)
 		gameanalytics.addDesignEvent {
 			eventId = "About:Report"
 		}
+		local filename = "pokedex5e-" .. platform.CURRENT:lower() .. ".log"
 		local temp_file
 		if platform.ANDROID or platform.IOS then
-			temp_file = log.generate_full_log_file("pokedex5e-andoid.log")
+			temp_file = log.generate_full_log_file(filename)
 			share.file(temp_file, "Debug log")
 		elseif platform.WINDOWS or platform.MACOS or platform.LINUX then
+			log.generate_full_log_file(filename)
 			sys.open_url("file://" .. sys.get_save_file("pokedex5E", ""))
 		elseif platform.WEB then
 			temp_file = log.generate_full_log_file("web.dmp")
 			local log_file = file.load_raw_file(temp_file)
 			if log_file then
-				log_file = log_file:gsub("'", '"')
+				log_file = log_file:gsub("\\", "\\\\")
+				log_file = log_file:gsub("'", "\\'")
 				log_file = log_file:gsub("\n", "\\n")
-				html5.run("download_file('pokedex5e-html.log', 'text/plain', '" .. log_file .. "')")
+				html5.run("download_file('" .. filename .. "', 'text/plain', '" .. log_file .. "')")
 			end
 		end
 		if temp_file then
