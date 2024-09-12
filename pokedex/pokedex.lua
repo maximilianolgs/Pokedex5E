@@ -23,6 +23,7 @@ local pokedex_original_species_map
 local pokedex_extra
 local abilities = {}
 local evolvedata
+local no_evolvedata = {}
 local evolve_from_data = {}
 local leveldata
 local exp_grid
@@ -608,8 +609,11 @@ end
 function M.get_evolution_data(pokemon)
 	if evolvedata[pokemon] then
 		return evolvedata[pokemon]
+	elseif no_evolvedata[pokemon] then
+		return nil
 	end
-	local e = "Can not find evolution data for pokemon : " .. tostring(pokemon)
+	no_evolvedata[pokemon] = true
+	local e = "Can not find evolution data for pokemon: " .. tostring(pokemon)
 	gameanalytics.addErrorEvent {
 		severity = gameanalytics.SEVERITY_DEBUG,
 		message = e
