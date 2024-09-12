@@ -15,7 +15,7 @@ log.level = "trace"
 log.log_rotation_enabled = true
 
 local max_backup_files = math.max(sys.get_config("logging.max_files") or 2, 2)-1
-local max_file_size = math.max(sys.get_config("logging.max_file_size") or (2*1024*1024), (2*1024*1024))
+local max_file_size = math.max(sys.get_config("logging.max_file_size") or (1024*1024), (1024*1024))
 
 local function rotate_logs()
 	log.log_rotation_enabled = false
