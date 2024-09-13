@@ -10,6 +10,7 @@ local messages = require "utils.messages"
 local platform = require "utils.platform"
 local file = require "utils.file"
 local localization = require "utils.localization"
+local html5_utils = require "utils.html5"
 
 function init(self)
 	msg.post(".", messages.ACQUIRE_INPUT_FOCUS)
@@ -73,22 +74,15 @@ function on_input(self, action_id, action)
 			eventId = "About:Report"
 		}
 		local filename = "pokedex5e-" .. platform.CURRENT:lower() .. ".log"
-		local temp_file
+		local temp_file = log.generate_full_log_file(filename)
 		if platform.ANDROID or platform.IOS then
-			temp_file = log.generate_full_log_file(filename)
 			share.file(temp_file, "Debug log")
 		elseif platform.WINDOWS or platform.MACOS or platform.LINUX then
-			log.generate_full_log_file(filename)
+			temp_file = nil
 			sys.open_url("file://" .. sys.get_save_file("pokedex5E", ""))
 		elseif platform.WEB then
-			temp_file = log.generate_full_log_file("web.dmp")
 			local log_file = file.load_raw_file(temp_file)
-			if log_file then
-				log_file = log_file:gsub("\\", "\\\\")
-				log_file = log_file:gsub("'", "\\'")
-				log_file = log_file:gsub("\n", "\\n")
-				html5.run("download_file('" .. filename .. "', 'text/plain', '" .. log_file .. "')")
-			end
+			html5_utils.download_text_file(filename, log_file)
 		end
 		if temp_file then
 			os.remove(temp_file)

@@ -13,6 +13,7 @@ local platform = require "utils.platform"
 local sjson = require "utils.json"
 local localization = require "utils.localization"
 local win_utils = require "utils.win-125x"
+local html5_utils = require "utils.html5"
 local log = require "utils.log"
 
 local M = {}
@@ -27,7 +28,6 @@ M.ENABLED = {
 }
 
 if platform.WEB then
-	clipboard = require "utils.html_clipboard"
 	M.ENABLED.CLIPBOARD_WRITE = true
 	M.ENABLED.CLIPBOARD_READ = true
 end
@@ -87,7 +87,7 @@ end
 
 function M.get_clipboard(callback)
 	if platform.WEB then
-		clipboard.paste_listener(function(clipboard_content) get_clipboard_callback(callback, clipboard_content) end)
+		html5_utils.paste_listener(function(clipboard_content) get_clipboard_callback(callback, clipboard_content) end)
 		notify.notify(localization.get("receive_screen", "html_clipboard_tutorial", "Press Ctrl + v or Command + v to import Pokémon from Clipboard"))
 	else
 		get_clipboard_callback(callback, clipboard.paste())
@@ -155,7 +155,7 @@ function M.export(id, as_wild)
 	eventId = eventId .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
 	
 	if platform.WEB then
-		clipboard.copy(serialize_pokemon(pokemon), function(success) export_callback(notification_message, eventId, success) end)
+		html5_utils.copy(serialize_pokemon(pokemon), function(success) export_callback(notification_message, eventId, success) end)
 	else
 		clipboard.copy(serialize_pokemon(pokemon))
 		export_callback(notification_message, eventId, true)
@@ -173,7 +173,7 @@ function M.roll20_export(id)
 	local eventId = "Pokemon:Send:Roll20:" .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
 	
 	if platform.WEB then
-		clipboard.copy(encoded_sheet, function(success) export_callback(notification_message, eventId, success) end)
+		html5_utils.copy(encoded_sheet, function(success) export_callback(notification_message, eventId, success) end)
 	else
 		clipboard.copy(encoded_sheet)
 		export_callback(notification_message, eventId, true)
