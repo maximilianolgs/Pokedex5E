@@ -169,14 +169,19 @@ function M.roll20_export(id)
 	if platform.WINDOWS then
 		encoded_sheet = win_utils.utf8_to_win(encoded_sheet)
 	end
-	local notification_message = localization.get("transfer_popup", "roll20_sheet_copied_notif", "%s's roll20 sheet copied to clipboard!"):format(pokemon.nickname or pokedex.get_species_display(pokemon.species.current, pokemon.variant))
-	local eventId = "Pokemon:Send:Roll20:" .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
+	local species = pokedex.get_species_display(pokemon.species.current, pokemon.variant)
+	local eventId = "Pokemon:Send:Roll20:" .. species
 	
-	if platform.WEB then
-		html5_utils.copy(encoded_sheet, function(success) export_callback(notification_message, eventId, success) end)
-	else
-		clipboard.copy(encoded_sheet)
-		export_callback(notification_message, eventId, true)
+	local filename = species .. "-roll20.json"
+	if platform.ANDROID or platform.IOS then
+		local temp_file_path = _file.write_file(filename, encoded_sheet)
+		share.file(temp_file_path, "Roll20 Character Sheet")
+		os.remove(temp_file_path)
+	elseif platform.WINDOWS or platform.MACOS or platform.LINUX then
+		local temp_file_path = _file.write_file(filename, encoded_sheet)
+		sys.open_url("file://" .. temp_file_path:sub(1, #temp_file_path - #filename))
+	elseif platform.WEB then
+		html5_utils.download_text_file(filename, encoded_sheet)
 	end
 end
 

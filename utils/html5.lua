@@ -1,5 +1,6 @@
 local flow = require "utils.flow"
 local log = require "utils.log"
+local platform = require "utils.platform"
 
 local M = {}
 
@@ -32,12 +33,15 @@ local function js_listener(self, message_id, message)
 	end
 end
 
-jstodef.add_listener(js_listener)
+if platform.WEB then
+	jstodef.add_listener(js_listener)
+end
 
 local function escape_characters(str)
 	str = str:gsub("\\", "\\\\")
 	str = str:gsub("'", "\\'")
-	str = str:gsub("\\n", "\\\\n")
+	str = str:gsub("\n", "\\n")
+	str = str:gsub("\r", "\\r")
 	return str
 end
 
@@ -54,7 +58,7 @@ function M.paste_listener(callback)
 	html5.run("clipboard_paste_listener()")
 end
 
-local function download_file(filename, file_content, file_type)
+local function download_file(filename, file_content, file_type)	
 	html5.run("download_file('" .. filename .. "', '" .. file_type .. "', '" .. file_content .. "')")
 end
 
