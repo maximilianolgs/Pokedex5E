@@ -10,6 +10,8 @@ local messages = require "utils.messages"
 local platform = require "utils.platform"
 local file = require "utils.file"
 local localization = require "utils.localization"
+local html5_utils = require "utils.html5"
+local gui_utils = require "utils.gui"
 
 function init(self)
 	msg.post(".", messages.ACQUIRE_INPUT_FOCUS)
@@ -25,7 +27,9 @@ function init(self)
 	gui.set_text(gui.get_node("Disclaimer"), localization.get("about_screen", "disclaimer_title", "Disclaimer"))
 	gui.set_text(gui.get_node("disclaimer_text"), localization.get("about_screen", "disclaimer_desc", "Based on the original game by Satoshi Taijiri\n© Game Freak © Nintendo Company Inc.\nWe do not claim ownership of anything related to Pokémon or Dungeons and Dragons. Please support the original source.\nNo profits are made from the release of this supplement.\n\nHigh resolution Pokémon images come from bulbapedia.bulbagarden.net and are owned by Nintendo.\n\nLow resolution Pokémon images come from pokemondb.net and are owned by Nintendo."))
 	gui.set_text(gui.get_node("share_log"), localization.get("about_screen", "share_log", "Share Log"))
+	gui_utils.resize_to_match_text(gui.get_node("share_log"))
 	gui.set_text(gui.get_node("changelog"), localization.get("about_screen", "change_log", "Changelog"))
+	gui_utils.resize_to_match_text(gui.get_node("changelog"))
 	
 	self.lock = true
 	timer.delay(0.1, false, function() self.lock = false end)
@@ -73,25 +77,15 @@ function on_input(self, action_id, action)
 			eventId = "About:Report"
 		}
 		local filename = "pokedex5e-" .. platform.CURRENT:lower() .. ".log"
-		local temp_file
 		if platform.ANDROID or platform.IOS then
-			temp_file = log.generate_full_log_file(filename)
-			share.file(temp_file, "Debug log")
+			local temp_file_path = file.write_file(filename, log.get_consolidated_log())
+			share.file(temp_file_path, "Debug log")
+			os.remove(temp_file_path)
 		elseif platform.WINDOWS or platform.MACOS or platform.LINUX then
-			log.generate_full_log_file(filename)
-			sys.open_url("file://" .. sys.get_save_file("pokedex5E", ""))
+			local temp_file_path = file.write_file(filename, log.get_consolidated_log())
+			sys.open_url("file://" .. temp_file_path:sub(1, #temp_file_path - #filename))
 		elseif platform.WEB then
-			temp_file = log.generate_full_log_file("web.dmp")
-			local log_file = file.load_raw_file(temp_file)
-			if log_file then
-				log_file = log_file:gsub("\\", "\\\\")
-				log_file = log_file:gsub("'", "\\'")
-				log_file = log_file:gsub("\n", "\\n")
-				html5.run("download_file('" .. filename .. "', 'text/plain', '" .. log_file .. "')")
-			end
-		end
-		if temp_file then
-			os.remove(temp_file)
+			html5_utils.download_text_file(filename, log.get_consolidated_log())
 		end
 	end)
 	local c2 = gooey.button("changelog", action_id, action, function()

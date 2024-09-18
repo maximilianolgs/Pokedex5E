@@ -19,7 +19,7 @@ local max_file_size = math.max(sys.get_config("logging.max_file_size") or (1024*
 
 local function rotate_logs()
 	log.log_rotation_enabled = false
-	log.info("rotating logs")
+	log.info("#*#*# rotating logs #*#*#")
 	log.log_rotation_enabled = true
 	if sys.exists(log.outfile .. "-" .. max_backup_files) then
 		local _, err = os.remove(log.outfile .. "-" .. max_backup_files)
@@ -60,21 +60,19 @@ local function write_to_file(line)
 	fp:close()
 end
 
-function log.generate_full_log_file(filename)
-	local full_log_file = sys.get_save_file("pokedex5E", filename)
-	local consolidated_log = io.open(full_log_file, "w+")
+function log.get_consolidated_log()
+	local consolidated_log = {}
 	for i=max_backup_files, 1, -1 do
 		if sys.exists(log.outfile .. "-" .. i) then
 			local log_fragment = io.open(log.outfile .. "-" .. i)
-			consolidated_log:write(log_fragment:read("*all") .. "\n")
+			table.insert(consolidated_log, log_fragment:read("*all"))
 			log_fragment:close()
 		end
 	end
 	local log_fragment = io.open(log.outfile)
-	consolidated_log:write(log_fragment:read("*all"))
+	table.insert(consolidated_log, log_fragment:read("*all"))
 	log_fragment:close()
-	consolidated_log:close()
-	return full_log_file
+	return table.concat(consolidated_log, "")
 end
 
 local modes = {

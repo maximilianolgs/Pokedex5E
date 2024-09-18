@@ -88,12 +88,12 @@
 		"es_419": "Generar código QR"
 	},
 	"clipboard_share": {
-		"en_us": "Copy to Clipboard",
-		"es_419": "Copiar al Portapapeles"
+		"en_us": "Copy to clipboard",
+		"es_419": "Copiar al portapapeles"
 	},
 	"roll20_share": {
 		"en_us": "Generate Roll20 character sheet",
-		"es_419": "Copiar hoja de personaje de Roll20"
+		"es_419": "Generar hoja de personaje de Roll20"
 	},
 	"network_share": {
 		"en_us": "Send to a group member",
