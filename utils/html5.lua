@@ -1,5 +1,4 @@
 local flow = require "utils.flow"
-local log = require "utils.log"
 local platform = require "utils.platform"
 
 local M = {}
@@ -25,11 +24,7 @@ local function js_listener(self, message_id, message)
 		e = "Unhandled message_id " .. message_id
 	end
 	if e then
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_CRITICAL,
-			message = e
-		}
-		log.fatal(e)
+		gameanalytics.critical(e)
 	end
 end
 
@@ -65,7 +60,6 @@ end
 function M.download_text_file(filename, file_content)
 	file_content = escape_characters(file_content)
 	download_file(filename, file_content, "text/plain")
-	
 end
 
 return M

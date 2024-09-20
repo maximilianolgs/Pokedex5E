@@ -6,7 +6,6 @@ local p2p_discovery = require "pokedex.network.p2p"
 local notify = require "utils.notify"
 local broadcast = require "utils.broadcast"
 local settings = require "pokedex.settings"
-local log = require "utils.log"
 local localization = require "utils.localization"
 
 local M = {}
@@ -431,12 +430,7 @@ local function server_on_data(data, ip, port, client)
 	end
 
 	if not success then
-		local e = "Server received unknown data: " .. tostring(data) .. " from client: " .. tostring(ip) .. ", removing it!"
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_WARNING,
-			message = e
-		}
-		log.warn(e)
+		gameanalytics.warning("Server received unknown data: " .. tostring(data) .. " from client: " .. tostring(ip) .. ", removing it!")
 		server.remove_client(client)
 	end
 end
@@ -502,12 +496,7 @@ local function client_on_data(data)
 	end
 
 	if not success then
-		local e = "Client received unknown data from server: " .. tostring(data)
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_WARNING,
-			message = e
-		}
-		log.warn(e)
+		gameanalytics.warning("Client received unknown data from server: " .. tostring(data))
 		M.stop_client()
 	end
 end

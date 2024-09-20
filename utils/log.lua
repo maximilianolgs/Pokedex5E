@@ -7,8 +7,9 @@
 -- under the terms of the MIT license. See LICENSE for details.
 --
 
-local log = { _version = "0.1.0" }
+local log = {}
 
+log._version = "0.2.0"
 log.usecolor = false
 log.outfile = nil
 log.level = "trace"
@@ -17,15 +18,20 @@ log.log_rotation_enabled = true
 local max_backup_files = math.max(sys.get_config("logging.max_files") or 2, 2)-1
 local max_file_size = math.max(sys.get_config("logging.max_file_size") or (1024*1024), (1024*1024))
 
+local function write_to_file(line)
+	local fp = io.open(log.outfile, "a")
+	fp:write(line .. "\n")
+	fp:flush()
+	fp:close()
+end
+
 local function rotate_logs()
-	log.log_rotation_enabled = false
-	log.info("#*#*# rotating logs #*#*#")
-	log.log_rotation_enabled = true
+	write_to_file("#*#*# ROTATING LOGS #*#*#")
 	if sys.exists(log.outfile .. "-" .. max_backup_files) then
 		local _, err = os.remove(log.outfile .. "-" .. max_backup_files)
 		if err then
 			log.log_rotation_enabled = false
-			log.error("Error removing. Logs can't be rotated: " .. err)
+			gameanalytics.error("Error removing. Logs can't be rotated: " .. err)
 			return
 		end
 	end
@@ -35,7 +41,7 @@ local function rotate_logs()
 			local _, err = os.rename(log.outfile .. "-" .. i, log.outfile .. "-" .. (i+1))
 			if err then
 				log.log_rotation_enabled = false
-				log.error("Error renaming. Logs can't be rotated: " .. err)
+				gameanalytics.error("Error renaming. Logs can't be rotated: " .. err)
 				return
 			end
 		end
@@ -44,20 +50,16 @@ local function rotate_logs()
 	local _, err = os.rename(log.outfile, log.outfile .. "-1")
 	if err then
 		log.log_rotation_enabled = false
-		log.fatal("Error renaming base log. Logs can't be rotated: " .. err)
+		gameanalytics.critical("Error renaming base log. Logs can't be rotated: " .. err)
 		return
 	end
 end
 
-local function write_to_file(line)
-	local fp = io.open(log.outfile, "a")
-	if log.log_rotation_enabled and fp:seek("end") > max_file_size then
-		fp:close()
-		rotate_logs()
-		fp = io.open(log.outfile, "a")
-	end
-	fp:write(line)
+local function has_to_rotate_logs()
+	local fp = io.open(log.outfile, "r")
+	local rotate = log.log_rotation_enabled and fp:seek("end") > max_file_size
 	fp:close()
+	return rotate
 end
 
 function log.get_consolidated_log()
@@ -113,7 +115,7 @@ local tostring = function(...)
 end
 
 local buffer = {}
-table.insert(buffer, "#################### LOGGER INITIALIZED ####################\n")
+table.insert(buffer, "#################### LOGGER INITIALIZED ####################")
 
 for i, x in ipairs(modes) do
 	local nameupper = x.name:upper()
@@ -125,7 +127,8 @@ for i, x in ipairs(modes) do
 		end
 
 		local msg = tostring(...)
-		local info = debug.getinfo(2, "Sl")
+		-- modfied from 2 to 4, because now its used on gameanalytics_manager
+		local info = debug.getinfo(4, "Sl")
 		local lineinfo = info.short_src .. ":" .. info.currentline
 
 		--[[ Output to console
@@ -144,9 +147,12 @@ for i, x in ipairs(modes) do
 		msg))
 		
 		-- Output to log file
-		local str = string.format("[%-6s%s] %s: %s\n",
+		local str = string.format("[%-6s%s] %s: %s",
 		nameupper, os.date(), lineinfo, msg)
 		if log.outfile then
+			if has_to_rotate_logs() then
+				rotate_logs()
+			end
 			write_to_file(str)
 		else
 			table.insert(buffer, str)

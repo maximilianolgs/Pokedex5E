@@ -18,7 +18,6 @@ local gui_utils = require "utils.gui"
 local constants = require "utils.constants"
 local screens = require "utils.screens"
 local messages = require "utils.messages"
-local log = require "utils.log"
 local localization = require "utils.localization"
 
 local POKEMON_SPECIES_TEXT_SCALE = vmath.vector3(1)
@@ -292,7 +291,6 @@ end
 
 local function redraw(self)
 	if not self.pokemon then
-		log.debug("Why do we redraw now?")
 		return
 	end
 	local id = _pokemon.get_id(self.pokemon)

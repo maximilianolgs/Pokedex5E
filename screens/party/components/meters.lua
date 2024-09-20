@@ -293,25 +293,14 @@ local function parse_number(str, current)
 		local fnc = loadstring("return " .. current .. str)
 		if fnc == nil then
 			-- Loadstring didn't compile, this shouldn't happen but tracking have shown it does, report the error.
-			local e = string.format("Could not compile the load string: 'return " .. tostring(current) .. tostring(str) .. "'")
-			gameanalytics.addErrorEvent {
-				severity = gameanalytics.SEVERITY_CRITICAL,
-				message = e
-			}
-			log.fatal(e)
+			gameanalytics.critical(string.format("Could not compile the load string: 'return " .. tostring(current) .. tostring(str) .. "'"))
 			return current
 		end
 		value, err = fnc()
 		if value ~= nil then
 			value = value - current
 		else
-			local e = "Party:HP:Error " .. err
-			gameanalytics.addErrorEvent {
-				severity = gameanalytics.SEVERITY_ERROR,
-				message = e
-			}
-			log.error(e)
-			
+			gameanalytics.error("Party:HP:Error " .. err)
 			value = current
 		end
 		expr = true

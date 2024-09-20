@@ -8,7 +8,6 @@ local defsave = require "defsave.defsave"
 local movedex = require "pokedex.moves"
 local generate = require "screens.generate_pokemon.generate_pokemon"
 local backup = require "utils.backup"
-local log = require "utils.log"
 
 
 local M = {}
@@ -54,11 +53,11 @@ end
 function M.add_all_moves()
 	local inventory = storage.list_of_ids_in_party()
 	local per_pokemon = 10 --#movedex.list / 6
-	log.debug("Adding " .. per_pokemon .. " moves to each Pokemon")
+	gameanalytics.debug("Adding " .. per_pokemon .. " moves to each Pokemon")
 	local pkmn = storage.get_copy(inventory[1])
 	local move_index = 1
 	local pokemon_index = 1
-	log.debug("Pokemon number " .. pokemon_index .. " done")
+	gameanalytics.debug("Pokemon number " .. pokemon_index .. " done")
 	for i=1, per_pokemon*#inventory do
 		if i > 4 then 
 			_pokemon.add_feat(pkmn, "Extra Move")
@@ -73,7 +72,7 @@ function M.add_all_moves()
 			storage.update_pokemon(pkmn)
 			move_index = 1
 			pokemon_index = pokemon_index + 1
-			log.debug("Pokemon number " .. pokemon_index .. " done")
+			gameanalytics.debug("Pokemon number " .. pokemon_index .. " done")
 			pkmn = storage.get_copy(inventory[pokemon_index])
 		end
 	end

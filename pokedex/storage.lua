@@ -5,7 +5,6 @@ local utils = require "utils.utils"
 local profiles = require "pokedex.profiles"
 local pokedex = require "pokedex.pokedex"
 local _pokemon = require "pokedex.pokemon"
-local log = require "utils.log"
 
 local M = {}
 
@@ -178,12 +177,7 @@ function M.get_copy(id, as_wild)
 		end
 		return pkmn
 	else
-		local e = string.format("Trying to get '" .. tostring(id) .. "' from storage\n\n%s", debug.traceback())
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_CRITICAL,
-			message = e
-		}
-		log.fatal(e)
+		gameanalytics.critical(string.format("Trying to get '" .. tostring(id) .. "' from storage\n\n%s", debug.traceback()))
 		return nil
 	end
 end

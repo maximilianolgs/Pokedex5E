@@ -1,6 +1,5 @@
 local file = require "utils.file"
 local settings = require "pokedex.settings"
-local log = require "utils.log"
 
 local M = {}
 
@@ -13,7 +12,7 @@ M.DEFAULT_LANG = "en_us"
 function M.init()
 	if not settings.get("lang") then
 		settings.set("lang", M.DEFAULT_LANG)
-		log.info("default lang set " .. settings.get("lang"))
+		gameanalytics.info("default lang set " .. settings.get("lang"))
 	end
 end
 
@@ -76,21 +75,12 @@ function M.get(source, key, default)
 	local caller = info.short_src .. ":" .. info.currentline
 	if not source or not key or not default then
 		local e = "source " .. (source or "missing") .. ", key " .. (key or "missing") .. ", defaultValue " .. (default or "missing") .. " at " .. caller
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_CRITICAL,
-			message = e
-		}
-		log.fatal(e)
+		gameanalytics.critical(e)
 		return default or ""
 	end
 	
 	if source == "" or key == "" then
-		local e = "source or key empty: " .. source .. "/" .. key .. " at " .. caller
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_ERROR,
-			message = e
-		}
-		log.error(e)
+		gameanalytics.error("source or key empty: " .. source .. "/" .. key .. " at " .. caller)
 		return default
 	end
 
@@ -101,34 +91,20 @@ function M.get(source, key, default)
 	end
 
 	if not M.dictionary[source] then
-		local e = "Error loading localization file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json' at " .. caller
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_ERROR,
-			message = e
-		}
-		log.error(e)
+		gameanalytics.error("Error loading localization file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json' at " .. caller)
 		M.dictionary[source] = { [lkey] = { [settings.get("lang")] = default } }
 		return default
 	end
 
 	if not M.dictionary[source][lkey] then
-		local e = "Key " .. lkey .. " not found on file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json' at " .. caller
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_WARNING,
-			message = e
-		}
-		log.warn(e)
+		gameanalytics.warning("Key " .. lkey .. " not found on file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json' at " .. caller)
 		M.dictionary[source][lkey] = { [settings.get("lang")] = default }
 		return default
 	end
 	
 	if not M.dictionary[source][lkey][settings.get("lang")] then
 		local e = "Key " .. lkey .. "/" .. settings.get("lang") .. " not found on file '" .. M.LOCALIZATION_ASSETS_ROOT .. source .. ".json' at " .. caller
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_WARNING,
-			message = e
-		}
-		log.warn(e)
+		gameanalytics.warning(e)
 		M.dictionary[source][lkey][settings.get("lang")] = default
 		return default
 	end
@@ -195,12 +171,7 @@ function M.load_localized_json_from_resource(filename)
 	else
 		local info = debug.getinfo(2, "Sl")
 		local caller = info.short_src .. ":" .. info.currentline
-		local e = lfilename .. " not found. Returning default file at " .. caller
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_WARNING,
-			message = e
-		}
-		log.warn(e)
+		gameanalytics.warning(lfilename .. " not found. Returning default file at " .. caller)
 		return file.load_json_from_resource(filename)
 	end
 end
