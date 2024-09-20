@@ -1,7 +1,6 @@
 local file = require "utils.file"
 local utils = require "utils.utils"
 local movedex = require "pokedex.moves"
-local log = require "utils.log"
 local fakemon = require "fakemon.fakemon"
 local dex_data = require "pokedex.dex_data"
 local ptypes = require "ptypes.main"
@@ -153,14 +152,14 @@ function M.init()
 
 		local f_overrides, f_variants = fakemon.get_overrides_and_variants()
 		if next(f_overrides) or next(f_variants) then
-			log.info("Merging Pokemon data")
+			gameanalytics.debug("Merging Pokemon data")
 			for pokemon, data in pairs(f_overrides) do
-				log.info("  " .. pokemon)
+				gameanalytics.debug("  " .. pokemon)
 				pokedex[pokemon] = data
 			end
 			for pokemon, f_vars in pairs(f_variants) do
 				for variant, data in pairs(f_vars) do
-					log.info("  " .. pokemon .. " - " .. variant)
+					gameanalytics.debug("  " .. pokemon .. " - " .. variant)
 					if not pokedex_variants[pokemon] then
 						pokedex_variants[pokemon] = {}
 					end
@@ -176,27 +175,27 @@ function M.init()
 				end
 			end
 			if fakemon.DATA["abilities.json"] then
-				log.info("Merging abilities data")
+				gameanalytics.debug("Merging abilities data")
 				for name, data in pairs(fakemon.DATA["abilities.json"]) do
-					log.info("  " .. name)
+					gameanalytics.debug("  " .. name)
 					abilities[name] = data
 				end
 			end
 			if fakemon.DATA["evolve.json"] then
-				log.info("Merging evolve data")
+				gameanalytics.debug("Merging evolve data")
 				for name, data in pairs(fakemon.DATA["evolve.json"]) do
 					if pokedex[name] then
-						log.info("  " .. name)
+						gameanalytics.debug("  " .. name)
 						evolvedata[name] = data
 					else
-						log.info("  " .. name .. " (does not exist, skipped)")
+						gameanalytics.debug("  " .. name .. " (does not exist, skipped)")
 					end
 				end
 			end
 			if fakemon.DATA["gender.json"] then
-				log.info("Merging gender data")
+				gameanalytics.debug("Merging gender data")
 				for name, data in pairs(fakemon.DATA["gender.json"]) do
-					log.info("  " .. name)
+					gameanalytics.debug("  " .. name)
 					genders[name] = data
 				end
 			end
@@ -206,12 +205,7 @@ function M.init()
 		M.list, M.total, M.unique = list()
 		initialized = true
 	else
-		local e = "The pokedex have already been initialized"
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_WARNING,
-			message = e
-		}
-		log.warn(e)
+		gameanalytics.warning("The pokedex have already been initialized")
 	end
 end
 
@@ -220,12 +214,7 @@ local function dex_extra(pokemon)
 	local pokemon_index = M.get_index_number(pokemon)
 	local mon = pokedex_extra[tostring(pokemon_index)]
 	if not mon then
-		local e = "Can't find extra information for " .. tostring(pokemon)
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_ERROR,
-			message = e
-		}
-		log.error(e)
+		gameanalytics.error("Can't find extra information for " .. tostring(pokemon))
 	end
 	return mon or pokedex_extra["MissingNo"]
 end
@@ -374,12 +363,7 @@ function M.get_icon(pokemon, variant)
 			local icon_name = "icon" .. pokemon .. (variant or "")
 			local success, status = gui.new_texture(icon_name, img.width, img.height, img.type, img.buffer, false)
 			if not success then
-				local e = "Can not create texture: " .. icon_name .. "| Reason:" .. _error_to_string[status]
-				gameanalytics.addErrorEvent {
-					severity = gameanalytics.SEVERITY_INFO,
-					message = e
-				}
-				log.info(e)
+				gameanalytics.info("Can not create texture: " .. icon_name .. "| Reason:" .. _error_to_string[status])
 			end
 			return nil, icon_name
 		elseif data.index >= dex_data.max_index[#dex_data.order -1] then
@@ -432,12 +416,7 @@ function M.get_sprite(pokemon, variant)
 			local sprite_name = "sprite" .. pokemon .. (variant or "")
 			local success, status = gui.new_texture(sprite_name, img.width, img.height, img.type, img.buffer, false)
 			if not success then
-				local e = "Can not create texture: " .. sprite_name .. "| Reason:" .. _error_to_string[status]
-				gameanalytics.addErrorEvent {
-					severity = gameanalytics.SEVERITY_INFO,
-					message = e
-				}
-				log.info(e)
+				gameanalytics.info("Can not create texture: " .. sprite_name .. "| Reason:" .. _error_to_string[status])
 			end
 			return nil, sprite_name
 		elseif data.index < dex_data.max_index[#dex_data.order -1] then
@@ -452,12 +431,7 @@ function M.level_data(level)
 	if leveldata[tostring(level)] then
 		return leveldata[tostring(level)]
 	end
-	local e = "Can not find level data for: " .. tostring(level)
-	gameanalytics.addErrorEvent {
-		severity = gameanalytics.SEVERITY_ERROR,
-		message = e
-	}
-	log.error(e)
+	gameanalytics.error("Can not find level data for: " .. tostring(level))
 end
 
 
@@ -539,12 +513,7 @@ function M.get_ability_description(ability)
 	if abilities[ability] then
 		return abilities[ability].Description
 	else
-		local e = string.format("Can not find Ability: '%s'", tostring(ability))  .. "\n" .. debug.traceback()
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_ERROR,
-			message = e
-		}
-		log.error(e)
+		gameanalytics.error(string.format("Can not find Ability: '%s'", tostring(ability))  .. "\n" .. debug.traceback())
 		return "This is an error, the app couldn't find the ability"
 	end
 end
@@ -613,12 +582,7 @@ function M.get_evolution_data(pokemon)
 		return nil
 	end
 	no_evolvedata[pokemon] = true
-	local e = "Can not find evolution data for pokemon: " .. tostring(pokemon)
-	gameanalytics.addErrorEvent {
-		severity = gameanalytics.SEVERITY_DEBUG,
-		message = e
-	}
-	log.debug(e)
+	gameanalytics.debug("Can not find evolution data for pokemon: " .. tostring(pokemon))
 end
 
 

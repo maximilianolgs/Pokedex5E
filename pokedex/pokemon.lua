@@ -7,7 +7,6 @@ local trainer = require "pokedex.trainer"
 local variants = require "pokedex.variants"
 local constants = require "utils.constants"
 local profiles = require "pokedex.profiles"
-local log = require "utils.log"
 
 local M = {}
 
@@ -436,12 +435,7 @@ function M.get_default_max_hp(pkmn)
 			local from_pkmn = pokedex.get_evolved_from(current)
 			if from_pkmn == nil then
 				from_pkmn = "MissingNo"
-				local e = "Could not find which Pokemon " .. current .. " evolved from."
-				gameanalytics.addErrorEvent {
-					severity = gameanalytics.SEVERITY_ERROR,
-					message = e
-				}
-				log.error(e)
+				gameanalytics.error("Could not find which Pokemon " .. current .. " evolved from.")
 			end
 			
 			at_level = table.remove(evolutions)
@@ -1136,12 +1130,7 @@ function M.get_move_data(pkmn, move_name)
 	local move = movedex.get_move_data(move_name)
 	if not move then
 		-- Problem with the move, may be an issue with an old Fakemon package or a move that got removed
-		local e = "Move " .. move_name .. " not found"
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_ERROR,
-			message = e
-		}
-		log.error(e)
+		gameanalytics.error("Move " .. move_name .. " not found")
 		return move_data
 	end
 	

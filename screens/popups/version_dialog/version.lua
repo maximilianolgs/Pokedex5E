@@ -1,5 +1,4 @@
 local flow = require "utils.flow"
-local log = require "utils.log"
 
 local M = {}
 
@@ -15,13 +14,7 @@ function M.get_latest()
 			M.releases = json.decode(res.response)
 		else
 			M.releases = nil
-			local e = "Version:LoadIndex:HTTP:" .. res.status
-			gameanalytics.addErrorEvent {
-				severity = gameanalytics.SEVERITY_WARNING,
-				message = e
-			}
-			log.warn(e)
-			log.warn(res.response)
+			gameanalytics.warning("Version:LoadIndex:HTTP:" .. res.status .. "\nResponse:\n" .. res.response)
 		end
 		M.BUSY = false
 	end)
@@ -45,7 +38,7 @@ function M.get_version_information()
 	version_information.up_to_date = version_information.current == M.releases.latest
 	
 	if version_information.current_number == nil then
-		log.info("Current version not in version json")
+		gameanalytics.info("Current version not in version json")
 	end
 
 	return version_information

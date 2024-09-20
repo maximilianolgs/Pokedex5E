@@ -7,7 +7,6 @@ local gooey_buttons = require "utils.gooey_buttons"
 local gooey = require "gooey.gooey"
 local monarch = require "monarch.monarch"
 local scrollhandler = require "screens.party.components.scrollhandler"
-local log = require "utils.log"
 local party_utils = require "screens.party.utils"
 local features = require "screens.party.components.features"
 local moves = require "screens.party.components.moves"
@@ -92,12 +91,7 @@ function M.show(index)
 			})
 		end)
 	else
-		local e = "Party can not show pokemon with id: " .. tostring(id) .. "\n" .. debug.traceback()
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_ERROR,
-			message = e
-		}
-		log.error(e)
+		gameanalytics.error("Party can not show pokemon with id: " .. tostring(id) .. "\n" .. debug.traceback())
 	end
 end
 

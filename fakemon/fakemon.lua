@@ -1,6 +1,5 @@
 local defsave = require "defsave.defsave"
 local settings = require "pokedex.settings"
-local log = require "utils.log"
 local flow = require "utils.flow"
 local defsave = require "defsave.defsave"
 local zzlib = require "utils.zzlib"
@@ -8,7 +7,7 @@ local file = require "utils.file"
 
 local M = {}
 if sys.get_engine_info().is_debug then
-	log.debug("Using FakemonPackages/develop")
+	gameanalytics.debug("Using FakemonPackages/develop")
 	GITHUB_URL = "https://raw.githubusercontent.com/Jerakin/FakemonPackages/develop"
 else
 	GITHUB_URL = "https://raw.githubusercontent.com/Jerakin/FakemonPackages/master"
@@ -69,12 +68,12 @@ function M.load_package()
 		local package_path = M.UNZIP_PATH .. "data.json"
 		local index_path = M.UNZIP_PATH .. "index.json"
 		if file_exists(package_path) and file_exists(index_path) then
-			log.info("Found and loaded file " .. package_path)
+			gameanalytics.info("Found and loaded file " .. package_path)
 			M.DATA = file.load_file(package_path)
-			log.info("Found and loaded file " .. index_path)
+			gameanalytics.info("Found and loaded file " .. index_path)
 			M.LOCAL_INDEX = file.load_file(index_path)
 		else
-			log.info("No Fakemon Package found")
+			gameanalytics.info("No Fakemon Package found")
 		end
 		M.BUSY = false
 	end)
@@ -82,7 +81,7 @@ end
 
 function M.unpack()
 	M.BUSY = true
-	log.info("Started unpacking " .. RESOURCE_PATH)
+	gameanalytics.info("Started unpacking " .. RESOURCE_PATH)
 
 	local file = io.open(RESOURCE_PATH, "rb")
 	local input = file:read("*all")
@@ -99,14 +98,9 @@ function M.unpack()
 
 		local output, err = zzlib.unzip_archive(input, M.UNZIP_PATH)
 		if err then
-			local e = "Fakemon:UnpackZIP:" .. err
-			gameanalytics.addErrorEvent {
-				severity = gameanalytics.SEVERITY_ERROR,
-				message = e
-			}
-			log.fatal(e)
+			gameanalytics.critical("Fakemon:UnpackZIP:" .. err)
 		end
-		log.info("Unpacking finished")
+		gameanalytics.info("Unpacking finished")
 	end)
 	M.BUSY = false
 end
@@ -121,12 +115,7 @@ function M.load_index()
 		else
 			M.INDEX = nil
 			local e = "Fakemon:LoadIndex:HTTP:" .. res.status
-			gameanalytics.addErrorEvent {
-				severity = gameanalytics.SEVERITY_WARNING,
-				message = e
-			}
-			log.warn(e)
-			log.warn(res.response)
+			gameanalytics.warning("Fakemon:LoadIndex:HTTP:" .. res.status .. "\nResponse:\n" .. res.response)
 		end
 	end)
 end
@@ -144,35 +133,25 @@ end
 
 function M.download_package(package)
 	M.BUSY = true
-	log.info("STARTED DOWNLOAD")
+	gameanalytics.info("STARTED DOWNLOAD")
 	local data = get_package_entry(package)
 	settings.set("package", data)
 	local package_url = GITHUB_URL .. "/" .. string.gsub(data.path, "%s+", '%%20')
 
 	http.request(package_url, "GET", function(self, id, res)
 		if res.status == 200 or res.status == 304 then
-			log.info("DOWNLOADING: " .. data.path)
+			gameanalytics.info("DOWNLOADING: " .. data.path)
 			local file, err = io.open(RESOURCE_PATH, "wb")
 
 			if file then
 				file:write(res.response)
 				file:close()
 			else
-				local e = "Fakemon:File:\n" .. err
-				gameanalytics.addErrorEvent {
-					severity = gameanalytics.SEVERITY_WARNING,
-					message = e
-				}
-				log.warn(e)
+				gameanalytics.warning("Fakemon:File:\n" .. err)
 			end
-			log.info("FINISHED DOWNLOAD")
+			gameanalytics.info("FINISHED DOWNLOAD")
 		else
-			local e = "Fakemon:DownloadPackage:HTTP:" .. res.status  .. " URL: " .. package_url
-			gameanalytics.addErrorEvent {
-				severity = gameanalytics.SEVERITY_WARNING,
-				message = e
-			}
-			log.warn(e)
+			gameanalytics.warning("Fakemon:DownloadPackage:HTTP:" .. res.status  .. " URL: " .. package_url)
 		end
 		M.BUSY = false
 	end)

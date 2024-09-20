@@ -1,4 +1,3 @@
-local log = require "utils.log"
 local ljson = require "utils.json"
 local settings = require "pokedex.settings"
 
@@ -49,13 +48,8 @@ function M.load_json_from_resource(filename)
 		end
 		return json_data
 	end
-
-	local e = "Unable to load json file '" .. filename .. "'"
-	gameanalytics.addErrorEvent {
-		severity = gameanalytics.SEVERITY_ERROR,
-		message = e
-	}
-	log.error(e)
+	
+	gameanalytics.error("Unable to load json file '" .. filename .. "'")
 	return nil
 end
 

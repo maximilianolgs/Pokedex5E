@@ -1,6 +1,3 @@
-local log = require "utils.log"
-
-
 local M = {}
 
 -- Menu
@@ -71,7 +68,7 @@ M.RELEASE_POKEMON = hash("release_pokemon")
 setmetatable(M, {
 	__index = function(t, i)
 		if rawget(t, i) == nil then
-			log.error("Check up for value that does not exist in messages.lua: " .. i)
+			print("Check up for value that does not exist in messages.lua: " .. i)
 		end
 	end
 })

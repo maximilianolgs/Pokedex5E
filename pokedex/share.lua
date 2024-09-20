@@ -14,7 +14,6 @@ local sjson = require "utils.json"
 local localization = require "utils.localization"
 local win_utils = require "utils.win-125x"
 local html5_utils = require "utils.html5"
-local log = require "utils.log"
 
 local M = {}
 
@@ -134,13 +133,8 @@ local function export_callback(notification_message, eventId, success)
 			eventId = eventId
 		}
 	else
-		local e = "Error accesing the clipboard\nThe Pokémon couldn't be exported"
 		notify.notify(localization.get("transfer_popup", "export_share_error", e))
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_ERROR,
-			message = e
-		}
-		log.error(e)
+		gameanalytics.error("Error accesing the clipboard\nThe Pokémon couldn't be exported")
 	end
 end
 

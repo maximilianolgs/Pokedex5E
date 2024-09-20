@@ -1,3 +1,4 @@
+local gam = require "utils.gameanalytics_manager"
 local monarch = require "monarch.monarch"
 local defsave = require "defsave.defsave"
 local movedex = require "pokedex.moves"
@@ -16,7 +17,6 @@ local flow = require "utils.flow"
 local gui_colors = require "utils.gui_colors"
 local notify = require "utils.notify"
 local screeninfo = require "utils.screeninfo"
-local log = require "utils.log"
 local fakemon = require "fakemon.fakemon"
 local settings = require "pokedex.settings"
 local url = require "utils.url"
@@ -26,7 +26,6 @@ local screens = require "utils.screens"
 local messages = require "utils.messages"
 local platform = require "utils.platform"
 local localization = require "utils.localization"
-local gam = require "utils.gameanalytics_manager"
 
 local error_table = {}
 local VERSION = sys.get_config("project.version")
@@ -42,17 +41,7 @@ local function error_handler(source, message, traceback)
 		end
 	end
 	
-	local severity_rating = gameanalytics.SEVERITY_CRITICAL
-	if sys.get_engine_info().is_debug then
-		severity_rating = gameanalytics.SEVERITY_DEBUG
-	end
-	local error_message = VERSION .. " - " .. source .. " - " .. (message or "NO MESSAGE") .. " - " .. (traceback or "NO TRACEBACK")
-	
-	gameanalytics.addErrorEvent {
-		severity = severity_rating,
-		message = error_message
-	}
-	log.fatal(error_message)
+	gam.critical(VERSION .. " - " .. source .. " - " .. (message or "NO MESSAGE") .. " - " .. (traceback or "NO TRACEBACK"))
 end
 
 local function window_resized()
@@ -60,7 +49,7 @@ local function window_resized()
 end
 
 function init(self)
-	log.info("Initializing Pokédex5E v" .. version.current_version())
+	gam.info("Initializing Pokédex5E v" .. version.current_version())
 	defsave.appname = "pokedex5E"
 	defsave.verbose = false
 	defsave.use_default_data = false
@@ -74,8 +63,6 @@ function init(self)
 	window.set_listener(window_resized)
 	
 	sys.set_error_handler(error_handler)
-	
-	log.set_outfile(sys.get_save_file("pokedex5E", "log"))
 	
 	if sys.get_engine_info().is_debug and share and debug.SHARE then
 		backup.save_backup()
@@ -108,7 +95,7 @@ function init(self)
 	
 	flow.start(function()
 		if platform.WEB then
-			log.info("HTML5: Skipping LuaFileSystem")
+			gam.info("HTML5: Skipping LuaFileSystem")
 		else
 			require "utils.lfs_extend"
 			fakemon.init()
@@ -187,5 +174,5 @@ function final(self)
 		settings.save()
 	end
 	gam.final()
-	log.info("Clean Exit")
+	gam.info("Clean Exit")
 end

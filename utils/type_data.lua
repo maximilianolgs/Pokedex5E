@@ -49,13 +49,7 @@ mt.__index = function(self, i)
 		if i == "Fighting/Flying" then
 			return rawget(M, "Fighting")
 		end
-
-		local e = "Type '" .. tostring(i) .. "' does not exist"
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_ERROR,
-			message = e
-		}
-		log.error(e)
+		gameanalytics.error("Type '" .. tostring(i) .. "' does not exist")
 		return rawget(M, "Normal")
 	end
 	return rawget(M, i)

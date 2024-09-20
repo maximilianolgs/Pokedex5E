@@ -6,18 +6,14 @@ local debug = require "screens.debug.debug"
 local gui_utils = require "utils.gui"
 local messages = require "utils.messages"
 local platform = require "utils.platform"
-local log = require "utils.log"
 local localization = require "utils.localization"
 
 local function game_analyctics()
-	local active = true
+	local active = gameanalytics.core ~= nil
 	local version = localization.get("debug_screen", "missing_version", "missing")
 	local key = localization.get("debug_screen", "missing_key", "missing")
 	local secret = localization.get("debug_screen", "missing_secret", "missing")
 
-	if gameanalytics.mock then
-		active = false
-	end
 	if platform.MACOS then
 		version = localization.get("debug_screen", "platform_not_supported", "Not supported")
 		key = localization.get("debug_screen", "platform_not_supported", "Not supported")
@@ -102,13 +98,13 @@ function on_input(self, action_id, action)
 	gooey.button("ga_bg", action_id, action, function()
 		local loaded = crash.load_previous()
 		if loaded then
-			log.debug("### BACKTRACE ###")
-			log.debug(crash.get_backtrace(loaded))
-			log.debug("### EXTRA DATA ###")
-			log.debug(crash.get_extra_data(loaded))
-			log.debug("####### END ######")
+			gameanalytics.debug("### BACKTRACE ###")
+			gameanalytics.debug(crash.get_backtrace(loaded))
+			gameanalytics.debug("### EXTRA DATA ###")
+			gameanalytics.debug(crash.get_extra_data(loaded))
+			gameanalytics.debug("####### END ######")
 		else
-			log.debug("##### NO LOGS #####")
+			gameanalytics.debug("##### NO LOGS #####")
 		end
 	end)
 

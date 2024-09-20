@@ -1,6 +1,5 @@
 local file = require "utils.file"
 local utils = require "utils.utils"
-local log = require "utils.log"
 local fakemon = require "fakemon.fakemon"
 local localization = require "utils.localization"
 
@@ -36,12 +35,7 @@ function M.get_feat_description(name)
 	if feats[name] then
 		return feats[name].Description
 	else
-		local e = string.format("Can not find Feat: '%s'", tostring(name)) ..  "\n" .. debug.traceback()
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_ERROR,
-			message = e
-		}
-		log.error(e)
+		gameanalytics.error(string.format("Can not find Feat: '%s'", tostring(name)) ..  "\n" .. debug.traceback())
 		return "This is an error, the app couldn't find the feat"
 	end
 end

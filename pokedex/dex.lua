@@ -3,7 +3,6 @@ local pokedex = require "pokedex.pokedex"
 local dex_data = require "pokedex.dex_data"
 local storage = require "pokedex.storage"
 local utils = require "utils.utils"
-local log = require "utils.log"
 local _pokemon = require "pokedex.pokemon"
 
 local M = {}
@@ -114,12 +113,7 @@ local function is_valid()
 end
 
 local function convert()
-	local e = "Converting the Pokedex"
-	gameanalytics.addErrorEvent {
-		severity = gameanalytics.SEVERITY_INFO,
-		message = e
-	}
-	log.info(e)
+	gameanalytics.info("Converting the Pokedex")
 	
 	local _dex = {}
 	for species, state in pairs(dex) do
