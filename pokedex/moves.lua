@@ -1,7 +1,6 @@
 local type_data = require "utils.type_data"
 local file = require "utils.file"
 local utils = require "utils.utils"
-local log = require "utils.log"
 local fakemon = require "fakemon.fakemon"
 local localization = require "utils.localization"
 
@@ -29,12 +28,7 @@ function M.get_move_data(move)
 			return movedata[move]
 		else
 			if not warning_list[tostring(move)] then
-				local e = string.format("Can not find move data for: '%s'", tostring(move))
-				gameanalytics.addErrorEvent {
-					severity = gameanalytics.SEVERITY_CRITICAL,
-					message = e
-				}
-				log.fatal(e)
+				gameanalytics.critical(string.format("Can not find move data for: '%s'", tostring(move)))
 			end
 			warning_list[tostring(move)] = true
 			return M.get_move_data("Error")
@@ -64,12 +58,7 @@ local function get_type_data(move)
 	if type_data[M.get_move_type(move)] then
 		return type_data[M.get_move_type(move)]
 	end
-	local e = string.format("Can not find type data for: '%s'", tostring(move))
-	gameanalytics.addErrorEvent {
-		severity = gameanalytics.SEVERITY_ERROR,
-		message = e
-	}
-	log.error(e)
+	gameanalytics.error(string.format("Can not find type data for: '%s'", tostring(move)))
 end
 
 function M.get_move_color(move)
@@ -93,12 +82,7 @@ function M.get_TM(number)
 	if move_machines[number] then
 		return move_machines[number]
 	else
-		local e = string.format("Can not find TM: '%s'", tostring(number))  .. "\n" .. debug.traceback()
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_ERROR,
-			message = e
-		}
-		log.error(e)
+		gameanalytics.error(string.format("Can not find TM: '%s'", tostring(number))  .. "\n" .. debug.traceback())
 		return move_machines[999]
 	end
 end
@@ -111,9 +95,9 @@ function M.init()
 		moves_description = localization.load_localized_json_from_resource("/assets/datafiles/moves_extra.json")
 		movedata["Error"] = file.load_json_from_resource("/assets/datafiles/Error_move.json")
 		if fakemon.DATA and fakemon.DATA["moves.json"] then
-			log.info("Merging Move data")
+			gameanalytics.info("Merging Move data")
 			for name, data in pairs(fakemon.DATA["moves.json"]) do
-				log.info("    " .. name)
+				gameanalytics.info("    " .. name)
 				index[name] = {}
 				movedata[name] = data
 			end

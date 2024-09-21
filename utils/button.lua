@@ -26,8 +26,6 @@
 -- 		input_gui.on_input(action_id, action)
 -- end
 
-local log = require "utils.log"
-
 local M = {}
 
 M.TOUCH = hash("touch")
@@ -105,7 +103,7 @@ function M.dump()
 	local url = msg.url()
 	for k,registered_node in pairs(registered_nodes) do
 		if registered_node.url == url then
-			log.debug(k, registered_node.node)
+			gameanalytics.debug(k, registered_node.node)
 		end
 	end
 end

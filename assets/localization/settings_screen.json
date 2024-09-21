@@ -38,9 +38,5 @@
 	"ga_error_report": {
 		"en_us": "Error Reports",
 		"es_419": "Reportes de Error"
-	},
-	"html_clipboard": {
-		"en_us": "Make sure to enable clipboard permissons to activate the Receive menu",
-		"es_419": "Debes permitir de uso del portapapeles para activar el menú Recibir"
 	}
 }

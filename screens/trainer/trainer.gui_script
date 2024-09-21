@@ -131,6 +131,7 @@ function on_message(self, message_id, message)
         local new_name = message.str
         profiles.set_active_name(new_name)
         gui.set_text(gui.get_node("top_divider/title"), new_name)
+        msg.post(url.MENU, messages.UPDATE_PROFILE_NAME)
         redraw(self)
 
         gameanalytics.addDesignEvent {

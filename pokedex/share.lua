@@ -13,6 +13,7 @@ local platform = require "utils.platform"
 local sjson = require "utils.json"
 local localization = require "utils.localization"
 local win_utils = require "utils.win-125x"
+local html5_utils = require "utils.html5"
 
 local M = {}
 
@@ -26,14 +27,8 @@ M.ENABLED = {
 }
 
 if platform.WEB then
-	clipboard = require "utils.html_clipboard"
 	M.ENABLED.CLIPBOARD_WRITE = true
-	clipboard.has_read_permission(function(has_permission)
-		M.ENABLED.CLIPBOARD_READ = has_permission
-		if not has_permission then
-			notify.notify(localization.get("settings_screen", "html_clipboard", "Make sure to enable clipboard permissons to activate the Receive menu"))
-		end
-	end)
+	M.ENABLED.CLIPBOARD_READ = true
 end
 
 local function get_clipboard_pokemon(clipboard_content)
@@ -91,7 +86,8 @@ end
 
 function M.get_clipboard(callback)
 	if platform.WEB then
-		clipboard.paste(function(clipboard_content) get_clipboard_callback(callback, clipboard_content) end)
+		html5_utils.paste_listener(function(clipboard_content) get_clipboard_callback(callback, clipboard_content) end)
+		notify.notify(localization.get("receive_screen", "html_clipboard_tutorial", "Press Ctrl + v or Command + v to import Pokémon from Clipboard"))
 	else
 		get_clipboard_callback(callback, clipboard.paste())
 	end
@@ -130,17 +126,34 @@ function M.get_sendable_pokemon_copy(id, as_wild)
 	return pokemon
 end
 
+local function export_callback(notification_message, eventId, success)
+	if success then
+		notify.notify(notification_message)
+		gameanalytics.addDesignEvent {
+			eventId = eventId
+		}
+	else
+		notify.notify(localization.get("transfer_popup", "export_share_error", e))
+		gameanalytics.error("Error accesing the clipboard\nThe Pokémon couldn't be exported")
+	end
+end
+
 function M.export(id, as_wild)
 	local pokemon = storage.get_copy(id, as_wild)
+	
+	local notification_message = localization.get("transfer_popup", "pokemon_copied_notif", "%s copied to clipboard!"):format(pokemon.nickname or pokemon.species.current)
 	local eventId = "Pokemon:Send:Clipboard:"
 	if as_wild then
 		eventId = "Pokemon:Wild:Clipboard:"
 	end
-	clipboard.copy(serialize_pokemon(pokemon))
-	notify.notify(localization.get("transfer_popup", "pokemon_copied_notif", "%s copied to clipboard!"):format(pokemon.nickname or pokemon.species.current))
-	gameanalytics.addDesignEvent {
-		eventId = eventId .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
-	}
+	eventId = eventId .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
+	
+	if platform.WEB then
+		html5_utils.copy(serialize_pokemon(pokemon), function(success) export_callback(notification_message, eventId, success) end)
+	else
+		clipboard.copy(serialize_pokemon(pokemon))
+		export_callback(notification_message, eventId, true)
+	end
 end
 
 function M.roll20_export(id)
@@ -150,11 +163,20 @@ function M.roll20_export(id)
 	if platform.WINDOWS then
 		encoded_sheet = win_utils.utf8_to_win(encoded_sheet)
 	end
-	clipboard.copy(encoded_sheet)
-	notify.notify(localization.get("transfer_popup", "roll20_sheet_copied_notif", "%s's roll20 sheet copied to clipboard!"):format(pokemon.nickname or pokedex.get_species_display(pokemon.species.current, pokemon.variant)))
-	gameanalytics.addDesignEvent {
-		eventId = "Pokemon:Send:Roll20:" .. pokedex.get_species_display(pokemon.species.current, pokemon.variant)
-	}
+	local species = pokedex.get_species_display(pokemon.species.current, pokemon.variant)
+	local eventId = "Pokemon:Send:Roll20:" .. species
+	
+	local filename = species .. "-roll20.json"
+	if platform.ANDROID or platform.IOS then
+		local temp_file_path = _file.write_file(filename, encoded_sheet)
+		share.file(temp_file_path, "Roll20 Character Sheet")
+		os.remove(temp_file_path)
+	elseif platform.WINDOWS or platform.MACOS or platform.LINUX then
+		local temp_file_path = _file.write_file(filename, encoded_sheet)
+		sys.open_url("file://" .. temp_file_path:sub(1, #temp_file_path - #filename))
+	elseif platform.WEB then
+		html5_utils.download_text_file(filename, encoded_sheet)
+	end
 end
 
 return M

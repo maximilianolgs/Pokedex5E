@@ -2,13 +2,31 @@ local gui_colors = require "utils.gui_colors"
 
 local M = {}
 
-function M.common_button(button, text_node)
+local function move_node(node, delta_x, delta_y)
+	local x = delta_x or 0
+	local y = delta_y or 0
+	local position = gui.get_position(node)
+	position = vmath.vector3(position.x + x, position.y + y, position.z)
+	gui.set_position(node, position)
+end
+
+function M.common_button(button, text_node, icon_node)
 	if button.pressed_now then
 		gui.play_flipbook(button.node, hash("common_down"))
 		gui.set_color(text_node, gui_colors.BUTTON_TEXT_PRESSED)
+		move_node(text_node, 0, 2)
+		if icon_node then
+			gui.set_color(icon_node, gui_colors.BUTTON_TEXT_PRESSED)
+			move_node(icon_node, 0, 2)
+		end
 	elseif button.released_now then
 		gui.play_flipbook(button.node, hash("common_up"))
 		gui.set_color(text_node, gui_colors.BUTTON_TEXT)
+		move_node(text_node, 0, -2)
+		if icon_node then
+			gui.set_color(icon_node, gui_colors.BUTTON_TEXT)
+			move_node(icon_node, 0, -2)
+		end
 	elseif not button.pressed and button.out_now then
 		gui.play_flipbook(button.node, hash("common_up"))
 		gui.set_color(text_node, gui_colors.BUTTON_TEXT)

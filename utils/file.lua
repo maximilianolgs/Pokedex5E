@@ -1,4 +1,3 @@
-local log = require "utils.log"
 local ljson = require "utils.json"
 local settings = require "pokedex.settings"
 
@@ -49,14 +48,26 @@ function M.load_json_from_resource(filename)
 		end
 		return json_data
 	end
-
-	local e = "Unable to load json file '" .. filename .. "'"
-	gameanalytics.addErrorEvent {
-		severity = gameanalytics.SEVERITY_ERROR,
-		message = e
-	}
-	log.error(e)
+	
+	gameanalytics.error("Unable to load json file '" .. filename .. "'")
 	return nil
+end
+
+function M.write_file(filename, file_content)
+	local file_path = sys.get_save_file("pokedex5E/out", filename)
+	local out_file = io.open(file_path, "w+")
+	assert(out_file, "Error creating file: " .. file_path)
+	if type(file_content) == "table" then
+		for _, chunk in ipairs(file_content) do
+			assert(out_file:write(chunk), "Error writing table on file: " .. file_path)
+			assert(out_file:write("\n"), "Error writing table on file: " .. file_path)
+		end
+	else
+		assert(out_file:write(file_content), "Error writing on file: " .. file_path)
+	end
+	out_file:flush()
+	out_file:close()
+	return file_path
 end
 
 return M

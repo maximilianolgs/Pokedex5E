@@ -95,17 +95,51 @@
 	<!-- -->
 	<script type='text/javascript' src="GameAnalytics.js"></script>
 	<script type="text/javascript">
-	async function check_read_permission() {
-		// Will be 'granted', 'denied' or 'prompt'
-		var read_permission = await navigator.permissions.query({name: 'clipboard-read'});
-		JsToDef.send("read_permission", read_permission.state);
+	async function clipboard_copy(thing_to_copy) {
+		await new Promise(r => setTimeout(r, 1));
+		var copy_listener = function(e) {
+			document.removeEventListener('copy', copy_listener);
+			e.preventDefault();
+			e.clipboardData.setData('text/plain', (thing_to_copy));
+			JsToDef.send("clipboard_copy", true);
+		};
+		document.addEventListener('copy', copy_listener);
+	
+		if (!document.execCommand('copy')){
+		  document.removeEventListener('copy', copy_listener);
+		  JsToDef.send("clipboard_copy", false);
+		}
 	}
-	function clipboard_copy(thing_to_copy) {
-		navigator.clipboard.writeText(thing_to_copy);
-	}
-	async function clipboard_paste() {
-		var clipboard_content = await navigator.clipboard.readText();
-		JsToDef.send("clipboard_paste", clipboard_content);
+	var event_counter = 0
+	var event_stack = []
+	async function clipboard_paste_listener() {
+		// keep track of each time this method is called
+		var event_id = event_counter++
+		event_stack.push(event_id)
+		var paste_listener = function(e) {
+			document.removeEventListener('paste', paste_listener);
+			// if the event is consumed, empty the stack 
+			event_stack = []
+			e.preventDefault();
+			var clipboard_content = (e.clipboardData || window.clipboardData).getData('text');
+			JsToDef.send("clipboard_paste", clipboard_content);
+		};
+		// if this is the only event in the stack, add the listener
+		if (event_stack.length == 1) {
+			document.addEventListener('paste', paste_listener);
+		}
+		// wait 10 seconds
+		await new Promise(r => setTimeout(r, 10000));
+		// if the event is still in the stack
+		var index = event_stack.indexOf(event_id)
+		if (index >= 0){
+			// remove from stack
+			event_stack.splice(index, 1)
+			// if it was the last one, remove the listener
+			if (event_stack.length == 0) {
+				document.removeEventListener('paste', paste_listener);
+			}
+		}
 	}
 	var file_url = null;
 	function download_file(file_name, file_type, file_content) {
@@ -120,13 +154,13 @@
 		file_url = window.URL.createObjectURL(data);
 		
 		link.href = file_url;
-		document.body.appendChild(link)
+		document.body.appendChild(link);
 		
 		window.requestAnimationFrame(function () {
 			var event = new MouseEvent('click');
 			link.dispatchEvent(event);
 			document.body.removeChild(link);
-			});
+		});
 	}
 	</script>
 	<script id='engine-loader' type='text/javascript' src="dmloader.js"></script>

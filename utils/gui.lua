@@ -107,6 +107,25 @@ function M.scale_text_to_fit_parent_size(text_node)
 	end
 end
 
+local function resize_node_to_match_text(node, text_node)
+	local metrics = gui.get_text_metrics_from_node(text_node)
+	local scale = gui.get_scale(text_node)
+	local text_width = scale.x * metrics.width
+	local node_size = gui.get_size(node)
+	local node_scale = gui.get_scale(node)
+	node_size.x = scale.x * metrics.width / node_scale.x
+	node_size.y = scale.y * metrics.height / node_scale.y
+	gui.set_size(node, node_size)
+end
+
+function M.resize_parent_to_match_text(text_node)
+	resize_node_to_match_text(gui.get_parent(text_node), text_node)
+end
+
+function M.resize_to_match_text(text_node)
+	resize_node_to_match_text(text_node, text_node)
+end
+
 function M.scale_group_text_to_fit_x(fn_fit, ...)
 	nodes = {...}
 	group_scale = nil

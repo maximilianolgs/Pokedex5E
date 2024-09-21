@@ -28,8 +28,6 @@
 -- 	end
 --
 
-local log = require "utils.log"
-
 local M = {}
 
 local instances = {}
@@ -77,12 +75,7 @@ local function resume(instance)
 		if instance.on_error then
 			instance.on_error(error)
 		else
-			local e = "Warning: Flow resulted in error " .. error
-			gameanalytics.addErrorEvent {
-				severity = gameanalytics.SEVERITY_ERROR,
-				message = e
-			}
-			log.error(e)
+			gameanalytics.error("Warning: Flow resulted in error " .. error)
 		end
 	end
 end
@@ -452,11 +445,11 @@ function M.play_animation(sprite_url, id)
 end
 
 function M.ray_cast()
-	log.warn("flow.ray_cast() is deprecated. Use synchronous ray casts released in Defold 1.2.150 instead!")
+	gameanalytics.warning("flow.ray_cast() is deprecated. Use synchronous ray casts released in Defold 1.2.150 instead!")
 end
 
 function M.update()
-	log.warn("flow.update() is deprecated. You no longer need to call it!")
+	gameanalytics.warning("flow.update() is deprecated. You no longer need to call it!")
 end
 
 

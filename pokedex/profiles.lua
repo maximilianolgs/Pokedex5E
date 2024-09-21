@@ -1,7 +1,6 @@
 local monarch = require "monarch.monarch"
 local defsave = require "defsave.defsave"
 local md5 = require "utils.md5"
-local log = require "utils.log"
 local broadcast = require "utils.broadcast"
 
 local M = {}
@@ -61,12 +60,7 @@ end
 
 function M.update(slot, data)
 	if not profiles.slots[slot] then
-		local e = "Can not find slot '" .. tostring(slot) .. "' in profile\n" .. debug.traceback()
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_CRITICAL,
-			message = e
-		}
-		log.fatal(e)
+		gameanalytics.critical("Can not find slot '" .. tostring(slot) .. "' in profile\n" .. debug.traceback())
 	else
 		for key, value in pairs(data) do
 			profiles.slots[slot][key] = value
@@ -159,12 +153,7 @@ function M.get_active_name()
 	if profiles.slots[active_slot] then
 		return profiles.slots[active_slot].name
 	else
-		local e = "Can not find active_slot " .. tostring(active_slot) ..  "\n" .. debug.traceback()
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_CRITICAL,
-			message = e
-		}
-		log.fatal(e)
+		gameanalytics.critical("Can not find active_slot " .. tostring(active_slot) ..  "\n" .. debug.traceback())
 	end
 end
 
@@ -180,12 +169,7 @@ function M.set_active_name(new_name)
 			end
 		end
 	else
-		local e = "Can not find active_slot " .. tostring(active_slot) ..  "\n" .. debug.traceback()
-		gameanalytics.addErrorEvent {
-			severity = gameanalytics.SEVERITY_CRITICAL,
-			message = e
-		}
-		log.fatal(e)
+		gameanalytics.critical("Can not find active_slot " .. tostring(active_slot) ..  "\n" .. debug.traceback())
 	end
 end
 
@@ -215,7 +199,7 @@ local function convert_to_rolling_profile_slot()
 			table.insert(new_profiles.slots, p)
 		end
 	end
-	log.info("Converted profiles slots")
+	gameanalytics.info("Converted profiles slots")
 	active_slot = nil
 	profiles = new_profiles
 	profiles.last_used = nil
