@@ -194,6 +194,7 @@ function init(self)
 	gui_utils.scale_text_to_fit_size_2(gui.get_node("search_text"))
 	gui.set_text(gui.get_node("txt_mark"), localization.get("pokedex_screen", "action_text_default", "MARK"))
 	gui_utils.scale_text_to_fit_size_2(gui.get_node("txt_mark"))
+	mark_as = nil
 	
 	gui.set_text(gui.get_node("txt_seen"), localization.get("pokedex_screen", "btn_text_seen", "SEEN"))
 	gui.set_text(gui.get_node("txt_caught"), localization.get("pokedex_screen", "btn_text_caught", "CAUGHT"))
