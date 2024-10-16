@@ -109,12 +109,9 @@ end
 
 local function resize_node_to_match_text(node, text_node)
 	local metrics = gui.get_text_metrics_from_node(text_node)
-	local scale = gui.get_scale(text_node)
-	local text_width = scale.x * metrics.width
 	local node_size = gui.get_size(node)
-	local node_scale = gui.get_scale(node)
-	node_size.x = scale.x * metrics.width / node_scale.x
-	node_size.y = scale.y * metrics.height / node_scale.y
+	node_size.x = metrics.width
+	node_size.y = metrics.height
 	gui.set_size(node, node_size)
 end
 

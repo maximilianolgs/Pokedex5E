@@ -1018,7 +1018,7 @@ nodes {
 }
 nodes {
   position {
-    x: 252.0
+    x: 350.0
     y: 0.0
     z: 0.0
     w: 1.0
@@ -1053,7 +1053,7 @@ nodes {
   id: "btn_reset"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
+  pivot: PIVOT_E
   adjust_mode: ADJUST_MODE_FIT
   parent: "filters"
   layer: ""
@@ -1077,7 +1077,7 @@ nodes {
 }
 nodes {
   position {
-    x: 125.0
+    x: 0.0
     y: 0.0
     z: 0.0
     w: 1.0

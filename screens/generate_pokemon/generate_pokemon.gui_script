@@ -260,6 +260,8 @@ function init(self)
 	gui_utils.scale_text_to_fit_size_2(gui.get_node("template/title"))
 	gui.set_text(gui.get_node("title2"), localization.get("generate_pokemon_screen", "filter_title", "FILTER ATTRIBUTES"))
 	gui.set_text(gui.get_node("txt_reset"), localization.get("generate_pokemon_screen", "txt_reset_filters", "RESET FILTERS"))
+	gui_utils.resize_parent_to_match_text(gui.get_node("txt_reset"))
+	
 	gui.set_text(gui.get_node("desc_generation"), localization.get("generate_pokemon_screen", "desc_generation", "GENERATION"))
 	gui.set_text(gui.get_node("desc_sr"), localization.get("generate_pokemon_screen", "desc_sr", "SR RANGE:"))
 	gui.set_text(gui.get_node("desc_habitat"), localization.get("generate_pokemon_screen", "desc_habitat", "HABITAT:"))
