@@ -454,3 +454,18 @@ function on_input(self, action_id, action)
 		monarch.show(screens.RANDOM_POKEMON, {}, {species=species, level=self.level, variant=variant, pokemons=pokemon_list})
 	end, function(b) gooey_buttons.common_button(b, gui.get_node("txt_random")) end)
 end
+
+function update(self, dt)
+	-- scroll_list current position
+	local sc_pos = gui.get_position(gui.get_node("scroll_list"))
+	-- move scroll_list to top
+	local box_pos = gui.get_screen_position(gui.get_node("box2"))
+	gui.set_screen_position(gui.get_node("scroll_list"), box_pos)
+	-- scroll_list new position
+	local sc_pos_2 = gui.get_position(gui.get_node("scroll_list"))
+
+	-- resize scroll_list, by "delta position" amount
+	local sc_size = gui.get_size(gui.get_node("scroll_list"))
+	sc_size.y = (sc_size.y + (sc_pos_2.y - sc_pos.y))
+	gui.set_size(gui.get_node("scroll_list"), sc_size)
+end
