@@ -325,15 +325,15 @@ function M.get_speed_of_type(pkmn)
 	if M.have_feat(pkmn, "Mobile") then
 		mobile_feet = 10
 	end
+	
 	if type1 == "Flying" or type2 == "Flying" then
-		local speed = pokedex.get_flying_speed(species, variant) 
+		local speed = pokedex.get_flying_speed(species, variant)
 		return speed ~= 0 and speed+mobile_feet or speed, "Flying"
 	elseif type1 == "Water" or type2 == "Water" then
-		local speed = pokedex.get_swimming_speed(species, variant) 
+		local speed = pokedex.get_swimming_speed(species, variant)
 		return speed ~= 0 and speed+mobile_feet or speed, "Swimming"
 	else
-		local speed = pokedex.get_walking_speed(species, variant) 
-		return speed ~= 0 and speed+mobile_feet or speed, "Walking"
+		return M.get_most_common_speed_with_type(pkmn)
 	end
 end
 
@@ -363,16 +363,27 @@ function M.get_all_speed(pkmn)
 	end
 	local w = pokedex.get_walking_speed(species, variant)
 	local s = pokedex.get_swimming_speed(species, variant)
-	local c = pokedex.get_climbing_speed(species, variant)
 	local f = pokedex.get_flying_speed(species, variant)
 	local b = pokedex.get_burrow_speed(species, variant)
+	local c = pokedex.get_climbing_speed(species, variant)
+	-- keep the order from more common to least common
 	return {
 		Walking= w ~= 0 and w+mobile_feet or w,
 		Swimming=s ~= 0 and s+mobile_feet or s, 
 		Flying= f ~= 0 and f+mobile_feet or f,
-		Climbing=c ~= 0 and c+mobile_feet or c,
-		Burrow=b ~= 0 and b+mobile_feet or b
+		Burrow=b ~= 0 and b+mobile_feet or b,
+		Climbing=c ~= 0 and c+mobile_feet or c
 	}
+end
+
+
+function M.get_most_common_speed_with_type(pkmn)
+	local speeds = M.get_all_speed(pkmn)
+	for type, speed in pairs(speeds) do
+		if speed > 0 then
+			return speed, type
+		end
+	end
 end
 
 
