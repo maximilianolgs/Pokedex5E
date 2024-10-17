@@ -126,6 +126,10 @@ local function update_move_data(move)
 	
 	local move_string = {}
 
+	if not move_data.action then
+		table.insert(move_string, move_data.time:sub(3))
+	end
+
 	if move_data.AB then
 		if move_data.AB >= 0 then
 			table.insert(move_string, localization.get_upper("party_screen", "pokemon_move_ab", "AB") .. ": +" .. move_data.AB)

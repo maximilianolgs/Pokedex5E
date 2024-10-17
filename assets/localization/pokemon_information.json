@@ -456,24 +456,24 @@
 		"es_419": "concentración"
 	},
 	"pokemon_move_complement_charge": {
-		"en_us": "charge",
-		"es_419": "carga"
+		"en_us": "Charge",
+		"es_419": "Carga"
 	},
 	"pokemon_move_complement_recharge": {
-		"en_us": "recharge",
-		"es_419": "recarga"
+		"en_us": "Recharge",
+		"es_419": "Recarga"
 	},
 	"pokemon_action": {
-		"en_us": "action",
-		"es_419": "acción"
+		"en_us": "Action",
+		"es_419": "Acción"
 	},
 	"pokemon_bonus_action": {
-		"en_us": "bonus action",
-		"es_419": "acción adicional"
+		"en_us": "Bonus Action",
+		"es_419": "Acción Adicional"
 	},
 	"pokemon_reaction": {
-		"en_us": "reaction",
-		"es_419": "reacción"
+		"en_us": "Reaction",
+		"es_419": "Reacción"
 	},
 	"move_pp_unlimited": {
 		"en_us": "Unlimited",
