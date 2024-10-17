@@ -29,9 +29,13 @@ local function button_click(data)
 	gui.set_position(gui.get_node("offset"), vmath.vector3(s.x*0.5, 0, 0))
 	gui.set_enabled(node_scroll_bg, true)
 	local p = gui.get_screen_position(node_button)
-	-- magic number 8
-	p.y = p.y + 8
 	gui.set_screen_position(node_scroll_bg, p)
+
+	-- close gap on dropdown
+	p = gui.get_position(node_scroll_bg)
+	-- magic number 9
+	p.y = p.y + 9
+	gui.set_position(node_scroll_bg, p)
 
 	active[data.name].active = true
 	active.active = true

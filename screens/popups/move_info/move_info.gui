@@ -2494,7 +2494,7 @@ nodes {
 }
 nodes {
   position {
-    x: 216.0
+    x: 300.0
     y: 420.0
     z: 0.0
     w: 1.0
@@ -2506,15 +2506,15 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.895
-    y: 1.077
+    x: 0.9
+    y: 1.0
     z: 1.0
     w: 1.0
   }
   size {
-    x: 150.0
-    y: 30.0
-    z: 1.0
+    x: 200.0
+    y: 40.0
+    z: 0.0
     w: 1.0
   }
   color {
@@ -2529,7 +2529,7 @@ nodes {
   id: "btn_reset"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
+  pivot: PIVOT_E
   adjust_mode: ADJUST_MODE_FIT
   parent: "background"
   layer: "gui"
@@ -2553,7 +2553,7 @@ nodes {
 }
 nodes {
   position {
-    x: 90.0
+    x: 0.0
     y: 0.0
     z: 0.0
     w: 1.0
@@ -2571,7 +2571,7 @@ nodes {
     w: 1.0
   }
   size {
-    x: 250.0
+    x: 200.0
     y: 40.0
     z: 0.0
     w: 1.0

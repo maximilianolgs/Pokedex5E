@@ -30,7 +30,7 @@ function init(self)
 	gui_utils.scale_text_to_fit_size_2(gui.get_node("template/title"))
 	
 	gui.set_text(gui.get_node("txt_reset"), localization.get("move_info_popup", "txt_reset_pp", "RESET PP"))
-	gui_utils.scale_text_to_fit_size_2(gui.get_node("txt_reset"))
+	gui_utils.resize_parent_to_match_text(gui.get_node("txt_reset"))
 
 	gui.set_text(gui.get_node("lbl_pp"), localization.get("move_info_popup", "lbl_pp", "PP"))
 	gui.set_text(gui.get_node("lbl_dmg"), localization.get("move_info_popup", "lbl_dmg", "Damage"))
