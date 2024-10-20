@@ -127,6 +127,7 @@ local function profile_list_clicked(list)
 			if value then
 				if gui.pick_node(entry.nodes["profile_slot/btn_slot"], list.action_pos.x, list.action_pos.y) then
 					activate(value)
+					msg.post(url.MENU, messages.UPDATE_PROFILE_NAME)
 				elseif gui.pick_node(entry.nodes["profile_slot/btn_delete"], list.action_pos.x, list.action_pos.y) then
 					monarch.show(screens.ARE_YOU_SURE, nil, {sender=msg.url(), data=value, message=messages.DELETE_PROFILE})
 				end
