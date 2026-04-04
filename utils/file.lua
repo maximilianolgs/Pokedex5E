@@ -54,7 +54,7 @@ function M.load_json_from_resource(filename)
 end
 
 function M.write_file(filename, file_content)
-	local file_path = sys.get_save_file("pokedex5E/out", filename)
+	local file_path = sys.get_save_file(sys.get_config("project.appname") .. "/out", filename)
 	local out_file = io.open(file_path, "w+")
 	assert(out_file, "Error creating file: " .. file_path)
 	if type(file_content) == "table" then
