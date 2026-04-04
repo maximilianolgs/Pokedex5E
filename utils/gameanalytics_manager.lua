@@ -151,7 +151,7 @@ function M.final()
 	-- placeholder for manual end
 end
 
-log.set_outfile(sys.get_save_file("pokedex5E", "log"))
+log.set_outfile(sys.get_save_file(sys.get_config("project.appname"), "log"))
 local ga_config = sys.get_config(gameanalytics_keys[platform.CURRENT])
 if not gameanalytics or ga_config == nil or ga_config == "" then
 	M.info("Skipping GameAnalytics")

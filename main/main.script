@@ -1,4 +1,5 @@
 local gam = require "utils.gameanalytics_manager"
+local profile_migrator = require "utils.profile_migrator"
 local monarch = require "monarch.monarch"
 local defsave = require "defsave.defsave"
 local movedex = require "pokedex.moves"
@@ -50,9 +51,12 @@ end
 
 function init(self)
 	gam.info("Initializing Pokédex5E v" .. version.current_version())
-	defsave.appname = "pokedex5E"
+	defsave.appname = sys.get_config("project.appname")
 	defsave.verbose = false
 	defsave.use_default_data = false
+	
+	profile_migrator.migrate()
+	
 	settings.load()
 	
 	gam.init()
