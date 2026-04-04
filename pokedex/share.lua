@@ -164,7 +164,10 @@ function M.roll20_export(id)
 		encoded_sheet = win_utils.utf8_to_win(encoded_sheet)
 	end
 	local species = pokedex.get_species_display(pokemon.species.current, pokemon.variant)
-	local eventId = "Pokemon:Send:Roll20:" .. species
+	
+	gameanalytics.addDesignEvent {
+		eventId = "Pokemon:Send:Roll20:" .. species
+	}
 	
 	local filename = species .. "-roll20.json"
 	if platform.ANDROID or platform.IOS then
