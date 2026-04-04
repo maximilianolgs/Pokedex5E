@@ -143,11 +143,10 @@ function M.create(name, button_id, button_txt_id, scroll_id, scroll_bg_id, item_
 		name = name,
 		button_id = button_id,
 		button_txt_id = button_txt_id,
-		select_func = select_func,
 		scroll_id = scroll_id,
 		scroll_bg_id = scroll_bg_id,
-		select_func = select_func,
 		item_id = item_id,
+		select_func = select_func,
 	}
 	data.scrolling_list = gooey_scrolling_list.create_vertical_dynamic(
 		name,
