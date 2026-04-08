@@ -9,6 +9,7 @@ local dex = require "pokedex.dex"
 local url = require "utils.url"
 local messages = require "utils.messages"
 local localization = require "utils.localization"
+local constants = require "utils.constants"
 
 local POKEMON_SPECIES_TEXT_SCALE = vmath.vector3(1.5)
 
@@ -38,6 +39,7 @@ function init(self)
 	gui.set_text(gui.get_node("top_divider/title"), localization.get("pokedex_screen", "title", "Pokedex"))
 	gui.set_text(gui.get_node("title_weight"), localization.get_upper("pokedex_screen", "title_weight", "WEIGHT:"))
 	gui.set_text(gui.get_node("title_height"), localization.get_upper("pokedex_screen", "title_height", "HEIGHT:"))
+	gui.set_text(gui.get_node("title_sr"), localization.get_upper("pokedex_screen", "title_sr", "SR:"))
 	gui.set_text(gui.get_node("txt_seen"), localization.get_upper("pokedex_screen", "txt_seen", "SEEN"))
 	gui.set_text(gui.get_node("txt_caught"), localization.get_upper("pokedex_screen", "txt_caught", "CAUGHT"))
 	
@@ -50,6 +52,7 @@ function init(self)
 	local genus = pokedex.get_genus(self.species)
 	local types = pokedex.get_pokemon_type(self.species)
 	local sprite, texture = pokedex.get_sprite(self.species)
+	local sr = constants.NUMBER_TO_SR[pokedex.get_SR(self.species, self.variant)]
 	
 	if dex_status == dex.states.UNENCOUNTERED then
 		gui.set_color(gui.get_node("species"), vmath.vector4(0,0,0,0.3))
@@ -58,6 +61,7 @@ function init(self)
 		height = "???"
 		genus = "???"
 		types = {"???"}
+		sr = "???"
 	else
 		gui.set_color(gui.get_node("species"), vmath.vector4(1))
 		weight = weight_string(weight)
@@ -86,6 +90,7 @@ function init(self)
 	
 	gui.set_text(gui.get_node("txt_weight"), weight)
 	gui.set_text(gui.get_node("txt_height"), height)
+	gui.set_text(gui.get_node("txt_sr"), sr)
 	gui.set_text(gui.get_node("txt_flavor"), flavor)
 	local metric = gui.get_text_metrics_from_node(gui.get_node("txt_flavor"))
 	local scale = gui.get_scale(gui.get_node("txt_flavor"))
