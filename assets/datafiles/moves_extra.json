@@ -841,7 +841,7 @@
 	},
 	"foul play": {
 		"name": "Foul Play",
-		"description": "You turn a creature's own power against it. Make a melee attack roll using your MOVE power. On a hit, the target takes dark damage equal to the target's level + the corresponding dice according to the user's level.\n\nFrom level 1 to 4: 2d8\nFrom level 5 to 9: 2d10\nFrom level 10 to 16: 3d10\nFrom level 17 to 20: 4d12"
+		"description": "You turn a creature's own power against it. Make a melee attack roll using your MOVE power. On a hit, the target takes dark damage equal to the target's level + the corresponding dice according to the user's level."
 	},
 	"freeze shock": {
 		"name": "Freeze Shock",
