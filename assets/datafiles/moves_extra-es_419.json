@@ -841,7 +841,7 @@
 	},
 	"foul play": {
 		"name": "Juego Sucio",
-		"description": "Pones el poder de una criatura en su contra. Haz un ataque cuerpo a cuerpo, al golpear, el objetivo recibe de daño tipo siniestro igual a su nivel + la tirada de daño correspondiente a el nivel del usuario.\n\nDe nivel 1 a 4: 2d8\nDe nivel 5 a 9: 2d10\nDe nivel 10 a 16: 3d10\nDe nivel 17 a 20: 4d12"
+		"description": "Pones el poder de una criatura en su contra. Haz un ataque cuerpo a cuerpo, al golpear, el objetivo recibe de daño tipo siniestro igual a su nivel + la tirada de daño correspondiente a el nivel del usuario."
 	},
 	"freeze shock": {
 		"name": "Rayo Gélido",
