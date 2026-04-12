@@ -102,6 +102,7 @@ local function okay()
 		dex.load(profiles.get_active())
 		storage.set_max_party_pokemon(3) -- default value for new profiles
 		profiles.set_active_complete()
+		msg.post(url.MENU, messages.UPDATE_PROFILE_NAME)
 		monarch.show(screens.ADD)
 	end
 end

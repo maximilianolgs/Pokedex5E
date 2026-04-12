@@ -1,3 +1,4 @@
+local gam = require "utils.gameanalytics_manager"
 local monarch = require "monarch.monarch"
 local _pokemon = require "pokedex.pokemon"
 local storage = require "pokedex.storage"

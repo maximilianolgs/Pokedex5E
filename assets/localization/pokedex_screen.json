@@ -67,6 +67,10 @@
 		"en_us": "HEIGHT:",
 		"es_419": "ALTURA:"
 	},
+	"title_sr": {
+		"en_us": "SR:",
+		"es_419": "CE:"
+	},
 	"txt_seen": {
 		"en_us": "SEEN",
 		"es_419": "VISTO"
